@@ -1,8 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view locale="#{localeManager.locale}" />
 <h:head>
 	<title>Facilities Management System</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,7 +18,7 @@
 				<p>Persons management</p>
 				<ul>
 					<li>
-						<a href="persons-list.jsf">List all persons</a>
+						<a href="persons-list.jsf">#{msg['person.list.linkto']}</a>
 					</li>
 					<li>
 						<a href="create-person.jsf">Create new person</a>
@@ -32,6 +34,21 @@
 					<li>List all accommodations</li>
 					<li>Create new accommodation</li>
 				</ul>
+				<h:form>
+					<h:panelGrid columns="2">
+ 
+		Language: 
+		
+    <h:selectOneMenu value="#{localeManager.language}"
+							onchange="submit()">
+							<f:selectItem itemValue="en_us" itemLabel="English" />
+							<f:selectItem itemValue="cs_cz" itemLabel="Czech" />
+						</h:selectOneMenu>
+
+
+					</h:panelGrid>
+
+				</h:form>
 			</div>
 			<ui:insert name="content">
                     [Template content will be inserted here]
