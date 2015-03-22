@@ -11,7 +11,7 @@
 			<table>
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="firstName" value="First name:" />
+						<h:outputLabel for="firstName" value="#{msg['person.create.name']}:" />
 					</th>
 					<td>
 						<h:inputText id="firstName" value="#{newPerson.firstName}" />
@@ -20,7 +20,7 @@
 				</tr>
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="lastName" value="Last name:" />
+						<h:outputLabel for="lastName" value="#{msg['person.create.surname']}:" />
 					</th>
 					<td>
 						<h:inputText id="lastName" value="#{newPerson.lastName}" />
@@ -29,7 +29,7 @@
 				</tr>
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="otherNames" value="Other names:" />
+						<h:outputLabel for="otherNames" value="#{msg['person.create.othernames']}:" />
 					</th>
 					<td>
 						<h:inputText id="otherNames" value="#{newPerson.otherNames}" />
@@ -38,7 +38,7 @@
 				</tr>
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="birthDate" value="Date of birth:" />
+						<h:outputLabel for="birthDate" value="#{msg['person.create.born']}:" />
 					</th>
 					<td>
 						<h:inputText id="birthDate" value="#{newPerson.birthDate}"
@@ -49,7 +49,7 @@
 				</tr>
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="legalId" value="Legal identificator:" />
+						<h:outputLabel for="legalId" value="#{msg['person.create.legalid']}:" />
 					</th>
 					<td>
 						<h:inputText id="legalId" value="#{newPerson.legalId}" />
@@ -58,7 +58,7 @@
 				</tr>
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="businessId" value="Person ID:" />
+						<h:outputLabel for="businessId" value="#{msg['person.create.personid']}:" />
 					</th>
 					<td>
 						<h:inputText id="businessId" value="#{newPerson.businessId}" />
@@ -67,7 +67,7 @@
 				</tr>
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="email" value="Email:" />
+						<h:outputLabel for="email" value="#{msg['person.create.email']}:" />
 					</th>
 					<td>
 						<h:inputText id="email" value="#{newPerson.email}" />
@@ -76,7 +76,7 @@
 				</tr>
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="phone" value="Phone:" />
+						<h:outputLabel for="phone" value="#{msg['person.create.phone']}:" />
 					</th>
 					<td>
 						<h:inputText id="phone" value="#{newPerson.phone}" />
@@ -86,7 +86,7 @@
 			</table>
 			<p>
 				<h:commandButton id="register"
-					action="#{personController.createPerson}" value="Register" />
+					action="#{personController.createPerson}" value="#{msg['person.create.createbutton']}:" />
 				<h:outputText value=" Saved."
 					rendered="#{facesContext.postback and empty facesContext.messageList}"
 					style="color: green;" />
