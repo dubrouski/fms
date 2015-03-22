@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
+import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 import net.dubrouski.fams.dao.BaseDao;
 import net.dubrouski.fams.dao.PersonDao;
 import net.dubrouski.fams.dao.impl.PersonDaoImpl;
@@ -37,10 +38,12 @@ public class PersonDaoTest {
 	public static Archive<?> createTestArchive() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
-				.addClasses(Person.class, PersonAddress.class, Address.class,
-						Country.class, AddressType.class, PersonDao.class,
-						PersonDaoImpl.class, BaseDao.class, BaseDaoImpl.class,
-						Resources.class)
+				.addPackage("net.dubrouski.fams.model")
+				.addPackage("net.dubrouski.fams.dao")
+				.addPackage("net.dubrouski.fams.dao.impl")
+				.addPackage("net.dubrouski.fams.model.enums")
+				.addClasses(Resources.class,
+						LocalDatePersistenceConverter.class)
 				.addAsResource("META-INF/persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

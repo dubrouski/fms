@@ -1,22 +1,15 @@
 package net.dubrouski.fams.test;
 
-import static org.junit.Assert.*;
-
-import java.time.LocalDate;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Inject;
 
+import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 import net.dubrouski.fams.dao.AddressDao;
-import net.dubrouski.fams.dao.BaseDao;
-import net.dubrouski.fams.dao.CountryDao;
 import net.dubrouski.fams.dao.PersonAddressDao;
 import net.dubrouski.fams.dao.PersonDao;
-import net.dubrouski.fams.dao.impl.AddressDaoImpl;
-import net.dubrouski.fams.dao.impl.BaseDaoImpl;
-import net.dubrouski.fams.dao.impl.CountryDaoImpl;
 import net.dubrouski.fams.model.Address;
-import net.dubrouski.fams.model.Country;
-import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.PersonAddress;
 import net.dubrouski.fams.model.enums.AddressType;
 import net.dubrouski.fams.util.Resources;
@@ -40,7 +33,7 @@ public class PersonAddressDaoTest {
 				.addPackage("net.dubrouski.fams.dao")
 				.addPackage("net.dubrouski.fams.dao.impl")
 				.addPackage("net.dubrouski.fams.model.enums")
-				.addClass(Resources.class)
+				.addClasses(Resources.class, LocalDatePersistenceConverter.class)
 				.addAsResource("META-INF/persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

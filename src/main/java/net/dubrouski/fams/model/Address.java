@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import net.dubrouski.fams.annotations.FilledIn;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * @author stanislau.dubrouski
@@ -31,24 +31,27 @@ public class Address implements Serializable {
 	private Country country;
 
 	@Column(name = "CITY_NAME")
-	@FilledIn
+	@Length(min = 1, max = 255)
 	private String city;
 
 	@Column(name = "STREET_NAME")
-	@FilledIn
+	@Length(min = 1, max = 255)
 	private String streetName;
 
 	@Column(name = "STREET_NUM")
-	@FilledIn
+	@Length(min = 1, max = 255)
 	private String streetNumber;
 
 	@Column(name = "FLAT_NUM")
+	@Length(min = 1, max = 255)
 	private String flatNumber;
-	
+
 	@Column(name = "LATITUDE")
+	@Length(min = 1, max = 255)
 	private String latitude;
-	
+
 	@Column(name = "LONGITUDE")
+	@Length(min = 1, max = 255)
 	private String longitude;
 
 	public Long getId() {

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Facilities Management System</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<h:outputStylesheet name="css/screen.css" />
+</h:head>
+<h:body>
+	<div id="container">
+		<div id="content">
+			<div id="sidebar">
+				<h3>App menu:</h3>
+				<p>Persons management</p>
+				<ul>
+					<li>
+						<a href="persons-list.jsf">List all persons</a>
+					</li>
+					<li>
+						<a href="create-person.jsf">Create new person</a>
+					</li>
+				</ul>
+				<p>Contracts management</p>
+				<ul>
+					<li>List all contracts</li>
+					<li>Create new contract</li>
+				</ul>
+				<p>Accommodations management</p>
+				<ul>
+					<li>List all accommodations</li>
+					<li>Create new accommodation</li>
+				</ul>
+			</div>
+			<ui:insert name="content">
+                    [Template content will be inserted here]
+            </ui:insert>
+		</div>
+		<div id="footer">
+			<p>
+				2015
+				<br />
+			</p>
+		</div>
+	</div>
+</h:body>
+</html>

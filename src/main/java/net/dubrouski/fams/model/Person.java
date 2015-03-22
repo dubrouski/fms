@@ -3,22 +3,26 @@ package net.dubrouski.fams.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import javax.enterprise.inject.Typed;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import net.dubrouski.fams.annotations.ValidateDateRanges;
+import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -38,22 +42,23 @@ public class Person implements Serializable {
 	private Long id;
 
 	@NotNull
-	@NotEmpty
+	@Length(min=1, max=255, message="fname cannot be empty")
 	@Column(name = "FIRST_NAME")
 	private String firstName;
 
 	@NotNull
-	@NotEmpty
+	@Length(min=1, max=255, message="sname cannot be empty")
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	@NotNull
-	@NotEmpty
+	@Length(max=255, message="max len is 255")
 	@Column(name = "OTHER_NAMES")
 	private String otherNames;
 
 	@NotNull
+	@ValidateDateRanges
 	@Column(name = "BIRTH_DATE")
+	@Convert(converter = LocalDatePersistenceConverter.class)
 	private LocalDate birthDate;
 
 	@Column(name = "LEGAL_IDENTIFICATOR")
@@ -71,7 +76,6 @@ public class Person implements Serializable {
 	@NotNull
 	@NotEmpty
 	private String phone;
-
 	
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<PersonAddress> addresses = new ArrayList<PersonAddress>();

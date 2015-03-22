@@ -2,6 +2,7 @@ package net.dubrouski.fams.dao.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -46,4 +47,10 @@ public class BaseDaoImpl<T, ID extends Serializable> implements BaseDao<T, ID> {
 		this.persistentClass = persistentClass;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> listAll() {
+		return (List<T>)entityManager.createQuery(
+				"FROM " + getPersistentClass().getName()).getResultList();
+	}
 }
