@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
@@ -41,17 +42,17 @@ public class Person implements Serializable {
 	@Column(name = "ID")
 	private Long id;
 
-	@NotNull
-	@Length(min=1, max=255, message="fname cannot be empty")
+	@NotNull(message="{person.validate.fname.required}")
+	@Length(min = 1, max = 255, message = "{person.validate.fname.length}")
 	@Column(name = "FIRST_NAME")
 	private String firstName;
 
 	@NotNull
-	@Length(min=1, max=255, message="sname cannot be empty")
+	@Length(min = 1, max = 255, message = "sname cannot be empty")
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	@Length(max=255, message="max len is 255")
+	@Length(max = 255, message = "max len is 255")
 	@Column(name = "OTHER_NAMES")
 	private String otherNames;
 
@@ -76,10 +77,10 @@ public class Person implements Serializable {
 	@NotNull
 	@NotEmpty
 	private String phone;
-	
+
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<PersonAddress> addresses = new ArrayList<PersonAddress>();
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -150,8 +151,8 @@ public class Person implements Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}	
-	
+	}
+
 	public void addAddress(PersonAddress address) {
 		this.addresses.add(address);
 	}
@@ -160,6 +161,5 @@ public class Person implements Serializable {
 	public String toString() {
 		return this.getFirstName() + " " + this.getLastName();
 	}
-
 
 }
