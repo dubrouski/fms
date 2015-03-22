@@ -1,9 +1,7 @@
 package net.dubrouski.fams.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
-import javax.enterprise.inject.Typed;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
