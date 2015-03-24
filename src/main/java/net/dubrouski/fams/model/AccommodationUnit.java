@@ -7,11 +7,14 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ForceDiscriminator;
@@ -46,7 +49,11 @@ public abstract class AccommodationUnit implements Serializable {
 	private BigDecimal depositAmount;
 	
 	@Column(name = "NAME")
-	private String name;	
+	private String name;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ADDRESS_ID")
+	private Address address;
 	
 	
     public boolean equals(Object obj) {

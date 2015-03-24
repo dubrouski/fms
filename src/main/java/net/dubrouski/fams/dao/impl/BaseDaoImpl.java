@@ -30,6 +30,16 @@ public class BaseDaoImpl<T, ID extends Serializable> implements BaseDao<T, ID> {
 	public void save(T entity) {
 		entityManager.persist(entity);
 	}
+	
+	@Override
+	public void delete(T entity) {
+		entityManager.remove(entity);
+	}
+	
+	@Override
+	public void update(T entity) {
+		entityManager.merge(entity);
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -53,4 +63,5 @@ public class BaseDaoImpl<T, ID extends Serializable> implements BaseDao<T, ID> {
 		return (List<T>)entityManager.createQuery(
 				"FROM " + getPersistentClass().getName()).getResultList();
 	}
+	
 }
