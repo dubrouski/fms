@@ -1,22 +1,19 @@
 package net.dubrouski.fams.test;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
-import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
-import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
+import net.dubrouski.fams.dao.AddressDao;
 import net.dubrouski.fams.dao.BaseDao;
-import net.dubrouski.fams.dao.PersonDao;
-import net.dubrouski.fams.dao.impl.PersonDaoImpl;
+import net.dubrouski.fams.dao.CountryDao;
+import net.dubrouski.fams.dao.impl.AddressDaoImpl;
 import net.dubrouski.fams.dao.impl.BaseDaoImpl;
+import net.dubrouski.fams.dao.impl.CountryDaoImpl;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Country;
-import net.dubrouski.fams.model.Person;
-import net.dubrouski.fams.model.PersonAddress;
-import net.dubrouski.fams.model.enums.AddressType;
 import net.dubrouski.fams.util.Resources;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -28,22 +25,16 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/**
- * @author stanislau.dubrouski
- *
- */
 @RunWith(Arquillian.class)
-public class PersonDaoTest {
+public class AddressDaoTest {
 	@Deployment
 	public static Archive<?> createTestArchive() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
-				.addPackage("net.dubrouski.fams.model")
-				.addPackage("net.dubrouski.fams.dao")
-				.addPackage("net.dubrouski.fams.dao.impl")
-				.addPackage("net.dubrouski.fams.model.enums")
-				.addClasses(Resources.class,
-						LocalDatePersistenceConverter.class)
+				.addClasses(Country.class, Address.class, AddressDao.class,
+						AddressDaoImpl.class, CountryDao.class,
+						CountryDaoImpl.class, BaseDao.class, BaseDaoImpl.class,
+						Resources.class)
 				.addAsResource("META-INF/persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -53,24 +44,30 @@ public class PersonDaoTest {
 	Logger log;
 
 	@Inject
-	PersonDao personDao;
+	AddressDao addressDao;
+	
+	@Inject
+	CountryDao countryDao;
 
 	@Test
 	public void testSave() throws Exception {
+		
+		Country c = new Country();
+		c.setCode("CZ");
+		countryDao.save(c);
+		
+		
+		Address a = new Address();
+		a.setCountry(c);
+		a.setCity("Brno");
+		a.setStreetName("Botanicka");
+		a.setStreetNumber("35a");
+		a.setFlatNumber("kancl c.5");
+		addressDao.save(a);
 
-		Person p = new Person();
-		p.setFirstName("Standa");
-		p.setLastName("Novak");
-		p.setBirthDate(LocalDate.now());
-		p.setEmail("email@email.com");
-		p.setLegalId("KH1789789");
-		p.setPhone("+420 777 777 777");
-		p.setOtherNames("Bystry Voko");
-
-		personDao.save(p);
-
-		assertNotNull(p.getId());
-
+		assertNotNull(a.getId());
+		
+		Address b = addressDao.getByID(a.getId());
+		assertEquals(a.getCountry().getCode(), b.getCountry().getCode());
 	}
-
 }

@@ -1,16 +1,29 @@
 package net.dubrouski.fams.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import net.dubrouski.fams.annotations.ValidateDateRanges;
+import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -19,7 +32,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "PERSON")
-public class Person {
+public class Person implements Serializable {
 
 	/** Default value included to remove warning. Remove or modify at will. **/
 	private static final long serialVersionUID = 1L;
@@ -30,22 +43,23 @@ public class Person {
 	private Long id;
 
 	@NotNull
-	@NotEmpty
+	@Length(min=1, max=255, message="fname cannot be empty")
 	@Column(name = "FIRST_NAME")
 	private String firstName;
 
 	@NotNull
-	@NotEmpty
+	@Length(min=1, max=255, message="sname cannot be empty")
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	@NotNull
-	@NotEmpty
+	@Length(max=255, message="max len is 255")
 	@Column(name = "OTHER_NAMES")
 	private String otherNames;
 
 	@NotNull
+	@ValidateDateRanges
 	@Column(name = "BIRTH_DATE")
+	@Convert(converter = LocalDatePersistenceConverter.class)
 	private LocalDate birthDate;
 
 	@Column(name = "LEGAL_IDENTIFICATOR")
@@ -63,7 +77,10 @@ public class Person {
 	@NotNull
 	@NotEmpty
 	private String phone;
-
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<PersonAddress> addresses = new ArrayList<PersonAddress>();
+	
 	public Long getId() {
 		return id;
 	}
@@ -134,8 +151,12 @@ public class Person {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
+	}	
 	
+	public void addAddress(PersonAddress address) {
+		this.addresses.add(address);
+	}
+
 	@Override
 	public String toString() {
 		return this.getFirstName() + " " + this.getLastName();

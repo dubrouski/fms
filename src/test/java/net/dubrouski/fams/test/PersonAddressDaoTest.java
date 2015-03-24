@@ -1,20 +1,15 @@
 package net.dubrouski.fams.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-import java.time.LocalDate;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
 import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
-import net.dubrouski.fams.dao.BaseDao;
+import net.dubrouski.fams.dao.AddressDao;
+import net.dubrouski.fams.dao.PersonAddressDao;
 import net.dubrouski.fams.dao.PersonDao;
-import net.dubrouski.fams.dao.impl.PersonDaoImpl;
-import net.dubrouski.fams.dao.impl.BaseDaoImpl;
 import net.dubrouski.fams.model.Address;
-import net.dubrouski.fams.model.Country;
-import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.PersonAddress;
 import net.dubrouski.fams.model.enums.AddressType;
 import net.dubrouski.fams.util.Resources;
@@ -28,12 +23,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/**
- * @author stanislau.dubrouski
- *
- */
 @RunWith(Arquillian.class)
-public class PersonDaoTest {
+public class PersonAddressDaoTest {
 	@Deployment
 	public static Archive<?> createTestArchive() {
 		return ShrinkWrap
@@ -42,15 +33,17 @@ public class PersonDaoTest {
 				.addPackage("net.dubrouski.fams.dao")
 				.addPackage("net.dubrouski.fams.dao.impl")
 				.addPackage("net.dubrouski.fams.model.enums")
-				.addClasses(Resources.class,
-						LocalDatePersistenceConverter.class)
+				.addClasses(Resources.class, LocalDatePersistenceConverter.class)
 				.addAsResource("META-INF/persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@Inject
-	Logger log;
+	AddressDao addressDao;
+
+	@Inject
+	PersonAddressDao personAddressDao;
 
 	@Inject
 	PersonDao personDao;
@@ -58,18 +51,24 @@ public class PersonDaoTest {
 	@Test
 	public void testSave() throws Exception {
 
-		Person p = new Person();
-		p.setFirstName("Standa");
-		p.setLastName("Novak");
-		p.setBirthDate(LocalDate.now());
-		p.setEmail("email@email.com");
-		p.setLegalId("KH1789789");
-		p.setPhone("+420 777 777 777");
-		p.setOtherNames("Bystry Voko");
+		Address a = new Address();
+		a.setCity("Brno");
+		a.setStreetName("Botanicka");
+		a.setStreetNumber("35a");
+		a.setFlatNumber("kancl c.5");
+		addressDao.save(a);
 
-		personDao.save(p);
+		PersonAddress pa = new PersonAddress();
+		pa.setAddress(a);
+		pa.setAddressType(AddressType.Registration);
+		personAddressDao.save(pa);
 
-		assertNotNull(p.getId());
+		assertNotNull(pa.getId());
+
+		PersonAddress loadedPa = personAddressDao.getByID(pa.getId());
+
+		assertEquals(pa.getAddress().getId(), loadedPa.getAddress().getId());
+		assertEquals(pa.getAddressType(), loadedPa.getAddressType());
 
 	}
 
