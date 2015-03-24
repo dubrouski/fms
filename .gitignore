@@ -1,3 +1,8 @@
+/target
+
+.classpath
+.project
+.settings
 *.class
 # Directories #
 /build/
@@ -43,3 +48,4 @@ local.properties
 #*.iml
 auto-bazaar-web/nb-configuration.xml
 nbactions.xml
+

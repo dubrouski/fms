@@ -88,6 +88,19 @@
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.5.6-Final</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
 
 
 		<!-- Import the EJB API, we use provided scope as the API is included in 
