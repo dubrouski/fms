@@ -19,7 +19,6 @@ import org.hibernate.validator.constraints.Length;
 @Entity
 @Table(name = "ADDRESS")
 public class Address implements Serializable {
-	/** Default value included to remove warning. Remove or modify at will. **/
 	private static final long serialVersionUID = 1L;
 
 	@Id

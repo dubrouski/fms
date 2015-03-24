@@ -15,23 +15,23 @@
 				<f:facet name="header">#{msg['person.list.name']}</f:facet>
                 #{_person.firstName}
             </h:column>
-            <h:column>
+			<h:column>
 				<f:facet name="header">#{msg['person.list.surname']}</f:facet>
                 #{_person.lastName}
             </h:column>
-             <h:column>
+			<h:column>
 				<f:facet name="header">#{msg['person.list.othernames']}</f:facet>
                 #{_person.otherNames}
             </h:column>
-             <h:column>
+			<h:column>
 				<f:facet name="header">#{msg['person.list.born']}</f:facet>
                 #{_person.birthDate}
             </h:column>
-             <h:column>
+			<h:column>
 				<f:facet name="header">#{msg['person.list.legalid']}</f:facet>
                 #{_person.legalId}
             </h:column>
-             <h:column>
+			<h:column>
 				<f:facet name="header">#{msg['person.list.personid']}</f:facet>
                 #{_person.businessId}
             </h:column>
@@ -43,6 +43,13 @@
 				<f:facet name="header">#{msg['person.list.phone']}</f:facet>
                 #{_person.phone}
             </h:column>
+			<h:column>
+				<f:facet name="header"></f:facet>
+				<h:form>
+					<h:commandLink value="Detail"
+						action="#{personController.showDetail(_person)}" />
+				</h:form>
+			</h:column>
 		</h:dataTable>
 	</ui:define>
 </ui:composition>

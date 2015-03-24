@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/adminTemplate.xhtml">
+	<ui:define name="content">
+		<h1>Persons management</h1>
+		<h2>Person detail</h2>
+		<table>
+			<tr>
+				<th style="text-align: right;">
+					<h:outputText value="#{msg['person.create.personid']}:" />
+				</th>
+				<td>
+					<h:outputText value="#{personDetail.businessId}" />
+				</td>
+			</tr>
+			<tr>
+				<th style="text-align: right;">
+					<h:outputText value="#{msg['person.create.name']}:" />
+				</th>
+				<td>
+					<h:outputText value="#{personDetail.firstName}" />
+				</td>
+			</tr>
+			<tr>
+				<th style="text-align: right;">
+					<h:outputText value="#{msg['person.create.surname']}:" />
+				</th>
+				<td>
+					<h:outputText value="#{personDetail.lastName}" />
+				</td>
+			</tr>
+			<tr>
+				<th style="text-align: right;">
+					<h:outputText value="#{msg['person.create.othernames']}:" />
+				</th>
+				<td>
+					<h:outputText value="#{personDetail.otherNames}" />
+				</td>
+			</tr>
+			<tr>
+				<th style="text-align: right;">
+					<h:outputText value="#{msg['person.create.born']}:" />
+				</th>
+				<td>
+					<h:outputText value="#{personDetail.birthDate}" />
+				</td>
+			</tr>
+			<tr>
+				<th style="text-align: right;">
+					<h:outputText value="#{msg['person.create.legalid']}:" />
+				</th>
+				<td>
+					<h:outputText value="#{personDetail.legalId}" />
+				</td>
+			</tr>
+			<tr>
+				<th style="text-align: right;">
+					<h:outputText value="#{msg['person.create.phone']}:" />
+				</th>
+				<td>
+					<h:outputText value="#{personDetail.phone}" />
+				</td>
+			</tr>
+			<tr>
+				<th style="text-align: right;">
+					<h:outputText value="#{msg['person.create.email']}:" />
+				</th>
+				<td>
+					<h:outputText value="#{personDetail.email}" />
+				</td>
+			</tr>
+
+
+
+		</table>
+	</ui:define>
+</ui:composition>

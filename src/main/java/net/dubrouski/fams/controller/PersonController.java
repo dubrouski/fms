@@ -12,7 +12,6 @@ import javax.inject.Named;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.service.PersonService;
 
-
 /**
  * @author stanislau.dubrouski
  *
@@ -29,18 +28,30 @@ public class PersonController {
 
 	private Person newPerson;
 
+	private Person personDetail;
+
 	@Produces
 	@Named
 	public Person getNewPerson() {
 		return newPerson;
 	}
 	
-	public void createPerson() throws Exception{
+	@Produces
+	@Named
+	public Person getPersonDetail() {
+		return personDetail;
+	}
+
+	public void createPerson() throws Exception {
 		logger.info("Saving new person " + newPerson.toString());
 		personService.savePerson(newPerson);
 		initNewPerson();
 	}
-	
+
+	public String showDetail(Person person) {
+		personDetail = personService.getPersonById(person.getId());
+		return "person-detail";
+	}
 
 	@PostConstruct
 	public void initNewPerson() {

@@ -12,19 +12,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import net.dubrouski.fams.annotations.ValidateDateRanges;
 import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @author stanislau.dubrouski
@@ -34,7 +33,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "PERSON")
 public class Person implements Serializable {
 
-	/** Default value included to remove warning. Remove or modify at will. **/
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -42,26 +40,28 @@ public class Person implements Serializable {
 	@Column(name = "ID")
 	private Long id;
 
-	@NotNull(message="{person.validate.fname.required}")
+	@NotBlank(message = "{person.validate.fname.required}")
 	@Length(min = 1, max = 255, message = "{person.validate.fname.length}")
 	@Column(name = "FIRST_NAME")
 	private String firstName;
 
-	@NotNull
-	@Length(min = 1, max = 255, message = "sname cannot be empty")
+	@NotBlank(message = "{person.validate.sname.required}")
+	@Length(min = 1, max = 255, message = "{person.validate.sname.length}")
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	@Length(max = 255, message = "max len is 255")
+	@Length(max = 255, message = "{person.validate.othernames.maxlength}")
 	@Column(name = "OTHER_NAMES")
 	private String otherNames;
 
-	@NotNull
-	@ValidateDateRanges
+	@NotNull(message = "{person.validate.birthdate.required}")
+	@ValidateDateRanges(message = "person.validate.birthdate.ranges}")
 	@Column(name = "BIRTH_DATE")
 	@Convert(converter = LocalDatePersistenceConverter.class)
 	private LocalDate birthDate;
 
+	@NotBlank(message = "{person.validate.legalid.required}")
+	@Length(min = 1, max = 255, message = "{person.validate.legalid.length}")
 	@Column(name = "LEGAL_IDENTIFICATOR")
 	private String legalId;
 
@@ -70,15 +70,18 @@ public class Person implements Serializable {
 	private Long businessId;
 
 	@Column(name = "EMAIL")
-	@Email
+	@NotBlank(message = "{person.validate.email.required}")
+	@Email(message = "{person.validate.email.format}")
 	private String email;
 
+	@NotBlank(message = "{person.validate.phone.required}")
+	@Length(min = 1, max = 255, message = "{person.validate.phone.format}")
 	@Column(name = "PHONE")
-	@NotNull
-	@NotEmpty
+	// @Phone TODO Create custom phone constraint
 	private String phone;
 
 	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "PERSON2PERSON_ADDRESS", joinColumns = @JoinColumn(name = "PERSON_ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ADDRESS_ID"))
 	private List<PersonAddress> addresses = new ArrayList<PersonAddress>();
 
 	public Long getId() {
@@ -159,7 +162,8 @@ public class Person implements Serializable {
 
 	@Override
 	public String toString() {
-		return this.getFirstName() + " " + this.getLastName();
+		return this.id + " " + this.getFirstName() + " " + this.getLastName();
 	}
+
 
 }
