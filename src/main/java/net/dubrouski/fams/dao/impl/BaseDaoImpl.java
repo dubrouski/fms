@@ -55,9 +55,15 @@ public class BaseDaoImpl<T, ID extends Serializable> implements BaseDao<T, ID> {
 	}
 
 	@Override
+	public void update(T entity) {
+		entityManager.merge(entity);
+	}
+
+	@Override
 	public void delete(T entity) {
+		// TODO discuss
+		// http://stackoverflow.com/questions/17027398/java-lang-illegalargumentexception-removing-a-detached-instance-com-test-user5
 		entityManager.remove(entityManager.contains(entity) ? entity
 				: entityManager.merge(entity));
-
 	}
 }

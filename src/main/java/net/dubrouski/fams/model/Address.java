@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.Length;
  */
 @Entity
 @Table(name = "ADDRESS")
-public class Address implements Serializable {
+public class Address implements Serializable, BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -115,5 +115,26 @@ public class Address implements Serializable {
 
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Address adr = (Address) obj;
+        if (this.getId() != adr.getId() && (this.getId() == null || !this.getId().equals(adr.getId()))) {
+            return false;
+        }
+        return true;
+	}
+	
+	@Override
+	public int hashCode() {
+		return 3 * getCity().hashCode() + 5 * getStreetName().hashCode() +
+				11 * getFlatNumber().hashCode();				
 	}
 }

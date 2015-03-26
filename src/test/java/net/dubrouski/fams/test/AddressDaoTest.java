@@ -13,6 +13,7 @@ import net.dubrouski.fams.dao.impl.AddressDaoImpl;
 import net.dubrouski.fams.dao.impl.BaseDaoImpl;
 import net.dubrouski.fams.dao.impl.CountryDaoImpl;
 import net.dubrouski.fams.model.Address;
+import net.dubrouski.fams.model.BaseEntity;
 import net.dubrouski.fams.model.Country;
 import net.dubrouski.fams.util.Resources;
 
@@ -34,7 +35,7 @@ public class AddressDaoTest {
 				.addClasses(Country.class, Address.class, AddressDao.class,
 						AddressDaoImpl.class, CountryDao.class,
 						CountryDaoImpl.class, BaseDao.class, BaseDaoImpl.class,
-						Resources.class)
+						Resources.class, BaseEntity.class)
 				.addAsResource("META-INF/persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

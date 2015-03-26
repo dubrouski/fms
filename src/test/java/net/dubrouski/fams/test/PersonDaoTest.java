@@ -93,25 +93,24 @@ public class PersonDaoTest {
 		assertEquals(p2.toString(), p.toString());
 	}
 
-	//TODO expect right exception?
+	// TODO expect right exception?
 	@Test(expected = ArquillianProxyException.class)
 	public void testSaveWithNullFirstName() {
 		Person p = getTestPerson();
 		p.setFirstName(null);
 		personDao.save(p);
 	}
-	
-	@Test(expected = ArquillianProxyException.class)
-	public void testWithDuplicatedLegalId(){
-		Person p = getTestPerson();
-		personDao.save(p);
-		
-		Person p2 = getTestPerson();
-//		p2.setLegalId("KI10293894");
-		personDao.save(p2);
-		
-		
-	}
+
+//	@Test(expected = ArquillianProxyException.class)
+//	public void testWithDuplicatedLegalId() {
+//		Person p = getTestPerson();
+//		personDao.save(p);
+//
+//		Person p2 = getTestPerson();
+//		// p2.setLegalId("KI10293894");
+//		personDao.save(p2);
+//
+//	}
 
 	private Person getTestPerson() {
 		Person p = new Person();
