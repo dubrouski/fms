@@ -32,7 +32,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Table(name = "PERSON")
-public class Person implements Serializable {
+public class Person implements BaseEntity, Serializable {
 
 	private static final long serialVersionUID = 1L;
 

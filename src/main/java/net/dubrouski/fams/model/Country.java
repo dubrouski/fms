@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "COUNTRY", uniqueConstraints = @UniqueConstraint(columnNames = "CODE"))
-public class Country implements Serializable {
+public class Country implements BaseEntity, Serializable {
 
 	private static final long serialVersionUID = 1L;
 

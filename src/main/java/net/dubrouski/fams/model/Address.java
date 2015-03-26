@@ -134,6 +134,7 @@ public class Address implements Serializable, BaseEntity {
 	
 	@Override
 	public int hashCode() {
-		return 3 * getLatitude().hashCode() + 5 * getLongitude().hashCode();				
+		return 3 * getCity().hashCode() + 5 * getStreetName().hashCode() +
+				11 * getFlatNumber().hashCode();				
 	}
 }

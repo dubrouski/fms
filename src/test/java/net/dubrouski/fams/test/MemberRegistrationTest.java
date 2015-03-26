@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import net.dubrouski.fams.controller.MemberRegistration;
+import net.dubrouski.fams.model.BaseEntity;
 import net.dubrouski.fams.model.Member;
 import net.dubrouski.fams.util.Resources;
 
@@ -24,7 +25,7 @@ public class MemberRegistrationTest {
    @Deployment
    public static Archive<?> createTestArchive() {
       return ShrinkWrap.create(WebArchive.class, "test.war")
-            .addClasses(Member.class, MemberRegistration.class, Resources.class)
+            .addClasses(Member.class, MemberRegistration.class, Resources.class, BaseEntity.class)
             .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
    }

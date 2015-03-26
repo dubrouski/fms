@@ -24,7 +24,7 @@ import net.dubrouski.fams.model.enums.AddressType;
  */
 @Entity
 @Table(name = "PERSON_ADDRESS")
-public class PersonAddress implements Serializable {
+public class PersonAddress implements BaseEntity, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
