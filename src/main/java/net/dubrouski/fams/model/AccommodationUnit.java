@@ -16,7 +16,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ForceDiscriminator;
 /**
@@ -30,7 +29,7 @@ import org.hibernate.annotations.ForceDiscriminator;
 @DiscriminatorColumn(name = "TYPE", discriminatorType = DiscriminatorType.STRING)
 @ForceDiscriminator
 @Table(name = "ACCOMMODATION_UNIT")
-public abstract class AccommodationUnit implements Serializable {
+public abstract class AccommodationUnit implements Serializable, BaseEntity {
 
 	private static final long serialVersionUID = 25L;
 	

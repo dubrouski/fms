@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.Length;
  */
 @Entity
 @Table(name = "ADDRESS")
-public class Address implements Serializable {
+public class Address implements Serializable, BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id

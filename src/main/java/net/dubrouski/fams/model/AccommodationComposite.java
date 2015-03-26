@@ -38,7 +38,7 @@ public abstract class AccommodationComposite extends AccommodationUnit {
 	public void add(AccommodationUnit unit) {
 		unitTypeCheck(unit);
 		addressCheck(unit);
-		if(isChild(unit)){
+		if(hasChild(unit)){
 			throw new FmsException("Unit already among children");
 		}
 		children.add(unit);
@@ -47,14 +47,18 @@ public abstract class AccommodationComposite extends AccommodationUnit {
 	public void remove(AccommodationUnit unit) {
 		unitTypeCheck(unit);
 		addressCheck(unit);
-		if(!isChild(unit)){
+		if(!hasChild(unit)){
 			throw new FmsException("Unit not among the children");
 		}
 		children.remove(unit);
 	}
 	
-	public boolean isChild(AccommodationUnit unit) {
+	public boolean hasChild(AccommodationUnit unit) {
 		return children.contains(unit);
+	}
+	
+	public int childrenCount(){
+		return children.size();
 	}
 
 	public Set<AccommodationUnit> getChildren() {

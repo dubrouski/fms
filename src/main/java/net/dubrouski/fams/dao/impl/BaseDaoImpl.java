@@ -64,8 +64,4 @@ public class BaseDaoImpl<T, ID extends Serializable> implements BaseDao<T, ID> {
 				"FROM " + getPersistentClass().getName()).getResultList();
 	}
 	
-	public EntityManager getEntityManager(){
-		return this.entityManager;
-	}
-	
 }
