@@ -2,7 +2,6 @@ package net.dubrouski.fams.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +16,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import net.dubrouski.fams.annotations.ValidateDateRanges;
+import net.dubrouski.fams.annotations.ValidateUniqueLegalId;
 import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 
 import org.hibernate.validator.constraints.Email;
@@ -31,7 +32,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * 
  */
 @Entity
-@Table(name = "PERSON")
+@Table(name = "PERSON", uniqueConstraints = { @UniqueConstraint(columnNames = "LEGAL_IDENTIFICATOR") })
 public class Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -63,6 +64,7 @@ public class Person implements Serializable {
 
 	@NotBlank(message = "{person.validate.legalid.required}")
 	@Length(min = 1, max = 255, message = "{person.validate.legalid.length}")
+	@ValidateUniqueLegalId(message = "Legal id already exists in db.")
 	@Column(name = "LEGAL_IDENTIFICATOR")
 	private String legalId;
 
@@ -165,6 +167,5 @@ public class Person implements Serializable {
 	public String toString() {
 		return this.id + " " + this.getFirstName() + " " + this.getLastName();
 	}
-
 
 }

@@ -14,6 +14,8 @@ public interface BaseDao<T, ID extends Serializable> {
 
 	public void save(T entity);
 	
+	public void delete(T entity);
+	
 	public Collection<T> listAll();
 
 	public Class<T> getPersistentClass();

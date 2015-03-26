@@ -9,6 +9,7 @@ import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 import net.dubrouski.fams.dao.AddressDao;
 import net.dubrouski.fams.dao.PersonAddressDao;
 import net.dubrouski.fams.dao.PersonDao;
+import net.dubrouski.fams.exception.FmsException;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.PersonAddress;
 import net.dubrouski.fams.model.enums.AddressType;
@@ -33,7 +34,8 @@ public class PersonAddressDaoTest {
 				.addPackage("net.dubrouski.fams.dao")
 				.addPackage("net.dubrouski.fams.dao.impl")
 				.addPackage("net.dubrouski.fams.model.enums")
-				.addClasses(Resources.class, LocalDatePersistenceConverter.class)
+				.addClasses(Resources.class,
+						LocalDatePersistenceConverter.class, FmsException.class)
 				.addAsResource("META-INF/persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

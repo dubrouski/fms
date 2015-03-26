@@ -25,7 +25,7 @@ import net.dubrouski.fams.model.enums.AddressType;
 @Entity
 @Table(name = "PERSON_ADDRESS")
 public class PersonAddress implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -37,11 +37,10 @@ public class PersonAddress implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private AddressType addressType;
 
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
 	@NotNull
 	private Address address;
 
-	
 	public Long getId() {
 		return id;
 	}

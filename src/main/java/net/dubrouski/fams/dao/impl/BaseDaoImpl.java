@@ -50,7 +50,14 @@ public class BaseDaoImpl<T, ID extends Serializable> implements BaseDao<T, ID> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> listAll() {
-		return (List<T>)entityManager.createQuery(
+		return (List<T>) entityManager.createQuery(
 				"FROM " + getPersistentClass().getName()).getResultList();
+	}
+
+	@Override
+	public void delete(T entity) {
+		entityManager.remove(entityManager.contains(entity) ? entity
+				: entityManager.merge(entity));
+
 	}
 }
