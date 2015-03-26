@@ -64,7 +64,7 @@ public class Person implements Serializable {
 
 	@NotBlank(message = "{person.validate.legalid.required}")
 	@Length(min = 1, max = 255, message = "{person.validate.legalid.length}")
-	@ValidateUniqueLegalId(message = "Legal id already exists in db.")
+	//@ValidateUniqueLegalId(message = "Legal id already exists in db.")
 	@Column(name = "LEGAL_IDENTIFICATOR")
 	private String legalId;
 
