@@ -27,10 +27,17 @@ public abstract class AccommodationComposite extends AccommodationUnit {
 				@JoinColumn(name = "CHILD_ID", referencedColumnName = "ID", unique = true)
 			}
 	)
-	private Set<AccommodationUnit> children = new HashSet<AccommodationUnit>(); 
-		
+	private Set<AccommodationUnit> children = new HashSet<AccommodationUnit>();
+	
+	
+	protected abstract void unitTypeCheck(AccommodationUnit unit);
+	
+	protected abstract void addressCheck(AccommodationUnit unit);
+	
+	
 	public void add(AccommodationUnit unit) {
 		unitTypeCheck(unit);
+		addressCheck(unit);
 		if(isChild(unit)){
 			throw new FmsException("Unit already among children");
 		}
@@ -38,7 +45,8 @@ public abstract class AccommodationComposite extends AccommodationUnit {
 	}
 	
 	public void remove(AccommodationUnit unit) {
-		unitTypeCheck(unit);		
+		unitTypeCheck(unit);
+		addressCheck(unit);
 		if(!isChild(unit)){
 			throw new FmsException("Unit not among the children");
 		}
@@ -56,7 +64,5 @@ public abstract class AccommodationComposite extends AccommodationUnit {
 	public void setChildren(Set<AccommodationUnit> children) {
 		this.children = children;
 	}
-	
-	protected abstract void unitTypeCheck(AccommodationUnit unit);
 	
 }

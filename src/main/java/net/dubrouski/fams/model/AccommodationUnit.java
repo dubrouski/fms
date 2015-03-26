@@ -16,6 +16,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ForceDiscriminator;
 /**
@@ -30,7 +31,7 @@ import org.hibernate.annotations.ForceDiscriminator;
 @ForceDiscriminator
 @Table(name = "ACCOMMODATION_UNIT")
 public abstract class AccommodationUnit implements Serializable {
-	
+
 	private static final long serialVersionUID = 25L;
 	
 	@Id
@@ -55,7 +56,7 @@ public abstract class AccommodationUnit implements Serializable {
 	@JoinColumn(name = "ADDRESS_ID")
 	private Address address;
 	
-	
+	@Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -63,13 +64,14 @@ public abstract class AccommodationUnit implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final AccommodationComposite ac = (AccommodationComposite) obj;
+        final AccommodationUnit ac = (AccommodationUnit) obj;
         if (this.getId() != ac.getId() && (this.getId() == null || !this.getId().equals(ac.getId()))) {
             return false;
         }
         return true;
     }
-
+	
+	@Override
     public int hashCode() {
         return 7 * this.getDepositAmount().hashCode()
         		+ 13 * this.getName().hashCode();
@@ -82,14 +84,7 @@ public abstract class AccommodationUnit implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public boolean getIsActive() {
-		return this.isActive;
-	}
-
-	public void setIsActive(boolean isActive) {
-		this.isActive = isActive;
-	}
+	
 
 	public BigDecimal getDepositAmount() {
 		return this.depositAmount;
@@ -106,5 +101,20 @@ public abstract class AccommodationUnit implements Serializable {
 	public String getName(){
 		return name;
 	}
+	
+	public Address getAddress() {
+		return address;
+	}
 
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	
+	public boolean getIsActive() {
+		return this.isActive;
+	}
 }

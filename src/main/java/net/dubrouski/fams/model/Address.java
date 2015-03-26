@@ -116,4 +116,24 @@ public class Address implements Serializable {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Address adr = (Address) obj;
+        if (this.getId() != adr.getId() && (this.getId() == null || !this.getId().equals(adr.getId()))) {
+            return false;
+        }
+        return true;
+	}
+	
+	@Override
+	public int hashCode() {
+		return 3 * getLatitude().hashCode() + 5 * getLongitude().hashCode();				
+	}
 }

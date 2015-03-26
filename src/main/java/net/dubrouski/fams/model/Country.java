@@ -47,5 +47,25 @@ public class Country implements Serializable {
 		this.code = code;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Country adr = (Country) obj;
+        if (this.getId() != adr.getId() && (this.getId() == null || !this.getId().equals(adr.getId()))) {
+            return false;
+        }
+        return true;
+	}
+	
+	@Override
+	public int hashCode() {
+		return 3 * getCode().hashCode();				
+	}
+	
 	
 }
