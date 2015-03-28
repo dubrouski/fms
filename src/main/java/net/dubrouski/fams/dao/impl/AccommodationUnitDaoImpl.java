@@ -1,5 +1,7 @@
 package net.dubrouski.fams.dao.impl;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.Query;
@@ -17,18 +19,21 @@ import net.dubrouski.fams.validator.EntityValidator;
  *
  */
 @Stateless
-@Named(value = "accommodationUnitDao")
+@Named(value = "unitDao")
 public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Long> 
 									  implements AccommodationUnitDao{
 
+	@Override
 	public AccommodationUnit getParent(AccommodationUnit unit){
 		EntityValidator.validate(unit);
 		Query q = entityManager.createQuery(
-			"SELECT u FROM AccommodationUnit u JOIN u.children p WHERE p.child_id = :id");
+			"SELECT u FROM AccommodationUnit u JOIN u.children p WHERE p.id = :id");
 		q.setParameter("id", unit.getId());
-		return (AccommodationUnit) q.getSingleResult();
+		List<?> results = q.getResultList();
+		return (AccommodationUnit) (results.size() > 0 ? results.get(0) : null);
 	}
 	
+	@Override
 	public void addChild(AccommodationComposite parent, AccommodationUnit child) {
 		EntityValidator.validate(parent);
 		EntityValidator.validate(child);
@@ -36,6 +41,7 @@ public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Lon
 		update(parent);
 	}
 	
+	@Override
 	public void removeChild(AccommodationComposite parent, AccommodationUnit child) {
 		EntityValidator.validate(parent);
 		EntityValidator.validate(child);
@@ -46,6 +52,7 @@ public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Lon
 //	When more composite elements are added in the future, Address will need refactoring.
 //	There probably will be table inheritance hierarchy with @MappedSuperclass  
 //	and this method will be rewritten completely.
+	@Override
 	public void setAddress(AccommodationUnit unit, Address address){
 		EntityValidator.validate(unit);
 		EntityValidator.validate(address);
@@ -61,6 +68,7 @@ public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Lon
 		update(unit);
 	}
 	
+	@Override
 	public void setAddressWithChildren(AccommodationUnit unit, Address address){
 		EntityValidator.validate(unit);
 		EntityValidator.validate(address);

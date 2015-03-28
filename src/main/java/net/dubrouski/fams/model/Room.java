@@ -24,9 +24,15 @@ public class Room extends AccommodationComposite{
 
 	@Override
 	protected void addressCheck(AccommodationUnit unit) {
-		if(!getAddress().equals(unit.getAddress())){
-			throw new FmsException("Cannot add child with different address"
-					+ " (child id: " + unit.getId() + ")");
+		if(getAddress() != null && unit.getAddress() != null){
+			if((unit.getAddress() != null && getAddress() == null) 
+					|| !(getAddress().equals(unit.getAddress()))){
+					throw new FmsException("Cannot add child with different address"
+							+ " (child id: " + unit.getId() + ")");
+				}
+		}		
+		if(getAddress() != null){
+			unit.setAddress(getAddress());
 		}
 	}
 

@@ -20,7 +20,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import net.dubrouski.fams.annotations.ValidateDateRanges;
-import net.dubrouski.fams.annotations.ValidateUniqueLegalId;
+
 import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 
 import org.hibernate.validator.constraints.Email;

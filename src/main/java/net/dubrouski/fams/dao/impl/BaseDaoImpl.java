@@ -58,6 +58,7 @@ public class BaseDaoImpl<T, ID extends Serializable> implements BaseDao<T, ID> {
 	public void update(T entity) {
 		entityManager.merge(entity);
 	}
+	
 
 	@Override
 	public void delete(T entity) {

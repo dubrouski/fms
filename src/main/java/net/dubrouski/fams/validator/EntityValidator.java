@@ -10,7 +10,7 @@ public class EntityValidator{
 			throw new FmsException("Entity is null");  
 		}
 		if(entity.getId() == null) {
-			throw new FmsException("Cannot find id: not an Entity");
+			throw new FmsException("Cannot find id: not an Entity: " + entity.toString());
 		}
 	}
 }
