@@ -6,48 +6,55 @@
 	template="/WEB-INF/templates/adminTemplate.xhtml">
 	<ui:define name="content">
 		<h1>Persons management</h1>
-		<h:dataTable var="_person" value="#{personService.listPersons()}">
+		<h:dataTable var="person" value="#{personService.listPersons()}">
 			<h:column>
 				<f:facet name="header">#{msg['person.list.id']}</f:facet>
-                #{_person.id}
+                #{person.id}
             </h:column>
 			<h:column>
 				<f:facet name="header">#{msg['person.list.name']}</f:facet>
-                #{_person.firstName}
+                #{person.firstName}
             </h:column>
 			<h:column>
 				<f:facet name="header">#{msg['person.list.surname']}</f:facet>
-                #{_person.lastName}
+                #{person.lastName}
             </h:column>
 			<h:column>
 				<f:facet name="header">#{msg['person.list.othernames']}</f:facet>
-                #{_person.otherNames}
+                #{person.otherNames}
             </h:column>
 			<h:column>
 				<f:facet name="header">#{msg['person.list.born']}</f:facet>
-                #{_person.birthDate}
+                #{person.birthDate}
             </h:column>
 			<h:column>
 				<f:facet name="header">#{msg['person.list.legalid']}</f:facet>
-                #{_person.legalId}
+                #{person.legalId}
             </h:column>
 			<h:column>
 				<f:facet name="header">#{msg['person.list.personid']}</f:facet>
-                #{_person.businessId}
+                #{person.businessId}
             </h:column>
 			<h:column>
 				<f:facet name="header">#{msg['person.list.email']}</f:facet>
-                #{_person.email}
+                #{person.email}
             </h:column>
 			<h:column>
 				<f:facet name="header">#{msg['person.list.phone']}</f:facet>
-                #{_person.phone}
+                #{person.phone}
             </h:column>
 			<h:column>
 				<f:facet name="header"></f:facet>
 				<h:form>
 					<h:commandLink value="Detail"
-						action="#{personController.showDetail(_person)}" />
+						action="#{personController.showDetail(person)}" />
+				</h:form>
+			</h:column>
+			<h:column>
+				<f:facet name="header"></f:facet>
+				<h:form>
+					<h:commandLink value="Delete"
+						action="#{personController.confirmPersonDelete(person)}" />
 				</h:form>
 			</h:column>
 		</h:dataTable>

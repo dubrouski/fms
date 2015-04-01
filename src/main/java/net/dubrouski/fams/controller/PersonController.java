@@ -1,5 +1,6 @@
 package net.dubrouski.fams.controller;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -23,24 +24,29 @@ public class PersonController {
 	@Inject
 	private Logger logger;
 
-	
 	@Inject
 	PersonService personService;
 
 	private Person newPerson;
-
 	private Person personDetail;
+	private Person personForDeletion;
 
 	@Produces
 	@Named
 	public Person getNewPerson() {
 		return newPerson;
 	}
-	
+
 	@Produces
 	@Named
 	public Person getPersonDetail() {
 		return personDetail;
+	}
+
+	@Produces
+	@Named
+	public Person getPersonForDeletion() {
+		return personForDeletion;
 	}
 
 	public void createPerson() throws Exception {
@@ -50,8 +56,35 @@ public class PersonController {
 	}
 
 	public String showDetail(Person person) {
-		personDetail = personService.getPersonById(person.getId());
+		personDetail = personService.getPersonByLegalId(person.getLegalId());
 		return "person-detail";
+	}
+
+	public String requestPersonDelete(Person person) {
+		this.personForDeletion = personService.getPersonByLegalId(person
+				.getLegalId());
+		if (personForDeletion == null) {
+			logger.log(Level.INFO, "requestPersonDelete: personForDeletion is null.");
+		}
+		return "person-confirm-delete";
+	}
+
+	public String confirmPersonDelete(Person person) {
+
+		if (personForDeletion == null) {
+			logger.log(Level.INFO, "confirmPersonDelete: personForDeletion is null.");
+		}
+		
+		if (person == null) {
+			logger.log(Level.INFO, "confirmPersonDelete: Person is null.");
+		}
+		if (personService == null) {
+			logger.log(Level.INFO, "confirmPersonDelete: PersonService is null.");
+		}
+
+		personService.delete(personService.getPersonByLegalId(person
+				.getLegalId()));
+		return "persons-list";
 	}
 
 	@PostConstruct

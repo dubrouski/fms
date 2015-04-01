@@ -1,10 +1,9 @@
 package net.dubrouski.fams.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -22,19 +21,41 @@ public class PersonServiceImpl implements PersonService {
 	@Inject
 	PersonDao personDao;
 
+	@Inject
+	Logger logger;
+
 	@Override
 	public void savePerson(Person person) {
 		personDao.save(person);
-
+		logger.log(Level.INFO, "Created new person: " + person.toString());
 	}
 
 	@Override
 	public Person getPersonById(Long id) {
-		return personDao.getByID(id);
+		Person result = personDao.getByID(id);
+		logger.log(Level.INFO, "Method getPersonById, id: " + id
+				+ ", found person: " + result.toString());
+		return result;
 	}
 
 	@Override
 	public List<Person> listPersons() {
-		return new ArrayList<Person>(personDao.listAll());
+		return personDao.listAll();
+	}
+
+	public Person getPersonByLegalId(String id) {
+		Person result = personDao.getByLegalId(id);
+		logger.log(Level.INFO, "Method getPersonByLegalId, id: " + id
+				+ ", found person: " + result.toString());
+		return result;
+	}
+
+	@Override
+	public void delete(Person person) {
+		logger.log(Level.INFO, "Method delete (person), person to delete: "
+				+ person);
+		personDao.delete(person);
+		logger.log(Level.INFO, "Method delete (person), person was deleted: "
+				+ person);
 	}
 }
