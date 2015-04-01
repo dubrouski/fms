@@ -23,6 +23,7 @@ public class PersonController {
 	@Inject
 	private Logger logger;
 
+	
 	@Inject
 	PersonService personService;
 

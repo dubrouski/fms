@@ -19,8 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import net.dubrouski.fams.annotations.PhoneNumber;
 import net.dubrouski.fams.annotations.ValidateDateRanges;
-
 import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 
 import org.hibernate.validator.constraints.Email;
@@ -64,7 +64,6 @@ public class Person implements Serializable {
 
 	@NotBlank(message = "{person.validate.legalid.required}")
 	@Length(min = 1, max = 255, message = "{person.validate.legalid.length}")
-	//@ValidateUniqueLegalId(message = "Legal id already exists in db.")
 	@Column(name = "LEGAL_IDENTIFICATOR")
 	private String legalId;
 
@@ -80,7 +79,7 @@ public class Person implements Serializable {
 	@NotBlank(message = "{person.validate.phone.required}")
 	@Length(min = 1, max = 255, message = "{person.validate.phone.format}")
 	@Column(name = "PHONE")
-	// @Phone TODO Create custom phone constraint
+	@PhoneNumber(message = "{person.validate.phone.formatting}")
 	private String phone;
 
 	@OneToMany(fetch = FetchType.LAZY)
