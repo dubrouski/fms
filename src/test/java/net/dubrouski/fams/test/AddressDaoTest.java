@@ -2,6 +2,7 @@ package net.dubrouski.fams.test;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -23,6 +24,8 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -46,29 +49,139 @@ public class AddressDaoTest {
 
 	@Inject
 	AddressDao addressDao;
-	
+
 	@Inject
 	CountryDao countryDao;
 
+	@Before
+	public void removeTestAddresses() {
+		for (Address a : addressDao.listAll()) {
+			addressDao.delete(a);
+		}
+
+		for (Country c : countryDao.listAll()) {
+			countryDao.delete(c);
+		}
+
+		insertTestCountries();
+	}
+
+	private void insertTestCountries() {
+		Country cz = new Country();
+		cz.setCode("CZ");
+		countryDao.save(cz);
+
+		Country sk = new Country();
+		sk.setCode("SK");
+		countryDao.save(sk);
+	}
+
 	@Test
 	public void testSave() throws Exception {
-		
-		Country c = new Country();
-		c.setCode("CZ");
-		countryDao.save(c);
-		
-		
+
 		Address a = new Address();
-		a.setCountry(c);
+		a.setCountry(countryDao.getCountryByCode("SK"));
 		a.setCity("Brno");
 		a.setStreetName("Botanicka");
 		a.setStreetNumber("35a");
 		a.setFlatNumber("kancl c.5");
+		a.setLatitude("49.4145469N");
+		a.setLongitude("17.8088378E");
+
 		addressDao.save(a);
 
 		assertNotNull(a.getId());
-		
+
 		Address b = addressDao.getByID(a.getId());
 		assertEquals(a.getCountry().getCode(), b.getCountry().getCode());
+	}
+
+	@Test
+	public void testList() {
+		Address adr = new Address();
+		adr.setCountry(countryDao.getCountryByCode("CZ"));
+		adr.setCity("Brno");
+		adr.setStreetName("Botanicka");
+		adr.setStreetNumber("35a");
+		adr.setFlatNumber("kancl c.5");
+		adr.setLatitude("49.5786644N");
+		adr.setLongitude("16.7761231E");
+
+		Address adr2 = new Address();
+		adr2.setCountry(countryDao.getCountryByCode("SK"));
+		adr2.setCity("Praha");
+		adr2.setStreetName("Tridni");
+		adr2.setStreetNumber("35987");
+		adr2.setFlatNumber("pod stropem");
+		adr2.setLatitude("49.4145469N");
+		adr2.setLongitude("17.8088378E");
+
+		addressDao.save(adr);
+		addressDao.save(adr2);
+
+		List<Address> retreivedAddresses = addressDao.listAll();
+
+		assertEquals(2, retreivedAddresses.size());
+
+		assertAddressDataWithoutIdEqual(adr, retreivedAddresses.get(0));
+		assertAddressDataWithoutIdEqual(adr2, retreivedAddresses.get(1));
+	}
+
+	@Test
+	public void testDelete() {
+		assertEquals(0, addressDao.listAll().size());
+
+		Address address = getAddress();
+		addressDao.save(address);
+		Address retreivedAddress = addressDao.getByID(address.getId());
+
+		assertNotNull(retreivedAddress);
+
+		addressDao.delete(retreivedAddress);
+
+		assertEquals(0, addressDao.listAll().size());
+		Address noAddressRetreived = addressDao.getByID(address.getId());
+		assertNull(noAddressRetreived);
+	}
+
+	@Test
+	public void testUpdate() {
+		Address address = getAddress();
+
+		addressDao.save(address);
+
+		address.setCountry(countryDao.getCountryByCode("SK"));
+		address.setCity("Praha");
+		address.setStreetName("Tridni");
+		address.setStreetNumber("as3d2f");
+		address.setFlatNumber("ksjhfgskdfgsdf");
+
+		addressDao.update(address);
+
+		Address retreivedAddress = addressDao.getByID(address.getId());
+
+		assertEquals(address.getId(), retreivedAddress.getId());
+		assertAddressDataWithoutIdEqual(address, retreivedAddress);
+	}
+
+	private Address getAddress() {
+		Address adr = new Address();
+		adr.setCountry(countryDao.getCountryByCode("CZ"));
+		adr.setCity("Brno");
+		adr.setStreetName("Botanicka");
+		adr.setStreetNumber("35a");
+		adr.setFlatNumber("kancl c.5");
+
+		return adr;
+	}
+
+	private static void assertAddressDataWithoutIdEqual(Address a, Address b) {
+		assertEquals(a.getCountry().getCode(), b.getCountry().getCode());
+		assertEquals(a.getCity(), b.getCity());
+		assertEquals(a.getStreetName(), b.getStreetName());
+		assertEquals(a.getStreetNumber(), b.getStreetNumber());
+		assertEquals(a.getFlatNumber(), b.getFlatNumber());
+		assertEquals(a.getLatitude(), b.getLatitude());
+		assertEquals(a.getLongitude(), b.getLongitude());
 	}
 }

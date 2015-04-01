@@ -7,5 +7,5 @@ import net.dubrouski.fams.model.Country;
  *
  */
 public interface CountryDao extends BaseDao<Country, Long> {
-
+	public Country getCountryByCode(String code);
 }
