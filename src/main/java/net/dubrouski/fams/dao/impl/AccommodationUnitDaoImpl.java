@@ -1,8 +1,10 @@
 package net.dubrouski.fams.dao.impl;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Query;
 
@@ -23,6 +25,9 @@ import net.dubrouski.fams.validator.EntityValidator;
 public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Long> 
 									  implements AccommodationUnitDao{
 
+	@Inject
+	Logger logger;
+	
 	@Override
 	public AccommodationUnit getParent(AccommodationUnit unit){
 		EntityValidator.validate(unit);
@@ -76,6 +81,7 @@ public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Lon
 			throw new FmsException("Cannot change address if unit has parent.");
 		}
 		setAddressForChildren(unit, address);
+		
 	}
 	
 	private void setAddressForChildren(AccommodationUnit unit, Address address){
@@ -92,5 +98,6 @@ public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Lon
 			}
 		}
 	}
+	
 
 }

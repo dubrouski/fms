@@ -166,4 +166,25 @@ public class AccommodationUnitDaoTest {
 		assertNotNull(place.getAddress());
 	}
 	
+//	uncomment to see fail
+//	@Test
+//	public void setAddressWithChildrenTest(){
+//		Place place = getPlace(false, "my place", BigDecimal.valueOf(55.24));
+//		unitDao.save(place);
+//		
+//		Address a = addressHelper.getTestAddress("Brno", "botanicka", "63a", "2b");
+//		addressDao.save(a);		
+//				
+//		assertNull(place.getAddress());
+//		
+//		Room room = getRoom(false, "nice room", BigDecimal.valueOf(55.24));
+//		unitDao.save(room);
+//		
+//		unitDao.addChild(room, place);
+//		
+//		unitDao.setAddressWithChildren(room, a);
+//		
+//		assertNotNull(room.getAddress());
+//	}
+	
 }
