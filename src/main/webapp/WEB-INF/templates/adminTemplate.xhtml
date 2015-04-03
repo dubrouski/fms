@@ -18,10 +18,10 @@
 				<p>Persons management</p>
 				<ul>
 					<li>
-						<a href="persons-list.jsf">#{msg['person.list.linkto']}</a>
+						<a href="person-list.jsf">#{msg['person.list.linkto']}</a>
 					</li>
 					<li>
-						<a href="create-person.jsf">#{msg['person.create.linkto']}</a>
+						<a href="person-create.jsf">#{msg['person.create.linkto']}</a>
 					</li>
 				</ul>
 				<p>Contracts management</p>
@@ -31,6 +31,30 @@
 				</ul>
 				<p>Accommodations management</p>
 				<ul>
+					<li>
+						<h:form>
+							<h:commandLink
+								action="#{accoUnitControllerTEST.createTestData()}"
+								value="Create test data" />
+						</h:form>
+
+					</li>
+					<li>
+						<h:form>
+							<h:commandLink
+								action="#{accoUnitControllerTEST.setAddressToUnits()}"
+								value="Set address" />
+						</h:form>
+					</li>
+					<li>
+						<h:form>
+							<h:commandLink
+								action="#{accoUnitControllerTEST.setAnotherAddressToUnits()}"
+								value="Set another address" />
+						</h:form>
+					</li>
+
+
 					<li>List all accommodations</li>
 					<li>Create new accommodation</li>
 				</ul>
