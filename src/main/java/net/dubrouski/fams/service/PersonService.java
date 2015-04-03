@@ -1,6 +1,6 @@
 package net.dubrouski.fams.service;
 
-import java.util.Collection;
+import java.util.List;
 
 import net.dubrouski.fams.model.Person;
 
@@ -9,9 +9,14 @@ import net.dubrouski.fams.model.Person;
  *
  */
 public interface PersonService {
+	
 	public void savePerson(Person person);
 
 	public Person getPersonById(Long id);
 	
-	public Collection<Person> listPersons();
+	public Person getPersonByLegalId(String id);
+	
+	public List<Person> listPersons();
+	
+	public void delete(Person person);
 }

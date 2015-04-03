@@ -7,20 +7,16 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import net.dubrouski.fams.validator.LegalIdValidator;
 
-/**
- * @author stanislau.dubrouski
- *
- */
+import net.dubrouski.fams.validator.PhoneNumberValidator;
+
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = { LegalIdValidator.class })
-public @interface ValidateUniqueLegalId {
-	String message() default "{errorcode}";
+@Constraint(validatedBy = { PhoneNumberValidator.class })
+public @interface PhoneNumber {
+	String message() default "Phone number does not follow the correct format.";
 
 	Class<?>[] groups() default {};
 
 	Class<? extends Payload>[] payload() default {};
-
 }

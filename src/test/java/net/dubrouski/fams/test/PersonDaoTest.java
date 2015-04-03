@@ -1,24 +1,18 @@
 package net.dubrouski.fams.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
-import javax.validation.ValidationException;
 
 import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
-import net.dubrouski.fams.dao.BaseDao;
 import net.dubrouski.fams.dao.PersonDao;
-import net.dubrouski.fams.dao.impl.PersonDaoImpl;
-import net.dubrouski.fams.dao.impl.BaseDaoImpl;
-import net.dubrouski.fams.exception.FmsException;
-import net.dubrouski.fams.model.Address;
-import net.dubrouski.fams.model.Country;
 import net.dubrouski.fams.model.Person;
-import net.dubrouski.fams.model.PersonAddress;
-import net.dubrouski.fams.model.enums.AddressType;
 import net.dubrouski.fams.util.Resources;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -46,8 +40,9 @@ public class PersonDaoTest {
 				.addPackage("net.dubrouski.fams.dao")
 				.addPackage("net.dubrouski.fams.dao.impl")
 				.addPackage("net.dubrouski.fams.model.enums")
+				.addPackage("net.dubrouski.fams.exception")
 				.addClasses(Resources.class,
-						LocalDatePersistenceConverter.class, FmsException.class)
+						LocalDatePersistenceConverter.class)
 				.addAsResource("META-INF/persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -74,6 +69,36 @@ public class PersonDaoTest {
 	}
 
 	@Test
+	public void testListAllPersons() throws Exception {
+
+		List<Person> persons = personDao.listAll();
+		assertEquals(0, persons.size());
+
+		Person p = getTestPerson();
+		p.setPhone("775775775");
+		p.setLegalId("182");
+		p.setEmail("email@mail.com");
+
+		Person p2 = getTestPerson();
+		p2.setPhone("9238945234");
+		p2.setLegalId("sdf234d");
+		p2.setEmail("emailemail@mail.com");
+
+		Person p3 = getTestPerson();
+		p3.setPhone("1234596789");
+		p3.setLegalId("sdhfgkjsdf");
+		p3.setEmail("email@somemail.com");
+
+		personDao.save(p);
+		personDao.save(p2);
+		personDao.save(p3);
+
+		persons = personDao.listAll();
+
+		assertEquals(3, persons.size());
+	}
+
+	@Test
 	public void testGetByID() {
 		Person p = getTestPerson();
 		personDao.save(p);
@@ -84,7 +109,7 @@ public class PersonDaoTest {
 	}
 
 	@Test
-	public void testGetByLegalId() {
+	public void testGetByNotExistingLegalId() {
 		Person p = getTestPerson();
 		personDao.save(p);
 
@@ -93,7 +118,21 @@ public class PersonDaoTest {
 		assertEquals(p2.toString(), p.toString());
 	}
 
-	// TODO expect right exception?
+	@Test
+	public void testGetByExistingLegalId() {
+		Person p = getTestPerson();
+		personDao.save(p);
+
+		Person p2 = personDao.getByLegalId("SomeAnotherLID");
+		assertNull(p2);
+	}
+
+	@Test
+	public void testGetByLegalIdOnEmptyDB() {
+		Person p = personDao.getByLegalId("something");
+		assertNull(p);
+	}
+
 	@Test(expected = ArquillianProxyException.class)
 	public void testSaveWithNullFirstName() {
 		Person p = getTestPerson();
@@ -101,22 +140,53 @@ public class PersonDaoTest {
 		personDao.save(p);
 	}
 
-//	@Test(expected = ArquillianProxyException.class)
-//	public void testWithDuplicatedLegalId() {
-//		Person p = getTestPerson();
-//		personDao.save(p);
-//
-//		Person p2 = getTestPerson();
-//		// p2.setLegalId("KI10293894");
-//		personDao.save(p2);
-//
-//	}
+	// TODO test for different null values;
+
+	@Test
+	public void testSimpleUpdate() {
+		Person p = getTestPerson();
+		personDao.save(p);
+
+		p.setFirstName("Standa (updated)");
+		p.setLastName("Novak (updated)");
+		p.setBirthDate(LocalDate.of(1981, 11, 2));
+		p.setEmail("updated@email.com");
+		p.setLegalId("KH1789789 UPD");
+		p.setPhone("+420 111 111 111");
+		p.setOtherNames("Updated name");
+
+		personDao.update(p);
+
+		Person up = personDao.getByID(p.getId());
+
+		assertEquals(up.getFirstName(), "Standa (updated)");
+		assertEquals(up.getLastName(), "Novak (updated)");
+		assertEquals(up.getBirthDate(), LocalDate.of(1981, 11, 2));
+		assertEquals(up.getEmail(), "updated@email.com");
+		assertEquals(up.getLegalId(), "KH1789789 UPD");
+		assertEquals(up.getPhone(), "+420 111 111 111");
+		assertEquals(up.getOtherNames(), "Updated name");
+
+	}
+
+	@Test
+	public void testSimpleDelete() {
+		Person p = getTestPerson();
+		personDao.save(p);
+
+		assertEquals(1, personDao.listAll().size());
+
+		personDao.delete(p);
+
+		assertEquals(0, personDao.listAll().size());
+
+	}
 
 	private Person getTestPerson() {
 		Person p = new Person();
 		p.setFirstName("Standa");
 		p.setLastName("Novak");
-		p.setBirthDate(LocalDate.now());
+		p.setBirthDate(LocalDate.of(1980, 12, 1));
 		p.setEmail("email@email.com");
 		p.setLegalId("KH1789789");
 		p.setPhone("+420 777 777 777");

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/adminTemplate.xhtml">
+	<ui:define name="content">
+		<h1>Persons management</h1>
+		<h2>Confirm person deletion -
+			#{personController.personForDeletion}</h2>
+		<p>Remove person #{personController.personForDeletion.firstName}
+			#{personController.personForDeletion.lastName}? Deletion cannot be
+			undone!</p>
+		<h:form>
+			<h:commandLink
+				action="#{personController.confirmPersonDelete(personController.personForDeletion.id)}"
+				value="Yes, delete." />
+			<a href="persons-list.jsf">No, return to list.</a>
+		</h:form>
+	</ui:define>
+</ui:composition>

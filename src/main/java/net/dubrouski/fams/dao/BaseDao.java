@@ -1,7 +1,7 @@
 package net.dubrouski.fams.dao;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * @author stanislau.dubrouski
@@ -14,7 +14,7 @@ public interface BaseDao<T, ID extends Serializable> {
 
 	public void save(T entity);
 	
-	public Collection<T> listAll();
+	public List<T> listAll();
 
 	public Class<T> getPersistentClass();
 

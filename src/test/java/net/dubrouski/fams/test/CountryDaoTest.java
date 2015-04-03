@@ -1,6 +1,6 @@
 package net.dubrouski.fams.test;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.util.logging.Logger;
 
@@ -10,6 +10,7 @@ import net.dubrouski.fams.dao.BaseDao;
 import net.dubrouski.fams.dao.CountryDao;
 import net.dubrouski.fams.dao.impl.BaseDaoImpl;
 import net.dubrouski.fams.dao.impl.CountryDaoImpl;
+import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.BaseEntity;
 import net.dubrouski.fams.model.Country;
 import net.dubrouski.fams.util.Resources;
@@ -20,6 +21,7 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -47,11 +49,29 @@ public class CountryDaoTest {
 	@Inject
 	CountryDao countryDao;
 
+	@Before
+	public void removeTestAddresses() {
+		for (Country c : countryDao.listAll()) {
+			countryDao.delete(c);
+		}
+	}
+
 	@Test
-	public void testSave() throws Exception {
+	public void testSimpleSave() throws Exception {
 		Country c = new Country();
-		c.setCode("CZ");
+		c.setCode("Barbados");
 		countryDao.save(c);
 		assertNotNull(c.getId());
+	}
+
+	@Test
+	public void testGetCountryByCode() {
+		Country c = new Country();
+		c.setCode("Australie");
+		countryDao.save(c);
+
+		Country retrievedCountry = countryDao.getCountryByCode("Australie");
+
+		assertEquals(c.getId(), retrievedCountry.getId());
 	}
 }
