@@ -12,8 +12,6 @@ import net.dubrouski.fams.dao.PriceDao;
 import net.dubrouski.fams.exception.FmsException;
 import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.util.Resources;
-import net.dubrouski.fams.validator.EntityValidator;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -14,6 +15,7 @@ import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 import net.dubrouski.fams.dao.AccommodationUnitDao;
 import net.dubrouski.fams.dao.AddressDao;
 import net.dubrouski.fams.dao.BaseDao;
+import net.dubrouski.fams.dao.PriceDao;
 import net.dubrouski.fams.dao.impl.AccommodationUnitDaoImpl;
 import net.dubrouski.fams.exception.FmsException;
 import net.dubrouski.fams.model.AccommodationComposite;
@@ -21,8 +23,10 @@ import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.Place;
+import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.model.Room;
 import net.dubrouski.fams.test.helper.AddressTestHelper;
+import net.dubrouski.fams.test.helper.PriceTestHelper;
 import net.dubrouski.fams.util.Resources;
 import net.dubrouski.fams.validator.EntityValidator;
 
@@ -67,10 +71,16 @@ public class AccommodationUnitDaoTest {
 	AccommodationUnitDao unitDao;
 	
 	@Inject
+	PriceDao priceDao;
+	
+	@Inject
 	Logger log;
 	
 	@Inject
 	AddressTestHelper addressHelper;
+	
+	@Inject
+	PriceTestHelper priceHelper;
 	
 	private Place getPlace(boolean isActive, String name, BigDecimal deposit){
 		Place place = new Place();
@@ -186,5 +196,21 @@ public class AccommodationUnitDaoTest {
 //		
 //		assertNotNull(room.getAddress());
 //	}
+	
+	@Test
+	public void setPriceTest(){
+		Place place = getPlace(false, "my place", BigDecimal.valueOf(55.24));
+		unitDao.save(place);
+		
+		Price price = priceHelper.getTestPrice(BigDecimal.valueOf(500),
+											   BigDecimal.valueOf(200),
+											   LocalDate.of(2014, 6, 4),
+											   LocalDate.of(2015, 6, 4),
+											   "EUR");
+		priceDao.save(price);
+		assertNull(place.getPrice());
+		unitDao.setPrice(place, price);
+		assertNotNull(place.getPrice());
+	}
 	
 }

@@ -14,6 +14,7 @@ import net.dubrouski.fams.model.AccommodationComposite;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Place;
+import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.validator.EntityValidator;
 /**
  * 
@@ -97,6 +98,12 @@ public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Lon
 				setAddressForChildren(u, address);				
 			}
 		}
+	}
+
+	@Override
+	public void setPrice(AccommodationUnit unit, Price price) {
+		unit.setPrice(price);
+		update(unit);
 	}
 	
 
