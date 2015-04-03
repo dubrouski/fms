@@ -212,5 +212,27 @@ public class AccommodationUnitDaoTest {
 		unitDao.setPrice(place, price);
 		assertNotNull(place.getPrice());
 	}
+
+//	same case as address
+//	@Test
+//	public void setPriceForParentTest(){
+//		Place place = getPlace(false, "my place", BigDecimal.valueOf(55.24));
+//		unitDao.save(place);
+//		
+//		Price price = priceHelper.getTestPrice(BigDecimal.valueOf(500),
+//											   BigDecimal.valueOf(200),
+//											   LocalDate.of(2014, 6, 4),
+//											   LocalDate.of(2015, 6, 4),
+//											   "EUR");
+//		priceDao.save(price);
+//		
+//		Room room = getRoom(false, "nice room", BigDecimal.valueOf(55.24));
+//		unitDao.save(room);		
+//		unitDao.addChild(room, place);
+//		
+//		assertNull(room.getPrice());
+//		unitDao.setPrice(room, price);
+//		assertNotNull(room.getPrice());
+//	}
 	
 }
