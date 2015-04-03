@@ -28,19 +28,12 @@ public class PersonController {
 	PersonService personService;
 
 	private Person newPerson;
-	private Person personDetail;
 	private Person personForDeletion;
 
 	@Produces
 	@Named
 	public Person getNewPerson() {
 		return newPerson;
-	}
-
-	@Produces
-	@Named
-	public Person getPersonDetail() {
-		return personDetail;
 	}
 
 	@Produces
@@ -53,11 +46,6 @@ public class PersonController {
 		logger.info("Saving new person " + newPerson.toString());
 		personService.savePerson(newPerson);
 		initNewPerson();
-	}
-
-	public String showDetail(Person person) {
-		personDetail = personService.getPersonByLegalId(person.getLegalId());
-		return "person-detail";
 	}
 
 	public String requestPersonDelete(Person person) {
@@ -84,7 +72,7 @@ public class PersonController {
 
 		personService.delete(personService.getPersonByLegalId(person
 				.getLegalId()));
-		return "persons-list";
+		return "person-list";
 	}
 
 	@PostConstruct

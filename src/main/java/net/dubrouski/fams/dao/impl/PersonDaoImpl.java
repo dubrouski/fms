@@ -32,4 +32,6 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 			return null;
 		}
 	}
+	
+	
 }

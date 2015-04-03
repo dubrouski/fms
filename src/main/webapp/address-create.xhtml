@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/adminTemplate.xhtml">
+	<ui:define name="content">
+		<h1>Address creation</h1>
+		<h:form id="reg">
+			<h2>Add new address for person:</h2>
+			<h2>#{addressController.person.firstName},
+				#{addressController.person.lastName}</h2>
+			<table>
+				<tr>
+					<th style="text-align: right;">
+						<h:outputLabel for="addressType" value="Type of address:" />
+					</th>
+					<td>
+						<h:inputText id="addressType"
+							value="#{addressController.newPersonAddress.addressType}" />
+						<h:message for="addressType" errorClass="invalid" />
+					</td>
+				</tr>
+				<tr>
+					<th style="text-align: right;">
+						<h:outputLabel for="city" value="City:" />
+					</th>
+					<td>
+						<h:inputText id="city"
+							value="#{addressController.newAddress.city}" />
+						<h:message for="city" errorClass="invalid" />
+					</td>
+				</tr>
+				<tr>
+					<th style="text-align: right;">
+						<h:outputLabel for="streetName" value="Street:" />
+					</th>
+					<td>
+						<h:inputText id="streetName"
+							value="#{addressController.newAddress.streetName}" />
+						<h:message for="streetName" errorClass="invalid" />
+					</td>
+				</tr>
+				<tr>
+					<th style="text-align: right;">
+						<h:outputLabel for="streetNumber" value="Street number:" />
+					</th>
+					<td>
+						<h:inputText id="streetNumber"
+							value="#{addressController.newAddress.streetNumber}" />
+						<h:message for="streetNumber" errorClass="invalid" />
+					</td>
+				</tr>
+
+				<tr>
+					<th style="text-align: right;">
+						<h:outputLabel for="flatNumber" value="Flat number:" />
+					</th>
+					<td>
+						<h:inputText id="flatNumber"
+							value="#{addressController.newAddress.flatNumber}" />
+						<h:message for="flatNumber" errorClass="invalid" />
+					</td>
+				</tr>
+
+			</table>
+			<p>
+				<h:commandButton id="register" action="#{addressController.saveNewAddress()}"
+					value="#{msg['person.create.createbutton']}:" />
+				<h:outputText value=" Saved."
+					rendered="#{facesContext.postback and empty facesContext.messageList}"
+					style="color: green;" />
+			</p>
+		</h:form>
+	</ui:define>
+</ui:composition>

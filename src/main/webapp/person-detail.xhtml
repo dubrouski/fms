@@ -7,13 +7,15 @@
 	<ui:define name="content">
 		<h1>Persons management</h1>
 		<h2>Person detail</h2>
+		<h4>Addresses to display:
+			#{personDetailController.personsAddresses}</h4>
 		<table>
 			<tr>
 				<th style="text-align: right;">
 					<h:outputText value="#{msg['person.create.personid']}:" />
 				</th>
 				<td>
-					<h:outputText value="#{personDetail.businessId}" />
+					<h:outputText value="#{person.businessId}" />
 				</td>
 			</tr>
 			<tr>
@@ -21,7 +23,7 @@
 					<h:outputText value="#{msg['person.create.name']}:" />
 				</th>
 				<td>
-					<h:outputText value="#{personDetail.firstName}" />
+					<h:outputText value="#{personDetailController.person.firstName}" />
 				</td>
 			</tr>
 			<tr>
@@ -29,7 +31,7 @@
 					<h:outputText value="#{msg['person.create.surname']}:" />
 				</th>
 				<td>
-					<h:outputText value="#{personDetail.lastName}" />
+					<h:outputText value="#{personDetailController.person.lastName}" />
 				</td>
 			</tr>
 			<tr>
@@ -37,7 +39,7 @@
 					<h:outputText value="#{msg['person.create.othernames']}:" />
 				</th>
 				<td>
-					<h:outputText value="#{personDetail.otherNames}" />
+					<h:outputText value="#{personDetailController.person.otherNames}" />
 				</td>
 			</tr>
 			<tr>
@@ -45,7 +47,7 @@
 					<h:outputText value="#{msg['person.create.born']}:" />
 				</th>
 				<td>
-					<h:outputText value="#{personDetail.birthDate}" />
+					<h:outputText value="#{personDetailController.person.birthDate}" />
 				</td>
 			</tr>
 			<tr>
@@ -53,7 +55,7 @@
 					<h:outputText value="#{msg['person.create.legalid']}:" />
 				</th>
 				<td>
-					<h:outputText value="#{personDetail.legalId}" />
+					<h:outputText value="#{personDetailController.person.legalId}" />
 				</td>
 			</tr>
 			<tr>
@@ -61,7 +63,7 @@
 					<h:outputText value="#{msg['person.create.phone']}:" />
 				</th>
 				<td>
-					<h:outputText value="#{personDetail.phone}" />
+					<h:outputText value="#{personDetailController.person.phone}" />
 				</td>
 			</tr>
 			<tr>
@@ -69,12 +71,42 @@
 					<h:outputText value="#{msg['person.create.email']}:" />
 				</th>
 				<td>
-					<h:outputText value="#{personDetail.email}" />
+					<h:outputText value="#{personDetailController.person.email}" />
 				</td>
 			</tr>
-
-
-
 		</table>
+
+		<h2>Person's addresses</h2>
+
+		<h:form>
+			<h:commandLink
+				action="#{personAddressCreationController.startAddressCreation(personDetailController.person)}"
+				value="Create new address" />
+		</h:form>
+
+		<h:dataTable rendered="true" var="address"
+			value="#{personDetailController.personsAddresses}">
+			<h:column>
+				<f:facet name="header">Address type</f:facet>
+    				#{address.addressType}
+    			</h:column>
+			<h:column>
+				<f:facet name="header">Country</f:facet>
+    				#{address.address.country.code}
+    			</h:column>
+			<h:column>
+				<f:facet name="header">City</f:facet>
+    				#{address.address.city}
+    			</h:column>
+			<h:column>
+				<f:facet name="header">Street</f:facet>
+    				#{address.address.streetName}, #{address.address.streetNumber}  
+    			</h:column>
+			<h:column>
+				<f:facet name="header">Flat number</f:facet>
+    				#{address.address.flatNumber}
+    			</h:column>
+		</h:dataTable>
+		<h2>Person's contracts</h2>
 	</ui:define>
 </ui:composition>

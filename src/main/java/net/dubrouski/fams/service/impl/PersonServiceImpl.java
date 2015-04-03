@@ -7,8 +7,13 @@ import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import net.dubrouski.fams.dao.AddressDao;
+import net.dubrouski.fams.dao.PersonAddressDao;
 import net.dubrouski.fams.dao.PersonDao;
+import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Person;
+import net.dubrouski.fams.model.PersonAddress;
+import net.dubrouski.fams.model.enums.AddressType;
 import net.dubrouski.fams.service.PersonService;
 
 /**
@@ -20,6 +25,12 @@ public class PersonServiceImpl implements PersonService {
 
 	@Inject
 	PersonDao personDao;
+
+	@Inject
+	PersonAddressDao personAddressDao;
+
+	@Inject
+	AddressDao addressDao;
 
 	@Inject
 	Logger logger;
@@ -57,5 +68,20 @@ public class PersonServiceImpl implements PersonService {
 		personDao.delete(person);
 		logger.log(Level.INFO, "Method delete (person), person was deleted: "
 				+ person);
+	}
+
+	@Override
+	public void setAddressToPerson(Person person, Address personAddress,
+			AddressType addressType) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<PersonAddress> getAddressesForPerson(Person person) {
+		logger.info("Received person to return addresses for: " + person);
+		List<PersonAddress> result = personAddressDao.getAddressesForPerson(person);
+		logger.info("Retrieved addresses: " + result.toString());
+		return result;
 	}
 }
