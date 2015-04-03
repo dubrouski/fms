@@ -56,6 +56,9 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 	@JoinColumn(name = "ADDRESS_ID")
 	private Address address;
 	
+	@OneToOne
+	private Price price;
+	
 	@Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -117,4 +120,13 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 	public boolean getIsActive() {
 		return this.isActive;
 	}
+
+	public Price getPrice() {
+		return price;
+	}
+
+	public void setPrice(Price price) {
+		this.price = price;
+	}	
+	
 }
