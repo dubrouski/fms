@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import net.dubrouski.fams.dao.AccommodationUnitDao;
 import net.dubrouski.fams.dao.AddressDao;
 import net.dubrouski.fams.dao.CountryDao;
+import net.dubrouski.fams.model.AccommodationComposite;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Country;
@@ -55,11 +56,23 @@ public class AccoUnitControllerTEST {
 		room.setName("somename");
 		room.setDepositAmount(BigDecimal.valueOf(1500));
 		room.setIsActive(false);
-		room.add(place);
-		room.add(place2);
-		room.add(place3);
+//		room.add(place);
+//		room.add(place2);
+//		room.add(place3);
 		acuDao.save(room);
 
+	}
+	
+	public void setChildren(){
+		AccommodationComposite room = (AccommodationComposite)acuDao.getByID(4l);
+		AccommodationUnit pl1 = acuDao.getByID(1l);
+		AccommodationUnit pl2 = acuDao.getByID(2l);
+		AccommodationUnit pl3 = acuDao.getByID(3l);
+		
+		
+		acuDao.addChild(room, pl1);
+		acuDao.addChild(room, pl2);
+		acuDao.addChild(room, pl3);
 	}
 
 	public void setAddressToUnits() {
