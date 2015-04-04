@@ -84,4 +84,9 @@ public class PersonServiceImpl implements PersonService {
 		logger.info("Retrieved addresses: " + result.toString());
 		return result;
 	}
+
+	@Override
+	public void updatePerson(Person person) {
+		personDao.update(person);		
+	}
 }

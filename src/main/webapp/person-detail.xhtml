@@ -9,13 +9,18 @@
 		<h2>Person detail</h2>
 		<h4>Addresses to display:
 			#{personDetailController.personsAddresses}</h4>
+		<h:form>
+			<h:commandButton
+				action="#{personUpdateController.startPersonUpdate(personDetailController.person.id)}"
+				value="Update person" />
+		</h:form>
 		<table>
 			<tr>
 				<th style="text-align: right;">
 					<h:outputText value="#{msg['person.create.personid']}:" />
 				</th>
 				<td>
-					<h:outputText value="#{person.businessId}" />
+					<h:outputText value="#{personDetailController.person.businessId}" />
 				</td>
 			</tr>
 			<tr>

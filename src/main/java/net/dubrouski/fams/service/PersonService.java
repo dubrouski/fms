@@ -27,4 +27,6 @@ public interface PersonService {
 
 	public void setAddressToPerson(Person person, Address personAddress,
 			AddressType addressType);
+	
+	public void updatePerson(Person person);
 }

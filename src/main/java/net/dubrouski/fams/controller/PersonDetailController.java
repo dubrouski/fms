@@ -9,6 +9,8 @@ import javax.ejb.Stateful;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -20,8 +22,8 @@ import net.dubrouski.fams.service.PersonService;
  * @author stanislau.dubrouski
  *
  */
-@Stateful
-@Model
+@ManagedBean
+@SessionScoped
 public class PersonDetailController implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -19,6 +19,7 @@ import net.dubrouski.fams.model.PersonAddress;
 public class PersonAddressDaoImpl extends BaseDaoImpl<PersonAddress, Long>
 		implements PersonAddressDao {
 
+	//TODO redo select query 
 	@Override
 	public List<PersonAddress> getAddressesForPerson(Person person) {
 		TypedQuery<PersonAddress> query = this.entityManager.createQuery(
