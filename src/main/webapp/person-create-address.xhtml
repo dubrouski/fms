@@ -8,10 +8,24 @@
 		<h1>Persons management</h1>
 		<h:form id="reg">
 			<h2>Create new address for person:
-				#{personAddressCreationController.personToCreateAddress}</h2>
-				<h2>Preset address:
-				#{personAddressCreationController.newAddress}</h2>
+				#{personAddressController.personToCreateAddress}</h2>
+			<h2>Preset address: #{personAddressController.newAddress}</h2>
 			<table>
+
+				<tr>
+					<th style="text-align: right;">
+						<h:outputLabel for="addrType" value="Address type" />
+					</th>
+					<td>
+						<h:selectOneListbox id="addrType"
+							value="#{personAddressController.addressType}">
+							<f:selectItems value="#{personAddressController.addressTypes}"
+								noSelectionValue="Select Type" />
+						</h:selectOneListbox>
+						<h:message for="addrType" errorClass="invalid" />
+					</td>
+				</tr>
+
 
 				<tr>
 					<th style="text-align: right;">
@@ -19,10 +33,9 @@
 					</th>
 					<td>
 						<h:selectOneListbox
-							value="#{personAddressCreationController.newAddress.country}"
+							value="#{personAddressController.newAddress.country}"
 							converter="#{countryCodeConverter}">
-							<f:selectItems
-								value="#{personAddressCreationController.countries}"
+							<f:selectItems value="#{personAddressController.countries}"
 								var="country" itemLabel="#{country.id} - #{country.code}"
 								itemValue="#{country.code}" noSelectionValue="Select country" />
 						</h:selectOneListbox>
@@ -35,7 +48,7 @@
 					</th>
 					<td>
 						<h:inputText id="city"
-							value="#{personAddressCreationController.newAddress.city}" />
+							value="#{personAddressController.newAddress.city}" />
 						<h:message for="city" errorClass="invalid" />
 					</td>
 				</tr>
@@ -45,7 +58,7 @@
 					</th>
 					<td>
 						<h:inputText id="streetName"
-							value="#{personAddressCreationController.newAddress.streetName}" />
+							value="#{personAddressController.newAddress.streetName}" />
 						<h:message for="streetName" errorClass="invalid" />
 					</td>
 				</tr>
@@ -55,7 +68,7 @@
 					</th>
 					<td>
 						<h:inputText id="streetNumber"
-							value="#{personAddressCreationController.newAddress.streetNumber}" />
+							value="#{personAddressController.newAddress.streetNumber}" />
 						<h:message for="streetNumber" errorClass="invalid" />
 					</td>
 				</tr>
@@ -65,14 +78,14 @@
 					</th>
 					<td>
 						<h:inputText id="flatNumber"
-							value="#{personAddressCreationController.newAddress.flatNumber}" />
+							value="#{personAddressController.newAddress.flatNumber}" />
 						<h:message for="flatNumber" errorClass="invalid" />
 					</td>
 				</tr>
 			</table>
 			<p>
 				<h:commandButton id="createAddress"
-					action="#{personAddressCreationController.addAddressToPerson()}"
+					action="#{personAddressController.addAddressToPerson()}"
 					value="Add address" />
 				<h:outputText value=" Saved."
 					rendered="#{facesContext.postback and empty facesContext.messageList}"

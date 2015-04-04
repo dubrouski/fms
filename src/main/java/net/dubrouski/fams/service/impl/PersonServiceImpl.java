@@ -73,17 +73,16 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public void setAddressToPerson(Person person, Address address,
 			AddressType addressType) {
-		Person localPerson = personDao.getByID(person.getId());
-		
+		Person personWithAddresses = this
+				.getPersonWithAddresses(person.getId());
 		PersonAddress personAddress = new PersonAddress();
 		personAddress.setAddress(address);
 		personAddress.setAddressType(addressType);
 
 		personAddressDao.save(personAddress);
 
-		localPerson.addAddress(personAddress);
-		personDao.update(localPerson);
-
+		personWithAddresses.addAddress(personAddress);
+		personDao.update(personWithAddresses);
 	}
 
 	@Override
@@ -98,5 +97,9 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public void updatePerson(Person person) {
 		personDao.update(person);
+	}
+
+	private Person getPersonWithAddresses(Long id) {
+		return personDao.getPersonWithAddresses(id);
 	}
 }

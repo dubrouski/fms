@@ -158,6 +158,10 @@ public class Person implements Serializable {
 		this.phone = phone;
 	}
 
+	public List<PersonAddress> getAddresses() {
+		return addresses;
+	}
+	
 	public void addAddress(PersonAddress address) {
 		this.addresses.add(address);
 	}

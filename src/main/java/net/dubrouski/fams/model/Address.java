@@ -57,13 +57,6 @@ public class Address implements Serializable, BaseEntity {
 	
 	@OneToMany(mappedBy = "address")
 	Set<AccommodationUnit> accommodations;
-	
-	
-
-	@Override
-	public String toString(){
-		return getClass().toString() + ": id: " +id;
-	}
 
 	public Long getId() {
 		return id;

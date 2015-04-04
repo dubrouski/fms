@@ -9,4 +9,6 @@ import net.dubrouski.fams.model.Person;
 public interface PersonDao extends BaseDao<Person, Long> {
 
 	public Person getByLegalId(String legalId);
+
+	Person getPersonWithAddresses(Long id);
 }
