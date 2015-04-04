@@ -7,13 +7,14 @@
 	<ui:define name="content">
 		<h1>Persons management</h1>
 		<h2>Confirm person deletion -
-			#{personController.personForDeletion}</h2>
-		<p>Remove person #{personController.personForDeletion.firstName}
-			#{personController.personForDeletion.lastName}? Deletion cannot be
-			undone!</p>
+			#{personDeletionController.personForDeletion}</h2>
+		<p>Remove person
+			#{personDeletionController.personForDeletion.firstName}
+			#{personDeletionController.personForDeletion.lastName}? Deletion
+			cannot be undone!</p>
 		<h:form>
-			<h:commandLink
-				action="#{personController.confirmPersonDelete(personController.personForDeletion.id)}"
+			<h:commandButton
+				action="#{personDeletionController.confirmPersonDelete()}"
 				value="Yes, delete." />
 			<a href="persons-list.jsf">No, return to list.</a>
 		</h:form>

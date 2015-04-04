@@ -1,4 +1,4 @@
-package net.dubrouski.fams.controller;
+package net.dubrouski.fams.controller.person;
 
 import java.io.Serializable;
 import java.util.logging.Logger;
