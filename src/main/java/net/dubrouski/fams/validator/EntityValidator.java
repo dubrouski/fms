@@ -9,8 +9,12 @@ public class EntityValidator{
 		if (entity == null){
 			throw new FmsException("Entity is null");  
 		}
+		validateId(entity);
+	}
+	
+	public static <T> void validateId(BaseEntity entity){
 		if(entity.getId() == null) {
 			throw new FmsException("Cannot find id: not an Entity: " + entity.toString());
 		}
-	}
+	} 
 }

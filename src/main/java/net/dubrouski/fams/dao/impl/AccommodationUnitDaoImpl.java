@@ -56,7 +56,7 @@ public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Lon
 	}
 	
 //	When more composite elements are added in the future, Address will need refactoring.
-//	There probably will be table inheritance hierarchy with @MappedSuperclass  
+//	There probably will be table inheritance hierarchy  
 //	and this method will be rewritten completely.
 	@Override
 	public void setAddress(AccommodationUnit unit, Address address){
@@ -68,10 +68,14 @@ public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Lon
 			}
 		}
 		if(getParent(unit) != null) {
-			throw new FmsException("Cannot change address if unit has parent.");
+			logger.info("AccommodationUnit has parent, setting address to be same as parent's.");
+			unit.setAddress(getParent(unit).getAddress());
+			update(unit);
 		}
-		unit.setAddress(address);
-		update(unit);
+		else{
+			unit.setAddress(address);
+			update(unit);	
+		}
 	}
 	
 	@Override
@@ -102,9 +106,14 @@ public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Lon
 
 	@Override
 	public void setPrice(AccommodationUnit unit, Price price) {
+		EntityValidator.validate(unit);
+		if(price != null){
+			EntityValidator.validateId(price);
+		}
 		unit.setPrice(price);
 		update(unit);
 	}
+
 	
 
 }

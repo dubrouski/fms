@@ -176,7 +176,8 @@ public class AccommodationUnitDaoTest {
 		assertNotNull(place.getAddress());
 	}
 	
-//	uncomment to see fail
+//	uncomment to see fail - hibernate tries to insert duplicate keys into association table
+//	on update for unknown reason
 //	@Test
 //	public void setAddressWithChildrenTest(){
 //		Place place = getPlace(false, "my place", BigDecimal.valueOf(55.24));
@@ -213,7 +214,7 @@ public class AccommodationUnitDaoTest {
 		assertNotNull(place.getPrice());
 	}
 
-//	same case as address
+//	same case as setAddressWithChildrenTest()
 //	@Test
 //	public void setPriceForParentTest(){
 //		Place place = getPlace(false, "my place", BigDecimal.valueOf(55.24));

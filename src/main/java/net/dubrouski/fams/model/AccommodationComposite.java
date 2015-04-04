@@ -27,7 +27,7 @@ public abstract class AccommodationComposite extends AccommodationUnit {
 				@JoinColumn(name = "CHILD_ID", referencedColumnName = "ID", unique = true)
 			}
 	)
-	private Set<AccommodationUnit> children = new HashSet<AccommodationUnit>();
+	private List<AccommodationUnit> children = new ArrayList<AccommodationUnit>();
 	
 	
 	protected abstract void unitTypeCheck(AccommodationUnit unit);
@@ -61,11 +61,11 @@ public abstract class AccommodationComposite extends AccommodationUnit {
 		return children.size();
 	}
 
-	public Set<AccommodationUnit> getChildren() {
+	public List<AccommodationUnit> getChildren() {
 		return children;
 	}
 	
-	public void setChildren(Set<AccommodationUnit> children) {
+	public void setChildren(List<AccommodationUnit> children) {
 		this.children = children;
 	}
 	
