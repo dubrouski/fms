@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 import net.dubrouski.fams.dao.PersonDao;
 import net.dubrouski.fams.model.Person;
+import net.dubrouski.fams.test.helper.PersonTestHelper;
 import net.dubrouski.fams.util.Resources;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -42,7 +43,8 @@ public class PersonDaoTest {
 				.addPackage("net.dubrouski.fams.model.enums")
 				.addPackage("net.dubrouski.fams.exception")
 				.addClasses(Resources.class,
-						LocalDatePersistenceConverter.class)
+						LocalDatePersistenceConverter.class,
+						PersonTestHelper.class)
 				.addAsResource("META-INF/persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -54,6 +56,9 @@ public class PersonDaoTest {
 	@Inject
 	PersonDao personDao;
 
+	@Inject
+	PersonTestHelper pth;
+
 	@Before
 	public void clearPersons() {
 		for (Person p : personDao.listAll()) {
@@ -63,7 +68,7 @@ public class PersonDaoTest {
 
 	@Test
 	public void testBasicSave() throws Exception {
-		Person p = getTestPerson();
+		Person p = pth.getTestPerson();
 		personDao.save(p);
 		assertNotNull(p.getId());
 	}
@@ -74,17 +79,17 @@ public class PersonDaoTest {
 		List<Person> persons = personDao.listAll();
 		assertEquals(0, persons.size());
 
-		Person p = getTestPerson();
+		Person p = pth.getTestPerson();
 		p.setPhone("775775775");
 		p.setLegalId("182");
 		p.setEmail("email@mail.com");
 
-		Person p2 = getTestPerson();
+		Person p2 = pth.getTestPerson();
 		p2.setPhone("9238945234");
 		p2.setLegalId("sdf234d");
 		p2.setEmail("emailemail@mail.com");
 
-		Person p3 = getTestPerson();
+		Person p3 = pth.getTestPerson();
 		p3.setPhone("1234596789");
 		p3.setLegalId("sdhfgkjsdf");
 		p3.setEmail("email@somemail.com");
@@ -100,7 +105,7 @@ public class PersonDaoTest {
 
 	@Test
 	public void testGetByID() {
-		Person p = getTestPerson();
+		Person p = pth.getTestPerson();
 		personDao.save(p);
 
 		Person p2 = personDao.getByID(p.getId());
@@ -110,7 +115,7 @@ public class PersonDaoTest {
 
 	@Test
 	public void testGetByNotExistingLegalId() {
-		Person p = getTestPerson();
+		Person p = pth.getTestPerson();
 		personDao.save(p);
 
 		Person p2 = personDao.getByLegalId(p.getLegalId());
@@ -120,7 +125,7 @@ public class PersonDaoTest {
 
 	@Test
 	public void testGetByExistingLegalId() {
-		Person p = getTestPerson();
+		Person p = pth.getTestPerson();
 		personDao.save(p);
 
 		Person p2 = personDao.getByLegalId("SomeAnotherLID");
@@ -135,7 +140,7 @@ public class PersonDaoTest {
 
 	@Test(expected = ArquillianProxyException.class)
 	public void testSaveWithNullFirstName() {
-		Person p = getTestPerson();
+		Person p = pth.getTestPerson();
 		p.setFirstName(null);
 		personDao.save(p);
 	}
@@ -144,7 +149,7 @@ public class PersonDaoTest {
 
 	@Test
 	public void testSimpleUpdate() {
-		Person p = getTestPerson();
+		Person p = pth.getTestPerson();
 		personDao.save(p);
 
 		p.setFirstName("Standa (updated)");
@@ -171,7 +176,7 @@ public class PersonDaoTest {
 
 	@Test
 	public void testSimpleDelete() {
-		Person p = getTestPerson();
+		Person p = pth.getTestPerson();
 		personDao.save(p);
 
 		assertEquals(1, personDao.listAll().size());
@@ -181,17 +186,4 @@ public class PersonDaoTest {
 		assertEquals(0, personDao.listAll().size());
 
 	}
-
-	private Person getTestPerson() {
-		Person p = new Person();
-		p.setFirstName("Standa");
-		p.setLastName("Novak");
-		p.setBirthDate(LocalDate.of(1980, 12, 1));
-		p.setEmail("email@email.com");
-		p.setLegalId("KH1789789");
-		p.setPhone("+420 777 777 777");
-		p.setOtherNames("Bystry Voko");
-		return p;
-	}
-
 }
