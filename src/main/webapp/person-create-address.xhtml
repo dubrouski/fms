@@ -9,8 +9,26 @@
 		<h:form id="reg">
 			<h2>Create new address for person:
 				#{personAddressCreationController.personToCreateAddress}</h2>
+				<h2>Preset address:
+				#{personAddressCreationController.newAddress}</h2>
 			<table>
 
+				<tr>
+					<th style="text-align: right;">
+						<h:outputLabel for="country" value="Country" />
+					</th>
+					<td>
+						<h:selectOneListbox
+							value="#{personAddressCreationController.newAddress.country}"
+							converter="#{countryCodeConverter}">
+							<f:selectItems
+								value="#{personAddressCreationController.countries}"
+								var="country" itemLabel="#{country.id} - #{country.code}"
+								itemValue="#{country.code}" noSelectionValue="Select country" />
+						</h:selectOneListbox>
+						<h:message for="country" errorClass="invalid" />
+					</td>
+				</tr>
 				<tr>
 					<th style="text-align: right;">
 						<h:outputLabel for="city" value="City" />
@@ -53,9 +71,9 @@
 				</tr>
 			</table>
 			<p>
-				<h:commandButton id="register"
-					action="#{personController.createPerson}"
-					value="#{msg['person.create.createbutton']}:" />
+				<h:commandButton id="createAddress"
+					action="#{personAddressCreationController.addAddressToPerson()}"
+					value="Add address" />
 				<h:outputText value=" Saved."
 					rendered="#{facesContext.postback and empty facesContext.messageList}"
 					style="color: green;" />

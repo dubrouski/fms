@@ -137,4 +137,14 @@ public class Address implements Serializable, BaseEntity {
 		return 3 * getCity().hashCode() + 5 * getStreetName().hashCode() +
 				11 * getFlatNumber().hashCode();				
 	}
+
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", country=" + country + ", city=" + city
+				+ ", streetName=" + streetName + ", streetNumber="
+				+ streetNumber + ", flatNumber=" + flatNumber + ", latitude="
+				+ latitude + ", longitude=" + longitude + "]";
+	}
+	
+	
 }

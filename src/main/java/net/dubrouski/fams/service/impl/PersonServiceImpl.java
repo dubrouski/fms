@@ -71,22 +71,32 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public void setAddressToPerson(Person person, Address personAddress,
+	public void setAddressToPerson(Person person, Address address,
 			AddressType addressType) {
-		// TODO Auto-generated method stub
+		Person localPerson = personDao.getByID(person.getId());
+		
+		PersonAddress personAddress = new PersonAddress();
+		personAddress.setAddress(address);
+		personAddress.setAddressType(addressType);
+
+		personAddressDao.save(personAddress);
+
+		localPerson.addAddress(personAddress);
+		personDao.update(localPerson);
 
 	}
 
 	@Override
 	public List<PersonAddress> getAddressesForPerson(Person person) {
 		logger.info("Received person to return addresses for: " + person);
-		List<PersonAddress> result = personAddressDao.getAddressesForPerson(person);
+		List<PersonAddress> result = personAddressDao
+				.getAddressesForPerson(person);
 		logger.info("Retrieved addresses: " + result.toString());
 		return result;
 	}
 
 	@Override
 	public void updatePerson(Person person) {
-		personDao.update(person);		
+		personDao.update(person);
 	}
 }
