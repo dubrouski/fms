@@ -3,6 +3,7 @@ package net.dubrouski.fams.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import net.dubrouski.fams.annotations.DateSuccession;
 import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
@@ -29,12 +31,12 @@ public class Price implements Serializable, BaseEntity{
 	private Long id;
 	
 	@Column(name = "BASE_PRICE")
-	@Min(value=0)
+	@Min(value = 0)
 	@NotNull
 	private BigDecimal basePrice;
 	
 	@Column(name = "SERVICES_PRICE")
-	@Min(value=0)
+	@Min(value = 0)
 	@NotNull
 	private BigDecimal servicesPrice;
 	
@@ -48,6 +50,7 @@ public class Price implements Serializable, BaseEntity{
 	
 	@Column(name = "CURRENCY")
 	@NotNull
+	@Pattern(regexp="[a-zA-Z]+")
 	private String currency;
 	
 	public boolean validateDates(){
@@ -62,6 +65,11 @@ public class Price implements Serializable, BaseEntity{
 	public BigDecimal getTotalPrice(){
 		return basePrice.add(servicesPrice);
 	} 
+	
+	@Override
+	public String toString(){
+		return getClass().toString() + ": id: " + id + ": currency: " + currency; 
+	}
 	
 	@Override
     public boolean equals(Object obj) {

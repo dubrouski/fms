@@ -1,6 +1,7 @@
 package net.dubrouski.fams.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
@@ -52,6 +54,16 @@ public class Address implements Serializable, BaseEntity {
 	@Column(name = "LONGITUDE")
 	@Length(min = 1, max = 255)
 	private String longitude;
+	
+	@OneToMany(mappedBy = "address")
+	Set<AccommodationUnit> accommodations;
+	
+	
+
+	@Override
+	public String toString(){
+		return getClass().toString() + ": id: " +id;
+	}
 
 	public Long getId() {
 		return id;
@@ -115,6 +127,14 @@ public class Address implements Serializable, BaseEntity {
 
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
+	}
+	
+	public Set<AccommodationUnit> getAccommodations() {
+		return accommodations;
+	}
+
+	public void setAccommodations(Set<AccommodationUnit> accommodations) {
+		this.accommodations = accommodations;
 	}
 	
 	@Override

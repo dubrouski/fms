@@ -3,6 +3,7 @@ package net.dubrouski.fams.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -49,14 +50,14 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 			columnDefinition="Decimal(18,2) default '0.0'")
 	private BigDecimal depositAmount;
 	
-	@Column(name = "NAME")
+	@Column(name = "NAME", columnDefinition="TEXT default ''")	
 	private String name;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ADDRESS_ID")
 	private Address address;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.REMOVE})
 	private Price price;
 	
 	@Override
@@ -79,6 +80,11 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
         return 7 * this.getDepositAmount().hashCode()
         		+ 13 * this.getName().hashCode();
     }
+	
+	@Override
+	public String toString(){
+		return getClass().toString() + ": id: " + id + ": name: " + name; 
+	}
 	
 	public Long getId() {
 		return this.id;
