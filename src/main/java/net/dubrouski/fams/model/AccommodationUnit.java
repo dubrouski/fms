@@ -53,7 +53,7 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 	@Column(name = "NAME", columnDefinition="TEXT default ''")	
 	private String name;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "ADDRESS_ID")
 	private Address address;
 	
