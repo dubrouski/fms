@@ -3,6 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
 	template="/WEB-INF/templates/adminTemplate.xhtml">
 	<ui:define name="content">
 		<h1>Persons management</h1>
@@ -11,7 +12,8 @@
 			<table>
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="firstName" value="#{msg['person.create.name']}:" />
+						<h:outputLabel for="firstName"
+							value="#{msg['person.create.name']}:" />
 					</th>
 					<td>
 						<h:inputText id="firstName" value="#{newPerson.firstName}" />
@@ -20,7 +22,8 @@
 				</tr>
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="lastName" value="#{msg['person.create.surname']}:" />
+						<h:outputLabel for="lastName"
+							value="#{msg['person.create.surname']}:" />
 					</th>
 					<td>
 						<h:inputText id="lastName" value="#{newPerson.lastName}" />
@@ -29,7 +32,8 @@
 				</tr>
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="otherNames" value="#{msg['person.create.othernames']}:" />
+						<h:outputLabel for="otherNames"
+							value="#{msg['person.create.othernames']}:" />
 					</th>
 					<td>
 						<h:inputText id="otherNames" value="#{newPerson.otherNames}" />
@@ -38,18 +42,31 @@
 				</tr>
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="birthDate" value="#{msg['person.create.born']}:" />
+						<h:outputLabel for="birthDate"
+							value="#{msg['person.create.born']}:" />
 					</th>
 					<td>
-						<h:inputText id="birthDate" value="#{newPerson.birthDate}"
-							converter="dateStringConverter">
-						</h:inputText>
+						<!-- 						<h:inputText id="birthDate" value="#{newPerson.birthDate}" -->
+						<!-- 							converter="dateStringConverter"> -->
+
+						<!-- 						</h:inputText> -->
+
+						<rich:calendar value="#{newPerson.birthDate}"
+					converter="dateStringConverter" cellWidth="24px" cellHeight="22px"
+					style="width:200px" />
 						<h:message for="birthDate" errorClass="invalid" />
 					</td>
 				</tr>
+
+
+				
+
+
+
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="legalId" value="#{msg['person.create.legalid']}:" />
+						<h:outputLabel for="legalId"
+							value="#{msg['person.create.legalid']}:" />
 					</th>
 					<td>
 						<h:inputText id="legalId" value="#{newPerson.legalId}" />
@@ -58,7 +75,8 @@
 				</tr>
 				<tr>
 					<th style="text-align: right;">
-						<h:outputLabel for="businessId" value="#{msg['person.create.personid']}:" />
+						<h:outputLabel for="businessId"
+							value="#{msg['person.create.personid']}:" />
 					</th>
 					<td>
 						<h:inputText id="businessId" value="#{newPerson.businessId}" />
@@ -86,7 +104,8 @@
 			</table>
 			<p>
 				<h:commandButton id="register"
-					action="#{personController.createPerson}" value="#{msg['person.create.createbutton']}:" />
+					action="#{personController.createPerson}"
+					value="#{msg['person.create.createbutton']}:" />
 				<h:outputText value=" Saved."
 					rendered="#{facesContext.postback and empty facesContext.messageList}"
 					style="color: green;" />

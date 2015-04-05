@@ -1,6 +1,5 @@
 package net.dubrouski.fams.controller.person;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -35,12 +34,11 @@ public class PersonController {
 		return newPerson;
 	}
 
-	
-
-	public void createPerson() throws Exception {
+	public String createPerson() throws Exception {
 		logger.info("Saving new person " + newPerson.toString());
 		personService.savePerson(newPerson);
 		initNewPerson();
+		return "person-list";
 	}
 
 	@PostConstruct

@@ -6,10 +6,8 @@
 	template="/WEB-INF/templates/adminTemplate.xhtml">
 	<ui:define name="content">
 		<h1>Persons management</h1>
-		<h2>Confirm person deletion -
-			#{personDeletionController.personForDeletion}</h2>
-		<p>Remove person
-			#{personDeletionController.personForDeletion.firstName}
+		<h2>Delete person</h2>
+		<p>#{personDeletionController.personForDeletion.firstName}
 			#{personDeletionController.personForDeletion.lastName}? Deletion
 			cannot be undone!</p>
 		<h:form>

@@ -23,6 +23,8 @@ import net.dubrouski.fams.annotations.PhoneNumber;
 import net.dubrouski.fams.annotations.ValidateDateRanges;
 import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -67,8 +69,8 @@ public class Person implements Serializable {
 	@Column(name = "LEGAL_IDENTIFICATOR")
 	private String legalId;
 
-	@Column(name = "BUSINESS_ID", updatable = false)
-	@GeneratedValue
+	@Column(name = "BUSINESS_ID", columnDefinition = "serial")
+	@Generated(GenerationTime.INSERT)
 	private Long businessId;
 
 	@Column(name = "EMAIL")
@@ -161,7 +163,7 @@ public class Person implements Serializable {
 	public List<PersonAddress> getAddresses() {
 		return addresses;
 	}
-	
+
 	public void addAddress(PersonAddress address) {
 		this.addresses.add(address);
 	}

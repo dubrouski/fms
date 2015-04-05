@@ -13,6 +13,7 @@ import net.dubrouski.fams.dao.CountryDao;
 import net.dubrouski.fams.dao.impl.AddressDaoImpl;
 import net.dubrouski.fams.dao.impl.BaseDaoImpl;
 import net.dubrouski.fams.dao.impl.CountryDaoImpl;
+import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.BaseEntity;
 import net.dubrouski.fams.model.Country;
@@ -35,10 +36,13 @@ public class AddressDaoTest {
 	public static Archive<?> createTestArchive() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
-				.addClasses(Country.class, Address.class, AddressDao.class,
-						AddressDaoImpl.class, CountryDao.class,
-						CountryDaoImpl.class, BaseDao.class, BaseDaoImpl.class,
-						Resources.class, BaseEntity.class)
+				.addPackage("net.dubrouski.fams.model")
+				.addPackage("net.dubrouski.fams.dao")
+				.addPackage("net.dubrouski.fams.dao.impl")
+				.addPackage("net.dubrouski.fams.model.enums")
+				.addPackage("net.dubrouski.fams.exception")
+				.addPackage("net.dubrouski.fams.converter")
+				.addClasses(Resources.class)
 				.addAsResource("META-INF/persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
