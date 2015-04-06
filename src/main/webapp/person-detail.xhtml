@@ -11,9 +11,12 @@
 		<p:fieldset collapsed="false" legend="Personal information"
 			toggleable="true" toggleSpeed="250" style="margin-bottom:15px;">
 			<h:form>
-				<p:commandButton
+				<p:commandButton style="float:right; margin-bottom:10px;"
+					action="#{personDeletionController.requestPersonDelete(personDetailController.person)}"
+					value="Delete person" icon="ui-icon-closethick" />
+				<p:commandButton style="float:right; margin-bottom:10px;"
 					action="#{personUpdateController.startPersonUpdate(personDetailController.person.id)}"
-					value="Update person" />
+					value="Update person" icon="ui-icon-pencil" />
 			</h:form>
 
 			<p:panelGrid columns="3" layout="grid">
@@ -42,9 +45,9 @@
 		<p:fieldset collapsed="false" legend="Addresses" toggleable="true"
 			toggleSpeed="250" style="margin-bottom:15px;">
 			<h:form>
-				<p:commandButton
+				<p:commandButton style="float:right; margin-bottom:10px;"
 					action="#{personAddressController.startAddressCreation(personDetailController.person)}"
-					value="Create new address" />
+					value="Create new address" icon="ui-icon-plusthick" />
 			</h:form>
 
 			<p:dataTable rendered="true" var="address"
