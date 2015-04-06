@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -18,6 +19,8 @@ import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.service.AccommodationUnitService;
 
 @Path("/accommodations")
+@Produces("application/json")
+@Consumes("application/json")
 public class Accommodation{
 	
 	@Inject
@@ -26,35 +29,33 @@ public class Accommodation{
 	@Inject
 	Logger logger;
 	
-	@GET
-	@Produces("application/json")
+	@GET	
 	public List<AccommodationUnit> listAccommodations(){
 		return unitService.listAccommodations();
 	}
 	
 	@GET
 	@Path("/{id}")
-	@Produces("application/json")
+//	@Produces("application/json")
 	public AccommodationUnit getAccommodationByID(@PathParam("id") Long id){
-		return unitService.getAccommodationById(id);
+		return unitService.getAccommodationById(id); 
 	}
 	
-//	@PUT
-////	TODO: check for invalid children on update in dao layer?
-//	public void updateAccommodation(AccommodationUnit unit){
-//		unitService.update(unit);
-//	}
-//	
-//	@POST
-//	public void saveAccommodation(AccommodationUnit unit){
-////		unitService.save(unit);
-//		logger.info("Successssss!");
-//	}
-//	
-//	@DELETE
-//	public void deleteAccommodation(AccommodationUnit unit){
-//		unitService.delete(unit);
-//	}
-//	
+	@PUT
+//	TODO: check for invalid children on update in dao layer?
+	public void updateAccommodation(AccommodationUnit unit){
+		unitService.update(unit);
+	}
+	
+	@POST
+	public void saveAccommodation(AccommodationUnit unit){
+		unitService.save(unit);	
+	}
+	
+	@DELETE
+	public void deleteAccommodation(AccommodationUnit unit){
+		unitService.delete(unit);
+	}
+	
 	
 }
