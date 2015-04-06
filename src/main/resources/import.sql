@@ -1,5 +1,5 @@
-
-
+insert into accommodation_unit (name, type, deposit_amount) values ('by the window', 'room', '56.68'), ('at the door', 'room', '4785.7');
+insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2008-11-11', '00001', 'test@test.com', 'Sarah', 'Connor', 'YU123456789', 'Jessica', '777 888 999'), ('01.01.1960', '00002', 'test2@test.com', 'Parker', 'Evans', 'YU123456788', '-', '669 888 999');
 
 --fill countries list
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('AF', 'Afghanistan', 10);
