@@ -1,5 +1,6 @@
 package net.dubrouski.fams.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,20 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
+	public void updatePerson(Person person) {
+		personDao.update(person);
+	}
+
+	@Override
+	public void delete(Person person) {
+		logger.log(Level.INFO, "Method delete (person), person to delete: "
+				+ person);
+		personDao.delete(person);
+		logger.log(Level.INFO, "Method delete (person), person was deleted: "
+				+ person);
+	}
+
+	@Override
 	public Person getPersonById(Long id) {
 		Person result = personDao.getByID(id);
 		logger.log(Level.INFO, "Method getPersonById, id: " + id
@@ -56,18 +71,7 @@ public class PersonServiceImpl implements PersonService {
 
 	public Person getPersonByLegalId(String id) {
 		Person result = personDao.getByLegalId(id);
-		logger.log(Level.INFO, "Method getPersonByLegalId, id: " + id
-				+ ", found person: " + result.toString());
 		return result;
-	}
-
-	@Override
-	public void delete(Person person) {
-		logger.log(Level.INFO, "Method delete (person), person to delete: "
-				+ person);
-		personDao.delete(person);
-		logger.log(Level.INFO, "Method delete (person), person was deleted: "
-				+ person);
 	}
 
 	@Override
@@ -95,16 +99,10 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public List<PersonAddress> getAddressesForPerson(Person person) {
-		logger.info("Received person to return addresses for: " + person);
 		List<PersonAddress> result = personAddressDao
 				.getAddressesForPerson(person);
-		logger.info("Retrieved addresses: " + result.toString());
+		
 		return result;
-	}
-
-	@Override
-	public void updatePerson(Person person) {
-		personDao.update(person);
 	}
 
 	private Person getPersonWithAddresses(Long id) {
