@@ -36,6 +36,9 @@ public class PersonAddress implements BaseEntity, Serializable {
 	@Enumerated(EnumType.STRING)
 	private AddressType addressType;
 
+	@Column(name = "IS_ACTIVE", nullable = false, columnDefinition = "boolean default true")
+	private boolean active = true;
+
 	@OneToOne(fetch = FetchType.EAGER)
 	@NotNull
 	private Address address;
@@ -64,4 +67,11 @@ public class PersonAddress implements BaseEntity, Serializable {
 		this.address = address;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 }

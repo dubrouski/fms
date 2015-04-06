@@ -9,7 +9,8 @@
 		<h:form id="reg">
 			<p:growl id="msgs" showDetail="true" />
 
-			<h:panelGrid columns="3" cellpadding="5">
+			<p:panelGrid columns="3" layout="grid" cellpadding="5">
+
 				<p:outputLabel for="firstName" value="#{msg['person.create.name']}:" />
 				<p:inputText id="firstName" value="#{newPerson.firstName}" />
 				<p:message for="firstName" />
@@ -25,8 +26,8 @@
 				<p:message for="otherNames" />
 
 				<p:outputLabel for="birthDate" value="#{msg['person.create.born']}:" />
-				<p:calendar showOn="button" id="birthDate"
-					value="#{newPerson.birthDate}" pattern="dd.MM.yyyy" converter="dateStringConverter"/>
+				<p:inputMask id="birthDate" value="#{newPerson.birthDate}"
+					converter="dateStringConverter" mask="99.99.9999" />
 				<p:message for="birthDate" />
 
 				<p:outputLabel for="legalId"
@@ -36,7 +37,8 @@
 
 				<p:outputLabel for="businessId"
 					value="#{msg['person.create.personid']}:" />
-				<p:inputText id="businessId" value="#{newPerson.businessId}" />
+				<p:inputText disabled="true" id="businessId"
+					value="#{newPerson.businessId}" />
 				<p:message for="businessId" />
 
 				<p:outputLabel for="email" value="#{msg['person.create.email']}:" />
@@ -44,9 +46,10 @@
 				<p:message for="email" />
 
 				<p:outputLabel for="phone" value="#{msg['person.create.phone']}:" />
-				<p:inputText id="phone" value="#{newPerson.phone}" />
+				<p:inputMask id="phone" value="#{newPerson.phone}"
+					mask="+420 999 999 999" />
 				<p:message for="phone" />
-			</h:panelGrid>
+			</p:panelGrid>
 			<h:commandButton id="register"
 				action="#{personController.createPerson}"
 				value="#{msg['person.create.createbutton']}:" />

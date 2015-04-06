@@ -6,28 +6,31 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
-
 		<h:form id="reg">
 			<p:growl id="msgs" showDetail="true" />
 
-			<h:panelGrid columns="3" cellpadding="5">
+			<h:outputText
+				value="#{personAddressController.personToCreateAddress.toString()}" />
+
+			<p:panelGrid columns="3" cellpadding="5">
 				<p:outputLabel for="addrType" value="Address type:" />
 				<p:selectOneRadio id="addrType"
 					value="#{personAddressController.addressType}">
 					<f:selectItems value="#{personAddressController.addressTypes}"
-						var="c" />
+						var="addressType" itemValue="#{addressType}"
+						itemLabel="#{msg['enum.addresstype.'.concat(addressType.label)]}" />
 				</p:selectOneRadio>
 				<p:message for="addrType" />
 
+
 				<p:outputLabel for="country" value="Country" />
-				<p:selectOneListbox
-					value="#{personAddressController.newAddress.country}" var="country"
-					noSelectionValue="Select country"
-					converter="#{countryCodeConverter}" id="country">
-					<f:selectItems value="#{personAddressController.countries}"
-						var="country" itemLabel="#{country.code}"
+				<p:selectOneMenu id="country" converter="codeToCountryConverter"
+					value="#{personAddressController.newAddress.country}" effect="fold">
+					<f:selectItem itemLabel="Select One" itemValue="" />
+					<f:selectItems value="#{personAddressController.countriesList}"
+						var="country" itemLabel="#{msg['country.'.concat(country.code)]}"
 						itemValue="#{country.code}" />
-				</p:selectOneListbox>
+				</p:selectOneMenu>
 				<p:message for="country" />
 
 				<p:outputLabel for="city" value="City" />
@@ -53,11 +56,8 @@
 					<h:commandButton id="createAddress"
 						action="#{personAddressController.addAddressToPerson()}"
 						value="Add address" />
-					<h:outputText value=" Saved."
-						rendered="#{facesContext.postback and empty facesContext.messageList}"
-						style="color: green;" />
 				</p>
-			</h:panelGrid>
+			</p:panelGrid>
 		</h:form>
 	</ui:define>
 </ui:composition>

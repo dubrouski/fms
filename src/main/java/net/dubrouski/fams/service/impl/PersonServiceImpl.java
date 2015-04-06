@@ -81,6 +81,14 @@ public class PersonServiceImpl implements PersonService {
 
 		personAddressDao.save(personAddress);
 
+		// deactivate previous address of the same type
+		for (PersonAddress pa : personWithAddresses.getAddresses()) {
+			if (pa.getAddressType().equals(personAddress.getAddressType())) {
+				pa.setActive(false);
+				personAddressDao.update(pa);
+			}
+		}
+
 		personWithAddresses.addAddress(personAddress);
 		personDao.update(personWithAddresses);
 	}

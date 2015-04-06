@@ -49,7 +49,7 @@ public class PersonAddressController implements Serializable {
 	}
 
 	@Produces
-	public List<Country> getCountries() {
+	public List<Country> getCountriesList() {
 		return addressService.getCountriesList();
 	}
 

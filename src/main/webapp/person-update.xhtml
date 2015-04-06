@@ -3,109 +3,62 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
-		<h1>Persons management</h1>
 		<h:form id="reg">
-			<h2>Update person</h2>
-			<h2>person: #{personUpdateController.personToUpdate.toString()}</h2>
-			<table>
-				<tr>
-					<th style="text-align: right;">
-						<h:outputLabel for="firstName"
-							value="#{msg['person.create.name']}:" />
-					</th>
-					<td>
-						<h:inputText id="firstName"
-							value="#{personUpdateController.personToUpdate.firstName}" />
-						<h:message for="firstName" errorClass="invalid" />
-					</td>
-				</tr>
-				<tr>
-					<th style="text-align: right;">
-						<h:outputLabel for="lastName"
-							value="#{msg['person.create.surname']}:" />
-					</th>
-					<td>
-						<h:inputText id="lastName"
-							value="#{personUpdateController.personToUpdate.lastName}" />
-						<h:message for="lastName" errorClass="invalid" />
-					</td>
-				</tr>
-				<tr>
-					<th style="text-align: right;">
-						<h:outputLabel for="otherNames"
-							value="#{msg['person.create.othernames']}:" />
-					</th>
-					<td>
-						<h:inputText id="otherNames"
-							value="#{personUpdateController.personToUpdate.otherNames}" />
-						<h:message for="otherNames" errorClass="invalid" />
-					</td>
-				</tr>
-				<tr>
-					<th style="text-align: right;">
-						<h:outputLabel for="birthDate"
-							value="#{msg['person.create.born']}:" />
-					</th>
-					<td>
-						<h:inputText id="birthDate"
-							value="#{personUpdateController.personToUpdate.birthDate}"
-							converter="dateStringConverter">
-						</h:inputText>
-						<h:message for="birthDate" errorClass="invalid" />
-					</td>
-				</tr>
-				<tr>
-					<th style="text-align: right;">
-						<h:outputLabel for="legalId"
-							value="#{msg['person.create.legalid']}:" />
-					</th>
-					<td>
-						<h:inputText id="legalId"
-							value="#{personUpdateController.personToUpdate.legalId}" />
-						<h:message for="legalId" errorClass="invalid" />
-					</td>
-				</tr>
-				<tr>
-					<th style="text-align: right;">
-						<h:outputLabel for="businessId"
-							value="#{msg['person.create.personid']}:" />
-					</th>
-					<td>
-						<h:inputText id="businessId"
-							value="#{personUpdateController.personToUpdate.businessId}" />
-						<h:message for="businessId" errorClass="invalid" />
-					</td>
-				</tr>
-				<tr>
-					<th style="text-align: right;">
-						<h:outputLabel for="email" value="#{msg['person.create.email']}:" />
-					</th>
-					<td>
-						<h:inputText id="email"
-							value="#{personUpdateController.personToUpdate.email}" />
-						<h:message for="email" errorClass="invalid" />
-					</td>
-				</tr>
-				<tr>
-					<th style="text-align: right;">
-						<h:outputLabel for="phone" value="#{msg['person.create.phone']}:" />
-					</th>
-					<td>
-						<h:inputText id="phone" 
-							value="#{personUpdateController.personToUpdate.phone}" />
-						<h:message for="phone" errorClass="invalid" />
-					</td>
-				</tr>
-			</table>
+			<p:panelGrid columns="3" layout="grid" cellpadding="5">
+
+				<p:outputLabel for="firstName" value="#{msg['person.create.name']}:" />
+				<p:inputText id="firstName"
+					value="#{personUpdateController.personToUpdate.firstName}" />
+				<p:message for="firstName" />
+
+				<p:outputLabel for="lastName"
+					value="#{msg['person.create.surname']}:" />
+				<p:inputText id="lastName"
+					value="#{personUpdateController.personToUpdate.lastName}" />
+				<p:message for="lastName" />
+
+				<p:outputLabel for="otherNames"
+					value="#{msg['person.create.othernames']}:" />
+				<p:inputText id="otherNames"
+					value="#{personUpdateController.personToUpdate.otherNames}" />
+				<p:message for="otherNames" />
+
+				<p:outputLabel for="birthDate" value="#{msg['person.create.born']}:" />
+				<p:calendar showOn="button" id="birthDate"
+					value="#{personUpdateController.personToUpdate.birthDate}"
+					pattern="dd.MM.yyyy" converter="dateStringConverter" />
+				<p:message for="birthDate" />
+
+				<p:outputLabel for="legalId"
+					value="#{msg['person.create.legalid']}:" />
+				<p:inputText id="legalId"
+					value="#{personUpdateController.personToUpdate.legalId}" />
+				<p:message for="legalId" />
+
+				<p:outputLabel for="businessId"
+					value="#{msg['person.create.personid']}:" />
+				<p:inputText id="businessId"
+					value="#{personUpdateController.personToUpdate.businessId}" />
+				<p:message for="businessId" />
+
+				<p:outputLabel for="email" value="#{msg['person.create.email']}:" />
+				<p:inputText id="email"
+					value="#{personUpdateController.personToUpdate.email}" />
+				<p:message for="email" />
+
+				<p:outputLabel for="phone" value="#{msg['person.create.phone']}:" />
+				<p:inputText id="phone"
+					value="#{personUpdateController.personToUpdate.phone}" />
+				<p:message for="phone" />
+			</p:panelGrid>
+
 			<p>
-				<h:commandButton id="register"
+				<p:commandButton id="update"
 					action="#{personUpdateController.updatePerson(personUpdateController.personToUpdate)}"
 					value="Update" />
-				<h:outputText value=" Updated."
-					rendered="#{facesContext.postback and empty facesContext.messageList}"
-					style="color: green;" />
 			</p>
 		</h:form>
 	</ui:define>

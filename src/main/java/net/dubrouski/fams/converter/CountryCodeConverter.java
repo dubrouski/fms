@@ -3,13 +3,15 @@ package net.dubrouski.fams.converter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import net.dubrouski.fams.dao.CountryDao;
 import net.dubrouski.fams.model.Country;
 
-@Named
+@Named(value = "codeToCountryConverter")
+@FacesConverter("codeToCountryConverter")
 public class CountryCodeConverter implements Converter {
 
 	@Inject

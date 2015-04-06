@@ -6,125 +6,80 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
-		<p:accordionPanel multiple="true">
-			<p:tab title="Personal information">
-				<h:form>
-					<p:commandButton
-						action="#{personUpdateController.startPersonUpdate(personDetailController.person.id)}"
-						value="Update person" />
-				</h:form>
-				<table>
-					<tr>
-						<th style="text-align: right;">
-							<h:outputText value="#{msg['person.create.personid']}:" />
-						</th>
-						<td>
-							<h:outputText value="#{personDetailController.person.businessId}" />
-						</td>
-					</tr>
-					<tr>
-						<th style="text-align: right;">
-							<h:outputText value="#{msg['person.create.name']}:" />
-						</th>
-						<td>
-							<h:outputText value="#{personDetailController.person.firstName}" />
-						</td>
-					</tr>
-					<tr>
-						<th style="text-align: right;">
-							<h:outputText value="#{msg['person.create.surname']}:" />
-						</th>
-						<td>
-							<h:outputText value="#{personDetailController.person.lastName}" />
-						</td>
-					</tr>
-					<tr>
-						<th style="text-align: right;">
-							<h:outputText value="#{msg['person.create.othernames']}:" />
-						</th>
-						<td>
-							<h:outputText value="#{personDetailController.person.otherNames}" />
-						</td>
-					</tr>
-					<tr>
-						<th style="text-align: right;">
-							<h:outputText value="#{msg['person.create.born']}:" />
-						</th>
-						<td>
-							<h:outputText value="#{personDetailController.person.birthDate}" />
-						</td>
-					</tr>
-					<tr>
-						<th style="text-align: right;">
-							<h:outputText value="#{msg['person.create.legalid']}:" />
-						</th>
-						<td>
-							<h:outputText value="#{personDetailController.person.legalId}" />
-						</td>
-					</tr>
-					<tr>
-						<th style="text-align: right;">
-							<h:outputText value="#{msg['person.create.phone']}:" />
-						</th>
-						<td>
-							<h:outputText value="#{personDetailController.person.phone}" />
-						</td>
-					</tr>
-					<tr>
-						<th style="text-align: right;">
-							<h:outputText value="#{msg['person.create.email']}:" />
-						</th>
-						<td>
-							<h:outputText value="#{personDetailController.person.email}" />
-						</td>
-					</tr>
-				</table>
-			</p:tab>
-			<p:tab title="Person's addresses">
-				<h:form>
-					<p:commandButton
-						action="#{personAddressController.startAddressCreation(personDetailController.person)}"
-						value="Create new address" />
-				</h:form>
-
-				<p:dataTable rendered="true" var="address"
-					value="#{personDetailController.personsAddresses}">
-
-					<p:column headerText="Address type">
-						<h:outputText value="#{address.addressType}" />
-					</p:column>
-					<p:column headerText="Country">
-						<h:outputText value="#{address.address.country.code}" />
-					</p:column>
-					<p:column headerText="City">
-						<h:outputText value="#{address.address.city}" />
-					</p:column>
-					<p:column headerText="Street">
-						<h:outputText
-							value="#{address.address.streetName}, #{address.address.streetNumber}" />
-					</p:column>
-					<p:column headerText="Flat number">
-						<h:outputText value="#{address.address.flatNumber}" />
-					</p:column>
-					<p:column headerText="Actions">
-						<p:commandButton value="Delete"></p:commandButton>
-					</p:column>
-				</p:dataTable>
-			</p:tab>
-			<p:tab title="Person's contracts">
-				<h:panelGrid columns="2" cellpadding="10">
-					<p:graphicImage name="demo/images/godfather/godfather3.jpg" />
-					<h:outputText value="After a break of more than 15 years...." />
-				</h:panelGrid>
-			</p:tab>
-		</p:accordionPanel>
 
 
+		<p:fieldset collapsed="false" legend="Personal information"
+			toggleable="true" toggleSpeed="250" style="margin-bottom:15px;">
+			<h:form>
+				<p:commandButton
+					action="#{personUpdateController.startPersonUpdate(personDetailController.person.id)}"
+					value="Update person" />
+			</h:form>
+
+			<p:panelGrid columns="3" layout="grid">
+				<h:outputText
+					value="#{msg['person.create.personid']}: #{personDetailController.person.businessId}" />
+				<h:outputText
+					value="#{msg['person.create.legalid']}: #{personDetailController.person.legalId}" />
+				<h:outputText
+					value="#{msg['person.create.born']}: #{personDetailController.person.birthDate}" />
+
+				<h:outputText
+					value="#{msg['person.create.name']}: #{personDetailController.person.firstName}" />
+				<h:outputText
+					value="#{msg['person.create.othernames']}: #{personDetailController.person.otherNames}" />
+				<h:outputText
+					value="#{msg['person.create.surname']}: #{personDetailController.person.lastName}" />
+
+				<h:outputText
+					value="#{msg['person.create.phone']}: #{personDetailController.person.phone}" />
+				<h:outputText
+					value="#{msg['person.create.email']}: #{personDetailController.person.email}" />
+			</p:panelGrid>
+
+		</p:fieldset>
+
+		<p:fieldset collapsed="true" legend="Addresses" toggleable="true"
+			toggleSpeed="250" style="margin-bottom:15px;">
+			<h:form>
+				<p:commandButton
+					action="#{personAddressController.startAddressCreation(personDetailController.person)}"
+					value="Create new address" />
+			</h:form>
+
+			<p:dataTable rendered="true" var="address"
+				value="#{personDetailController.personsAddresses}">
+
+				<p:column headerText="Address type">
+					<h:outputText value="#{address.addressType}" />
+				</p:column>
+				<p:column headerText="Country">
+					<h:outputText
+						value="#{msg['country.'.concat(address.address.country.code)]}" />
+				</p:column>
+				<p:column headerText="City">
+					<h:outputText value="#{address.address.city}" />
+				</p:column>
+				<p:column headerText="Street">
+					<h:outputText
+						value="#{address.address.streetName}, #{address.address.streetNumber}" />
+				</p:column>
+				<p:column headerText="Flat number">
+					<h:outputText value="#{address.address.flatNumber}" />
+				</p:column>
+				<p:column headerText="Active">
+					<h:outputText value="#{address.active}" />
+				</p:column>
+			</p:dataTable>
+		</p:fieldset>
 
 
-
-
-
+		<p:fieldset collapsed="true" legend="Contracts" toggleable="true"
+			toggleSpeed="250" style="margin-bottom:15px;">
+			<h:panelGrid columns="2" cellpadding="10">
+				<h:outputText value="Person's contracts list goes here" />
+			</h:panelGrid>
+		</p:fieldset>
 
 	</ui:define>
 </ui:composition>

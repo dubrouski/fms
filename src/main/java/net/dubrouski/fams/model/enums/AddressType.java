@@ -5,6 +5,16 @@ package net.dubrouski.fams.model.enums;
  *
  */
 public enum AddressType {
-	Registration,
-	Contact
+	Registration("Registration"), Contact("Contact");
+
+	private String label;
+
+	private AddressType(String label) {
+		this.label = label;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
 }

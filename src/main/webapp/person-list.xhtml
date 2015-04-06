@@ -6,10 +6,10 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
-		<p:dataTable rows="20" paginator="true" reflow="true" var="person"
+		<p:dataTable rows="10" paginator="true" reflow="true" var="person"
 			value="#{personService.listPersons()}">
-			<p:column headerText="#{msg['person.list.id']}">
-				<h:outputText value="#{person.id}" />
+			<p:column headerText="#{msg['person.list.personid']}">
+				<h:outputText value="#{person.businessId}" />
 			</p:column>
 			<p:column headerText="#{msg['person.list.name']}">
 				<h:outputText value="#{person.firstName}" />
@@ -17,30 +17,24 @@
 			<p:column headerText="#{msg['person.list.surname']}">
 				<h:outputText value="#{person.lastName}" />
 			</p:column>
-			<p:column headerText="#{msg['person.list.othernames']}">
-				<h:outputText value="#{person.otherNames}" />
-			</p:column>
-			<p:column headerText="#{msg['person.list.born']}">
-				<h:outputText value=" #{person.birthDate}" />
-			</p:column>
 			<p:column headerText="#{msg['person.list.legalid']}">
 				<h:outputText value="#{person.legalId}" />
-			</p:column>
-			<p:column headerText="#{msg['person.list.personid']}">
-				<h:outputText value="#{person.businessId}" />
-			</p:column>
-			<p:column headerText="#{msg['person.list.email']}">
-				<h:outputText value="#{person.email}" />
-			</p:column>
+			</p:column>			
 			<p:column headerText="#{msg['person.list.phone']}">
 				<h:outputText value="#{person.phone}" />
 			</p:column>
-			<p:column>
+			<p:column headerText="Actions">
 				<h:form>
-					<h:commandLink value="Detail"
-						action="#{personDetailController.showDetail(person)}" />
-					<h:commandLink value="Delete"
-						action="#{personDeletionController.requestPersonDelete(person)}" />
+					<p:commandButton id="detailButton" icon="ui-icon-person"
+						action="#{personDetailController.showDetail(person)}"></p:commandButton>
+					<p:tooltip id="detailButtonToolTip" for="detailButton"
+						value="Show person's detail" />
+
+					<p:commandButton id="removeButton" icon="ui-icon-closethick"
+						action="#{personDeletionController.requestPersonDelete(person)}">
+						<p:tooltip id="removeButtonToolTip" for="removeButton"
+							value="Delete person" />
+					</p:commandButton>
 				</h:form>
 			</p:column>
 
