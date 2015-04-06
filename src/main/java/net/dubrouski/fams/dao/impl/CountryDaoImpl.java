@@ -1,5 +1,7 @@
 package net.dubrouski.fams.dao.impl;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
@@ -22,6 +24,17 @@ public class CountryDaoImpl extends BaseDaoImpl<Country, Long> implements
 				"select c from Country c where c.code = :code", Country.class);
 		try {
 			return query.setParameter("code", code).getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Country> listAll() {
+		TypedQuery<Country> query = this.entityManager.createQuery(
+				"select c from Country c order by c.order", Country.class);
+		try {
+			return query.getResultList();
 		} catch (NoResultException e) {
 			return null;
 		}

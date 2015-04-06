@@ -30,6 +30,10 @@ public class Country implements BaseEntity, Serializable {
 	@Column(name = "CODE")
 	@NotEmpty
 	private String code;
+	
+	@Column(name="ORDERING")
+	private int order;
+	
 
 	public Long getId() {
 		return id;
