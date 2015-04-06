@@ -35,6 +35,9 @@ public class PersonAddressController implements Serializable {
 	@Inject
 	AddressService addressService;
 
+	@Inject
+	PersonDetailController pdc;
+
 	private Person personToCreateAddress;
 
 	private Address newAddress;
@@ -76,12 +79,6 @@ public class PersonAddressController implements Serializable {
 
 	public String startAddressCreation(Person person) {
 		newAddress = new Address();
-		// TODO remove it
-		// newAddress.setCity("Jakarta");
-		// newAddress.setStreetName("Phengoan");
-		// newAddress.setStreetNumber("32");
-		// newAddress.setFlatNumber("32");
-
 		personToCreateAddress = person;
 
 		return "person-create-address";
@@ -91,7 +88,6 @@ public class PersonAddressController implements Serializable {
 		addressService.saveAddress(this.newAddress);
 		personService.setAddressToPerson(this.personToCreateAddress,
 				this.newAddress, this.addressType);
-		return "person-list";
+		return "person-detail";
 	}
-
 }

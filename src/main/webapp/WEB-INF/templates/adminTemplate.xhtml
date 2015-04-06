@@ -1,97 +1,57 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 <f:view locale="#{localeManager.locale}" />
 <h:head>
-	<title>Facilities Management System</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<h:outputStylesheet name="css/screen.css" />
+	<title>Facilities management system</title>
+	<meta name="author" content="The Author"></meta>
 </h:head>
-<h:body>
-	<div id="container">
-		<div id="content">
-			<div id="sidebar">
-				<h3>App menu:</h3>
-				<p>Persons management</p>
-				<ul>
-					<li>
-						<a href="person-list.jsf">#{msg['person.list.linkto']}</a>
-					</li>
-					<li>
-						<a href="person-create.jsf">#{msg['person.create.linkto']}</a>
-					</li>
-				</ul>
-				<p>Contracts management</p>
-				<ul>
-					<li>List all contracts</li>
-					<li>Create new contract</li>
-				</ul>
-				<p>Accommodations management</p>
-				<ul>
-					<li>
-						<h:form>
-							<h:commandLink
-								action="#{accoUnitControllerTEST.createTestData()}"
-								value="Create test data" />
-						</h:form>
+<h:body style="padding: 60px;">
 
-					</li>
-					<li>
-						<h:form>
-							<h:commandLink
-								action="#{accoUnitControllerTEST.setChildren()}"
-								value="Set parent-child relationship" />
-						</h:form>
+	<h:form>
+		<p:tabMenu activeIndex="#{param.i}">
+			<p:menuitem value="Person management" outcome="person-list.jsf"
+				icon="ui-icon-person">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			<p:menuitem value="Contract management" outcome="person-list.jsf"
+				icon="ui-icon-document">
+				<f:param name="i" value="1" />
+			</p:menuitem>
+			<p:menuitem value="Accomm. management" outcome="person-list.jsf"
+				icon="ui-icon-home">
+				<f:param name="i" value="2" />
+			</p:menuitem>
 
-					</li>
-					<li>
-						<h:form>
-							<h:commandLink
-								action="#{accoUnitControllerTEST.setAddressToUnits()}"
-								value="Set address" />
-						</h:form>
-					</li>
-					<li>
-						<h:form>
-							<h:commandLink
-								action="#{accoUnitControllerTEST.setAnotherAddressToUnits()}"
-								value="Set another address" />
-						</h:form>
-					</li>
+		</p:tabMenu>
+
+	</h:form>
 
 
-					<li>List all accommodations</li>
-					<li>Create new accommodation</li>
-				</ul>
-				<h:form>
-					<h:panelGrid columns="2">
- 
-		Language: 
-		
-    <h:selectOneMenu value="#{localeManager.language}"
-							onchange="submit()">
-							<f:selectItem itemValue="en_us" itemLabel="English" />
-							<f:selectItem itemValue="cs_cz" itemLabel="Czech" />
-						</h:selectOneMenu>
 
 
-					</h:panelGrid>
 
-				</h:form>
-			</div>
-			<ui:insert name="content">
-                    [Template content will be inserted here]
+
+	<ui:insert name="management-content">
+                    [Template ! content will be inserted here]
             </ui:insert>
-		</div>
-		<div id="footer">
-			<p>
-				2015
-				<br />
-			</p>
-		</div>
-	</div>
+
+	<h:form>
+	<h:outputText value="Choose language:" />
+
+		<p:selectOneRadio id="language-selector"
+			value="#{localeManager.language}" onchange="submit()">
+			<f:selectItem itemValue="en_us" itemLabel="English" />
+			<f:selectItem itemValue="cs_cz" itemLabel="Czech" />
+		</p:selectOneRadio>
+
+
+
+	</h:form>
 </h:body>
 </html>

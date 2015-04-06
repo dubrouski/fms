@@ -22,7 +22,7 @@ import net.dubrouski.fams.model.Room;
  */
 @Stateful
 @Model
-public class AccoUnitControllerTEST {
+public class AccoUnitControllerTEST_old {
 	@Inject
 	AccommodationUnitDao acuDao;
 
