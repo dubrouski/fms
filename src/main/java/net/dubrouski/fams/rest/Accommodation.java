@@ -43,19 +43,20 @@ public class Accommodation{
 	
 	@PUT
 //	TODO: check for invalid children on update in dao layer?
+	
 	public void updateAccommodation(AccommodationUnit unit){
 		unitService.update(unit);
 	}
 	
 	@POST
 	public void saveAccommodation(AccommodationUnit unit){
-		unitService.save(unit);	
+		logger.info(unit.toString());
+//		unitService.save(unit);	
 	}
 	
 	@DELETE
 	public void deleteAccommodation(AccommodationUnit unit){
-		unitService.delete(unit);
+		logger.info(unit.toString());
+//		unitService.delete(unit);
 	}
-	
-	
 }

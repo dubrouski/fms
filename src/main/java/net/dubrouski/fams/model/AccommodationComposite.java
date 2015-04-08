@@ -3,6 +3,7 @@ package net.dubrouski.fams.model;
 import java.util.*;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
@@ -18,7 +19,7 @@ public abstract class AccommodationComposite extends AccommodationUnit {
 	
 	private static final long serialVersionUID = 1L;	
 	
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinTable(name = "UNIT_UNIT", 
 			joinColumns = {
 				@JoinColumn(name = "PARENT_ID", referencedColumnName = "ID")
