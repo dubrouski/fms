@@ -33,7 +33,7 @@ import net.dubrouski.fams.util.AccommodationDeserializer;
 @DiscriminatorColumn(name = "TYPE", discriminatorType = DiscriminatorType.STRING)
 @ForceDiscriminator
 @Table(name = "ACCOMMODATION_UNIT")
-@JsonDeserialize(using=AccommodationDeserializer.class)
+@JsonDeserialize(using = AccommodationDeserializer.class)
 public abstract class AccommodationUnit implements Serializable, BaseEntity {
 
 	private static final long serialVersionUID = 25L;

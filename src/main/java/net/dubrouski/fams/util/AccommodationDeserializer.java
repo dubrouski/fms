@@ -2,6 +2,7 @@ package net.dubrouski.fams.util;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -21,6 +22,7 @@ import org.codehaus.jackson.ObjectCodec;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 
 public class AccommodationDeserializer extends JsonDeserializer<AccommodationUnit>{
 	
@@ -45,11 +47,7 @@ public class AccommodationDeserializer extends JsonDeserializer<AccommodationUni
 		
 		if(node.get("id") != null){
 			u.setId(node.get("id").asLong());
-		}
-		else {
-			throw new FmsException("Deserialization error: missing id for AccommodationUnit");
-		}
-		
+		}		
 		if(node.get("depositAmount") != null){
 			u.setDepositAmount(BigDecimal.valueOf(node.get("depositAmount").asDouble()));
 		}	
@@ -67,16 +65,15 @@ public class AccommodationDeserializer extends JsonDeserializer<AccommodationUni
 		}
 		if(node.get("price") != null){
 			u.setPrice(mapper.readValue(node.get("price"), Price.class));	
-		}		
-//		if(u.getType() != "place"){
-//			AccommodationComposite c =  (AccommodationComposite) u;
-//			c.
-//		}
+		}
+		
+		if(u.getType() != "place" && node.get("children") != null){
+			AccommodationComposite c =  (AccommodationComposite) u;
+			String s = node.get("children").toString();
+			List<AccommodationUnit> asList = mapper.readValue(s, new TypeReference<List<AccommodationUnit>>() { });
+			c.setChildren(asList);
+			u = c;
+		}
 		return u;
 	}
-	
-	private AccommodationUnit parse(JsonNode node){
-		return null;
-	}
-
 }
