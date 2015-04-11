@@ -3,60 +3,41 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	template="/WEB-INF/templates/adminTemplate.xhtml">
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
-		<h1>Persons management</h1>
-		<h:dataTable var="person" value="#{personService.listPersons()}">
-			<h:column>
-				<f:facet name="header">#{msg['person.list.id']}</f:facet>
-                #{person.id}
-            </h:column>
-			<h:column>
-				<f:facet name="header">#{msg['person.list.name']}</f:facet>
-                #{person.firstName}
-            </h:column>
-			<h:column>
-				<f:facet name="header">#{msg['person.list.surname']}</f:facet>
-                #{person.lastName}
-            </h:column>
-			<h:column>
-				<f:facet name="header">#{msg['person.list.othernames']}</f:facet>
-                #{person.otherNames}
-            </h:column>
-			<h:column>
-				<f:facet name="header">#{msg['person.list.born']}</f:facet>
-                #{person.birthDate}
-            </h:column>
-			<h:column>
-				<f:facet name="header">#{msg['person.list.legalid']}</f:facet>
-                #{person.legalId}
-            </h:column>
-			<h:column>
-				<f:facet name="header">#{msg['person.list.personid']}</f:facet>
-                #{person.businessId}
-            </h:column>
-			<h:column>
-				<f:facet name="header">#{msg['person.list.email']}</f:facet>
-                #{person.email}
-            </h:column>
-			<h:column>
-				<f:facet name="header">#{msg['person.list.phone']}</f:facet>
-                #{person.phone}
-            </h:column>
-			<h:column>
-				<f:facet name="header"></f:facet>
+		<p:dataTable rows="10" paginator="true" reflow="true" var="person"
+			value="#{personService.listPersons()}">
+			<p:column headerText="#{msg['person.list.personid']}">
+				<h:outputText value="#{person.businessId}" />
+			</p:column>
+			<p:column headerText="#{msg['person.list.name']}">
+				<h:outputText value="#{person.firstName}" />
+			</p:column>
+			<p:column headerText="#{msg['person.list.surname']}">
+				<h:outputText value="#{person.lastName}" />
+			</p:column>
+			<p:column headerText="#{msg['person.list.legalid']}">
+				<h:outputText value="#{person.legalId}" />
+			</p:column>			
+			<p:column headerText="#{msg['person.list.phone']}">
+				<h:outputText value="#{person.phone}" />
+			</p:column>
+			<p:column headerText="Actions">
 				<h:form>
-					<h:commandLink value="Detail"
-						action="#{personDetailController.showDetail(person)}" />
+					<p:commandButton id="detailButton" icon="ui-icon-person"
+						action="#{personDetailController.showDetail(person)}"></p:commandButton>
+					<p:tooltip id="detailButtonToolTip" for="detailButton"
+						value="Show person's detail" />
+
+					<p:commandButton id="removeButton" icon="ui-icon-closethick"
+						action="#{personDeletionController.requestPersonDelete(person)}">
+						<p:tooltip id="removeButtonToolTip" for="removeButton"
+							value="Delete person" />
+					</p:commandButton>
 				</h:form>
-			</h:column>
-			<h:column>
-				<f:facet name="header"></f:facet>
-				<h:form>
-					<h:commandLink value="Delete"
-						action="#{personController.requestPersonDelete(person)}" />
-				</h:form>
-			</h:column>
-		</h:dataTable>
+			</p:column>
+
+		</p:dataTable>
 	</ui:define>
 </ui:composition>

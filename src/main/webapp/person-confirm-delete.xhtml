@@ -3,19 +3,20 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	template="/WEB-INF/templates/adminTemplate.xhtml">
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
-		<h1>Persons management</h1>
-		<h2>Confirm person deletion -
-			#{personController.personForDeletion}</h2>
-		<p>Remove person #{personController.personForDeletion.firstName}
-			#{personController.personForDeletion.lastName}? Deletion cannot be
-			undone!</p>
+
+		<p>Are you sure you want to delete this person:
+			#{personDeletionController.personForDeletion.firstName}
+			#{personDeletionController.personForDeletion.lastName}? Deletion
+			cannot be undone!</p>
 		<h:form>
-			<h:commandLink
-				action="#{personController.confirmPersonDelete(personController.personForDeletion.id)}"
+			<p:commandButton icon="ui-icon-check"
+				action="#{personDeletionController.confirmPersonDelete()}"
 				value="Yes, delete." />
-			<a href="persons-list.jsf">No, return to list.</a>
+			<p:button icon="ui-icon-closethick" outcome="person-list.jsf"
+				value="No, return to list." />
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -1,4 +1,4 @@
-package net.dubrouski.fams.controller;
+package net.dubrouski.fams.controller.person;
 
 import java.io.Serializable;
 import java.util.List;
@@ -50,7 +50,11 @@ public class PersonDetailController implements Serializable {
 
 	public String showDetail(Person p) {
 		logger.info("Received person to display: " + p.toString());
+
+		// person = personService.getPersonWithAddresses(p.getId());
 		person = personService.getPersonByLegalId(p.getLegalId());
+
+		// personsAddresses = person.getAddresses();
 		personsAddresses = personService.getAddressesForPerson(p);
 
 		logger.info("Person was set to :" + person.toString());
@@ -59,9 +63,9 @@ public class PersonDetailController implements Serializable {
 		return "person-detail";
 	}
 
-//	@PostConstruct
-//	public void init() {
-//		person = personService.getPersonByLegalId("LEGAL");
-//		personsAddresses = personService.getAddressesForPerson(person);
-//	}
+	// @PostConstruct
+	// public void init() {
+	// person = personService.getPersonByLegalId("LEGAL");
+	// personsAddresses = personService.getAddressesForPerson(person);
+	// }
 }

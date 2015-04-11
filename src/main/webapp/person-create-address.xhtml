@@ -3,63 +3,61 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	template="/WEB-INF/templates/adminTemplate.xhtml">
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
-		<h1>Persons management</h1>
 		<h:form id="reg">
-			<h2>Create new address for person:
-				#{personAddressCreationController.personToCreateAddress}</h2>
-			<table>
+			<p:growl id="msgs" showDetail="true" />
 
-				<tr>
-					<th style="text-align: right;">
-						<h:outputLabel for="city" value="City" />
-					</th>
-					<td>
-						<h:inputText id="city"
-							value="#{personAddressCreationController.newAddress.city}" />
-						<h:message for="city" errorClass="invalid" />
-					</td>
-				</tr>
-				<tr>
-					<th style="text-align: right;">
-						<h:outputLabel for="streetName" value="Street name" />
-					</th>
-					<td>
-						<h:inputText id="streetName"
-							value="#{personAddressCreationController.newAddress.streetName}" />
-						<h:message for="streetName" errorClass="invalid" />
-					</td>
-				</tr>
-				<tr>
-					<th style="text-align: right;">
-						<h:outputLabel for="streetNumber" value="Street number" />
-					</th>
-					<td>
-						<h:inputText id="streetNumber"
-							value="#{personAddressCreationController.newAddress.streetNumber}" />
-						<h:message for="streetNumber" errorClass="invalid" />
-					</td>
-				</tr>
-				<tr>
-					<th style="text-align: right;">
-						<h:outputLabel for="flatNumber" value="Flat number" />
-					</th>
-					<td>
-						<h:inputText id="flatNumber"
-							value="#{personAddressCreationController.newAddress.flatNumber}" />
-						<h:message for="flatNumber" errorClass="invalid" />
-					</td>
-				</tr>
-			</table>
-			<p>
-				<h:commandButton id="register"
-					action="#{personController.createPerson}"
-					value="#{msg['person.create.createbutton']}:" />
-				<h:outputText value=" Saved."
-					rendered="#{facesContext.postback and empty facesContext.messageList}"
-					style="color: green;" />
-			</p>
+			<h:outputText
+				value="#{personAddressController.personToCreateAddress.toString()}" />
+
+			<p:panelGrid columns="3" cellpadding="5">
+				<p:outputLabel for="addrType" value="Address type:" />
+				<p:selectOneRadio id="addrType"
+					value="#{personAddressController.addressType}">
+					<f:selectItems value="#{personAddressController.addressTypes}"
+						var="addressType" itemValue="#{addressType}"
+						itemLabel="#{msg['enum.addresstype.'.concat(addressType.label)]}" />
+				</p:selectOneRadio>
+				<p:message for="addrType" />
+
+
+				<p:outputLabel for="country" value="Country" />
+				<p:selectOneMenu id="country" converter="codeToCountryConverter"
+					value="#{personAddressController.newAddress.country}" effect="fold">
+					<f:selectItem itemLabel="Select One" itemValue="" />
+					<f:selectItems value="#{personAddressController.countriesList}"
+						var="country" itemLabel="#{msg['country.'.concat(country.code)]}"
+						itemValue="#{country.code}" />
+				</p:selectOneMenu>
+				<p:message for="country" />
+
+				<p:outputLabel for="city" value="City" />
+				<p:inputText id="city"
+					value="#{personAddressController.newAddress.city}"></p:inputText>
+				<p:message for="city" />
+
+				<p:outputLabel for="streetName" value="Street name:" />
+				<p:inputText id="streetName"
+					value="#{personAddressController.newAddress.streetName}"></p:inputText>
+				<p:message for="streetName" />
+
+				<p:outputLabel for="streetNumber" value="Num.:" />
+				<p:inputText id="streetNumber"
+					value="#{personAddressController.newAddress.streetNumber}"></p:inputText>
+				<p:message for="streetNumber" />
+
+				<p:outputLabel for="flatNumber" value="Flat number" />
+				<p:inputText id="flatNumber"
+					value="#{personAddressController.newAddress.flatNumber}"></p:inputText>
+				<p:message for="flatNumber" />
+				<p>
+					<h:commandButton id="createAddress"
+						action="#{personAddressController.addAddressToPerson()}"
+						value="Add address" />
+				</p>
+			</p:panelGrid>
 		</h:form>
 	</ui:define>
 </ui:composition>

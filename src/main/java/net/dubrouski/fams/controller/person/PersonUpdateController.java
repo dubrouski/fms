@@ -1,4 +1,4 @@
-package net.dubrouski.fams.controller;
+package net.dubrouski.fams.controller.person;
 
 import java.io.Serializable;
 import java.util.logging.Logger;
@@ -29,6 +29,9 @@ public class PersonUpdateController implements Serializable {
 	private Logger logger;
 
 	@Inject
+	private PersonDetailController personDetailController;
+
+	@Inject
 	PersonService personService;
 
 	private Person personToUpdate;
@@ -46,9 +49,10 @@ public class PersonUpdateController implements Serializable {
 	}
 
 	@Named
-	public String updatePerson(@Valid Person person) {
-		personService.updatePerson(person);
-		return "person-list";
+	public void updatePerson(@Valid Person person) {
+		personService.updatePerson(person);		
+		personDetailController.showDetail(person);
+
 	}
 
 }

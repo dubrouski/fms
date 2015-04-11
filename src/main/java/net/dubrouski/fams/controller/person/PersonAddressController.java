@@ -1,26 +1,28 @@
-package net.dubrouski.fams.controller;
+package net.dubrouski.fams.controller.person;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.logging.Logger;
 
-import javax.ejb.Stateful;
-import javax.enterprise.inject.Model;
+import javax.enterprise.inject.Produces;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 
-import net.dubrouski.fams.dao.AddressDao;
-import net.dubrouski.fams.dao.PersonAddressDao;
 import net.dubrouski.fams.model.Address;
+import net.dubrouski.fams.model.Country;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.enums.AddressType;
+import net.dubrouski.fams.service.AddressService;
 import net.dubrouski.fams.service.PersonService;
 
 /**
  * @author stanislau.dubrouski
  *
  */
-@Stateful
-@Model
-public class PersonAddressCreationController implements Serializable {
+@ManagedBean
+@SessionScoped
+public class PersonAddressController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,11 +32,26 @@ public class PersonAddressCreationController implements Serializable {
 	@Inject
 	PersonService personService;
 
+	@Inject
+	AddressService addressService;
+
+	@Inject
+	PersonDetailController pdc;
+
 	private Person personToCreateAddress;
 
 	private Address newAddress;
 
-	private AddressType addressType;
+	private AddressType addressType = AddressType.Contact;
+
+	public AddressType[] getAddressTypes() {
+		return AddressType.values();
+	}
+
+	@Produces
+	public List<Country> getCountriesList() {
+		return addressService.getCountriesList();
+	}
 
 	public Address getNewAddress() {
 		return newAddress;
@@ -62,17 +79,15 @@ public class PersonAddressCreationController implements Serializable {
 
 	public String startAddressCreation(Person person) {
 		newAddress = new Address();
-		personToCreateAddress = personService.getPersonByLegalId(person
-				.getLegalId());
+		personToCreateAddress = person;
 
 		return "person-create-address";
 	}
 
 	public String addAddressToPerson() {
+		addressService.saveAddress(this.newAddress);
 		personService.setAddressToPerson(this.personToCreateAddress,
 				this.newAddress, this.addressType);
-
-		return "person-list";
+		return "person-detail";
 	}
-
 }

@@ -24,7 +24,7 @@ public class PersonAddressDaoImpl extends BaseDaoImpl<PersonAddress, Long>
 	public List<PersonAddress> getAddressesForPerson(Person person) {
 		TypedQuery<PersonAddress> query = this.entityManager
 				.createQuery(
-						"select adr from Person pers JOIN pers.addresses adr where pers.id = :id",
+						"select adr from Person pers JOIN pers.addresses adr where pers.id = :id order by adr.active desc",
 						PersonAddress.class);
 		return query.setParameter("id", person.getId()).getResultList();
 	}
