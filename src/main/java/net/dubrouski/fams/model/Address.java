@@ -1,10 +1,10 @@
 package net.dubrouski.fams.model;
 
 import java.io.Serializable;
-import java.util.Set;
-
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import net.dubrouski.fams.util.AddressSerializer;
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -20,6 +23,7 @@ import org.hibernate.validator.constraints.Length;
  */
 @Entity
 @Table(name = "ADDRESS")
+@JsonSerialize(using = AddressSerializer.class)
 public class Address implements Serializable, BaseEntity {
 	private static final long serialVersionUID = 1L;
 
@@ -55,8 +59,8 @@ public class Address implements Serializable, BaseEntity {
 	@Length(min = 1, max = 255)
 	private String longitude;
 	
-	@OneToMany(mappedBy = "address")
-	Set<AccommodationUnit> accommodations;
+	@OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
+	List<AccommodationUnit> accommodations;
 
 	public Long getId() {
 		return id;
@@ -122,11 +126,11 @@ public class Address implements Serializable, BaseEntity {
 		this.longitude = longitude;
 	}
 	
-	public Set<AccommodationUnit> getAccommodations() {
+	public List<AccommodationUnit> getAccommodations() {
 		return accommodations;
 	}
 
-	public void setAccommodations(Set<AccommodationUnit> accommodations) {
+	public void setAccommodations(List<AccommodationUnit> accommodations) {
 		this.accommodations = accommodations;
 	}
 	

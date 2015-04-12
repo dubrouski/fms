@@ -19,7 +19,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.hibernate.annotations.ForceDiscriminator;
+import net.dubrouski.fams.util.AccommodationDeserializer;
 /**
  * 
  * @author ondrej.prazak
@@ -31,6 +33,7 @@ import org.hibernate.annotations.ForceDiscriminator;
 @DiscriminatorColumn(name = "TYPE", discriminatorType = DiscriminatorType.STRING)
 @ForceDiscriminator
 @Table(name = "ACCOMMODATION_UNIT")
+@JsonDeserialize(using = AccommodationDeserializer.class)
 public abstract class AccommodationUnit implements Serializable, BaseEntity {
 
 	private static final long serialVersionUID = 25L;
@@ -52,6 +55,9 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 	
 	@Column(name = "NAME", columnDefinition="TEXT default ''")	
 	private String name;
+	
+	@Column(name = "TYPE", insertable = false, updatable = false)
+	private String type;
 	
 	@ManyToOne
 	@JoinColumn(name = "ADDRESS_ID")
@@ -83,7 +89,7 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 	
 	@Override
 	public String toString(){
-		return getClass().toString() + ": id: " + id + ": name: " + name; 
+		return getClass().toString() + ": id: " + id + ": name: " + name + ": type: " + type; 
 	}
 	
 	public Long getId() {
@@ -133,6 +139,14 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 
 	public void setPrice(Price price) {
 		this.price = price;
-	}	
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 }
