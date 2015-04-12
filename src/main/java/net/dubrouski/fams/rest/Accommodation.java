@@ -32,18 +32,30 @@ public class Accommodation{
 	Logger logger;
 	
 	@GET	
-	public List<AccommodationUnit> listAccommodations(){
-		return unitService.listAccommodations();
+	public Response listAccommodations(){
+		try{
+			List<AccommodationUnit> found = unitService.listAccommodations();
+			return Response.ok().entity(found).build();
+		}
+		catch(Exception ex){
+			return Response.status(400).entity(ex.getMessage()).build();
+		}
 	}
 	
 	@GET
 	@Path("/{id}")
-	public AccommodationUnit getAccommodationByID(@PathParam("id") Long id){
-		return unitService.getAccommodationById(id); 
+	public Response getAccommodationByID(@PathParam("id") Long id){
+		try{
+			AccommodationUnit found = unitService.getAccommodationById(id);
+			return Response.ok().entity(found).build();
+		}
+		catch(Exception ex){
+			return Response.status(400).entity(ex.getMessage()).build();
+		}
 	}
 	
 	@PUT
-//	TODO: check for invalid children on update in dao layer?
+//	TODO: check for invalid children on update
 	public Response updateAccommodation(AccommodationUnit unit){
 		try{
 			unitService.update(unit);
@@ -75,5 +87,18 @@ public class Accommodation{
 		catch(Exception ex){
 			return Response.status(400).entity(ex.getMessage()).build();
 		}		
+	}
+	
+	@GET
+	@Path("/{types}")
+	public Response listAccommodationsByType(@PathParam("types") String types){
+		try{
+			String type = types.substring(0, types.length() - 1);
+			List<AccommodationUnit> found = unitService.listAccommodationsByType(type);
+			return Response.ok().entity(found).build();
+		}
+		catch(Exception ex){
+			return Response.status(400).entity(ex.getMessage()).build();
+		}
 	}
 }

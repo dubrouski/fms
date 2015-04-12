@@ -1,5 +1,7 @@
 package net.dubrouski.fams.dao;
 
+import java.util.List;
+
 import net.dubrouski.fams.model.AccommodationComposite;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
@@ -22,5 +24,7 @@ public interface AccommodationUnitDao extends BaseDao<AccommodationUnit, Long>{
 	public void setAddressWithChildren(AccommodationUnit unit, Address address);
 	
 	public void setPrice(AccommodationUnit unit, Price price);
+	
+	public List<AccommodationUnit> listAccommodationsByType(String type);
 
 }

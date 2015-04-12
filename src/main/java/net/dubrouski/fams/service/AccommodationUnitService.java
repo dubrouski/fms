@@ -26,4 +26,6 @@ public interface AccommodationUnitService {
 	public void setAddress(AccommodationUnit unit, Address address);
 	
 	public void setAddressWithChildren(AccommodationUnit unit, Address address);
+	
+	public List<AccommodationUnit> listAccommodationsByType(String type);
 }

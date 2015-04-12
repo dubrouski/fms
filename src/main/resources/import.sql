@@ -268,6 +268,9 @@ INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('AX', 'Ã
 
 --accommodation unit related seeds
 insert into address (city_name, street_name, street_num, flat_num, country_id) values ('Brno', 'Botanicka', '53', '26a', 59);
+
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (2500, 1400, 'CZK', '10.2.2016', '9.2.2017');
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (3200, 1700, 'CZK', '10.2.2017', '9.2.2018');
-insert into accommodation_unit (name, type, deposit_amount, address_id, price_id) values ('by the window', 'room', '56.68', 1, 1), ('at the door', 'room', '4785.7', 1, 2);
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (1500, 2000, 'CZK', '11.3.2015', '9.8.2018');
+
+insert into accommodation_unit (name, type, deposit_amount, address_id, price_id) values ('big room', 'room', '56.68', 1, 1), ('small room', 'room', '4785.7', 1, 2), ('at the window', 'place', '256', null, 3);
