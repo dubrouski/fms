@@ -236,4 +236,24 @@ public class AccommodationUnitDaoTest {
 //		assertNotNull(room.getPrice());
 //	}
 	
+	@Test
+	public void listAccommodationsByTypeTest(){
+		int initialPlaces = unitDao.listAccommodationsByType("place").size();
+		int initialRooms = unitDao.listAccommodationsByType("room").size();
+		Place place = getPlace(false, "my place", BigDecimal.valueOf(55.24));
+		unitDao.save(place);
+		Room room = getRoom(false, "nice room", BigDecimal.valueOf(55.24));
+		unitDao.save(room);
+		int finalPlaces = unitDao.listAccommodationsByType("place").size();
+		int finalRooms = unitDao.listAccommodationsByType("room").size();
+		
+		assertEquals(initialPlaces + 1, finalPlaces);
+		assertEquals(initialRooms + 1, finalRooms);		
+	}
+	
+	@Test(expected = Exception.class)
+	public void listAccommodationsByTypeFailTest(){
+		unitDao.listAccommodationsByType("mansion");
+	}
+	
 }

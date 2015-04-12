@@ -102,4 +102,12 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService{
 		}
 		logger.info("New address was set: " + unit.getAddress());
 	}
+
+	@Override
+	public List<AccommodationUnit> listAccommodationsByType(String type) {
+		logger.info("Retrieving Accommodations by type: " + type);
+		List<AccommodationUnit> found = unitDao.listAccommodationsByType(type);
+		logger.info("Accommodations found: " + found.size());
+		return found;
+	}
 }

@@ -114,6 +114,16 @@ public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Lon
 		update(unit);
 	}
 
-	
+	@Override
+	public List<AccommodationUnit> listAccommodationsByType(String type) {
+		if(type.equals("room") || type.equals("place")){
+			Query q = entityManager.createQuery("SELECT u FROM AccommodationUnit u WHERE u.type = :type");
+			q.setParameter("type", type);
+			return q.getResultList();
+		}
+		else{
+			throw new FmsException("Unknown AccommodationUnit type");
+		}		
+	}
 
 }
