@@ -65,6 +65,10 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 	
 	@OneToOne(cascade = {CascadeType.REMOVE})
 	private Price price;
+
+	@OneToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "METER_DATA_ID")
+	private MetersData metersData;
 	
 	@Override
     public boolean equals(Object obj) {
@@ -139,6 +143,14 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 
 	public void setPrice(Price price) {
 		this.price = price;
+	}
+
+	public MetersData getMetersData() {
+		return metersData;
+	}
+
+	public void setMetersData(MetersData metersData) {
+		this.metersData = metersData;
 	}
 
 	public String getType() {

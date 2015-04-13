@@ -3,12 +3,7 @@ package net.dubrouski.fams.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 import net.dubrouski.fams.model.enums.ContractState;
@@ -54,6 +49,14 @@ public class Contract implements BaseEntity, Serializable{
 	@Column(name = "TERMINATION_REQUEST_DATE")
 	@Convert(converter = LocalDatePersistenceConverter.class)
 	private LocalDate terminationRequestDate;
+
+	@ManyToOne
+	@JoinColumn(name = "START_DATA_ID")
+	private MetersData startData;
+
+	@ManyToOne
+	@JoinColumn(name = "END_DATA_ID")
+	private MetersData endData;
 
 	public Long getId() {
 		return Id;
@@ -126,11 +129,21 @@ public class Contract implements BaseEntity, Serializable{
 	public void setTerminationRequestDate(LocalDate terminationRequestDate) {
 		this.terminationRequestDate = terminationRequestDate;
 	}
-	
-	
-	
-	
-	
-	
+
+	public MetersData getStartData() {
+		return startData;
+	}
+
+	public void setStartData(MetersData startData) {
+		this.startData = startData;
+	}
+
+	public MetersData getEndData() {
+		return endData;
+	}
+
+	public void setEndData(MetersData endData) {
+		this.endData = endData;
+	}
 
 }
