@@ -55,11 +55,11 @@
 					mask="+420 999 999 999" />
 				<p:message for="phone" />
 			</p:panelGrid>
-
-			<p>
+			<h:form>
 				<p:commandButton id="update" ajax="false"
 					action="#{personUpdateController.updatePerson(personUpdateController.personToUpdate)}"
-					value="Update" />			</p>
+					value="Update" />
+			</h:form>
 		</h:form>
 	</ui:define>
 </ui:composition>

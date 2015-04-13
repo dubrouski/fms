@@ -12,9 +12,12 @@
 			value="Delete person" icon="ui-icon-closethick" />
 		<p:fieldset collapsed="false" legend="Personal information"
 			toggleable="true" toggleSpeed="250" style="margin-bottom:15px;">
-			<p:commandButton style="float:right; margin-bottom:10px;"
-				action="#{personUpdateController.startPersonUpdate(personDetailController.person)}"
-				value="Update person" icon="ui-icon-pencil" />
+			<h:form>
+				<p:commandButton ajax="false"
+					style="float:right; margin-bottom:10px;"
+					action="#{personUpdateController.startPersonUpdate(personDetailController.person)}"
+					value="Update person" icon="ui-icon-pencil" />
+			</h:form>
 			<p:panelGrid columns="3" layout="grid">
 				<h:outputText
 					value="#{msg['person.create.personid']}: #{personDetailController.person.businessId}" />
@@ -22,14 +25,12 @@
 					value="#{msg['person.create.legalid']}: #{personDetailController.person.legalId}" />
 				<h:outputText
 					value="#{msg['person.create.born']}: #{personDetailController.person.birthDate}" />
-
 				<h:outputText
 					value="#{msg['person.create.name']}: #{personDetailController.person.firstName}" />
 				<h:outputText
 					value="#{msg['person.create.othernames']}: #{personDetailController.person.otherNames}" />
 				<h:outputText
 					value="#{msg['person.create.surname']}: #{personDetailController.person.lastName}" />
-
 				<h:outputText
 					value="#{msg['person.create.phone']}: #{personDetailController.person.phone}" />
 				<h:outputText
@@ -48,7 +49,8 @@
 				action="#{personAddressController.startAddressCreation(personDetailController.person)}"
 				value="Create new address" icon="ui-icon-plusthick" />
 
-			<p:dataTable style="clear:both;" id="personAddressesTable" rendered="true" var="address"
+			<p:dataTable style="clear:both;" id="personAddressesTable"
+				rendered="true" var="address"
 				value="#{personService.getAddressesForPerson(personDetailController.person)}">
 				<p:column headerText="Address type">
 					<h:outputText value="#{address.addressType}" />
