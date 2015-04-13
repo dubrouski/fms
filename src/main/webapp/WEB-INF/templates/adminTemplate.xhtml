@@ -32,16 +32,11 @@
                     [Template ! content will be inserted here]
             </ui:insert>
 	<h:form>
-		<h:outputText value="Choose language:" />
-
-		<p:selectOneRadio id="language-selector"
+		<p:selectOneButton style="float:right;" id="language-selector"
 			value="#{localeManager.language}" onchange="submit()">
 			<f:selectItem itemValue="en_us" itemLabel="English" />
 			<f:selectItem itemValue="cs_cz" itemLabel="Czech" />
-		</p:selectOneRadio>
-
-
-
+		</p:selectOneButton>
 	</h:form>
 </h:body>
 </html>
