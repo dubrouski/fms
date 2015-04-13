@@ -4,13 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.Stateful;
-import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -49,23 +45,19 @@ public class PersonDetailController implements Serializable {
 	}
 
 	public String showDetail(Person p) {
-		logger.info("Received person to display: " + p.toString());
-
-		// person = personService.getPersonWithAddresses(p.getId());
-		person = personService.getPersonByLegalId(p.getLegalId());
-
-		// personsAddresses = person.getAddresses();
-		personsAddresses = personService.getAddressesForPerson(p);
-
-		logger.info("Person was set to :" + person.toString());
-		logger.info("Person addresses were set to: "
-				+ personsAddresses.toString());
+		this.person = p;
+		this.personsAddresses = personService.getAddressesForPerson(p);
 		return "person-detail";
 	}
 
-	// @PostConstruct
-	// public void init() {
-	// person = personService.getPersonByLegalId("LEGAL");
-	// personsAddresses = personService.getAddressesForPerson(person);
-	// }
+	public void loadAddresses() {
+		if (true) {
+			this.personsAddresses = personService
+					.getAddressesForPerson(this.person);
+		}
+	}
+
+	public void loadContracts() {
+		// add contracts loading here
+	}
 }

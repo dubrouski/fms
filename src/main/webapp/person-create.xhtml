@@ -50,12 +50,9 @@
 					mask="+420 999 999 999" />
 				<p:message for="phone" />
 			</p:panelGrid>
-			<h:commandButton id="register"
+			<p:commandButton ajax="false" id="register"
 				action="#{personController.createPerson}"
 				value="#{msg['person.create.createbutton']}:" />
-			<h:outputText value=" Saved."
-				rendered="#{facesContext.postback and empty facesContext.messageList}"
-				style="color: green;" />
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -21,11 +21,9 @@
 						itemLabel="#{msg['enum.addresstype.'.concat(addressType.label)]}" />
 				</p:selectOneRadio>
 				<p:message for="addrType" />
-
-
 				<p:outputLabel for="country" value="Country" />
 				<p:selectOneMenu id="country" converter="codeToCountryConverter"
-					value="#{personAddressController.newAddress.country}" effect="fold">
+					value="#{personAddressController.newAddress.country}">
 					<f:selectItem itemLabel="Select One" itemValue="" />
 					<f:selectItems value="#{personAddressController.countriesList}"
 						var="country" itemLabel="#{msg['country.'.concat(country.code)]}"
@@ -53,7 +51,7 @@
 					value="#{personAddressController.newAddress.flatNumber}"></p:inputText>
 				<p:message for="flatNumber" />
 				<p>
-					<h:commandButton id="createAddress"
+					<p:commandButton ajax="false" id="createAddress"
 						action="#{personAddressController.addAddressToPerson()}"
 						value="Add address" />
 				</p>

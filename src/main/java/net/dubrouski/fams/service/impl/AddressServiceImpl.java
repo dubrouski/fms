@@ -50,4 +50,9 @@ public class AddressServiceImpl implements AddressService {
 		return addressDao.listAll();
 	}
 
+	@Override
+	public List<Country> getCountriesList() {
+		return countryDao.listAll();
+	}
+
 }

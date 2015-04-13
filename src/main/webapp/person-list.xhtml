@@ -6,27 +6,36 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
-		<p:dataTable rows="10" paginator="true" reflow="true" var="person"
-			value="#{personService.listPersons()}">
-			<p:column headerText="#{msg['person.list.personid']}">
+		<p:dataTable var="person" value="#{personListingController.persons}"
+			rows="10" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="10,25,100">
+			<p:column headerText="#{msg['person.list.personid']}"
+				sortBy="#{person.businessId}">
 				<h:outputText value="#{person.businessId}" />
 			</p:column>
-			<p:column headerText="#{msg['person.list.name']}">
+			<p:column headerText="#{msg['person.list.name']}"
+				sortBy="#{person.firstName}">
 				<h:outputText value="#{person.firstName}" />
 			</p:column>
-			<p:column headerText="#{msg['person.list.surname']}">
+			<p:column headerText="#{msg['person.list.surname']}"
+				sortBy="#{person.lastName}">
 				<h:outputText value="#{person.lastName}" />
 			</p:column>
-			<p:column headerText="#{msg['person.list.legalid']}">
+			<p:column headerText="#{msg['person.list.legalid']}"
+				sortBy="#{person.legalId}">
 				<h:outputText value="#{person.legalId}" />
-			</p:column>			
-			<p:column headerText="#{msg['person.list.phone']}">
+			</p:column>
+			<p:column headerText="#{msg['person.list.phone']}"
+				sortBy="#{person.phone}">
 				<h:outputText value="#{person.phone}" />
 			</p:column>
 			<p:column headerText="Actions">
 				<h:form>
 					<p:commandButton id="detailButton" icon="ui-icon-person"
-						action="#{personDetailController.showDetail(person)}"></p:commandButton>
+						action="#{personDetailController.showDetail(person)}">
+						<f:param name="personId" value="#{person.id}" />
+					</p:commandButton>
 					<p:tooltip id="detailButtonToolTip" for="detailButton"
 						value="Show person's detail" />
 

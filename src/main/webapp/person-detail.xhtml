@@ -6,19 +6,15 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
-
-
+		<p:growl id="msgs" showDetail="true" />
+		<p:commandButton style="margin-bottom:10px;"
+			action="#{personDeletionController.requestPersonDelete(personDetailController.person)}"
+			value="Delete person" icon="ui-icon-closethick" />
 		<p:fieldset collapsed="false" legend="Personal information"
 			toggleable="true" toggleSpeed="250" style="margin-bottom:15px;">
-			<h:form>
-				<p:commandButton style="float:right; margin-bottom:10px;"
-					action="#{personDeletionController.requestPersonDelete(personDetailController.person)}"
-					value="Delete person" icon="ui-icon-closethick" />
-				<p:commandButton style="float:right; margin-bottom:10px;"
-					action="#{personUpdateController.startPersonUpdate(personDetailController.person.id)}"
-					value="Update person" icon="ui-icon-pencil" />
-			</h:form>
-
+			<p:commandButton style="float:right; margin-bottom:10px;"
+				action="#{personUpdateController.startPersonUpdate(personDetailController.person)}"
+				value="Update person" icon="ui-icon-pencil" />
 			<p:panelGrid columns="3" layout="grid">
 				<h:outputText
 					value="#{msg['person.create.personid']}: #{personDetailController.person.businessId}" />
@@ -44,15 +40,16 @@
 
 		<p:fieldset collapsed="false" legend="Addresses" toggleable="true"
 			toggleSpeed="250" style="margin-bottom:15px;">
-			<h:form>
-				<p:commandButton style="float:right; margin-bottom:10px;"
-					action="#{personAddressController.startAddressCreation(personDetailController.person)}"
-					value="Create new address" icon="ui-icon-plusthick" />
-			</h:form>
+			<p:ajax event="toggle"
+				listener="#{personDetailController.loadAddresses}"
+				update="personAddressesTable" />
 
-			<p:dataTable rendered="true" var="address"
-				value="#{personDetailController.personsAddresses}">
+			<p:commandButton style="float:right; margin-bottom:10px;"
+				action="#{personAddressController.startAddressCreation(personDetailController.person)}"
+				value="Create new address" icon="ui-icon-plusthick" />
 
+			<p:dataTable style="clear:both;" id="personAddressesTable" rendered="true" var="address"
+				value="#{personService.getAddressesForPerson(personDetailController.person)}">
 				<p:column headerText="Address type">
 					<h:outputText value="#{address.addressType}" />
 				</p:column>

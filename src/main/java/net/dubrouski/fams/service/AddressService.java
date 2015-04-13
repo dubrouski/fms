@@ -17,4 +17,6 @@ public interface AddressService {
 	public Address getAddressById(Long id);
 	
 	public List<Address> listAddresses();
+
+	public List<Country> getCountriesList();
 }
