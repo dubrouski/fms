@@ -3,6 +3,7 @@ package net.dubrouski.fams.service.impl;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import net.dubrouski.fams.dao.AddressDao;
 import net.dubrouski.fams.dao.CountryDao;
@@ -10,6 +11,7 @@ import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Country;
 import net.dubrouski.fams.service.AddressService;
 
+@Named(value = "addressService")
 public class AddressServiceImpl implements AddressService {
 
 	@Inject
@@ -34,8 +36,18 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public List<Country> getCountriesList() {
+	public List<Country> listCountries() {
 		return countryDao.listAll();
+	}
+	
+	@Override
+	public Address getAddressById(Long id){
+		return addressDao.getByID(id);
+	}
+	
+	@Override
+	public List<Address> listAddresses(){
+		return addressDao.listAll();
 	}
 
 }

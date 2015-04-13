@@ -74,6 +74,9 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService{
 	public void setPrice(AccommodationUnit unit, Price price) {
 		logger.info("Setting new price for Accommodation: " + unit);
 		Price currentPrice = unit.getPrice();
+		if(price.getId() == null){
+			priceDao.save(price);
+		}
 		unitDao.setPrice(unit, price);
 		if(currentPrice != null){
 			priceDao.delete(currentPrice);	

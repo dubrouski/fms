@@ -58,22 +58,22 @@ public class AccommodationDeserializer extends JsonDeserializer<AccommodationUni
 			u.setName(node.get("name").asText());
 		}
 		
-		ObjectMapper mapper = new ObjectMapper();
+//		ObjectMapper mapper = new ObjectMapper();
 		
-		if(node.get("address") != null){
-			u.setAddress(mapper.readValue(node.get("address"), Address.class));	
-		}
-		if(node.get("price") != null){
-			u.setPrice(mapper.readValue(node.get("price"), Price.class));	
-		}
-		
-		if(u.getType() != "place" && node.get("children") != null){
-			AccommodationComposite c =  (AccommodationComposite) u;
-			String s = node.get("children").toString();
-			List<AccommodationUnit> asList = mapper.readValue(s, new TypeReference<List<AccommodationUnit>>() { });
-			c.setChildren(asList);
-			u = c;
-		}
+//		if(node.get("address") != null){
+//			u.setAddress(mapper.readValue(node.get("address"), Address.class));	
+//		}
+//		if(node.get("price") != null){
+//			u.setPrice(mapper.readValue(node.get("price"), Price.class));	
+//		}
+//		
+//		if(u.getType() != "place" && node.get("children") != null){
+//			AccommodationComposite c =  (AccommodationComposite) u;
+//			String s = node.get("children").toString();
+//			List<AccommodationUnit> asList = mapper.readValue(s, new TypeReference<List<AccommodationUnit>>() { });
+//			c.setChildren(asList);
+//			u = c;
+//		}
 		return u;
 	}
 }

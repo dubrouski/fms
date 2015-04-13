@@ -12,5 +12,9 @@ public interface AddressService {
 
 	public void updateAddress(Address address);
 	
-	public List<Country> getCountriesList();
+	public List<Country> listCountries();
+	
+	public Address getAddressById(Long id);
+	
+	public List<Address> listAddresses();
 }
