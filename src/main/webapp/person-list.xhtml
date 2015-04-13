@@ -16,11 +16,15 @@
 			</p:column>
 			<p:column headerText="#{msg['person.list.name']}"
 				sortBy="#{person.firstName}">
-				<h:outputText value="#{person.firstName}" />
+				<p:commandLink id="detailLinkFName"
+					action="#{personDetailController.showDetail(person)}"
+					value="#{person.firstName}"></p:commandLink>
 			</p:column>
 			<p:column headerText="#{msg['person.list.surname']}"
 				sortBy="#{person.lastName}">
-				<h:outputText value="#{person.lastName}" />
+				<p:commandLink id="detailLinkSName"
+					action="#{personDetailController.showDetail(person)}"
+					value="#{person.lastName}"></p:commandLink>
 			</p:column>
 			<p:column headerText="#{msg['person.list.legalid']}"
 				sortBy="#{person.legalId}">
@@ -34,7 +38,6 @@
 				<h:form>
 					<p:commandButton id="detailButton" icon="ui-icon-person"
 						action="#{personDetailController.showDetail(person)}">
-						<f:param name="personId" value="#{person.id}" />
 					</p:commandButton>
 					<p:tooltip id="detailButtonToolTip" for="detailButton"
 						value="Show person's detail" />
