@@ -13,4 +13,7 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>bootstrap</param-value>
 	</context-param>
+	<welcome-file-list>
+		<welcome-file>person-list.jsf</welcome-file>
+	</welcome-file-list>
 </web-app>     
