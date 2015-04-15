@@ -34,11 +34,6 @@ public class AddressServiceImpl implements AddressService {
 	public void updateAddress(Address address) {
 		addressDao.update(address);
 	}
-
-	@Override
-	public List<Country> listCountries() {
-		return countryDao.listAll();
-	}
 	
 	@Override
 	public Address getAddressById(Long id){

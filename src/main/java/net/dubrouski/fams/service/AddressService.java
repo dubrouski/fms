@@ -11,9 +11,7 @@ public interface AddressService {
 	public void deleteAddress(Address address);
 
 	public void updateAddress(Address address);
-	
-	public List<Country> listCountries();
-	
+		
 	public Address getAddressById(Long id);
 	
 	public List<Address> listAddresses();
