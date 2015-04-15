@@ -18,7 +18,7 @@ import net.dubrouski.fams.service.PersonService;
  */
 @Stateful
 @Model
-public class PersonController {
+public class PersonCreationController {
 
 	@Inject
 	private Logger logger;

@@ -49,10 +49,10 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public void delete(Person person) {
-		logger.log(Level.INFO, "Method delete (person), person to delete: "
+		logger.log(Level.INFO, "Requested deletion of person: "
 				+ person);
 		personDao.delete(person);
-		logger.log(Level.INFO, "Method delete (person), person was deleted: "
+		logger.log(Level.INFO, "Person successfully deleted: "
 				+ person);
 	}
 

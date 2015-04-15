@@ -1,17 +1,21 @@
+SELECT setval('public.person_business_id_seq', 1001, true);
+ALTER SEQUENCE person_business_id_seq INCREMENT 11 MINVALUE 1001 CACHE 1001 start 1001;
+
+
 insert into accommodation_unit (name, type, deposit_amount) values ('by the window', 'room', '56.68'), ('at the door', 'room', '4785.7');
-insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2001-11-11', '00001', 'test1@test.com', 'Miranda', 'Connor', 'YU12wexcvr34A9', 'Jessica', '+420 777 999 999');
-insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2002-11-11', '00002', 'test22@test.com', 'Jack', 'Nickolson', 'YUsrg1234s5A6789', '', '+420 777 666 999');
-insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2003-11-11', '00003', 'test3@test.com', 'Arnold', 'Sch', 'YU123456789sf', '', '+420 777 888 666');
-insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2004-11-11', '00004', 'test4@test.com', 'Patrick', 'Sw', 'YU123S456sd789', '', '+420 777 888 777');
-insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2005-11-11', '00005', 'test5@test.com', 'Ted', 'Parker', 'YU1F2345678sdfg9', 'Leonard', '+420 777 654 999');
-insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2006-11-11', '00006', 'test6@test.com', 'Robin', 'Barker', 'YU123sd4567H89', '', '+420 777 888 665');
-insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2007-11-11', '00007', 'test7@test.com', 'Jasey', 'Larker', 'YU1234J56sdf789', '', '+420 654 888 999');
-insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2008-11-11', '00008', 'test8@test.com', 'Buzz', 'Petrov', 'YU1234sw5U6789', 'Fedor', '+420 732 888 999');
-insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2009-11-11', '00009', 'test9@test.com', 'Luis', 'Armstrong', 'YU1wer2Y3456789', '', '+420 777 998 999');
-insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2000-11-11', '00010', 'test0@test.com', 'Sam', 'Sam', 'YU123q45678werII9', '', '+420 777 888 000');
-insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2000-01-11', '00011', 'testA@test.com', 'Jam', 'Bram', 'YU12qtr3sd45678II9', '', '+420 345 888 000');
-insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2000-09-01', '00012', 'testB@test.com', 'Spam', 'Tram', 'YU12345ss678IttI9', '', '+420 777 345 000');
-insert into person (birth_date, business_id, email, first_name, last_name, legal_identificator, other_names, phone) values ('2008-11-11', '00001', 'test@test.com', 'Sarah', 'Connor', 'YU123456789', 'Jessica', '+420 777 888 999'), ('01.01.1960', '00002', 'test2@test.com', 'Parker', 'Evans', 'YU123456788', '-', '+420 669 888 999');
+insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2001-11-11', 'test1@test.com', 'Miranda', 'Connor', 'YU12wexcvr34A9', 'Jessica', '+420 777 999 999');
+insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2002-11-11', 'test22@test.com', 'Jack', 'Nickolson', 'YUsrg1234s5A6789', '', '+420 777 666 999');
+insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2003-11-11', 'test3@test.com', 'Arnold', 'Sch', 'YU123456789sf', '', '+420 777 888 666');
+insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2004-11-11', 'test4@test.com', 'Patrick', 'Sw', 'YU123S456sd789', '', '+420 777 888 777');
+insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2005-11-11', 'test5@test.com', 'Ted', 'Parker', 'YU1F2345678sdfg9', 'Leonard', '+420 777 654 999');
+insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2006-11-11', 'test6@test.com', 'Robin', 'Barker', 'YU123sd4567H89', '', '+420 777 888 665');
+insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2007-11-11', 'test7@test.com', 'Jasey', 'Larker', 'YU1234J56sdf789', '', '+420 654 888 999');
+insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2008-11-11', 'test8@test.com', 'Buzz', 'Petrov', 'YU1234sw5U6789', 'Fedor', '+420 732 888 999');
+insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2009-11-11', 'test9@test.com', 'Luis', 'Armstrong', 'YU1wer2Y3456789', '', '+420 777 998 999');
+insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2000-11-11', 'test0@test.com', 'Sam', 'Sam', 'YU123q45678werII9', '', '+420 777 888 000');
+insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2000-01-11', 'testA@test.com', 'Jam', 'Bram', 'YU12qtr3sd45678II9', '', '+420 345 888 000');
+insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2000-09-01', 'testB@test.com', 'Spam', 'Tram', 'YU12345ss678IttI9', '', '+420 777 345 000');
+insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2008-11-11', 'test@test.com', 'Sarah', 'Connor', 'YU123456789', 'Jessica', '+420 777 888 999'), ('01.01.1960', 'test2@test.com', 'Parker', 'Evans', 'YU123456788', '-', '+420 669 888 999');
 
 
 --fill countries list
@@ -73,7 +77,7 @@ INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('CR', 'C
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('HR', 'Croatia', 10);
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('CU', 'Cuba', 10);
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('CY', 'Cyprus', 10);
-INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('CZ', 'Czech Republic', 10);
+INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('CZ', 'Czech Republic', 1);
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('CI', 'Côte d’Ivoire', 10);
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('DK', 'Denmark', 10);
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('DJ', 'Djibouti', 10);
@@ -225,7 +229,7 @@ INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('CS', 'S
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('SC', 'Seychelles', 10);
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('SL', 'Sierra Leone', 10);
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('SG', 'Singapore', 10);
-INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('SK', 'Slovakia', 10);
+INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('SK', 'Slovakia', 2);
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('SI', 'Slovenia', 10);
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('SB', 'Solomon Islands', 10);
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('SO', 'Somalia', 10);

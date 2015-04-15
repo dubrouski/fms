@@ -6,14 +6,14 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/adminTemplate.xhtml">
 	<ui:define name="management-content">
-		<p:tabMenu>
-			<p:menuitem value="List all" outcome="person-list.jsf"
-				icon="ui-icon-star">
-			</p:menuitem>
-			<p:menuitem value="Create new person" outcome="person-create.jsf"
-				icon="ui-icon-search">
-			</p:menuitem>
-		</p:tabMenu>
+
+		<h:form>
+			<p:button value="List all" outcome="person-list.jsf"
+				icon="ui-icon-star"></p:button>
+			<p:button value="Create new person" outcome="person-create.jsf"
+				icon="ui-icon-search"></p:button>
+		</h:form>
+
 		<p:panel id="content-panel" style="margin-bottom:20px">
 			<ui:insert name="content">
 				[person management content]
