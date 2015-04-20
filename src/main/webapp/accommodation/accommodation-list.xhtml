@@ -6,6 +6,40 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/accommodation-management-template.xhtml">
 	<ui:define name="accommodation-content">
-	sdfgsdfg
+		
+		<p:dataTable var="accommodation" value="#{accommodationListingController.getAccommodations}"
+			rows="100" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="10,25,100">
+			<p:column headerText="#{msg['accommodation.id']}"
+				sortBy="#{accommodation.id}">
+				<h:outputText value="#{accommodation.id}" />
+			</p:column>
+			<p:column headerText="#{msg['accommodation.name']}"
+				sortBy="#{accommodation.name}">
+			<!-- 	<p:commandLink id="detailLinkFName"
+					action="#{personDetailController.showDetail(person)}"
+					value="#{person.firstName}"></p:commandLink>  -->
+			</p:column>
+			<p:column headerText="#{msg['accommodation.deposit']}"
+				sortBy="#{accommodation.deposit}">
+			</p:column>
+			<p:column headerText="Actions">
+<!-- 				<h:form> -->
+<!-- 					<p:commandButton id="detailButton" icon="ui-icon-home" -->
+<!-- 						action="#{personDetailController.showDetail(person)}"> -->
+<!-- 					</p:commandButton> -->
+<!-- 					<p:tooltip id="detailButtonToolTip" for="detailButton" -->
+<!-- 						value="Show person's detail" /> -->
+
+<!-- 					<p:commandButton id="removeButton" icon="ui-icon-closethick" -->
+<!-- 						action="#{personDeletionController.requestPersonDelete(person)}"> -->
+<!-- 						<p:tooltip id="removeButtonToolTip" for="removeButton" -->
+<!-- 							value="Delete person" /> -->
+<!-- 					</p:commandButton> -->
+<!-- 				</h:form> -->
+			</p:column>
+
+		</p:dataTable>
 	</ui:define>
 </ui:composition>

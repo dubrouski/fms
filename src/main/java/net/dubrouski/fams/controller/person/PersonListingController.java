@@ -31,6 +31,7 @@ public class PersonListingController implements Serializable {
 	private int currentPage;
 
 	public List<Person> getPersons() {
+		logger.info("getting persons");
 		return personService.listPersons();
 	}
 
