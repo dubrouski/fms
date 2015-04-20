@@ -25,6 +25,7 @@ import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.Place;
 import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.model.Room;
+import net.dubrouski.fams.test.helper.AccommodationTestHelper;
 import net.dubrouski.fams.test.helper.AddressTestHelper;
 import net.dubrouski.fams.test.helper.PriceTestHelper;
 import net.dubrouski.fams.util.Resources;
@@ -58,7 +59,7 @@ public class AccommodationUnitDaoTest {
 						 .addPackage("net.dubrouski.fams.test.helper")
 						 .addClasses(Resources.class, FmsException.class,
 								 	 LocalDatePersistenceConverter.class,
-								 	 EntityValidator.class)
+								 	 EntityValidator.class, AccommodationTestHelper.class)
 						 .addAsResource("META-INF/persistence.xml",
 										"META-INF/persistence.xml")
 						 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -82,21 +83,8 @@ public class AccommodationUnitDaoTest {
 	@Inject
 	PriceTestHelper priceHelper;
 	
-	private Place getPlace(boolean isActive, String name, BigDecimal deposit){
-		Place place = new Place();
-		place.setIsActive(isActive);
-		place.setName(name);
-		place.setDepositAmount(deposit);
-		return place;
-	}
-	
-	private Room getRoom(boolean isActive, String name, BigDecimal deposit){
-		Room room = new Room();
-		room.setIsActive(isActive);
-		room.setName(name);
-		room.setDepositAmount(deposit);
-		return room;
-	}
+	@Inject
+	AccommodationTestHelper accommodationHelper;
 	
 //	Does not work for unknown reason
 //	private <T extends AccommodationUnit> T getUnit(
@@ -120,7 +108,7 @@ public class AccommodationUnitDaoTest {
 	
 	@Test
 	public void createTest(){
-		AccommodationUnit place = getPlace(false, "place by window", BigDecimal.valueOf(4321.50));		
+		AccommodationUnit place = accommodationHelper.getPlace(false, "place by window", BigDecimal.valueOf(4321.50));		
 		int unitCount = unitDao.listAll().size();
 		unitDao.save(place);
 		assertEquals(unitCount + 1, unitDao.listAll().size());
@@ -128,10 +116,10 @@ public class AccommodationUnitDaoTest {
 	
 	@Test
 	public void addChildTest(){
-		Place place = getPlace(false, "my place", BigDecimal.valueOf(55.24));
+		Place place = accommodationHelper.getPlace(false, "my place", BigDecimal.valueOf(55.24));
 		unitDao.save(place);
 
-		Room room = getRoom(false, "nice room", BigDecimal.valueOf(55.24));
+		Room room = accommodationHelper.getRoom(false, "nice room", BigDecimal.valueOf(55.24));
 		unitDao.save(room);
 		assertEquals(0, room.getChildren().size());
 		unitDao.addChild(room, place);
@@ -140,10 +128,10 @@ public class AccommodationUnitDaoTest {
 	
 	@Test
 	public void removeChildTest(){
-		Place place = getPlace(false, "my place", BigDecimal.valueOf(55.24));
+		Place place = accommodationHelper.getPlace(false, "my place", BigDecimal.valueOf(55.24));
 		unitDao.save(place);
 
-		Room room = getRoom(false, "nice room", BigDecimal.valueOf(55.24));
+		Room room = accommodationHelper.getRoom(false, "nice room", BigDecimal.valueOf(55.24));
 		unitDao.save(room);
 		assertEquals(0, room.getChildren().size());
 		unitDao.addChild(room, place);
@@ -153,9 +141,9 @@ public class AccommodationUnitDaoTest {
 	
 	@Test
 	public void getParentTest(){
-		Place place = getPlace(false, "my place", BigDecimal.valueOf(55.24));
+		Place place = accommodationHelper.getPlace(false, "my place", BigDecimal.valueOf(55.24));
 		unitDao.save(place);
-		Room room = getRoom(false, "nice room", BigDecimal.valueOf(55.24));
+		Room room = accommodationHelper.getRoom(false, "nice room", BigDecimal.valueOf(55.24));
 		unitDao.save(room);		
 		unitDao.addChild(room, place);
 		
@@ -165,7 +153,7 @@ public class AccommodationUnitDaoTest {
 	
 	@Test
 	public void setAddressTest(){
-		Place place = getPlace(false, "my place", BigDecimal.valueOf(55.24));
+		Place place = accommodationHelper.getPlace(false, "my place", BigDecimal.valueOf(55.24));
 		unitDao.save(place);
 		
 		Address a = addressHelper.getTestAddress("Brno", "botanicka", "63a", "2b");
@@ -200,7 +188,7 @@ public class AccommodationUnitDaoTest {
 	
 	@Test
 	public void setPriceTest(){
-		Place place = getPlace(false, "my place", BigDecimal.valueOf(55.24));
+		Place place = accommodationHelper.getPlace(false, "my place", BigDecimal.valueOf(55.24));
 		unitDao.save(place);
 		
 		Price price = priceHelper.getTestPrice(BigDecimal.valueOf(500),
@@ -240,9 +228,9 @@ public class AccommodationUnitDaoTest {
 	public void listAccommodationsByTypeTest(){
 		int initialPlaces = unitDao.listAccommodationsByType("place").size();
 		int initialRooms = unitDao.listAccommodationsByType("room").size();
-		Place place = getPlace(false, "my place", BigDecimal.valueOf(55.24));
+		Place place = accommodationHelper.getPlace(false, "my place", BigDecimal.valueOf(55.24));
 		unitDao.save(place);
-		Room room = getRoom(false, "nice room", BigDecimal.valueOf(55.24));
+		Room room = accommodationHelper.getRoom(false, "nice room", BigDecimal.valueOf(55.24));
 		unitDao.save(room);
 		int finalPlaces = unitDao.listAccommodationsByType("place").size();
 		int finalRooms = unitDao.listAccommodationsByType("room").size();

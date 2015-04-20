@@ -46,7 +46,8 @@ public class AccommodationListingController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		logger.info("message");
+		logger.info("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaamessage");
+		accommodations = getAccommodations();
 	}
 
 }

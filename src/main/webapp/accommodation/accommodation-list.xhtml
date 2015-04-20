@@ -7,22 +7,22 @@
 	template="/WEB-INF/templates/accommodation-management-template.xhtml">
 	<ui:define name="accommodation-content">
 		
-		<p:dataTable var="accommodation" value="#{accommodationListingController.getAccommodations}"
+		<p:dataTable var="acc" value="#{accommodationListingController.accommodations}"
 			rows="100" paginator="true"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="10,25,100">
 			<p:column headerText="#{msg['accommodation.id']}"
-				sortBy="#{accommodation.id}">
+				sortBy="#{acc.id}">
 				<h:outputText value="#{accommodation.id}" />
 			</p:column>
 			<p:column headerText="#{msg['accommodation.name']}"
-				sortBy="#{accommodation.name}">
+				sortBy="#{accn.name}">
 			<!-- 	<p:commandLink id="detailLinkFName"
 					action="#{personDetailController.showDetail(person)}"
 					value="#{person.firstName}"></p:commandLink>  -->
 			</p:column>
 			<p:column headerText="#{msg['accommodation.deposit']}"
-				sortBy="#{accommodation.deposit}">
+				sortBy="#{acc.depositAmount}">
 			</p:column>
 			<p:column headerText="Actions">
 <!-- 				<h:form> -->
