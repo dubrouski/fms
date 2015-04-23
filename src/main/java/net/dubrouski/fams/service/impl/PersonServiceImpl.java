@@ -49,11 +49,9 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public void delete(Person person) {
-		logger.log(Level.INFO, "Requested deletion of person: "
-				+ person);
+		logger.log(Level.INFO, "Requested deletion of person: " + person);
 		personDao.delete(person);
-		logger.log(Level.INFO, "Person successfully deleted: "
-				+ person);
+		logger.log(Level.INFO, "Person successfully deleted: " + person);
 	}
 
 	@Override
@@ -101,8 +99,13 @@ public class PersonServiceImpl implements PersonService {
 	public List<PersonAddress> getAddressesForPerson(Person person) {
 		List<PersonAddress> result = personAddressDao
 				.getAddressesForPerson(person);
-		
+
 		return result;
+	}
+
+	@Override
+	public List<Person> searchByNames(String searchTerm) {
+		return personDao.searchByNames(searchTerm);
 	}
 
 	private Person getPersonWithAddresses(Long id) {

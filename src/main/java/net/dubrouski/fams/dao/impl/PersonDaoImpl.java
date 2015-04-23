@@ -1,5 +1,6 @@
 package net.dubrouski.fams.dao.impl;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -54,6 +55,19 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 			logger.info("No person found with id " + id);
 			return null;
 		}
+	}
+
+	@Override
+	public List<Person> searchByNames(String searchTerm) {
+		if (searchTerm == null) {
+			throw new IllegalArgumentException("searchTerm is null.");
+		}
+		TypedQuery<Person> query = this.entityManager.createQuery(
+				"select p from Person p where upper(p.firstName) like CONCAT('%', :searchTerm, '%')  "
+						+ "or upper(p.lastName) like  CONCAT('%', :searchTerm, '%')",
+				Person.class);
+
+		return query.setParameter("searchTerm", searchTerm.toUpperCase()).getResultList();
 	}
 
 }

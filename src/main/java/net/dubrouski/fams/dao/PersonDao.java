@@ -1,5 +1,7 @@
 package net.dubrouski.fams.dao;
 
+import java.util.List;
+
 import net.dubrouski.fams.model.Person;
 
 /**
@@ -8,7 +10,9 @@ import net.dubrouski.fams.model.Person;
  */
 public interface PersonDao extends BaseDao<Person, Long> {
 
-	public Person getByLegalId(String legalId);
+	Person getByLegalId(String legalId);
 
 	Person getPersonWithAddresses(Long id);
+
+	List<Person> searchByNames(String searchTerm);
 }

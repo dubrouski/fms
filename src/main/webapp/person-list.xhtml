@@ -5,9 +5,26 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/person-management-template.xhtml">
-	<ui:define name="content">
-		<p:dataTable var="person" value="#{personListingController.persons}"
-			rows="100" paginator="true"
+	<ui:define id="content" name="content">
+
+		<h:form>
+			<p:outputLabel for="searchTerm" value="Find persons by names:" />
+			<p:inputText id="searchTerm"
+				value="#{personListingController.searchTerm}">
+				<p:ajax event="keyup" update="#{p:component('personsTable')}"
+					listener="#{personListingController.handlePersonsSearch}" />
+			</p:inputText>
+			<p:commandButton value="Search"
+				action="#{personListingController.handlePersonsSearch()}"
+				update="personsTable" />
+		</h:form>
+		<p:commandButton update="personsTable"
+			style="float:right;margin-bottom:10px;"
+			action="#{personListingController.handlePersonsRefresh()}"
+			icon="ui-icon-refresh" />
+		<p:dataTable id="personsTable" var="person"
+			value="#{personListingController.persons}" rows="100"
+			paginator="true"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="10,25,100">
 			<p:column headerText="#{msg['person.list.personid']}"
@@ -49,7 +66,7 @@
 					</p:commandButton>
 				</h:form>
 			</p:column>
-
 		</p:dataTable>
+
 	</ui:define>
 </ui:composition>

@@ -29,4 +29,6 @@ public interface PersonService {
 			AddressType addressType);
 	
 	public void updatePerson(Person person);
+	
+	public List<Person> searchByNames(String searchTerm);
 }
