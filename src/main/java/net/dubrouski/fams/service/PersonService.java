@@ -27,8 +27,12 @@ public interface PersonService {
 
 	public void setAddressToPerson(Person person, Address personAddress,
 			AddressType addressType);
-	
+
 	public void updatePerson(Person person);
-	
+
 	public List<Person> searchByNames(String searchTerm);
+
+	public List<Person> getPersonsByPage(int pageSize, int first);
+	
+	public long getPersonsCount();
 }

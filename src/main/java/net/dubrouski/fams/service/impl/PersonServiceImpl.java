@@ -111,4 +111,14 @@ public class PersonServiceImpl implements PersonService {
 	private Person getPersonWithAddresses(Long id) {
 		return personDao.getPersonWithAddresses(id);
 	}
+
+	@Override
+	public List<Person> getPersonsByPage(int pageSize, int first) {
+		return personDao.getPersonsByPage(pageSize, first);
+	}
+
+	@Override
+	public long getPersonsCount() {
+		return personDao.getPersonsCount();
+	}
 }

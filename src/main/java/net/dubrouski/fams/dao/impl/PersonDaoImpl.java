@@ -62,12 +62,31 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 		if (searchTerm == null) {
 			throw new IllegalArgumentException("searchTerm is null.");
 		}
-		TypedQuery<Person> query = this.entityManager.createQuery(
-				"select p from Person p where upper(p.firstName) like CONCAT('%', :searchTerm, '%')  "
-						+ "or upper(p.lastName) like  CONCAT('%', :searchTerm, '%')",
-				Person.class);
+		TypedQuery<Person> query = this.entityManager
+				.createQuery(
+						"select p from Person p where upper(p.firstName) like CONCAT('%', :searchTerm, '%')  "
+								+ "or upper(p.lastName) like  CONCAT('%', :searchTerm, '%')",
+						Person.class);
 
-		return query.setParameter("searchTerm", searchTerm.toUpperCase()).getResultList();
+		return query.setParameter("searchTerm", searchTerm.toUpperCase())
+				.getResultList();
+	}
+
+	@Override
+	public List<Person> getPersonsByPage(int pageSize, int first) {
+		TypedQuery<Person> query = this.entityManager
+				.createQuery("select p from Person p", Person.class)
+				.setFirstResult(first).setMaxResults(pageSize);
+
+		return query.getResultList();
+	}
+
+	@Override
+	public long getPersonsCount() {
+		TypedQuery<Long> query = this.entityManager.createQuery(
+				"select count(p.id) from Person p", Long.class);
+
+		return query.getSingleResult();
 	}
 
 }

@@ -15,4 +15,8 @@ public interface PersonDao extends BaseDao<Person, Long> {
 	Person getPersonWithAddresses(Long id);
 
 	List<Person> searchByNames(String searchTerm);
+	
+	List<Person> getPersonsByPage(int pageSize, int first);
+	
+	long getPersonsCount();
 }

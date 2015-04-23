@@ -1,7 +1,10 @@
 package net.dubrouski.fams.controller.person;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +12,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.service.PersonService;
@@ -25,27 +31,64 @@ public class PersonListingController implements Serializable {
 	@Inject
 	private PersonService personService;
 
-	private List<Person> persons;
+	private LazyDataModel<Person> lazyPersons;
 
-	private String searchTerm;
+	// private List<Person> persons;
 
-	private int rowCount;
+	// private String searchTerm;
+
+	private long rowCount;
 	private int currentPage;
 
-	public void setSearchTerm(String searchTerm) {
-		this.searchTerm = searchTerm;
+	private int pageSize;
+
+	@PostConstruct
+	public void loadPersons() {
+		lazyPersons = new LazyDataModel<Person>() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public List<Person> load(int first, int pageSize, String sortField,
+					SortOrder sortOrder, Map<String, Object> filters) {
+
+				logger.log(Level.INFO, "first:" + first + ", pageSize: "
+						+ pageSize);
+
+				List<Person> result = new ArrayList<Person>();
+				result = personService.getPersonsByPage(pageSize, first);
+				return result;
+			}
+		};
+
+		// TODO resolve casting!
+		lazyPersons.setRowCount((int) personService.getPersonsCount());
+		lazyPersons.setPageSize(pageSize);
 	}
 
-	public String getSearchTerm() {
-		return this.searchTerm;
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 
-	public List<Person> getPersons() {
-		logger.info("getting persons");
-		return personService.listPersons();
+	public int getPageSize() {
+		return pageSize;
 	}
 
-	public int getRowCount() {
+	//
+	// public void setSearchTerm(String searchTerm) {
+	// this.searchTerm = searchTerm;
+	// }
+	//
+	// public String getSearchTerm() {
+	// return this.searchTerm;
+	// }
+
+	// public List<Person> getPersons() {
+	// logger.info("getting persons");
+	// return personService.listPersons();
+	// }
+
+	public long getRowCount() {
 		return rowCount;
 	}
 
@@ -53,20 +96,28 @@ public class PersonListingController implements Serializable {
 		return currentPage;
 	}
 
-	@PostConstruct
-	public void init() {
-		loadPersons();
+	// @PostConstruct
+	// public void init() {
+	// loadPersons();
+	// }
+
+	// public void handlePersonsRefresh() {
+	// loadPersons();
+	// }
+
+	// public void handlePersonsSearch() {
+	// this.persons = personService.searchByNames(searchTerm);
+	// }
+
+	public LazyDataModel<Person> getLazyPersons() {
+		return lazyPersons;
 	}
 
-	public void handlePersonsRefresh() {
-		loadPersons();
-	}
+	// public void setLazyPersons(LazyDataModel<Person> lazyPersons) {
+	// this.lazyPersons = lazyPersons;
+	// }
 
-	public void handlePersonsSearch() {
-		this.persons = personService.searchByNames(searchTerm);
-	}
-
-	private void loadPersons() {
-		this.persons = personService.listPersons();
-	}
+	// private void loadPersons() {
+	// this.persons = personService.listPersons();
+	// }
 }
