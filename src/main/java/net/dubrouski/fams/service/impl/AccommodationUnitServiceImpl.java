@@ -1,5 +1,6 @@
 package net.dubrouski.fams.service.impl;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -16,8 +17,10 @@ import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.service.AccommodationUnitService;
 
 @Named(value = "accommodationService")
-public class AccommodationUnitServiceImpl implements AccommodationUnitService{
+public class AccommodationUnitServiceImpl implements AccommodationUnitService, Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Inject
 	AccommodationUnitDao unitDao;
 	

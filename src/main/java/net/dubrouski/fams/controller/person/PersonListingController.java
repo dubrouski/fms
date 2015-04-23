@@ -41,7 +41,8 @@ public class PersonListingController implements Serializable {
 	}
 
 	public List<Person> getPersons() {
-		return this.persons;
+		logger.info("getting persons");
+		return personService.listPersons();
 	}
 
 	public int getRowCount() {
