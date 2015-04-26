@@ -292,3 +292,11 @@ insert into price (base_price, services_price, currency, valid_from, valid_to) v
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (1500, 2000, 'CZK', '11.3.2015', '9.8.2018');
 
 insert into accommodation_unit (name, type, deposit_amount, address_id, price_id) values ('big room', 'room', '56.68', 1, 1), ('small room', 'room', '4785.7', 1, 2), ('at the window', 'place', '256', null, 3);
+
+-- user and user rights
+INSERT INTO "USER" (id, login, password, person_id) VALUES (1, 'admin', 'admin', null);
+INSERT INTO "USER" (id, login, password, person_id) VALUES (2, 'user', 'user', null);
+
+INSERT INTO user_right (id, right_name) VALUES (1, 'Main admin');
+
+INSERT INTO user2user_right (user_id, user_right_id) VALUES (1, 1);

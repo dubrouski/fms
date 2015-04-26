@@ -10,8 +10,29 @@
 <h:head>
 	<title>Facilities management system</title>
 	<meta name="author" content="The Author"></meta>
+        <style type="text/css">           
+form.login {
+    float: right;
+}
+        </style>
 </h:head>
 <h:body style="padding: 50px;">
+        <h:form class="login">
+            <p:panelGrid columns="2" rendered="#{!loginManager.loggedIn}">
+                <f:validateBean>
+                    <p:outputLabel for="username">Username:</p:outputLabel>
+                    <p:inputText id="username" value="#{credentials.username}"/>
+                    <p:outputLabel for="password">Password:</p:outputLabel>
+                    <p:password id="password" value="#{credentials.password}"/>
+                </f:validateBean>
+            </p:panelGrid>
+            <p:commandButton ajax="false" value="Login" action="#{loginManager.login}" rendered="#{!loginManager.loggedIn}"/>
+            <h:outputText value="Uživatel #{loginManager.currentUser.login}" rendered="#{loginManager.loggedIn}"></h:outputText>
+            <p:commandButton ajax="false" value="Logout" action="#{loginManager.logout}" rendered="#{loginManager.loggedIn}"/>
+            <h:messages/>
+        </h:form>
+        <div style="clear: both;"/>
+    
 	<h:form>
 		<p:tabMenu activeIndex="#{param.i}">
 			<p:menuitem value="Person management" outcome="/person/person-list.jsf"
