@@ -1,7 +1,9 @@
 package net.dubrouski.fams.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +15,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import net.dubrouski.fams.model.enums.UserRightIds;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -50,6 +54,9 @@ public class User implements Serializable {
     @OneToOne(optional = true)
     @JoinColumn(name = "PERSON_ID")
     private Person person;
+    
+    @Transient
+    private Set<UserRightIds> userRightsSet = null;
 
     public Long getId() {
         return id;
@@ -74,6 +81,19 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public Set<UserRightIds> getUserRightsSet() {
+        if (userRightsSet == null) {
+            userRightsSet = new HashSet<>();
+            if (userRights != null) {
+                for (UserRight userRight : userRights) {
+                    userRightsSet.add(userRight.getId());
+                }
+            }
+        }
+        
+        return userRightsSet;
+    }
 
     public List<UserRight> getUserRights() {
         return userRights;
@@ -89,6 +109,11 @@ public class User implements Serializable {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+    
+    public boolean hasRight(UserRightIds right) {
+        return getUserRightsSet().contains(right) ||
+                getUserRightsSet().contains(UserRightIds.ADMIN);
     }
 
     @Override

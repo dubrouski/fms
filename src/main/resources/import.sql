@@ -297,6 +297,6 @@ insert into accommodation_unit (name, type, deposit_amount, address_id, price_id
 INSERT INTO "USER" (id, login, password, person_id) VALUES (1, 'admin', 'admin', null);
 INSERT INTO "USER" (id, login, password, person_id) VALUES (2, 'user', 'user', null);
 
-INSERT INTO user_right (id, right_name) VALUES (1, 'Main admin');
+INSERT INTO user_right (id, right_name) VALUES (0, 'Main admin');
 
-INSERT INTO user2user_right (user_id, user_right_id) VALUES (1, 1);
+INSERT INTO user2user_right (user_id, user_right_id) VALUES (1, 0);

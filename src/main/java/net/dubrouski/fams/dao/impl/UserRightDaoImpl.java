@@ -5,6 +5,7 @@ import javax.inject.Named;
 
 import net.dubrouski.fams.dao.UserRightDao;
 import net.dubrouski.fams.model.UserRight;
+import net.dubrouski.fams.model.enums.UserRightIds;
 
 /**
  *
@@ -12,6 +13,6 @@ import net.dubrouski.fams.model.UserRight;
  */
 @Stateless
 @Named(value = "userRightDao")
-public class UserRightDaoImpl extends BaseDaoImpl<UserRight, Long> implements UserRightDao {
+public class UserRightDaoImpl extends BaseDaoImpl<UserRight, UserRightIds> implements UserRightDao {
 
 }

@@ -11,7 +11,7 @@
 			<p:button value="List all" outcome="person-list.jsf"
 				icon="ui-icon-star"></p:button>
 			<p:button value="Create new person" outcome="person-create.jsf"
-				icon="ui-icon-search"></p:button>
+                                  icon="ui-icon-search" rendered="#{currentUser.hasRight('PERSON_CREATE')}"></p:button>
 		</h:form>
 
 		<p:panel id="content-panel" style="margin-bottom:20px">

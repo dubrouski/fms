@@ -1,6 +1,10 @@
 package net.dubrouski.fams.controller;
 
 import java.io.Serializable;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
+//import javax.enterprise.context.SessionScoped;
+//import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -16,37 +20,43 @@ import net.dubrouski.fams.service.UserService;
  *
  * @author Martin Jelínek (xjeline5)
  */
-@SessionScoped 
+@SessionScoped
 @ManagedBean
 public class LoginManager implements Serializable {
 
-   @Inject Credentials credentials;
-   @Inject UserService userService;
+    @Inject
+    Credentials credentials;
+    @Inject
+    UserService userService;
 
-   private User user;
+    private User user;
 
-   public void login() {
-      User userLogin = userService.loginUser(credentials.getUsername(), credentials.getPassword());
+    public void login() {
+        User userLogin = userService.loginUser(credentials.getUsername(), credentials.getPassword());
 
-      if (userLogin != null) {
-         // login ok
-          user = userLogin;
-      }
-      else {
-          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Login failed."));
-      }
-   }
-   
-   public void logout() {
-      user = null;
-   }
-    
-   public boolean isLoggedIn() {
-      return user != null;
-   }
-    
-   @Produces @LoggedIn
-   public User getCurrentUser() {
-      return user;
-   }
+        if (userLogin != null) {
+            // login ok
+            user = userLogin;
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Login failed."));
+        }
+    }
+
+    public void logout() {
+        user = null;
+    }
+
+    public boolean isLoggedIn() {
+        return user != null;
+    }
+
+    @Produces
+    @LoggedIn
+    public User getCurrentUser() {
+        if (user == null) {
+            return new User();
+        } else {
+            return user;
+        }
+    }
 }
