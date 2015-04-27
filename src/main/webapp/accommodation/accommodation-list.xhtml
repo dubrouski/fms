@@ -13,12 +13,36 @@
 			<p:column headerText="#{msg['accommodation.id']}">
 				<h:outputText value="#{acc.id}" />
 			</p:column>
-			<p:column headerText="#{msg['accommodation.name']}">
-				<h:outputText value="#{acc.name}" />
+			
+			<p:column headerText="#{msg['accommodation.name']}"
+				sortBy="#{accommodation.name}">
+			 	<p:commandLink id="detailLinkFName"
+					action="#{accommodationDetailController.showDetail(accommodation)}"
+					value="#{accommodation.name}">
+					</p:commandLink>
 			</p:column>
-			<p:column headerText="#{msg['accommodation.deposit']}">
-				<h:outputText value="#{acc.depositAmount}" />
+			
+			<p:column headerText="#{msg['accommodation.type']}"
+				sortBy="#{accommodation.type}">
+				<h:outputText value="#{accommodation.type}" />
 			</p:column>
+			
+			<p:column headerText="#{msg['accommodation.deposit']}"
+				sortBy="#{accommodation.depositAmount}">
+				<h:outputText value="#{accommodation.depositAmount}" />
+			</p:column>			
+			
+			<p:column headerText="Actions">
+  				 <h:form>
+					<p:commandButton id="removeButton" icon="ui-icon-closethick"
+						action="#{accommodationDeletionController.delete(accommodation)}">
+						<p:tooltip id="removeButtonToolTip" for="removeButton"
+							value="Delete accommodation" />
+						<f:param name="i" value="2" />
+					</p:commandButton>
+				</h:form> 
+			</p:column>
+
 		</p:dataTable>
 	</ui:define>
 </ui:composition>
