@@ -16,7 +16,10 @@ import javax.inject.Inject;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
+import net.dubrouski.fams.annotations.LoggedIn;
 import net.dubrouski.fams.model.Person;
+import net.dubrouski.fams.model.User;
+import net.dubrouski.fams.model.enums.UserRightIds;
 import net.dubrouski.fams.service.PersonService;
 
 @ManagedBean
@@ -30,7 +33,7 @@ public class PersonListingController implements Serializable {
 
 	@Inject
 	private PersonService personService;
-
+	
 	private LazyDataModel<Person> lazyPersons;
 
 	// private List<Person> persons;
