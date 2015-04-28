@@ -1,6 +1,7 @@
 package net.dubrouski.fams.controller;
 
 import java.io.Serializable;
+
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 //import javax.enterprise.context.SessionScoped;
@@ -11,7 +12,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
+
 import net.dubrouski.fams.annotations.LoggedIn;
+import net.dubrouski.fams.controller.user.CurrentUserHolder;
 import net.dubrouski.fams.model.Credentials;
 import net.dubrouski.fams.model.User;
 import net.dubrouski.fams.service.UserService;
@@ -24,39 +28,48 @@ import net.dubrouski.fams.service.UserService;
 @ManagedBean
 public class LoginManager implements Serializable {
 
-    @Inject
-    Credentials credentials;
-    @Inject
-    UserService userService;
+	private static final long serialVersionUID = 1L;
 
-    private User user;
+	@Inject
+	Credentials credentials;
+	
+	@Inject
+	UserService userService;
 
-    public void login() {
-        User userLogin = userService.loginUser(credentials.getUsername(), credentials.getPassword());
+	@Inject
+	CurrentUserHolder currentUserHolder;
 
-        if (userLogin != null) {
-            // login ok
-            user = userLogin;
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Login failed."));
-        }
-    }
+	private User user;
 
-    public void logout() {
-        user = null;
-    }
+	public void login() {
+		User userLogin = userService.loginUser(credentials.getUsername(),
+				credentials.getPassword());
 
-    public boolean isLoggedIn() {
-        return user != null;
-    }
+		if (userLogin != null) {
+			// login ok
+			user = userLogin;
+			currentUserHolder.setLoggedUser(user);
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Login failed."));
+		}
+	}
 
-    @Produces
-    @LoggedIn
-    public User getCurrentUser() {
-        if (user == null) {
-            return new User();
-        } else {
-            return user;
-        }
-    }
+	public void logout() {
+		user = null;
+	}
+
+	public boolean isLoggedIn() {
+		return user != null;
+	}
+
+	@Produces
+	@LoggedIn
+	public User getCurrentUser() {
+		if (user == null) {
+			return new User();
+		} else {
+			return user;
+		}
+	}
 }

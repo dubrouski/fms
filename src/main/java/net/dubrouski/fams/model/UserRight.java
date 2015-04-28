@@ -1,12 +1,16 @@
 package net.dubrouski.fams.model;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import net.dubrouski.fams.model.enums.UserRightIds;
 
 /**
@@ -16,35 +20,36 @@ import net.dubrouski.fams.model.enums.UserRightIds;
 @Entity
 @Table(name = "USER_RIGHT")
 public class UserRight implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
 
-    @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private UserRightIds id;
+	private static final long serialVersionUID = 1L;
 
-    @Column(name = "RIGHT_NAME")
-    private String rightName;
+	@Id
+	// @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Long id;
 
-    public UserRightIds getId() {
-        return id;
-    }
+	@Column(name = "RIGHT_NAME")
+	@Enumerated(EnumType.STRING)
+	private UserRightIds rightName;
 
-    public void setId(UserRightIds id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getRightName() {
-        return rightName;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setRightName(String rightName) {
-        this.rightName = rightName;
-    }
+	public UserRightIds getRightName() {
+		return rightName;
+	}
 
-    @Override
-    public String toString() {
-        return "Right [id " + this.id + ", name " + this.rightName + "]";
-    }
+	public void setRightName(UserRightIds rightName) {
+		this.rightName = rightName;
+	}
+
+	@Override
+	public String toString() {
+		return "Right [id " + this.id + ", name " + this.rightName + "]";
+	}
 }

@@ -87,7 +87,7 @@ public class User implements Serializable {
             userRightsSet = new HashSet<>();
             if (userRights != null) {
                 for (UserRight userRight : userRights) {
-                    userRightsSet.add(userRight.getId());
+                    userRightsSet.add(userRight.getRightName());
                 }
             }
         }

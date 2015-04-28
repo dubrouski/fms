@@ -27,9 +27,6 @@ public class AddressController {
 	private Logger logger;
 
 	@Inject
-	private AddressDao addressDao;
-
-	@Inject
 	private PersonDao personDao;
 
 	@Inject
