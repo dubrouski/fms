@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/adminTemplate.xhtml">
+	<ui:define id="content" name="management-content">
+		<h:form class="login">
+			<p:panelGrid columns="3" layout="grid"
+				rendered="#{!loginManager.loggedIn}">
+				<f:validateBean>
+					<p:outputLabel for="username">Username:</p:outputLabel>
+					<p:inputText id="username" value="#{credentials.username}" />
+					<p:message for="username" />
+					<p:outputLabel for="password">Password:</p:outputLabel>
+					<p:password id="password" value="#{credentials.password}" />
+					<p:message for="password" />
+				</f:validateBean>
+				<h:outputText value="" />
+				<p:commandButton ajax="false" value="Log in"
+					action="#{loginManager.login}" rendered="#{!loginManager.loggedIn}" />
+			</p:panelGrid>
+			<p:panelGrid columns="2" layout="grid"
+				rendered="#{loginManager.loggedIn}">
+				<h:outputText
+					value="Logged in as  #{loginManager.currentUser.login}"
+					rendered="#{loginManager.loggedIn}"></h:outputText>
+				<p:commandButton style="" ajax="false" icon="ui-icon-closethick"
+					value="Log out" action="#{loginManager.logout}"
+					rendered="#{loginManager.loggedIn}" />
+				<h:outputText rendered="#{loginManager.loggedIn}"
+					value="List of user's access rights:" />
+
+			</p:panelGrid>
+
+
+
+			<p:dataTable rendered="#{loginManager.loggedIn}" id="rightslist"
+				var="ur" value="#{loginManager.currentUser.userRights}">
+				<p:column headerText="ID">
+					<h:outputText value="#{ur.id}" />
+				</p:column>
+				<p:column headerText="Name">
+					<h:outputText value="#{ur.rightName}" />
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

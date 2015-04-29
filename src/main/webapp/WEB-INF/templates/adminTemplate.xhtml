@@ -10,52 +10,78 @@
 <h:head>
 	<title>Facilities management system</title>
 	<meta name="author" content="The Author"></meta>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" />
 	<style type="text/css">
-form.login {
-	float: right;
-}
 </style>
 </h:head>
-<h:body style="padding: 50px;">
-	<h:form class="login">
-		<p:panelGrid columns="2" rendered="#{!loginManager.loggedIn}">
-			<f:validateBean>
-				<p:outputLabel for="username">Username:</p:outputLabel>
-				<p:inputText id="username" value="#{credentials.username}" />
-				<p:outputLabel for="password">Password:</p:outputLabel>
-				<p:password id="password" value="#{credentials.password}" />
-			</f:validateBean>
-		</p:panelGrid>
-		<p:commandButton ajax="false" value="Login"
-			action="#{loginManager.login}" rendered="#{!loginManager.loggedIn}" />
-		<h:outputText value="Uživatel #{loginManager.currentUser.login}"
-			rendered="#{loginManager.loggedIn}"></h:outputText>
-		<p:commandButton ajax="false" value="Logout"
-			action="#{loginManager.logout}" rendered="#{loginManager.loggedIn}" />
-		<h:messages />
-	</h:form>
-	<div style="clear: both;" />
+<h:body style=" max-width: 1400px; text-align: left; margin: 0px auto; padding: 50px;">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/fams/">FMS</a>
+			</div>
 
-	<h:form>
-		<p:tabMenu activeIndex="#{param.i}">
-			<p:menuitem value="Person management"
-				outcome="/person/person-list.jsf" icon="ui-icon-person">
-				<f:param name="i" value="0" />
-			</p:menuitem>
-			<p:menuitem value="Contract management"
-				outcome="/person/person-list.jsf" icon="ui-icon-document">
-				<f:param name="i" value="1" />
-			</p:menuitem>
-			<p:menuitem value="Accomm. management"
-				outcome="/accommodation/accommodation-list.jsf" icon="ui-icon-home">
-				<f:param name="i" value="2" />
-			</p:menuitem>
-			<p:menuitem value="User management" outcome="/person/current-user.jsf"
-				icon="ui-icon-home">
-				<f:param name="i" value="3" />
-			</p:menuitem>
-		</p:tabMenu>
-	</h:form>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="dropdown"><a href="/fams/person/person-list.jsf"
+						class="dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-expanded="false">Accommodation management <span
+							class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="/fams/accommodation/accommodation-list.jsf">List
+									all</a></li>
+							<li><a href="/fams/accommodation/accommodation-create.jsf">Create
+									new</a></li>
+						</ul></li>
+
+
+					<li class="dropdown"><a href="/fams/person/person-list.jsf"
+						class="dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-expanded="false">Persons management <span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="/fams/person/person-list.jsf">List all</a></li>
+							<li><a href="/fams/person/person-create.jsf">Create new</a></li>
+						</ul></li>
+
+
+					<li class="dropdown"><a href="/fams/person/person-list.jsf"
+						class="dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-expanded="false">Contract management <span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">List all</a></li>
+							<li><a href="#">Create new</a></li>
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><p:link rendered="#{!loginManager.loggedIn}"
+							href="/login.jsf" value="Log in"></p:link> <p:link
+							rendered="#{loginManager.loggedIn}" href="/login.jsf"
+							value="Log out"></p:link></li>
+
+				</ul>
+				<p:outputLabel rendered="#{loginManager.loggedIn}"
+					class="navbar-text navbar-right">Logged as #{loginManager.currentUser.login}</p:outputLabel>
+			</div>
+		</div>
+	</nav>
+
 	<ui:insert name="management-content">
                     [Template ! content will be inserted here]
             </ui:insert>

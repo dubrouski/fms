@@ -43,7 +43,7 @@ public class PersonListingController implements Serializable {
 	private long rowCount;
 	private int currentPage;
 
-	private int pageSize;
+	private int pageSize = 25;
 
 	@PostConstruct
 	public void loadPersons() {

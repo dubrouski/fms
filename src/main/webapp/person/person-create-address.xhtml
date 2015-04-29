@@ -7,11 +7,8 @@
 	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
 		<h:form id="reg">
-			<p:growl id="msgs" showDetail="true" />
-
 			<h:outputText
 				value="#{personAddressController.personToCreateAddress.toString()}" />
-
 			<p:panelGrid columns="3" cellpadding="5">
 				<p:outputLabel for="addrType" value="Address type:" />
 				<p:selectOneRadio id="addrType"
