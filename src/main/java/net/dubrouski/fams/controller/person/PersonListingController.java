@@ -36,10 +36,6 @@ public class PersonListingController implements Serializable {
 	
 	private LazyDataModel<Person> lazyPersons;
 
-	// private List<Person> persons;
-
-	// private String searchTerm;
-
 	private long rowCount;
 	private int currentPage;
 
@@ -54,9 +50,6 @@ public class PersonListingController implements Serializable {
 			@Override
 			public List<Person> load(int first, int pageSize, String sortField,
 					SortOrder sortOrder, Map<String, Object> filters) {
-
-				logger.log(Level.INFO, "first:" + first + ", pageSize: "
-						+ pageSize);
 
 				List<Person> result = new ArrayList<Person>();
 				result = personService.getPersonsByPage(pageSize, first);
@@ -77,20 +70,6 @@ public class PersonListingController implements Serializable {
 		return pageSize;
 	}
 
-	//
-	// public void setSearchTerm(String searchTerm) {
-	// this.searchTerm = searchTerm;
-	// }
-	//
-	// public String getSearchTerm() {
-	// return this.searchTerm;
-	// }
-
-	// public List<Person> getPersons() {
-	// logger.info("getting persons");
-	// return personService.listPersons();
-	// }
-
 	public long getRowCount() {
 		return rowCount;
 	}
@@ -99,28 +78,8 @@ public class PersonListingController implements Serializable {
 		return currentPage;
 	}
 
-	// @PostConstruct
-	// public void init() {
-	// loadPersons();
-	// }
-
-	// public void handlePersonsRefresh() {
-	// loadPersons();
-	// }
-
-	// public void handlePersonsSearch() {
-	// this.persons = personService.searchByNames(searchTerm);
-	// }
-
 	public LazyDataModel<Person> getLazyPersons() {
 		return lazyPersons;
 	}
 
-	// public void setLazyPersons(LazyDataModel<Person> lazyPersons) {
-	// this.lazyPersons = lazyPersons;
-	// }
-
-	// private void loadPersons() {
-	// this.persons = personService.listPersons();
-	// }
 }
