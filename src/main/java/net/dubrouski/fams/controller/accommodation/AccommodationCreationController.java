@@ -2,18 +2,14 @@ package net.dubrouski.fams.controller.accommodation;
 
 import java.io.Serializable;
 
-import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
-import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.AccommodationViewModel;
-import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.service.AccommodationUnitService;
 import net.dubrouski.fams.util.AccommodationConverter;
 

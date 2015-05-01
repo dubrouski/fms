@@ -3,10 +3,8 @@ package net.dubrouski.fams.controller.accommodation;
 import java.io.Serializable;
 import java.util.logging.Logger;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
