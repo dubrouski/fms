@@ -57,5 +57,10 @@ public class AccommodationViewModel implements Serializable{
 		this.isActive = isActive;
 	}
 	
+	@Override
+	public String toString(){
+		return "AVM: " + getId() + ", type: " + getType() + ", name: " + getName() + ", deposit:" + getDepositAmount();
+	}
+	
 	
 }
