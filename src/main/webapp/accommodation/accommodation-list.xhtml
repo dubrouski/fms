@@ -14,13 +14,16 @@
 				<h:outputText value="#{acc.id}" />
 			</p:column>
 			
-			<p:column headerText="#{msg['accommodation.name']}"
-				sortBy="#{accommodation.name}">
-			 	<p:commandLink id="detailLinkFName"
-					action="#{accommodationDetailController.showDetail(accommodation)}"
-					value="#{accommodation.name}">
-					</p:commandLink>
-			</p:column>
+			<p:column headerText="#{msg['accommodation.name']}"	sortBy="#{accommodation.name}">
+				<h:form>
+			 	  <p:commandLink id="detailLinkFName"
+					 action="#{accommodationDetailController.showDetail(accommodation)}"
+					 value="#{accommodation.name}"
+					 ajax="false" >
+					 <f:param name="i" value="2" />
+				  </p:commandLink>
+				</h:form>
+			</p:column>			
 			
 			<p:column headerText="#{msg['accommodation.type']}"
 				sortBy="#{accommodation.type}">
@@ -34,6 +37,12 @@
 			
 			<p:column headerText="Actions">
   				 <h:form>
+  				 	<p:commandButton id="detailButton" icon="ui-icon-home"
+							action="#{accommodationDetailController.showDetail(accommodation)}">
+					</p:commandButton>
+						<p:tooltip id="detailButtonToolTip" for="detailButton"
+							value="Show accommodation's detail" />
+  				 
 					<p:commandButton id="removeButton" icon="ui-icon-closethick"
 						action="#{accommodationDeletionController.delete(accommodation)}">
 						<p:tooltip id="removeButtonToolTip" for="removeButton"
