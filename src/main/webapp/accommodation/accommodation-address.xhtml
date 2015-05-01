@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/accommodation-management-template.xhtml">
+	<ui:define name="accommodation-content">
+		<h1></h1>
+		<h:form id="reg">
+			<h:outputText
+				value="#{accAddressController.unitWithAddress.toString()}" />
+			<p:panelGrid columns="3" cellpadding="5">
+			
+				<p:outputLabel for="country" value="#{msg['country']}" />
+				<p:selectOneMenu id="country" converter="codeToCountryConverter"
+					value="#{accAddressController.unitsAddress.country}">
+					<f:selectItem itemLabel="Select One" itemValue="" />
+					<f:selectItems value="#{accAddressController.countriesList}"
+						var="country" itemLabel="#{msg['country.'.concat(country.code)]}"
+						itemValue="#{country.code}" />
+				</p:selectOneMenu>
+				<p:message for="country" />
+
+				<p:outputLabel for="city" value="#{msg['address.city']}:" />
+				<p:inputText id="city"
+					value="#{accAddressController.unitsAddress.city}"></p:inputText>
+				<p:message for="city" />
+
+				<p:outputLabel for="streetName" value="#{msg['address.street']}:" />
+				<p:inputText id="streetName"
+					value="#{accAddressController.unitsAddress.streetName}"></p:inputText>
+				<p:message for="streetName" />
+
+				<p:outputLabel for="streetNumber" value="#{msg['address.streetNo']}:" />
+				<p:inputText id="streetNumber"
+					value="#{accAddressController.unitsAddress.streetNumber}"></p:inputText>
+				<p:message for="streetNumber" />
+
+				<p:outputLabel for="flatNumber" value="#{msg['address.flat']}" />
+				<p:inputText id="flatNumber"
+					value="#{accAddressController.unitsAddress.flatNumber}"></p:inputText>
+				<p:message for="flatNumber" />
+				<p>
+					<p:commandButton ajax="false" id="createAddress"
+						action="#{accAddressController.updateAddress()}"
+						value="Update Address" />
+				</p>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

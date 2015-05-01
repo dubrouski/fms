@@ -13,7 +13,7 @@
 				value="Delete accommodation" icon="ui-icon-closethick" >
 				<f:param name="i" value="2" />
 			</p:commandButton>
-			<p:fieldset collapsed="false" legend="information"
+			<p:fieldset collapsed="false" legend="Basic Information"
 				toggleable="true" toggleSpeed="250" style="margin-bottom:15px;">
 
 				<p:commandButton ajax="false"
@@ -29,7 +29,27 @@
 					<h:outputText
 						value="#{msg['accommodation.deposit']}: #{accommodationDetailController.unit.depositAmount}" />
 				</p:panelGrid>
+			</p:fieldset>
+			
+			<p:fieldset collapsed="true" legend="Address" toggleable="true"
+				toggleSpeed="250" style="margin-bottom:15px;">
+
+				<p:commandButton ajax="false"
+					style="float:right; margin-bottom:10px;"
+					action="#{accAddressController.startUpdate(accommodationDetailController.unit, accommodationDetailsController.address)}"
+					value="Update Address" icon="ui-icon-pencil" />
 				
+				<p:panelGrid columns="2" layout="grid">
+					<h:outputText
+						value="#{msg['country']}: #{msg['country.'.concat(accommodationDetailController.address.country.code)]}" />
+					<h:outputText
+						value="#{msg['address.city']}: #{accommodationDetailController.address.city}" />
+					<h:outputText
+						value="#{msg['address.street']}: #{accommodationDetailController.address.streetName},
+						#{accommodationDetailController.address.streetNumber}" />
+					<h:outputText
+						value="#{msg['address.flat']}: #{accommodationDetailController.address.flatNumber}" />
+				</p:panelGrid>				
 			</p:fieldset>
 						
 		</h:form>

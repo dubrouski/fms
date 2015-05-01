@@ -28,4 +28,6 @@ public interface AccommodationUnitService {
 	public void setAddressWithChildren(AccommodationUnit unit, Address address);
 	
 	public List<AccommodationUnit> listAccommodationsByType(String type);
+	
+	public void updateOrCreateAddress(AccommodationUnit unit, Address address);
 }
