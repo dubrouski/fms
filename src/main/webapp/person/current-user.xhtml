@@ -9,15 +9,7 @@
 		<h:form>
 			<p:growl id="msgs" showDetail="true" />
 		</h:form>
-		<p:dataTable id="rightslist" var="ur"
-			value="#{loginManager.currentUser.userRights}">
-			<p:column headerText="ID">
-				<h:outputText value="#{ur.id}" />
-			</p:column>
-			<p:column headerText="Name">
-				<h:outputText value="#{ur.rightName}" />
-			</p:column>
-		</p:dataTable>
+		
 
 		<p:dataTable id="rightslist2" var="ur"
 			value="#{currentUserController.cu.userRights}">

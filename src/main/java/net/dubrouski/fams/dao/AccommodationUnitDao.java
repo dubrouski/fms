@@ -5,6 +5,7 @@ import java.util.List;
 import net.dubrouski.fams.model.AccommodationComposite;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
+import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.Price;
 /**
  * 
@@ -26,5 +27,7 @@ public interface AccommodationUnitDao extends BaseDao<AccommodationUnit, Long>{
 	public void setPrice(AccommodationUnit unit, Price price);
 	
 	public List<AccommodationUnit> listAccommodationsByType(String type);
+	
+	List<AccommodationUnit> getAccommodationsByPage(int pageSize, int first);
 
 }

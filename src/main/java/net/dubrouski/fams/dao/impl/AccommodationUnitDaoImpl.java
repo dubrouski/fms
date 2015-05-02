@@ -7,12 +7,14 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import net.dubrouski.fams.dao.AccommodationUnitDao;
 import net.dubrouski.fams.exception.FmsException;
 import net.dubrouski.fams.model.AccommodationComposite;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
+import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.Place;
 import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.validator.EntityValidator;
@@ -124,6 +126,16 @@ public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Lon
 		else{
 			throw new FmsException("Unknown AccommodationUnit type");
 		}		
+	}
+
+	@Override
+	public List<AccommodationUnit> getAccommodationsByPage(int pageSize,
+			int first) {
+		TypedQuery<AccommodationUnit> query = this.entityManager
+				.createQuery("select p from AccommodationUnit p", AccommodationUnit.class)
+				.setFirstResult(first).setMaxResults(pageSize);
+
+		return query.getResultList();
 	}
 
 }

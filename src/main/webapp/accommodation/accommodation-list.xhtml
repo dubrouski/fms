@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/accommodation-management-template.xhtml">
 	<ui:define name="accommodation-content">
-		<p:dataTable var="acc" value="#{accListingController.eagerUnits}"
+		<p:dataTable id="accTable" var="acc" value="#{accListingController.lazyUnits}"
 			rows="#{accListingController.pageSize}" paginator="true"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="10,25,100">
@@ -18,6 +18,56 @@
 			</p:column>
 			<p:column headerText="#{msg['accommodation.deposit']}">
 				<h:outputText value="#{acc.depositAmount}" />
+			</p:column>
+		</p:dataTable>
+
+
+		<p:dataTable id="personsTable" var="person"
+			value="#{accListingController.lazyPersons}"
+			rows="#{accListingController.pageSize}" paginator="true"
+			lazy="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="25,50,100">
+
+
+			<p:column headerText="#{msg['person.list.personid']}"
+				sortBy="#{person.businessId}">
+				<h:outputText value="#{person.businessId}" />
+			</p:column>
+			<p:column headerText="#{msg['person.list.name']}"
+				sortBy="#{person.firstName}">
+				<p:commandLink id="detailLinkFName"
+					action="#{personDetailController.showDetail(person)}"
+					value="#{person.firstName}"></p:commandLink>
+			</p:column>
+			<p:column headerText="#{msg['person.list.surname']}"
+				sortBy="#{person.lastName}">
+				<p:commandLink id="detailLinkSName"
+					action="#{personDetailController.showDetail(person)}"
+					value="#{person.lastName}"></p:commandLink>
+			</p:column>
+			<p:column headerText="#{msg['person.list.legalid']}"
+				sortBy="#{person.legalId}">
+				<h:outputText value="#{person.legalId}" />
+			</p:column>
+			<p:column headerText="#{msg['person.list.phone']}"
+				sortBy="#{person.phone}">
+				<h:outputText value="#{person.phone}" />
+			</p:column>
+			<p:column headerText="Actions">
+				<h:form>
+					<p:commandButton id="detailButton" icon="ui-icon-person"
+						action="#{personDetailController.showDetail(person)}">
+					</p:commandButton>
+					<p:tooltip id="detailButtonToolTip" for="detailButton"
+						value="Show person's detail" />
+
+					<p:commandButton id="removeButton" icon="ui-icon-closethick"
+						action="#{personDeletionController.requestPersonDelete(person)}">
+						<p:tooltip id="removeButtonToolTip" for="removeButton"
+							value="Delete person" />
+					</p:commandButton>
+				</h:form>
 			</p:column>
 		</p:dataTable>
 	</ui:define>

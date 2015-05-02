@@ -13,6 +13,7 @@ import net.dubrouski.fams.dao.PriceDao;
 import net.dubrouski.fams.exception.FmsException;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
+import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.service.AccommodationUnitService;
 
@@ -113,6 +114,14 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 	public List<AccommodationUnit> listAccommodationsByType(String type) {
 		logger.info("Retrieving Accommodations by type: " + type);
 		List<AccommodationUnit> found = unitDao.listAccommodationsByType(type);
+		logger.info("Accommodations found: " + found.size());
+		return found;
+	}
+
+	@Override
+	public List<AccommodationUnit> getAccommodationsByPage(int pageSize, int first) {
+		logger.info("Retrieving Accommodations by page " + pageSize + ", " + first);
+		List<AccommodationUnit> found = unitDao.getAccommodationsByPage(pageSize, first);
 		logger.info("Accommodations found: " + found.size());
 		return found;
 	}
