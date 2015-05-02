@@ -15,15 +15,24 @@ import java.util.Set;
 public class MetersData {
 
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "READOUT_DATE")
     @Convert(converter = LocalDatePersistenceConverter.class)
     private LocalDate readoutDate;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE })
     @JoinTable(name = "METERS_DATA_RECORDS", joinColumns = @JoinColumn(name = "METERS_DATA_ID"), inverseJoinColumns = @JoinColumn(name = "METER_RECORD_ID"))
     private Set<MeterRecord> records = new HashSet<>();
+
+    public LocalDate getReadoutDate() {
+        return readoutDate;
+    }
+
+    public void setReadoutDate(LocalDate readoutDate) {
+        this.readoutDate = readoutDate;
+    }
 
     public Set<MeterRecord> getRecords() {
         return records;
@@ -31,5 +40,9 @@ public class MetersData {
 
     public void setRecords(Set<MeterRecord> records) {
         this.records = records;
+    }
+
+    public void addRecord(MeterRecord record) {
+        records.add(record);
     }
 }
