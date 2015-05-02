@@ -1,25 +1,15 @@
 package net.dubrouski.fams.controller.accommodation;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
-import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
-import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
-
-import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.AccommodationViewModel;
-import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.service.AccommodationUnitService;
 import net.dubrouski.fams.util.AccommodationConverter;
 

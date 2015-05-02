@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/accommodation-management-template.xhtml">
+	<ui:define name="accommodation-content">
+		<h:form>
+			<p:growl id="msgs" showDetail="true" />
+			<p:commandButton style="margin-bottom:10px;"
+				action="#{accommodationDeletionController.delete(accommodationDetailController.unit)}"
+				value="Delete accommodation" icon="ui-icon-closethick" >
+				<f:param name="i" value="2" />
+			</p:commandButton>
+			<p:fieldset collapsed="false" legend="Basic Information"
+				toggleable="true" toggleSpeed="250" style="margin-bottom:15px;">
+
+				<p:commandButton ajax="false"
+					style="float:right; margin-bottom:10px;"
+					action="#{accommodationUpdateController.startUpdate(accommodationDetailController.unit)}"
+					value="Update accommodation" icon="ui-icon-pencil" />
+
+				<p:panelGrid columns="3" layout="grid">
+					<h:outputText
+						value="#{msg['accommodation.name']}: #{accommodationDetailController.unit.name}" />
+					<h:outputText
+						value="#{msg['accommodation.type']}: #{accommodationDetailController.unit.type}" />
+					<h:outputText
+						value="#{msg['accommodation.deposit']}: #{accommodationDetailController.unit.depositAmount}" />
+				</p:panelGrid>
+			</p:fieldset>
+			
+			<p:fieldset collapsed="true" legend="Address" toggleable="true"
+				toggleSpeed="250" style="margin-bottom:15px;">
+
+				<p:commandButton ajax="false"
+					style="float:right; margin-bottom:10px;"
+					action="#{accAddressController.startUpdate(accommodationDetailController.unit, accommodationDetailsController.address)}"
+					value="Update Address" icon="ui-icon-pencil" />
+				
+				<p:panelGrid columns="2" layout="grid">
+					<h:outputText
+						value="#{msg['country']}: #{msg['country.'.concat(accommodationDetailController.address.country.code)]}" />
+					<h:outputText
+						value="#{msg['address.city']}: #{accommodationDetailController.address.city}" />
+					<h:outputText
+						value="#{msg['address.street']}: #{accommodationDetailController.address.streetName},
+						#{accommodationDetailController.address.streetNumber}" />
+					<h:outputText
+						value="#{msg['address.flat']}: #{accommodationDetailController.address.flatNumber}" />
+				</p:panelGrid>				
+			</p:fieldset>
+						
+		</h:form>
+	</ui:define>
+</ui:composition>

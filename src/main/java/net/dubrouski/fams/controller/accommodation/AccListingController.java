@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 
 import org.primefaces.model.LazyDataModel;
@@ -21,7 +21,7 @@ import net.dubrouski.fams.service.AccommodationUnitService;
 import net.dubrouski.fams.service.PersonService;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class AccListingController implements Serializable {
 
 	private static final long serialVersionUID = 1L;

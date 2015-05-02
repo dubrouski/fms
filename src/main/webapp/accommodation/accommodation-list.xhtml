@@ -13,12 +13,45 @@
 			<p:column headerText="#{msg['accommodation.id']}">
 				<h:outputText value="#{acc.id}" />
 			</p:column>
-			<p:column headerText="#{msg['accommodation.name']}">
-				<h:outputText value="#{acc.name}" />
+			
+			<p:column headerText="#{msg['accommodation.name']}"	sortBy="#{acc.name}">
+				<h:form>
+			 	  <p:commandLink id="detailLinkFName"
+					 action="#{accommodationDetailController.showDetail(acc)}"
+					 value="#{acc.name}"
+					 ajax="false" >
+					 <f:param name="i" value="2" />
+				  </p:commandLink>
+				</h:form>
+			</p:column>			
+			
+			<p:column headerText="#{msg['accommodation.type']}"
+				sortBy="#{acc.type}">
+				<h:outputText value="#{acc.type}" />
 			</p:column>
-			<p:column headerText="#{msg['accommodation.deposit']}">
+			
+			<p:column headerText="#{msg['accommodation.deposit']}"
+				sortBy="#{acc.depositAmount}">
 				<h:outputText value="#{acc.depositAmount}" />
+			</p:column>			
+			
+			<p:column headerText="Actions">
+  				 <h:form>
+  				 	<p:commandButton id="detailButton" icon="ui-icon-home"
+							action="#{accommodationDetailController.showDetail(acc)}">
+					</p:commandButton>
+						<p:tooltip id="detailButtonToolTip" for="detailButton"
+							value="Show accommodation's detail" />
+  				 
+					<p:commandButton id="removeButton" icon="ui-icon-closethick"
+						action="#{accommodationDeletionController.delete(acc)}">
+						<p:tooltip id="removeButtonToolTip" for="removeButton"
+							value="Delete accommodation" />
+						<f:param name="i" value="2" />
+					</p:commandButton>
+				</h:form> 
 			</p:column>
+
 		</p:dataTable>
 
 

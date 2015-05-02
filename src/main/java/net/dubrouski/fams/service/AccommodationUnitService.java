@@ -34,4 +34,6 @@ public interface AccommodationUnitService {
 
 	public List<AccommodationUnit> getAccommodationsByPage(int pageSize,
 			int first);
+	
+	public void updateOrCreateAddress(AccommodationUnit unit, Address address);
 }

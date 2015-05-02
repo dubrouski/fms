@@ -125,4 +125,14 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 		logger.info("Accommodations found: " + found.size());
 		return found;
 	}
+	
+	public void updateOrCreateAddress(AccommodationUnit unit, Address address) {
+		if(address.getId() == null){
+			addressDao.save(address);
+			setAddress(unit, address);
+		}
+		else{
+			addressDao.update(address);
+		}		
+	}
 }

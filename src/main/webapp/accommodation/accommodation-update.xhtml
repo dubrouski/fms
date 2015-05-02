@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/accommodation-management-template.xhtml">
+	<ui:define name="accommodation-content">
+		<h:form id="reg">
+			<p:panelGrid columns="3" layout="grid" cellpadding="5">
+
+				<p:outputLabel for="name" value="#{msg['accommodation.name']}:" />
+				<p:inputText id="name"
+					value="#{accommodationUpdateController.unitToUpdate.name}" />
+				<p:message for="name" />
+
+				<p:outputLabel for="deposit"
+					value="#{msg['accommodation.deposit']}:" />
+				<p:inputText id="deposit"
+					value="#{accommodationUpdateController.unitToUpdate.depositAmount}" >
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="0" />
+				</p:inputText>
+				<p:message for="deposit" />
+			</p:panelGrid>
+			<h:form>
+				<p:commandButton id="update" ajax="false"
+					action="#{accommodationUpdateController.update(accommodationUpdateController.unitToUpdate)}"
+					value="Update" />
+			</h:form>
+		</h:form>
+	</ui:define>
+</ui:composition>
