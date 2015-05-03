@@ -11,6 +11,7 @@ import net.dubrouski.fams.model.enums.ContractState;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
+@Table(name = "CONTRACT")
 public class Contract implements BaseEntity, Serializable {
 
 	private static final long serialVersionUID = 1L;
