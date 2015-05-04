@@ -298,8 +298,12 @@ INSERT INTO "USER" (id, login, password, person_id) VALUES (1, 'admin', 'admin',
 INSERT INTO "USER" (id, login, password, person_id) VALUES (2, 'user', 'user', null);
 
 INSERT INTO user_right (id, right_name) VALUES (1, 'ADMIN');
-INSERT INTO user_right (id, right_name) VALUES (2, 'PERSON_CREATE');
-INSERT INTO user_right (id, right_name) VALUES (3, 'PERSON_REMOVE');
+INSERT INTO user_right (id, right_name) VALUES (2, 'PERSON_READ');
+INSERT INTO user_right (id, right_name) VALUES (3, 'PERSON_WRITE');
+INSERT INTO user_right (id, right_name) VALUES (4, 'ACCOMM_READ');
+INSERT INTO user_right (id, right_name) VALUES (5, 'ACCOMM_WRITE');
+INSERT INTO user_right (id, right_name) VALUES (6, 'CONTRACT_READ');
+INSERT INTO user_right (id, right_name) VALUES (7, 'CONTRACT_WRITE');
 
 INSERT INTO user2user_right (user_id, user_right_id) VALUES (1, 1);
 INSERT INTO user2user_right (user_id, user_right_id) VALUES (1, 2);
