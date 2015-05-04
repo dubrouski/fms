@@ -295,7 +295,8 @@ insert into accommodation_unit (name, type, deposit_amount, address_id, price_id
 
 -- user and user rights
 INSERT INTO "USER" (id, login, password, person_id) VALUES (1, 'admin', 'admin', null);
-INSERT INTO "USER" (id, login, password, person_id) VALUES (2, 'user', 'user', null);
+INSERT INTO "USER" (id, login, password, person_id) VALUES (2, 'user_read', 'user', null);
+INSERT INTO "USER" (id, login, password, person_id) VALUES (3, 'user_write', 'user', null);
 
 INSERT INTO user_right (id, right_name) VALUES (1, 'ADMIN_READ');
 INSERT INTO user_right (id, right_name) VALUES (2, 'ADMIN_WRITE');
@@ -309,8 +310,8 @@ INSERT INTO user_right (id, right_name) VALUES (8, 'CONTRACT_WRITE');
 INSERT INTO user2user_right (user_id, user_right_id) VALUES (1, 1);
 INSERT INTO user2user_right (user_id, user_right_id) VALUES (1, 2);
 INSERT INTO user2user_right (user_id, user_right_id) VALUES (2, 3);
-INSERT INTO user2user_right (user_id, user_right_id) VALUES (2, 4);
+INSERT INTO user2user_right (user_id, user_right_id) VALUES (3, 4);
 INSERT INTO user2user_right (user_id, user_right_id) VALUES (2, 5);
-INSERT INTO user2user_right (user_id, user_right_id) VALUES (2, 6);
+INSERT INTO user2user_right (user_id, user_right_id) VALUES (3, 6);
 INSERT INTO user2user_right (user_id, user_right_id) VALUES (2, 7);
-INSERT INTO user2user_right (user_id, user_right_id) VALUES (2, 8);
+INSERT INTO user2user_right (user_id, user_right_id) VALUES (3, 8);

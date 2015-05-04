@@ -45,7 +45,7 @@ public class PersonDeletionController {
 
 	public String requestPersonDelete(Person person) {
 		if (currentUserHolder.getLoggedUser().hasRight(
-				UserRightIds.PERSON_REMOVE)) {
+				UserRightIds.PERSON_WRITE)) {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(

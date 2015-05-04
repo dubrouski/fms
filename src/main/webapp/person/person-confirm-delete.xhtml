@@ -6,17 +6,20 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
-
-		<p>Are you sure you want to delete this person:
-			#{personDeletionController.personForDeletion.firstName}
-			#{personDeletionController.personForDeletion.lastName}? Deletion
-			cannot be undone!</p>
+		<p>
+			<h:outputFormat value="#{msg['person.delete.warning']}">
+				<f:param
+					value="#{personDeletionController.personForDeletion.firstName}" />
+				<f:param
+					value="#{personDeletionController.personForDeletion.lastName}" />
+			</h:outputFormat>
+		</p>
 		<h:form>
 			<p:commandButton icon="ui-icon-check"
 				action="#{personDeletionController.confirmPersonDelete()}"
-				value="Yes, delete." />
+				value="#{msg['person.delete.yesdelete']}" />
 			<p:button icon="ui-icon-closethick" outcome="person-list.jsf"
-				value="No, return to list." />
+				value="#{msg['person.delete.noreturn']}" />
 		</h:form>
 	</ui:define>
 </ui:composition>

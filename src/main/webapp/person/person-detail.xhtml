@@ -8,53 +8,60 @@
 	<ui:define name="content">
 		<h:form>
 			<p:growl id="msgs" showDetail="true" />
-			<p:commandButton style="margin-bottom:10px;"
+			<p:commandButton style="margin-bottom:10px;" ajax="false"
 				action="#{personDeletionController.requestPersonDelete(personDetailController.person)}"
-				value="Delete person" icon="ui-icon-closethick" />
-			<p:fieldset collapsed="false" legend="Personal information"
-				toggleable="true" toggleSpeed="250" style="margin-bottom:15px;">
+				value="#{msg['person.detail.deletebutton']}:"
+				icon="ui-icon-closethick" />
+			<p:fieldset collapsed="false"
+				legend="#{msg['person.detail.personalinfotab']}:" toggleable="true"
+				toggleSpeed="250" style="margin-bottom:15px;">
 
 				<p:commandButton ajax="false"
 					style="float:right; margin-bottom:10px;"
+					disabled="#{!loginManager.currentUser.hasRight('PERSON_WRITE')}"
 					action="#{personUpdateController.startPersonUpdate(personDetailController.person)}"
-					value="Update person" icon="ui-icon-pencil" />
+					value="#{msg['person.detail.updatebutton']}:" icon="ui-icon-pencil" />
 
 				<p:panelGrid columns="3" layout="grid">
 					<h:outputText
-						value="#{msg['person.create.name']}: #{personDetailController.person.firstName}" />
+						value="#{msg['person.detail.name']}: #{personDetailController.person.firstName}" />
 					<h:outputText
-						value="#{msg['person.create.surname']}: #{personDetailController.person.lastName}" />
+						value="#{msg['person.detail.surname']}: #{personDetailController.person.lastName}" />
 					<h:outputText
-						value="#{msg['person.create.othernames']}: #{personDetailController.person.otherNames}" />
+						value="#{msg['person.detail.othernames']}: #{personDetailController.person.otherNames}" />
 
 					<h:outputText
-						value="#{msg['person.create.personid']}: #{personDetailController.person.businessId}" />
+						value="#{msg['person.detail.personid']}: #{personDetailController.person.businessId}" />
 					<h:outputText
-						value="#{msg['person.create.legalid']}: #{personDetailController.person.legalId}" />
+						value="#{msg['person.detail.legalid']}: #{personDetailController.person.legalId}" />
 					<h:outputText
-						value="#{msg['person.create.born']}: #{personDetailController.person.birthDate}" />
+						value="#{msg['person.detail.born']}: #{personDetailController.person.birthDate}" />
 
 					<h:outputText
-						value="#{msg['person.create.phone']}: #{personDetailController.person.phone}" />
+						value="#{msg['person.detail.phone']}: #{personDetailController.person.phone}" />
 					<h:outputText
-						value="#{msg['person.create.email']}: #{personDetailController.person.email}" />
+						value="#{msg['person.detail.email']}: #{personDetailController.person.email}" />
 				</p:panelGrid>
 			</p:fieldset>
 
-			<p:fieldset collapsed="true" legend="Addresses" toggleable="true"
+			<p:fieldset collapsed="true"
+				legend="#{msg['person.detail.addressestab']}" toggleable="true"
 				toggleSpeed="250" style="margin-bottom:15px;">
 				<p:ajax event="toggle"
 					listener="#{personDetailController.handleAddressesToggle}" />
 
 				<p:commandButton style="float:right; margin-bottom:10px;"
 					action="#{personAddressController.startAddressCreation(personDetailController.person)}"
-					value="Create new address" icon="ui-icon-plusthick" />
+					disabled="#{!loginManager.currentUser.hasRight('PERSON_WRITE')}"
+					value="#{msg['person.detail.createaddrbutton']}"
+					icon="ui-icon-plusthick" />
 
 				<p:dataTable style="clear:both;" id="personAddressesTable"
 					rendered="true" var="address"
 					value="#{personService.getAddressesForPerson(personDetailController.person)}">
 					<p:column headerText="#{msg['address.type']}">
-						<h:outputText value="#{address.addressType}" />
+						<h:outputText
+							value="#{msg['enum.addresstype.'.concat(address.addressType.label)]}" />
 					</p:column>
 					<p:column headerText="#{msg['country']}">
 						<h:outputText
@@ -70,13 +77,14 @@
 					<p:column headerText="#{msg['address.flat']}">
 						<h:outputText value="#{address.address.flatNumber}" />
 					</p:column>
-					<p:column headerText="Active">
+					<p:column headerText="#{msg['person.address.active']}">
 						<h:outputText rendered="#{address.active}" value="&#10004;" />
 					</p:column>
 				</p:dataTable>
 			</p:fieldset>
 
-			<p:fieldset collapsed="true" legend="Contracts" toggleable="true"
+			<p:fieldset collapsed="true"
+				legend="#{msg['person.detail.contractstab']}" toggleable="true"
 				toggleSpeed="250" style="margin-bottom:15px;">
 				<h:panelGrid columns="2" cellpadding="10">
 					<h:outputText value="Person's contracts list goes here" />

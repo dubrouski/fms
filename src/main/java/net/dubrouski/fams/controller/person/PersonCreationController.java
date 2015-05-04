@@ -34,16 +34,17 @@ public class PersonCreationController {
 	PersonService personService;
 
 	private Person newPerson;
-        
-        @Inject @LoggedIn
-        private User loggedUser;
-        
-        @ManagedProperty(value = "#{loginManager}")
-        private LoginManager loginManager;
 
-        public void setLoginManager(LoginManager loginManager) {
-            this.loginManager = loginManager;
-        }
+	@Inject
+	@LoggedIn
+	private User loggedUser;
+
+	@ManagedProperty(value = "#{loginManager}")
+	private LoginManager loginManager;
+
+	public void setLoginManager(LoginManager loginManager) {
+		this.loginManager = loginManager;
+	}
 
 	@Produces
 	@Named
@@ -52,16 +53,17 @@ public class PersonCreationController {
 	}
 
 	public String createPerson() {
-            if (loggedUser != null && loggedUser.hasRight(UserRightIds.PERSON_CREATE)) {
-            //if (loginManager != null && loginManager.getCurrentUser().hasRight(UserRightIds.PERSON_CREATE)) {
-		logger.info("Saving new person " + newPerson.toString());
-		personService.savePerson(newPerson);
-		initNewPerson();
-		return "person-list";
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("You are not allowed to create person"));
-                return null;
-            }
+		if (loggedUser != null
+				&& loggedUser.hasRight(UserRightIds.PERSON_WRITE)) {
+			logger.info("Saving new person " + newPerson.toString());
+			personService.savePerson(newPerson);
+			initNewPerson();
+			return "person-list";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("You are not allowed to create person"));
+			return "person-list";
+		}
 	}
 
 	@PostConstruct

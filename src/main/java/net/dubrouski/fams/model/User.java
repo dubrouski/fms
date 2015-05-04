@@ -112,8 +112,7 @@ public class User implements Serializable {
     }
     
     public boolean hasRight(UserRightIds right) {
-        return getUserRightsSet().contains(right) ||
-                getUserRightsSet().contains(UserRightIds.ADMIN);
+        return getUserRightsSet().contains(right);
     }
 
     @Override

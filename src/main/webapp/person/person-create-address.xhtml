@@ -7,10 +7,14 @@
 	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
 		<h:form id="reg">
-			<h:outputText
-				value="#{personAddressController.personToCreateAddress.toString()}" />
+			<h:outputFormat value="#{msg['person.address.addforperson']}">
+				<f:param
+					value="#{personAddressController.personToCreateAddress.firstName}}" />
+				<f:param
+					value="#{personAddressController.personToCreateAddress.lastName}" />
+			</h:outputFormat>
 			<p:panelGrid columns="3" cellpadding="5">
-				<p:outputLabel for="addrType" value="Address type:" />
+				<p:outputLabel for="addrType" value="#{msg['address.type']}" />
 				<p:selectOneRadio id="addrType"
 					value="#{personAddressController.addressType}">
 					<f:selectItems value="#{personAddressController.addressTypes}"
@@ -18,7 +22,7 @@
 						itemLabel="#{msg['enum.addresstype.'.concat(addressType.label)]}" />
 				</p:selectOneRadio>
 				<p:message for="addrType" />
-				<p:outputLabel for="country" value="Country" />
+				<p:outputLabel for="country" value="#{msg['country']}:" />
 				<p:selectOneMenu id="country" converter="codeToCountryConverter"
 					value="#{personAddressController.newAddress.country}">
 					<f:selectItem itemLabel="Select One" itemValue="" />
@@ -28,29 +32,29 @@
 				</p:selectOneMenu>
 				<p:message for="country" />
 
-				<p:outputLabel for="city" value="City" />
+				<p:outputLabel for="city" value="#{msg['address.city']}:" />
 				<p:inputText id="city"
 					value="#{personAddressController.newAddress.city}"></p:inputText>
 				<p:message for="city" />
 
-				<p:outputLabel for="streetName" value="Street name:" />
+				<p:outputLabel for="streetName" value="#{msg['address.street']}:" />
 				<p:inputText id="streetName"
 					value="#{personAddressController.newAddress.streetName}"></p:inputText>
 				<p:message for="streetName" />
 
-				<p:outputLabel for="streetNumber" value="Num.:" />
+				<p:outputLabel for="streetNumber" value="#{msg['address.streetNo']}:" />
 				<p:inputText id="streetNumber"
 					value="#{personAddressController.newAddress.streetNumber}"></p:inputText>
 				<p:message for="streetNumber" />
 
-				<p:outputLabel for="flatNumber" value="Flat number" />
+				<p:outputLabel for="flatNumber" value="#{msg['address.flat']}:" />
 				<p:inputText id="flatNumber"
 					value="#{personAddressController.newAddress.flatNumber}"></p:inputText>
 				<p:message for="flatNumber" />
 				<p>
 					<p:commandButton ajax="false" id="createAddress"
 						action="#{personAddressController.addAddressToPerson()}"
-						value="Add address" />
+						value="#{msg['person.address.createaddrbutton']}" />
 				</p>
 			</p:panelGrid>
 		</h:form>
