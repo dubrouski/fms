@@ -17,7 +17,7 @@ public class MeterRecord  implements Serializable {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private long id;
+    private Long id;
 
     @Column(name = "METER_TYPE")
     @Enumerated(EnumType.STRING)
@@ -26,7 +26,7 @@ public class MeterRecord  implements Serializable {
     @Column(name = "VALUE"
             , nullable = false
             , columnDefinition = " Decimal(10,2) default 0.0")
-    private BigDecimal value;
+    private BigDecimal value = new BigDecimal(0);
 
 
     public long getId() {

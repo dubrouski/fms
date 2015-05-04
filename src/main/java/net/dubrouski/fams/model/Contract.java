@@ -4,13 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 import net.dubrouski.fams.model.enums.ContractState;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-public class Contract implements BaseEntity, Serializable{
-
+@Table(name = "CONTRACT")
+public class Contract implements BaseEntity, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -18,7 +20,8 @@ public class Contract implements BaseEntity, Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long Id;
-	
+
+	@NotNull(message = "{contract.validate.startDate.required}")
 	@Column(name = "START_DATE")
 	@Convert(converter = LocalDatePersistenceConverter.class)
 	private LocalDate startDate;
@@ -26,10 +29,11 @@ public class Contract implements BaseEntity, Serializable{
 	@Column(name = "END_DATE")
 	@Convert(converter = LocalDatePersistenceConverter.class)
 	private LocalDate endDate;
-	
+
+	@NotNull(message = "{contract.validate.state.required}")
+	@Enumerated(EnumType.STRING)
 	@Column(name ="STATE")
 	private ContractState state;
-	
 	
 	@Column(name = "SIGN_DATE")
 	@Convert(converter = LocalDatePersistenceConverter.class)
@@ -40,7 +44,7 @@ public class Contract implements BaseEntity, Serializable{
 	private LocalDate terminationDate;
 	
 	@Column(name = "KEYS_HANDED_OVER")
-	private boolean keysHandedOver;
+	private boolean keysHandedOver = false;
 	
 	@Column(name = "KEYS_HANDOVER_DATE")
 	@Convert(converter = LocalDatePersistenceConverter.class)
@@ -50,11 +54,21 @@ public class Contract implements BaseEntity, Serializable{
 	@Convert(converter = LocalDatePersistenceConverter.class)
 	private LocalDate terminationRequestDate;
 
+	@NotNull(message = "{contract.validate.tenant.required}")
+	@OneToOne
+	@JoinColumn(name = "TENANT_ID")
+	private Person tenant;
+
+	@NotNull(message = "{contract.validate.accommodation.required}")
 	@ManyToOne
+	@JoinColumn(name = "ACCOMMODATION_UNIT_ID")
+	private AccommodationUnit accommodationUnit;
+
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "START_DATA_ID")
 	private MetersData startData;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "END_DATA_ID")
 	private MetersData endData;
 
@@ -128,6 +142,22 @@ public class Contract implements BaseEntity, Serializable{
 
 	public void setTerminationRequestDate(LocalDate terminationRequestDate) {
 		this.terminationRequestDate = terminationRequestDate;
+	}
+
+	public Person getTenant() {
+		return tenant;
+	}
+
+	public void setTenant(Person tenant) {
+		this.tenant = tenant;
+	}
+
+	public AccommodationUnit getAccommodationUnit() {
+		return accommodationUnit;
+	}
+
+	public void setAccommodationUnit(AccommodationUnit accommodationUnit) {
+		this.accommodationUnit = accommodationUnit;
 	}
 
 	public MetersData getStartData() {
