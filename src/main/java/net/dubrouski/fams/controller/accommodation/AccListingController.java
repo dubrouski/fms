@@ -16,9 +16,7 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
 import net.dubrouski.fams.model.AccommodationUnit;
-import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.service.AccommodationUnitService;
-import net.dubrouski.fams.service.PersonService;
 
 @ManagedBean
 @RequestScoped
@@ -32,13 +30,9 @@ public class AccListingController implements Serializable {
 	@Inject
 	private AccommodationUnitService accommodationService;
 
-	@Inject
-	private PersonService personService;
-
 	private LazyDataModel<AccommodationUnit> lazyUnits;
+	private List<AccommodationUnit> eagerUnits;
 
-	private LazyDataModel<Person> lazyPersons;
-	
 	private long rowCount;
 	private int currentPage;
 
@@ -47,10 +41,13 @@ public class AccListingController implements Serializable {
 	@PostConstruct
 	public void loadUnits() {
 		logger.log(Level.INFO, "Post construct called.");
+		eagerUnits = accommodationService.listAccommodations();
 		lazyUnits = new LazyDataModel<AccommodationUnit>() {
 
 			private static final long serialVersionUID = 1L;
 
+			@Inject
+			private Logger logger;
 
 			@Override
 			public List<AccommodationUnit> load(int first, int pageSize,
@@ -58,59 +55,20 @@ public class AccListingController implements Serializable {
 					Map<String, Object> filters) {
 
 				List<AccommodationUnit> result = new ArrayList<AccommodationUnit>();
-//				result = accommodationService.getAccommodationsByPage(pageSize,
-//						first);
-				result = accommodationService.listAccommodations();
-				return result;
-			}
-		};
-		
-		lazyPersons = new LazyDataModel<Person>() {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public List<Person> load(int first, int pageSize, String sortField,
-					SortOrder sortOrder, Map<String, Object> filters) {
-
-				List<Person> result = new ArrayList<Person>();
-				//result = personService.getPersonsByPage(pageSize, first);
-				result = personService.listPersons();
+				result = accommodationService.listAccommodationsByType("room");
+				logger.log(Level.INFO,
+						"Accommodations retrieved:" + result.size());
+				rowCount = result.size();
 				return result;
 			}
 		};
 
-		// TODO resolve casting!
-		lazyPersons.setRowCount((int) personService.getPersonsCount());
-		lazyPersons.setPageSize(pageSize);
-
-		lazyUnits.setRowCount(25);
+		lazyUnits.setRowCount((int) rowCount);
 		lazyUnits.setPageSize(pageSize);
 	}
 
-//	@PostConstruct
-//	public void loadPersons() {
-//		lazyPersons = new LazyDataModel<Person>() {
-//
-//			private static final long serialVersionUID = 1L;
-//
-//			@Override
-//			public List<Person> load(int first, int pageSize, String sortField,
-//					SortOrder sortOrder, Map<String, Object> filters) {
-//
-//				List<Person> result = new ArrayList<Person>();
-//				result = personService.getPersonsByPage(pageSize, first);
-//				return result;
-//			}
-//		};
-//
-//		// TODO resolve casting!
-//		lazyPersons.setRowCount((int) personService.getPersonsCount());
-//		lazyPersons.setPageSize(pageSize);
-//	}
-	
 	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize; 
+		this.pageSize = pageSize;
 	}
 
 	public int getPageSize() {
@@ -128,8 +86,8 @@ public class AccListingController implements Serializable {
 	public LazyDataModel<AccommodationUnit> getLazyUnits() {
 		return lazyUnits;
 	}
-	
-	public LazyDataModel<Person> getLazyPersons() {
-		return lazyPersons;
+
+	public List<AccommodationUnit> getEagerUnits() {
+		return eagerUnits;
 	}
 }
