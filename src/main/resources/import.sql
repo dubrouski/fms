@@ -2,7 +2,6 @@ SELECT setval('public.person_business_id_seq', 1001, true);
 ALTER SEQUENCE person_business_id_seq INCREMENT 11 MINVALUE 1001 CACHE 1001 start 1001;
 
 
-insert into accommodation_unit (name, type, deposit_amount) values ('by the window', 'room', '56.68'), ('at the door', 'room', '4785.7');
 insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2001-11-11', 'test1@test.com', 'Miranda', 'Connor', 'YU12wexcvr34A9', 'Jessica', '+420 777 999 999');
 insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2002-11-11', 'test22@test.com', 'Jack', 'Nickolson', 'YUsrg1234s5A6789', '', '+420 777 666 999');
 insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2003-11-11', 'test3@test.com', 'Arnold', 'Sch', 'YU123456789sf', '', '+420 777 888 666');
@@ -291,6 +290,7 @@ insert into price (base_price, services_price, currency, valid_from, valid_to) v
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (3200, 1700, 'CZK', '10.2.2017', '9.2.2018');
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (1500, 2000, 'CZK', '11.3.2015', '9.8.2018');
 
+insert into accommodation_unit (name, type, deposit_amount) values ('by the window', 'room', '56.68'), ('at the door', 'room', '4785.7');
 insert into accommodation_unit (name, type, deposit_amount, address_id, price_id) values ('big room', 'room', '56.68', 1, 1), ('small room', 'room', '4785.7', 1, 2), ('at the window', 'place', '256', null, 3);
 
 -- user and user rights

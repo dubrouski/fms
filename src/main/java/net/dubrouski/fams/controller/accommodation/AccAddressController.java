@@ -8,8 +8,6 @@ import javax.enterprise.inject.Produces;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
-
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Country;

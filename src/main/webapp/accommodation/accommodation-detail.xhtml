@@ -31,6 +31,26 @@
 				</p:panelGrid>
 			</p:fieldset>
 			
+			<p:fieldset collapsed="true" legend="Price" toggleable="true"
+				toggleSpeed="250" style="margin-bottom:15px;">
+
+				<p:commandButton ajax="false"
+					style="float:right; margin-bottom:10px;"
+					action="#{accPriceController.startUpdate(accommodationDetailController.unit, accommodationDetailController.price)}"
+					value="Update Price" icon="ui-icon-pencil" />
+				
+				<p:panelGrid columns="2" layout="grid">
+					<h:outputText
+						value="#{msg['price.base']}: #{accommodationDetailController.price.basePrice}" />
+					<h:outputText
+						value="#{msg['price.services']}: #{accommodationDetailController.price.servicesPrice}" />
+					<h:outputText
+						value="#{msg['price.total']}: #{accommodationDetailController.price.getTotalPrice()}" />
+					<h:outputText
+						value="#{msg['price.currency']}: #{accommodationDetailController.price.currency}" />
+				</p:panelGrid>				
+			</p:fieldset>
+			
 			<p:fieldset collapsed="true" legend="Address" toggleable="true"
 				toggleSpeed="250" style="margin-bottom:15px;">
 
