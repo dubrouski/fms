@@ -40,7 +40,6 @@ public class AccAddressController implements Serializable{
 	Logger logger;
 	
 	@Produces
-	@Named
 	public AccommodationUnit getUnitWithAddress(){
 		return unitWithAddress;
 	}
