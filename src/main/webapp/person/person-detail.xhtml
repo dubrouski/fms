@@ -9,6 +9,7 @@
 		<h:form>
 			<p:growl id="msgs" showDetail="true" />
 			<p:commandButton style="margin-bottom:10px;" ajax="false"
+				disabled="#{!loginManager.currentUser.hasRight('PERSON_WRITE')}"
 				action="#{personDeletionController.requestPersonDelete(personDetailController.person)}"
 				value="#{msg['person.detail.deletebutton']}:"
 				icon="ui-icon-closethick" />

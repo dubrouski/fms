@@ -1,11 +1,13 @@
 package net.dubrouski.fams.service;
 
 import java.util.List;
+import java.util.Map;
 
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.PersonAddress;
 import net.dubrouski.fams.model.enums.AddressType;
+import net.dubrouski.fams.model.enums.SortingOrder;
 
 /**
  * @author stanislau.dubrouski
@@ -30,9 +32,11 @@ public interface PersonService {
 
 	public void updatePerson(Person person);
 
-	public List<Person> searchByNames(String searchTerm);
+	//
+	// public List<Person> searchByNames(String searchTerm);
 
-	public List<Person> getPersonsByPage(int pageSize, int first);
-	
+	public List<Person> listPersons(int pageSize, int first, String sortField,
+			SortingOrder sortingOrder, String searchTerm);
+
 	public long getPersonsCount();
 }

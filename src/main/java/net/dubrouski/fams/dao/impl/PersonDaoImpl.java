@@ -1,6 +1,9 @@
 package net.dubrouski.fams.dao.impl;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -8,9 +11,17 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 
 import net.dubrouski.fams.dao.PersonDao;
 import net.dubrouski.fams.model.Person;
+import net.dubrouski.fams.model.enums.SortingOrder;
 
 /**
  * @author stanislau.dubrouski
@@ -58,26 +69,41 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 	}
 
 	@Override
-	public List<Person> searchByNames(String searchTerm) {
-		if (searchTerm == null) {
-			throw new IllegalArgumentException("searchTerm is null.");
+	public List<Person> listPersons(int pageSize, int first, String sortField,
+			SortingOrder sortingOrder, String searchTerm) {
+		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<Person> criteriaQuery = builder.createQuery(Person.class);
+		Root<Person> personRoot = criteriaQuery.from(Person.class);
+
+		// TODO replace literal with metamodel
+		// Metamodel meta = this.entityManager.getMetamodel();
+		// EntityType<Person> Person_ = meta.entity(Person.class);
+
+		Path<Object> path = personRoot.get(sortField == null ? "businessId"
+				: sortField);
+
+		criteriaQuery.select(personRoot);
+		if (searchTerm != null && !searchTerm.isEmpty()) {
+			Predicate orClause = 
+					builder.or(
+							builder.like(
+									builder.lower(personRoot.<String> get("firstName")), 
+									"%" + searchTerm.toLowerCase() + "%"), 
+							builder.like(
+									builder.lower(personRoot.<String> get("lastName")), 
+									"%" + searchTerm.toLowerCase() + "%"));
+
+			criteriaQuery.where(orClause);
+		}
+
+		if (sortingOrder.equals(SortingOrder.ASCENDING)) {
+			criteriaQuery.orderBy(builder.asc(path));
+		} else {
+			criteriaQuery.orderBy(builder.desc(path));
 		}
 		TypedQuery<Person> query = this.entityManager
-				.createQuery(
-						"select p from Person p where upper(p.firstName) like CONCAT('%', :searchTerm, '%')  "
-								+ "or upper(p.lastName) like  CONCAT('%', :searchTerm, '%')",
-						Person.class);
-
-		return query.setParameter("searchTerm", searchTerm.toUpperCase())
-				.getResultList();
-	}
-
-	@Override
-	public List<Person> getPersonsByPage(int pageSize, int first) {
-		TypedQuery<Person> query = this.entityManager
-				.createQuery("select p from Person p", Person.class)
-				.setFirstResult(first).setMaxResults(pageSize);
-
+				.createQuery(criteriaQuery).setFirstResult(first)
+				.setMaxResults(pageSize);
 		return query.getResultList();
 	}
 

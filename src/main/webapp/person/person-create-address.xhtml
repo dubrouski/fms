@@ -15,12 +15,13 @@
 			</h:outputFormat>
 			<p:panelGrid columns="3" cellpadding="5">
 				<p:outputLabel for="addrType" value="#{msg['address.type']}" />
-				<p:selectOneRadio id="addrType"
+				<p:selectOneButton id="addrType"
 					value="#{personAddressController.addressType}">
 					<f:selectItems value="#{personAddressController.addressTypes}"
 						var="addressType" itemValue="#{addressType}"
 						itemLabel="#{msg['enum.addresstype.'.concat(addressType.label)]}" />
-				</p:selectOneRadio>
+				</p:selectOneButton>
+
 				<p:message for="addrType" />
 				<p:outputLabel for="country" value="#{msg['country']}:" />
 				<p:selectOneMenu id="country" converter="codeToCountryConverter"
@@ -42,7 +43,8 @@
 					value="#{personAddressController.newAddress.streetName}"></p:inputText>
 				<p:message for="streetName" />
 
-				<p:outputLabel for="streetNumber" value="#{msg['address.streetNo']}:" />
+				<p:outputLabel for="streetNumber"
+					value="#{msg['address.streetNo']}:" />
 				<p:inputText id="streetNumber"
 					value="#{personAddressController.newAddress.streetNumber}"></p:inputText>
 				<p:message for="streetNumber" />

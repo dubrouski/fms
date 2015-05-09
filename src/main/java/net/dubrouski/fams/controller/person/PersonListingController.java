@@ -19,6 +19,7 @@ import org.primefaces.model.SortOrder;
 import net.dubrouski.fams.annotations.LoggedIn;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.User;
+import net.dubrouski.fams.model.enums.SortingOrder;
 import net.dubrouski.fams.model.enums.UserRightIds;
 import net.dubrouski.fams.service.PersonService;
 
@@ -33,13 +34,15 @@ public class PersonListingController implements Serializable {
 
 	@Inject
 	private PersonService personService;
-	
+
 	private LazyDataModel<Person> lazyPersons;
 
 	private long rowCount;
 	private int currentPage;
 
 	private int pageSize = 25;
+
+	private String searchTerm;
 
 	@PostConstruct
 	public void loadPersons() {
@@ -52,7 +55,8 @@ public class PersonListingController implements Serializable {
 					SortOrder sortOrder, Map<String, Object> filters) {
 
 				List<Person> result = new ArrayList<Person>();
-				result = personService.getPersonsByPage(pageSize, first);
+				result = personService.listPersons(pageSize, first, sortField,
+						SortingOrder.valueOf(sortOrder.name()), searchTerm);
 				return result;
 			}
 		};
@@ -80,6 +84,14 @@ public class PersonListingController implements Serializable {
 
 	public LazyDataModel<Person> getLazyPersons() {
 		return lazyPersons;
+	}
+
+	public String getSearchTerm() {
+		return searchTerm;
+	}
+
+	public void setSearchTerm(String searchTerm) {
+		this.searchTerm = searchTerm;
 	}
 
 }

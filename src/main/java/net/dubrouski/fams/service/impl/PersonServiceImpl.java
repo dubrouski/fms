@@ -2,6 +2,7 @@ package net.dubrouski.fams.service.impl;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,6 +16,7 @@ import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.PersonAddress;
 import net.dubrouski.fams.model.enums.AddressType;
+import net.dubrouski.fams.model.enums.SortingOrder;
 import net.dubrouski.fams.service.PersonService;
 
 /**
@@ -103,18 +105,19 @@ public class PersonServiceImpl implements PersonService {
 		return result;
 	}
 
-	@Override
-	public List<Person> searchByNames(String searchTerm) {
-		return personDao.searchByNames(searchTerm);
-	}
-
 	private Person getPersonWithAddresses(Long id) {
 		return personDao.getPersonWithAddresses(id);
 	}
 
 	@Override
-	public List<Person> getPersonsByPage(int pageSize, int first) {
-		return personDao.getPersonsByPage(pageSize, first);
+	public List<Person> listPersons(int pageSize, int first,
+			String sortField, SortingOrder sortingOrder,
+			String searchTerm) {
+		logger.log(Level.INFO, String.format("Listing for %d, %d, %s %s",
+				pageSize, first, sortField, sortingOrder.name()));
+
+		return personDao.listPersons(pageSize, first, sortField,
+				sortingOrder, searchTerm);
 	}
 
 	@Override
