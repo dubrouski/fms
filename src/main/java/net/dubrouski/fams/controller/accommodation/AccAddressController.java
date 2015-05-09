@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -56,7 +55,6 @@ public class AccAddressController implements Serializable{
 		return addressService.getCountriesList();
 	}
 	
-	//TODO: beans not loading, again, even though this time I checked my imports :-/ 
 	public String startUpdate(AccommodationUnit unit, Address address){
 		unitWithAddress = unit;
 		if(address == null){

@@ -16,7 +16,7 @@ import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class AccommodationDetailController implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -48,12 +48,7 @@ public class AccommodationDetailController implements Serializable{
 		else{
 			address = unit.getAddress();
 			logger.info(address.toString());
-		}
-		
+		}		
 		return "accommodation-detail";
-	}
-	
-	public void handleChildrenToggle(ToggleEvent event){
-		
 	}
 }

@@ -33,6 +33,9 @@ public class AccommodationUpdateController implements Serializable{
 	}
 	
 	public String startUpdate(AccommodationUnit u){
+		if (u == null){
+			logger.info("unit to update is null");
+		}
 		unitToUpdate = u;
 		return "accommodation-update";
 	}

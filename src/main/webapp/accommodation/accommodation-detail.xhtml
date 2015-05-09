@@ -8,7 +8,7 @@
 	<ui:define name="accommodation-content">
 		<h:form>
 			<p:growl id="msgs" showDetail="true" />
-			<p:commandButton style="margin-bottom:10px;"
+			<p:commandButton style="margin-bottom:10px;" ajax="false"
 				action="#{accommodationDeletionController.delete(accommodationDetailController.unit)}"
 				value="Delete accommodation" icon="ui-icon-closethick" >
 				<f:param name="i" value="2" />
