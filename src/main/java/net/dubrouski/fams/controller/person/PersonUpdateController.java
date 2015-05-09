@@ -41,11 +41,6 @@ public class PersonUpdateController implements Serializable {
 		return personToUpdate;
 	}
 
-//	public String startPersonUpdate(Long id) {
-//		this.personToUpdate = personService.getPersonById(id);
-//		return "person-update";
-//	}
-	
 	public String startPersonUpdate(Person person) {
 		this.personToUpdate = person;
 		return "person-update";

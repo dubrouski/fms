@@ -7,62 +7,65 @@
 	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define id="content" name="content">
 
-		<h:form>
-			<p:outputLabel for="searchInput">Search: </p:outputLabel>
+		<p:outputLabel for="personSearchForm:searchInput">Search: </p:outputLabel>
+		<h:form style="display: inline;" id="personSearchForm">
 			<p:inputText id="searchInput" placeholder="Search by names..."
 				value="#{personListingController.searchTerm}">
-<!-- 				<p:ajax delay="1000" event="keyup" update="personsTable"></p:ajax> -->
+				<!-- 								<p:ajax delay="1000" event="keyup" update="personsTable"></p:ajax> -->
 			</p:inputText>
-			<p:commandButton value="Search" update="personsTable"></p:commandButton>
-
-			<p:dataTable id="personsTable" var="person"
-				value="#{personListingController.lazyPersons}"
-				rows="#{personListingController.pageSize}" paginator="true"
-				lazy="true"
-				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="25,50,100" style="padding-top:5px;">
-
-
-				<p:column headerText="#{msg['person.list.personid']}"
-					sortBy="#{person.businessId}">
-					<h:outputText value="#{person.businessId}" />
-				</p:column>
-				<p:column headerText="#{msg['person.list.name']}"
-					sortBy="#{person.firstName}">
-					<p:commandLink id="detailLinkFName"
-						action="#{personDetailController.showDetail(person)}"
-						value="#{person.firstName}"></p:commandLink>
-				</p:column>
-				<p:column headerText="#{msg['person.list.surname']}"
-					sortBy="#{person.lastName}">
-					<p:commandLink id="detailLinkSName"
-						action="#{personDetailController.showDetail(person)}"
-						value="#{person.lastName}"></p:commandLink>
-				</p:column>
-				<p:column headerText="#{msg['person.list.legalid']}"
-					sortBy="#{person.legalId}">
-					<h:outputText value="#{person.legalId}" />
-				</p:column>
-				<p:column headerText="#{msg['person.list.phone']}"
-					sortBy="#{person.phone}">
-					<h:outputText value="#{person.phone}" />
-				</p:column>
-				<p:column headerText="Actions">
-					<h:form>
-						<p:commandButton id="detailButton" icon="ui-icon-person"
-							action="#{personDetailController.showDetail(person)}">
-						</p:commandButton>
-						<p:tooltip id="detailButtonToolTip" for="detailButton"
-							value="Show person's detail" />
-
-						<p:commandButton id="removeButton" icon="ui-icon-closethick"
-							action="#{personDeletionController.requestPersonDelete(person)}">
-							<p:tooltip id="removeButtonToolTip" for="removeButton"
-								value="Delete person" />
-						</p:commandButton>
-					</h:form>
-				</p:column>
-			</p:dataTable>
 		</h:form>
+		<p:commandButton value="Search" update="personsTable"></p:commandButton>
+
+		<p:dataTable id="personsTable" var="person"
+			value="#{personListingController.lazyPersons}"
+			rows="#{personListingController.pageSize}" paginator="true"
+			lazy="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="25,50,100" style="padding-top:5px;">
+
+
+			<p:column headerText="#{msg['person.list.personid']}"
+				sortBy="#{person.businessId}">
+				<h:outputText value="#{person.businessId}" />
+			</p:column>
+			<p:column headerText="#{msg['person.list.name']}"
+				sortBy="#{person.firstName}">
+				<p:commandLink id="detailLinkFName"
+					action="#{personDetailController.showDetail(person)}"
+					value="#{person.firstName}"></p:commandLink>
+			</p:column>
+			<p:column headerText="#{msg['person.list.surname']}"
+				sortBy="#{person.lastName}">
+				<p:commandLink id="detailLinkSName"
+					action="#{personDetailController.showDetail(person)}"
+					value="#{person.lastName}"></p:commandLink>
+			</p:column>
+			<p:column headerText="#{msg['person.list.legalid']}"
+				sortBy="#{person.legalId}">
+				<h:outputText value="#{person.legalId}" />
+			</p:column>
+			<p:column headerText="#{msg['person.list.phone']}"
+				sortBy="#{person.phone}">
+				<h:outputText value="#{person.phone}" />
+			</p:column>
+			<p:column headerText="Actions">
+				<h:form>
+					<p:commandButton id="detailButton" icon="ui-icon-person"
+						action="#{personDetailController.showDetail(person)}">
+					</p:commandButton>
+					<p:tooltip id="detailButtonToolTip" for="detailButton"
+						value="Show person's detail" />
+
+					<p:commandButton id="removeButton" icon="ui-icon-closethick"
+						ajax="false"
+						disabled="#{!loginManager.currentUser.hasRight('PERSON_WRITE')}"
+						action="#{personDeletionController.requestPersonDelete(person)}">
+						<p:tooltip id="removeButtonToolTip" for="removeButton"
+							value="Delete person" />
+					</p:commandButton>
+				</h:form>
+			</p:column>
+		</p:dataTable>
+
 	</ui:define>
 </ui:composition>

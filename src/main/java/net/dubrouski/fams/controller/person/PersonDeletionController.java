@@ -44,20 +44,6 @@ public class PersonDeletionController {
 	}
 
 	public String requestPersonDelete(Person person) {
-		if (currentUserHolder.getLoggedUser().hasRight(
-				UserRightIds.PERSON_WRITE)) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(
-							"Current user has permission to remove persons."));
-		} else {
-			FacesContext
-					.getCurrentInstance()
-					.addMessage(
-							null,
-							new FacesMessage(
-									"Current user DOESN'T have permission to remove persons."));
-		}
 
 		this.personForDeletion = person;
 		if (personForDeletion == null) {
@@ -65,7 +51,6 @@ public class PersonDeletionController {
 					"requestPersonDelete: personForDeletion is null.");
 		}
 		return "person-confirm-delete";
-
 	}
 
 	public String confirmPersonDelete() {

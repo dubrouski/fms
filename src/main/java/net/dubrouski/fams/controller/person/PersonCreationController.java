@@ -53,17 +53,16 @@ public class PersonCreationController {
 	}
 
 	public String createPerson() {
-		if (loggedUser != null
-				&& loggedUser.hasRight(UserRightIds.PERSON_WRITE)) {
-			logger.info("Saving new person " + newPerson.toString());
-			personService.savePerson(newPerson);
-			initNewPerson();
-			return "person-list";
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("You are not allowed to create person"));
-			return "person-list";
-		}
+		logger.info("Saving new person " + newPerson.toString());
+		personService.savePerson(newPerson);
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, String.format(
+						"Person %s %s created successufully.",
+						newPerson.getFirstName(), newPerson.getLastName()),
+						null));
+		initNewPerson();
+		return "person-list";
 	}
 
 	@PostConstruct
