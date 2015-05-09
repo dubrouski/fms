@@ -6,10 +6,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/accommodation-management-template.xhtml">
 	<ui:define name="accommodation-content">
-		<h1></h1>
+		<h3>Change Address for: #{accAddressController.unitWithAddress.type} - #{accAddressController.unitWithAddress.name}</h3>
 		<h:form id="reg">
-			<h:outputText
-				value="#{accAddressController.unitWithAddress.toString()}" />
 			<p:panelGrid columns="3" cellpadding="5">
 			
 				<p:outputLabel for="country" value="#{msg['country']}" />
@@ -41,12 +39,13 @@
 				<p:inputText id="flatNumber"
 					value="#{accAddressController.unitsAddress.flatNumber}"></p:inputText>
 				<p:message for="flatNumber" />
-				<p>
-					<p:commandButton ajax="false" id="createAddress"
+			</p:panelGrid>
+			    <p:commandButton ajax="false" id="createAddress" style="margin-top:10px;"
 						action="#{accAddressController.updateAddress()}"
 						value="Update Address" />
-				</p>
-			</p:panelGrid>
+				<p:commandButton ajax="false" icon="ui-icon-closethick" style="margin-top:10px;"
+						action="#{accommodationDetailController.showDetail(accAddressController.unitWithAddress)}" 
+				   		value="Cancel" />			   
 		</h:form>
 	</ui:define>
 </ui:composition>

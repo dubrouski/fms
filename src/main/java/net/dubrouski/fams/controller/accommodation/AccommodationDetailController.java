@@ -5,18 +5,17 @@ import java.util.logging.Logger;
 
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.event.ToggleEvent;
-
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
+import net.dubrouski.fams.model.Price;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class AccommodationDetailController implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -24,6 +23,8 @@ public class AccommodationDetailController implements Serializable{
 	private AccommodationUnit unit;
 	
 	private Address address;
+	
+	private Price price;
 	
 	@Inject
 	Logger logger;
@@ -39,6 +40,11 @@ public class AccommodationDetailController implements Serializable{
 		return address;
 	}
 	
+	@Produces
+	public Price getPrice(){
+		return price;
+	}	
+	
 	public String showDetail(AccommodationUnit u){
 		unit = u;
 		if(unit.getAddress() == null){
@@ -49,11 +55,14 @@ public class AccommodationDetailController implements Serializable{
 			address = unit.getAddress();
 			logger.info(address.toString());
 		}
-		
+		if(unit.getPrice() == null){
+			price = new Price();
+			logger.info("new price");
+		}
+		else{
+			price = unit.getPrice();
+			logger.info(price.toString());
+		}
 		return "accommodation-detail";
-	}
-	
-	public void handleChildrenToggle(ToggleEvent event){
-		
 	}
 }

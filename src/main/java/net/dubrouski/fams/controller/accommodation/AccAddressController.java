@@ -6,11 +6,8 @@ import java.util.logging.Logger;
 
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
-
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Country;
@@ -41,7 +38,6 @@ public class AccAddressController implements Serializable{
 	Logger logger;
 	
 	@Produces
-	@Named
 	public AccommodationUnit getUnitWithAddress(){
 		return unitWithAddress;
 	}
@@ -56,7 +52,6 @@ public class AccAddressController implements Serializable{
 		return addressService.getCountriesList();
 	}
 	
-	//TODO: beans not loading, again, even though this time I checked my imports :-/ 
 	public String startUpdate(AccommodationUnit unit, Address address){
 		unitWithAddress = unit;
 		if(address == null){

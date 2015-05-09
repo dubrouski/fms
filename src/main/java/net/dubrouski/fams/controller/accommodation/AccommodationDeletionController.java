@@ -34,6 +34,10 @@ public class AccommodationDeletionController implements Serializable{
 	
 	
 	public String delete(AccommodationUnit unit){
+		if (unit == null) {
+			logger.info("unit to delete is null");	
+		}
+		
 		unitToDelete = unit;
 		return "accommodation-confirm-delete";
 	}

@@ -63,7 +63,12 @@ public class Price implements Serializable, BaseEntity{
 	}
 	
 	public BigDecimal getTotalPrice(){
-		return basePrice.add(servicesPrice);
+		try{
+			return basePrice.add(servicesPrice);
+		}
+		catch(NullPointerException ex){
+			return null;
+		}
 	} 
 	
 	@Override
