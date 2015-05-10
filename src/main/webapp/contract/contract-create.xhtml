@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/contract-management-template.xhtml">
+	<ui:define id="content" name="content">
+		<h3>Contract creation</h3>
+		<h:form id="reg">
+			<p:panelGrid columns="3" layout="grid" cellpadding="5">
+
+				<p:outputLabel for="personForContract" value="Select person:" />
+				<p:selectOneListbox id="personForContract"
+					converter="idToPersonConverter"
+					value="#{contractCreationController.newContract.tenant}">
+					<f:selectItems value="#{personService.listPersons()}" var="person"
+						itemLabel="#{person.businessId} #{person.firstName} #{person.lastName}"
+						itemValue="#{person.id}" />
+				</p:selectOneListbox>
+				<p:message for="personForContract" />
+
+				<p:outputLabel for="accommForContract" value="Select acommodation:" />
+				<p:selectOneListbox id="accommForContract"
+					converter="#{idToAccommConverter}"
+					value="#{contractCreationController.newContract.accommodationUnit}">
+					<f:selectItems value="#{accommodationService.listAccommodations()}"
+						var="unit" itemLabel="#{unit.type} #{unit.id} #{unit.name}"
+						itemValue="#{unit.id}" />
+				</p:selectOneListbox>
+				<p:message for="accommForContract"/>
+
+				<p:outputLabel for="startDate" value="Set start date:" />
+				<p:inputMask id="startDate" value="#{contractCreationController.newContract.startDate}"
+					converter="dateStringConverter" mask="99.99.9999" />
+				<p:message for="startDate" />
+
+				<p:outputLabel for="endDate" value="Set end date:" />
+				<p:inputMask id="endDate" value="#{contractCreationController.newContract.endDate}"
+					converter="dateStringConverter" mask="99.99.9999" />
+				<p:message for="endDate" />
+				
+			</p:panelGrid>
+			<p:commandButton ajax="false" id="register"
+				action="#{contractCreationController.createContract()}"
+				value="Create contract" />
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -16,8 +16,7 @@
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" />
-	<link rel="stylesheet"
-		href="/fms/resources/css/screen.css"></link>
+	<link rel="stylesheet" href="/fams/resources/css/screen.css"></link>
 	<style type="text/css">
 </style>
 </h:head>
@@ -27,42 +26,48 @@
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/fms/">FMS</a>
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/fams/">FMS</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li class="dropdown"><a href="/fms/person/person-list.jsf"
+					<li class="dropdown"><a href="/fams/person/person-list.jsf"
 						class="dropdown-toggle" data-toggle="dropdown" role="button"
 						aria-expanded="false">Accommodation management <span
 							class="caret"></span>
 					</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="/fms/accommodation/accommodation-list.jsf">List
+							<li><a href="/fams/accommodation/accommodation-list.jsf">List
 									all</a></li>
-							<li><a href="/fms/accommodation/accommodation-create.jsf">Create
+							<li><a href="/fams/accommodation/accommodation-create.jsf">Create
 									new</a></li>
 						</ul></li>
 
 
-					<li class="dropdown"><a href="/fms/person/person-list.jsf"
+					<li class="dropdown"><a href="/fams/person/person-list.jsf"
 						class="dropdown-toggle" data-toggle="dropdown" role="button"
 						aria-expanded="false">Persons management <span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="/fms/person/person-list.jsf">List all</a></li>
-							<li><a href="/fms/person/person-create.jsf">Create new</a></li>
+							<li><a href="/fams/person/person-list.jsf">List all</a></li>
+							<li><a href="/fams/person/person-create.jsf">Create new</a></li>
 						</ul></li>
 
 
-					<li class="dropdown"><a href="/fms/person/person-list.jsf"
+					<li class="dropdown"><a href="/fams/person/person-list.jsf"
 						class="dropdown-toggle" data-toggle="dropdown" role="button"
 						aria-expanded="false">Contract management <span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="/fms/contract/contract-list.jsf">List all</a></li>
+							<li><a href="/fams/contract/contract-list.jsf">List all</a></li>
 							<li><a href="#">Create new</a></li>
 						</ul></li>
 				</ul>

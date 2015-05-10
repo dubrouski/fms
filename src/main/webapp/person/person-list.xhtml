@@ -48,9 +48,17 @@
 			</p:column>
 			<p:column headerText="Actions">
 				<h:form>
+
+<!-- 					<p:button id="detailButton2" icon="ui-icon-person" -->
+<!-- 						outcome="#{personDetailController.showDetail(person)}"> -->
+<!-- 					</p:button> -->
+
+
 					<p:commandButton id="detailButton" icon="ui-icon-person"
 						action="#{personDetailController.showDetail(person)}">
 					</p:commandButton>
+					
+					
 					<p:tooltip id="detailButtonToolTip" for="detailButton"
 						value="Show person's detail" />
 

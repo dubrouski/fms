@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/contract-management-template.xhtml">
+	<ui:define id="content" name="content">
+		<h3>Contract detail</h3>
+
+		<div class="ui-grid ui-grid-responsive">
+
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4">
+					<h:outputLabel for="person" value="Person:" />
+				</div>
+				<div class="ui-grid-col-4">
+					<h:outputText id="person"
+						value="#{contractDetailController.contract.tenant.businessId}: #{contractDetailController.contract.tenant.firstName} #{contractDetailController.contract.tenant.lastName}" />
+					<h:form style="display: inline;">
+						<p:commandButton id="detailButton" icon="ui-icon-person"
+							ajax="false"
+							action="#{personDetailController.showDetail(contractDetailController.contract.tenant)}">
+						</p:commandButton>
+						<p:tooltip id="personDetailButtonToolTip" for="detailButton"
+							value="Show person's detail" />
+					</h:form>
+				</div>
+
+				<div class="ui-grid-col-4">
+					<h:outputLabel for="accomm" value="Accommodation:" />
+				</div>
+				<div class="ui-grid-col-4">
+					<h:outputText id="accomm"
+						value="#{contractDetailController.contract.accommodationUnit.id}: #{contractDetailController.contract.accommodationUnit.name}" />
+					<h:form style="display: inline;">
+						<p:commandButton id="accommDetailButton" icon="ui-icon-home"
+							action="#{accommodationDetailController.showDetail(contractDetailController.contract.accommodationUnit)}">
+						</p:commandButton>
+						<p:tooltip id="accommDetailButtonToolTip" for="accommDetailButton"
+							value="Show acommodation's detail" />
+					</h:form>
+				</div>
+			</div>
+
+
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4">
+					<h:outputLabel for="cid" value="ID:" />
+				</div>
+				<div class="ui-grid-col-4">
+					<h:outputText id="cid"
+						value="#{contractDetailController.contract.id}" />
+				</div>
+				<div class="ui-grid-col-4">
+					<h:outputLabel for="state" value="State:" />
+				</div>
+				<div class="ui-grid-col-4">
+					<h:outputText id="state"
+						value="#{contractDetailController.contract.state}" />
+				</div>
+			</div>
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4">
+					<h:outputLabel for="startDate" value="Start date:" />
+				</div>
+				<div class="ui-grid-col-4">
+					<h:outputFormat id="startDate"
+						value="#{contractDetailController.contract.startDate}" />
+				</div>
+				<div class="ui-grid-col-4">
+					<h:outputLabel for="endDate" value="End date:" />
+				</div>
+				<div class="ui-grid-col-4">
+					<h:outputFormat id="endDate"
+						value="#{contractDetailController.contract.endDate}" />
+				</div>
+			</div>
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4">
+					<h:outputLabel for="keysHandedOver" value="Keys handed over:" />
+				</div>
+				<div class="ui-grid-col-4">
+					<h:outputFormat id="keysHandedOver"
+						value="#{contractDetailController.contract.keysHandedOver}" />
+				</div>
+				<div class="ui-grid-col-4">
+					<h:outputLabel for="keysHandoverDate" value="Handover date:" />
+				</div>
+				<div class="ui-grid-col-4">
+					<h:outputFormat id="keysHandoverDate"
+						value="#{contractDetailController.contract.keysHandoverDate}" />
+				</div>
+			</div>
+			<!-- 			<div class="ui-grid-row"> -->
+			<!-- 				<div class="ui-grid-col-4"> -->
+			<!-- 					<h:outputLabel for="keysHandedOver" value="Keys handed over:" /> -->
+			<!-- 				</div> -->
+			<!-- 				<div class="ui-grid-col-4"> -->
+			<!-- 					<h:outputFormat id="keysHandedOver" -->
+			<!-- 						value="#{contractDetailController.contract.keysHandedOver}" /> -->
+			<!-- 				</div> -->
+			<!-- 				<div class="ui-grid-col-4"> -->
+			<!-- 					<h:outputLabel for="keysHandoverDate" value="Handover date:" /> -->
+			<!-- 				</div> -->
+			<!-- 				<div class="ui-grid-col-4"> -->
+			<!-- 					<h:outputFormat id="keysHandoverDate" -->
+			<!-- 						value="#{contractDetailController.contract.keysHandoverDate}" /> -->
+			<!-- 				</div> -->
+			<!-- 			</div> -->
+		</div>
+	</ui:define>
+</ui:composition>

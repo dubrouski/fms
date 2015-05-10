@@ -2,22 +2,23 @@ package net.dubrouski.fams.controller.person;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.inject.Produces;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.event.ToggleEvent;
-import org.primefaces.model.Visibility;
-
+import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.PersonAddress;
+import net.dubrouski.fams.service.ContractService;
 import net.dubrouski.fams.service.PersonService;
+
+import org.primefaces.event.ToggleEvent;
+import org.primefaces.model.Visibility;
 
 /**
  * @author stanislau.dubrouski
@@ -30,13 +31,17 @@ public class PersonDetailController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private Logger logger;
+	Logger logger;
 
 	@Inject
 	PersonService personService;
 
+	@Inject
+	ContractService contractService;
+
 	private Person person;
 	private List<PersonAddress> personsAddresses;
+	private List<Contract> personsContracts;
 
 	@Produces
 	@Named
@@ -49,15 +54,33 @@ public class PersonDetailController implements Serializable {
 		return personsAddresses;
 	}
 
+	@Produces
+	public List<Contract> getPersonsContracts() {
+		return personsContracts;
+	}
+
 	public String showDetail(Person p) {
 		this.person = p;
+
+		logger.log(Level.INFO, "show detail for person " + p);
+
 		this.personsAddresses = personService.getAddressesForPerson(p);
-		return "person-detail";
+		this.personsContracts = contractService.getContractsByPerson(p);
+
+		logger.log(Level.INFO, "lists loaded for person " + p);
+
+		return "person-detail?faces-redirect=true";
 	}
 
 	public void handleAddressesToggle(ToggleEvent event) {
 		if (event.getVisibility().equals(Visibility.VISIBLE)) {
 			loadAddresses();
+		}
+	}
+
+	public void handleContractsToggle(ToggleEvent event) {
+		if (event.getVisibility().equals(Visibility.VISIBLE)) {
+			loadContracts();
 		}
 	}
 
@@ -67,6 +90,7 @@ public class PersonDetailController implements Serializable {
 	}
 
 	public void loadContracts() {
-		// add contracts loading here
+		this.personsContracts = contractService
+				.getContractsByPerson(this.person);
 	}
 }

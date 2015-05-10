@@ -11,6 +11,11 @@
 	background-color: #BAE8B5 !important;
 }
 
+.ui-fieldset-toggleable .ui-fieldset-legend {
+	padding: 0.1em 35em 0.1em 0.5em;
+	cursor: pointer;
+}
+
 /* body { */
 /* 	margin: 0; */
 /* 	padding: 0; */

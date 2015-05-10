@@ -7,11 +7,13 @@
 	template="/WEB-INF/templates/contract-management-template.xhtml">
 	<ui:define id="content" name="content">
 
-		<p:dataTable id="contractsTable" var="contract" rowStyleClass="#{contract.state eq 'New' ? 'contract_new' : contract.state eq 'Closed' ? 'contract_closed' : 'contract_signed_active'}"
+		<p:dataTable id="contractsTable" var="contract"
+			rowStyleClass="#{contract.state eq 'New' ? 'contract_new' : contract.state eq 'Closed' ? 'contract_closed' : 'contract_signed_active'}"
 			value="#{contractService.listContracts()}" style="padding-top:5px;">
-
 			<p:column headerText="ID">
-				<h:outputText value="#{contract.id}" />
+				<p:commandLink id="detailLinkSName"
+					action="#{contractDetailController.showDetail(contract)}"
+					value="#{contract.id}"></p:commandLink>
 			</p:column>
 			<p:column headerText="Start date">
 				<h:outputText value="#{contract.startDate}" />
@@ -22,8 +24,6 @@
 			<p:column headerText="Status">
 				<h:outputText value="#{contract.state}" />
 			</p:column>
-
 		</p:dataTable>
-
 	</ui:define>
 </ui:composition>

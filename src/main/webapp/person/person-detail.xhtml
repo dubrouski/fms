@@ -47,7 +47,7 @@
 			</p:panelGrid>
 		</p:fieldset>
 
-		<p:fieldset collapsed="true"
+		<p:fieldset collapsed="true" id="addressesFieldSet"
 			legend="#{msg['person.detail.addressestab']}" toggleable="true"
 			toggleSpeed="250" style="margin-bottom:15px;">
 			<p:ajax event="toggle"
@@ -89,12 +89,27 @@
 			</p:dataTable>
 		</p:fieldset>
 
-		<p:fieldset collapsed="true"
+		<p:fieldset collapsed="true" id="contractsFieldSet"
 			legend="#{msg['person.detail.contractstab']}" toggleable="true"
 			toggleSpeed="250" style="margin-bottom:15px;">
-			<h:panelGrid columns="2" cellpadding="10">
-				<h:outputText value="Person's contracts list goes here" />
-			</h:panelGrid>
+
+			<p:dataTable id="contractsTable" var="contract"
+				rowStyleClass="#{contract.state eq 'New' ? 'contract_new' : contract.state eq 'Closed' ? 'contract_closed' : 'contract_signed_active'}"
+				value="#{personDetailController.personsContracts}"
+				style="padding-top:5px;">
+				<p:column headerText="ID">
+					<h:outputText value="#{contract.id}" />
+				</p:column>
+				<p:column headerText="Start date">
+					<h:outputText value="#{contract.startDate}" />
+				</p:column>
+				<p:column headerText="End date">
+					<h:outputText value="#{contract.endDate}" />
+				</p:column>
+				<p:column headerText="Status">
+					<h:outputText value="#{contract.state}" />
+				</p:column>
+			</p:dataTable>
 		</p:fieldset>
 		<!-- 		</h:form> -->
 	</ui:define>
