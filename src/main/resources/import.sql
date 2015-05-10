@@ -17,6 +17,9 @@ insert into person (birth_date, email, first_name, last_name, legal_identificato
 insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2008-11-11', 'test@test.com', 'Sarah', 'Connor', 'YU123456789', 'Jessica', '+420 777 888 999'), ('01.01.1960', 'test2@test.com', 'Parker', 'Evans', 'YU123456788', '-', '+420 669 888 999');
 
 
+
+
+
 --fill countries list
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('AF', 'Afghanistan', 10);
 INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('AL', 'Albania', 10);
@@ -292,6 +295,19 @@ insert into price (base_price, services_price, currency, valid_from, valid_to) v
 
 insert into accommodation_unit (name, type, deposit_amount) values ('by the window', 'room', '56.68'), ('at the door', 'room', '4785.7');
 insert into accommodation_unit (name, type, deposit_amount, address_id, price_id) values ('big room', 'room', '56.68', 1, 1), ('small room', 'room', '4785.7', 1, 2), ('at the window', 'place', '256', null, 3);
+
+--dummy contracts
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2012-01-01', '2012-12-12', 'Closed', 2, 2, false);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2013-01-01', '2013-12-12', 'Closed', 2, 2, false);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2014-01-01', '2014-12-12', 'Closed', 2, 2, false);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2015-01-01', '2015-12-12', 'Signed', 2, 2, false);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2016-01-01', '2016-12-12', 'New', 2, 2, false);
+
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2012-01-01', '2012-12-12', 'Closed', 1, 1, false);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2013-01-01', '2013-12-12', 'Closed', 1, 1, false);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2014-01-01', '2014-12-12', 'Closed', 1, 1, false);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2015-01-01', '2015-12-12', 'Signed', 1, 1, false);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2016-01-01', '2016-12-12', 'New', 1, 1, false);
 
 -- user and user rights
 INSERT INTO "USER" (id, login, password, person_id) VALUES (1, 'admin', 'admin', null);

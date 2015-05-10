@@ -11,7 +11,6 @@
 		<h:form style="display: inline;" id="personSearchForm">
 			<p:inputText id="searchInput" placeholder="Search by names..."
 				value="#{personListingController.searchTerm}">
-				<!-- 								<p:ajax delay="1000" event="keyup" update="personsTable"></p:ajax> -->
 			</p:inputText>
 		</h:form>
 		<p:commandButton value="Search" update="personsTable"></p:commandButton>
@@ -22,7 +21,6 @@
 			lazy="true"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="25,50,100" style="padding-top:5px;">
-
 
 			<p:column headerText="#{msg['person.list.personid']}"
 				sortBy="#{person.businessId}">

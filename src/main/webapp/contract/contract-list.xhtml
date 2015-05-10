@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/contract-management-template.xhtml">
+	<ui:define id="content" name="content">
+
+		<p:dataTable id="contractsTable" var="contract" rowStyleClass="#{contract.state eq 'New' ? 'contract_new' : contract.state eq 'Closed' ? 'contract_closed' : 'contract_signed_active'}"
+			value="#{contractService.listContracts()}" style="padding-top:5px;">
+
+			<p:column headerText="ID">
+				<h:outputText value="#{contract.id}" />
+			</p:column>
+			<p:column headerText="Start date">
+				<h:outputText value="#{contract.startDate}" />
+			</p:column>
+			<p:column headerText="End date">
+				<h:outputText value="#{contract.endDate}" />
+			</p:column>
+			<p:column headerText="Status">
+				<h:outputText value="#{contract.state}" />
+			</p:column>
+
+		</p:dataTable>
+
+	</ui:define>
+</ui:composition>
