@@ -179,24 +179,31 @@
 			<version>2.1</version>
 		</dependency>
 
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.primefaces</groupId> -->
+<!-- 			<artifactId>primefaces</artifactId> -->
+<!-- 			<version>5.1</version> -->
+<!-- 		</dependency> -->
+
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>5.1</version>
+			<version>5.2</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>all-themes</artifactId>
 			<version>1.0.10</version>
 		</dependency>
-		
+
 		<dependency>
-	      <groupId>org.jboss.resteasy</groupId>
-	      <artifactId>resteasy-jackson-provider</artifactId>
-	      <version>3.0.11.Final</version>
-        </dependency>
-		
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<version>3.0.11.Final</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
