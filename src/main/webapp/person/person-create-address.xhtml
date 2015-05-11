@@ -9,11 +9,11 @@
 		<h:form id="reg">
 			<h:outputFormat value="#{msg['person.address.addforperson']}">
 				<f:param
-					value="#{personAddressController.personToCreateAddress.firstName}}" />
+					value="#{personAddressController.personToCreateAddress.firstName}" />
 				<f:param
 					value="#{personAddressController.personToCreateAddress.lastName}" />
 			</h:outputFormat>
-			<p:panelGrid columns="3" cellpadding="5">
+			<p:panelGrid columns="3" layout="grid" cellpadding="5">
 				<p:outputLabel for="addrType" value="#{msg['address.type']}" />
 				<p:selectOneButton id="addrType"
 					value="#{personAddressController.addressType}">

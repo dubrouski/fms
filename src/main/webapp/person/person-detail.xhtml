@@ -15,9 +15,14 @@
 				value="#{msg['person.detail.deletebutton']}:"
 				icon="ui-icon-closethick" />
 		</h:form>
-		<p:fieldset collapsed="false"
-			legend="#{msg['person.detail.personalinfotab']}:" toggleable="true"
-			toggleSpeed="250" style="margin-bottom:15px;">
+
+
+
+		<p:panel id="contractsFieldSete"
+			header="#{msg['person.detail.contractstab']}" toggleable="true"
+			toggleSpeed="250" widgetVar="contractsFieldSete"
+			styleClass="fieldSetLegend">
+
 			<h:form>
 				<p:commandButton id="personUpdateButton" ajax="false"
 					style="float:right; margin-bottom:10px;"
@@ -25,6 +30,7 @@
 					action="#{personUpdateController.startPersonUpdate(personDetailController.person)}"
 					value="#{msg['person.detail.updatebutton']}:" icon="ui-icon-pencil" />
 			</h:form>
+
 			<p:panelGrid columns="3" layout="grid">
 				<h:outputText
 					value="#{msg['person.detail.name']}: #{personDetailController.person.firstName}" />
@@ -44,14 +50,22 @@
 					value="#{msg['person.detail.phone']}: #{personDetailController.person.phone}" />
 				<h:outputText
 					value="#{msg['person.detail.email']}: #{personDetailController.person.email}" />
+				<h:outputText
+					value="" />
 			</p:panelGrid>
-		</p:fieldset>
 
-		<p:fieldset collapsed="true" id="addressesFieldSet"
-			legend="#{msg['person.detail.addressestab']}" toggleable="true"
-			toggleSpeed="250" style="margin-bottom:15px;">
-			<p:ajax event="toggle"
-				listener="#{personDetailController.handleAddressesToggle}" />
+		</p:panel>
+
+
+
+
+
+
+
+		<p:panel id="addressesFieldSet" collapsed="true" 
+			header="#{msg['person.detail.addressestab']}" toggleable="true"
+			toggleSpeed="250" widgetVar="addressesFieldSet"
+			styleClass="fieldSetLegend">
 
 			<h:form>
 				<p:commandButton id="personAddrrCreateButton"
@@ -62,9 +76,10 @@
 					icon="ui-icon-plusthick" />
 			</h:form>
 
-			<p:dataTable style="clear:both;" id="personAddressesTable"
+			<p:dataTable style="clear:both;" id="personAddressesTable" reflow="true" 
 				rendered="true" var="address"
-				value="#{personService.getAddressesForPerson(personDetailController.person)}">
+				value="#{personService.getAddressesForPerson(personDetailController.person)}"
+				rowStyleClass="#{address.active eq 'true' ? 'address_active' : 'address_inactive'}">
 				<p:column headerText="#{msg['address.type']}">
 					<h:outputText
 						value="#{msg['enum.addresstype.'.concat(address.addressType.label)]}" />
@@ -84,16 +99,18 @@
 					<h:outputText value="#{address.address.flatNumber}" />
 				</p:column>
 				<p:column headerText="#{msg['person.address.active']}">
-					<h:outputText rendered="#{address.active}" value="&#10004;" />
+					<h:outputText rendered="#{address.active}" value="&#10004;" id="activeAddressCheckSign" />
+					<h:outputText rendered="#{!address.active}" value="&#10008;" id="inactiveAddressCrossSign" />
 				</p:column>
 			</p:dataTable>
-		</p:fieldset>
+		</p:panel>
 
-		<p:fieldset collapsed="true" id="contractsFieldSet"
-			legend="#{msg['person.detail.contractstab']}" toggleable="true"
-			toggleSpeed="250" style="margin-bottom:15px;">
+		<p:panel id="contractsFieldSet" collapsed="true"
+			header="#{msg['person.detail.contractstab']}" toggleable="true"
+			toggleSpeed="250" widgetVar="contractsFieldSet"
+			styleClass="fieldSetLegend">
 
-			<p:dataTable id="contractsTable" var="contract"
+			<p:dataTable id="contractsTable" var="contract" reflow="true" 
 				rowStyleClass="#{contract.state eq 'New' ? 'contract_new' : contract.state eq 'Closed' ? 'contract_closed' : 'contract_signed_active'}"
 				value="#{personDetailController.personsContracts}"
 				style="padding-top:5px;">
@@ -110,7 +127,11 @@
 					<h:outputText value="#{contract.state}" />
 				</p:column>
 			</p:dataTable>
-		</p:fieldset>
+		</p:panel>
+
+
+
+
 		<!-- 		</h:form> -->
 	</ui:define>
 </ui:composition>

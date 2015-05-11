@@ -1,3 +1,53 @@
+@media screen and (max-width: 2000px) {
+	body {
+		max-width: 1400px;
+		text-align: left;
+		margin: 0px auto;
+		padding: 30px 100px;
+	}
+}
+
+@media screen and (max-width: 900px) {
+	body {
+		max-width: 1400px;
+		text-align: left;
+		margin: 0px auto;
+		padding: 30px 50px;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	body {
+		max-width: 1400px;
+		text-align: left;
+		margin: 0px auto;
+		padding: 0px 0px;
+	}
+}
+
+.fieldSetLegend {
+	margin-bottom: 15px;
+}
+
+.ui-fieldset .ui-state-default {
+	/*text-align:right;*/
+	
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+	width: 24px;
+}
+
+.address_active {
+	background-color: #BAE8B5 !important;
+}
+
+
+.address_inactive {
+	background-color: #D0CFCF !important;
+	color: #898989 !important;
+}
+
 .contract_closed {
 	background-color: #D0CFCF !important;
 	color: #898989 !important;
@@ -9,6 +59,10 @@
 
 .contract_signed_active {
 	background-color: #BAE8B5 !important;
+}
+
+.inactiveAddressCrossSign{
+	padding: 100px;
 }
 
 .ui-fieldset-toggleable .ui-fieldset-legend {

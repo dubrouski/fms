@@ -7,13 +7,14 @@
 	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define id="content" name="content">
 
-		<p:outputLabel for="personSearchForm:searchInput">Search: </p:outputLabel>
-		<h:form style="display: inline;" id="personSearchForm">
+		<h:form style="display: inline;"
+			id="personSearchForm">
+			
 			<p:inputText id="searchInput" placeholder="Search by names..."
 				value="#{personListingController.searchTerm}">
 			</p:inputText>
+			<p:commandButton value="Search" update="personsTable"></p:commandButton>
 		</h:form>
-		<p:commandButton value="Search" update="personsTable"></p:commandButton>
 
 		<p:dataTable id="personsTable" var="person"
 			value="#{personListingController.lazyPersons}"
@@ -22,43 +23,43 @@
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="25,50,100" style="padding-top:5px;">
 
-			<p:column headerText="#{msg['person.list.personid']}"
+			<p:column headerText="#{msg['person.list.personid']}" priority="3"
 				sortBy="#{person.businessId}">
 				<h:outputText value="#{person.businessId}" />
 			</p:column>
-			<p:column headerText="#{msg['person.list.name']}"
+			<p:column headerText="#{msg['person.list.name']}" priority="2"
 				sortBy="#{person.firstName}">
 				<p:commandLink id="detailLinkFName"
 					action="#{personDetailController.showDetail(person)}"
 					value="#{person.firstName}"></p:commandLink>
 			</p:column>
-			<p:column headerText="#{msg['person.list.surname']}"
+			<p:column headerText="#{msg['person.list.surname']}" priority="1"
 				sortBy="#{person.lastName}">
 				<p:commandLink id="detailLinkSName"
 					action="#{personDetailController.showDetail(person)}"
 					value="#{person.lastName}"></p:commandLink>
 			</p:column>
-			<p:column headerText="#{msg['person.list.legalid']}"
+			<p:column headerText="#{msg['person.list.legalid']}" priority="5"
 				sortBy="#{person.legalId}">
 				<h:outputText value="#{person.legalId}" />
 			</p:column>
-			<p:column headerText="#{msg['person.list.phone']}"
+			<p:column headerText="#{msg['person.list.phone']}" priority="4"
 				sortBy="#{person.phone}">
 				<h:outputText value="#{person.phone}" />
 			</p:column>
-			<p:column headerText="Actions">
+			<p:column headerText="Actions" priority="1">
 				<h:form>
 
-<!-- 					<p:button id="detailButton2" icon="ui-icon-person" -->
-<!-- 						outcome="#{personDetailController.showDetail(person)}"> -->
-<!-- 					</p:button> -->
+					<!-- 					<p:button id="detailButton2" icon="ui-icon-person" -->
+					<!-- 						outcome="#{personDetailController.showDetail(person)}"> -->
+					<!-- 					</p:button> -->
 
 
 					<p:commandButton id="detailButton" icon="ui-icon-person"
 						action="#{personDetailController.showDetail(person)}">
 					</p:commandButton>
-					
-					
+
+
 					<p:tooltip id="detailButtonToolTip" for="detailButton"
 						value="Show person's detail" />
 
