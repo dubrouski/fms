@@ -85,8 +85,7 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 	
 	public AccommodationComposite castToComposite(){
 		return (AccommodationComposite) this;
-	}	
-	
+	}
 	
 	@Override
     public boolean equals(Object obj) {

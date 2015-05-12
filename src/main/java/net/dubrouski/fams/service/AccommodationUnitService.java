@@ -39,4 +39,8 @@ public interface AccommodationUnitService {
 	
 	public void createNewChild(AccommodationComposite parent, AccommodationUnit child);
 	
+	public AccommodationUnit getParent(AccommodationUnit unit);
+	
+	public boolean hasParent(AccommodationUnit unit);
+	
 }

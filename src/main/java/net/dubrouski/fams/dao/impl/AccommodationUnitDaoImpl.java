@@ -42,6 +42,14 @@ public class AccommodationUnitDaoImpl extends BaseDaoImpl<AccommodationUnit, Lon
 	}
 	
 	@Override
+	public boolean hasParent(AccommodationUnit unit){
+		if(getParent(unit) == null){
+			return false;
+		}
+		return true;
+	}
+	
+	@Override
 	public void addChild(AccommodationComposite parent, AccommodationUnit child) {
 		EntityValidator.validate(parent);
 		EntityValidator.validate(child);

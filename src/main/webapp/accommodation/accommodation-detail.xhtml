@@ -52,12 +52,14 @@
 			</p:fieldset>
 			
 			<p:fieldset collapsed="true" legend="Address" toggleable="true"
-				toggleSpeed="250" style="margin-bottom:15px;">
+				toggleSpeed="250" style="margin-bottom:15px;"
+				>
 
 				<p:commandButton ajax="false"
 					style="float:right; margin-bottom:10px;"
 					action="#{accAddressController.startUpdate(accommodationDetailController.unit, accommodationDetailController.address)}"
-					value="Update Address" icon="ui-icon-pencil" />
+					value="Update Address" icon="ui-icon-pencil" 
+					rendered="accommodationDetailController.hasUnitParent()"/>
 				
 				<p:panelGrid columns="2" layout="grid">
 					<h:outputText
@@ -86,7 +88,7 @@
 
 			  <p:dataTable style="clear:both;" id="childrenTable"
 				  rendered="true" var="child"
-				  value="#{accommodationDetailController.unit.castToComposite().children}">
+				  value="#{accommodationDetailController.compositeUnit().children}">
 				  
 				<p:column headerText="#{msg['accommodation.id']}">
 					<h:outputText

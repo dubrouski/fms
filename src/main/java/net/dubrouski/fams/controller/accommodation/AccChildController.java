@@ -19,6 +19,8 @@ public class AccChildController extends AccommodationCreationController implemen
 	
 	private AccommodationComposite parent;
 	
+	private List<String> typesList;
+	
 	@Inject
 	private AccommodationDetailController detailController;
 	
@@ -27,19 +29,22 @@ public class AccChildController extends AccommodationCreationController implemen
 		return parent;
 	}
 	
-	public List<String> typesList(){
-		return parent.addmissibleChildrenTypes();
+	@Produces
+	public List<String> getTypesList(){
+		return typesList;
 	}
 	
 	@Override
 	public String createAccommodation(){
 		accommodationService.createNewChild(parent, converter.ViewModel2Unit(newAccommodation));
+		init();
 		return detailController.showDetail(parent);
 	}
 	
-	public String start(AccommodationComposite p, AccommodationUnit child){
+	public String start(AccommodationComposite p){
 		init();
 		parent = p;
+		typesList = parent.addmissibleChildrenTypes();
 		return "accommodation-child";
 	}
 

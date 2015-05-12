@@ -141,4 +141,14 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 		unitDao.save(child);
 		unitDao.addChild(parent, child);
 	}
+
+	@Override
+	public AccommodationUnit getParent(AccommodationUnit unit) {
+		return unitDao.getParent(unit);
+	}
+
+	@Override
+	public boolean hasParent(AccommodationUnit unit) {
+		return unitDao.hasParent(unit);
+	}
 }
