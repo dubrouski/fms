@@ -71,6 +71,46 @@
 						value="#{msg['address.flat']}: #{accommodationDetailController.address.flatNumber}" />
 				</p:panelGrid>				
 			</p:fieldset>
+			
+			<p:fieldset collapsed="true" legend="Children" toggleable="true"
+			   toggleSpeed="250" style="margin-bottom:15px;"
+			   rendered="#{accommodationDetailController.unit.isComposite()}">
+
+			  <h:form>
+				<p:commandButton ajax="false"
+					style="float:right; margin-bottom:10px;"
+					action="#{accChildController.start(accommodationDetailController.unit)}"
+					value="Create New Child"
+					icon="ui-icon-plusthick" />
+			  </h:form>
+
+			  <p:dataTable style="clear:both;" id="childrenTable"
+				  rendered="true" var="child"
+				  value="#{accommodationDetailController.unit.castToComposite().children}">
+				  
+				<p:column headerText="#{msg['accommodation.id']}">
+					<h:outputText
+						value="#{child.id}" />
+				</p:column>
+				
+				<p:column headerText="#{msg['accommodation.name']}">
+					<p:commandLink id="detailLinkFName"
+					    action="#{accommodationDetailController.showDetail(child)}"
+					    value="#{child.name}">
+					</p:commandLink>
+				</p:column>
+				
+				<p:column headerText="#{msg['accommodation.type']}">
+					<h:outputText value="#{child.type}" />
+				</p:column>
+				
+				<p:column headerText="#{accommodation.deposit}">
+					<h:outputText
+						value="#{child.depositAmount}" />
+				</p:column>				
+			</p:dataTable>
+		  </p:fieldset>
+		
 						
 		</h:form>
 	</ui:define>

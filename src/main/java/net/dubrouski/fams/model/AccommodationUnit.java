@@ -2,13 +2,14 @@ package net.dubrouski.fams.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +22,7 @@ import javax.persistence.Table;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.hibernate.annotations.ForceDiscriminator;
+
 import net.dubrouski.fams.util.AccommodationDeserializer;
 /**
  * 
@@ -69,6 +71,22 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "METER_DATA_ID")
 	private MetersData metersData;
+	
+	private static final List<String> typesList = Arrays.asList("place", "room");
+	
+	public boolean isComposite(){
+		if(this instanceof AccommodationComposite){
+			return true; 
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public AccommodationComposite castToComposite(){
+		return (AccommodationComposite) this;
+	}	
+	
 	
 	@Override
     public boolean equals(Object obj) {
@@ -159,6 +177,10 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public static List<String> getTypesList(){
+		return typesList;
 	}
 	
 }

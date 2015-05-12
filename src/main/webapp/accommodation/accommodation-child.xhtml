@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/accommodation-management-template.xhtml">
+	<ui:define name="accommodation-content">
+		<h:form id="reg">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:panelGrid columns="3" layout="grid" cellpadding="5">
+
+				<p:outputLabel for="name" value="#{msg['accommodation.name']}:" />
+				<p:inputText id="name" value="#{accChildController.newAccommodation.name}" />
+				<p:message for="name" />
+
+				<p:outputLabel for="depositAmount" value="#{msg['accommodation.deposit']}:" />
+				<p:inputText id="depositAmount" value="#{accChildController.newAccommodation.depositAmount}" >
+				    <f:convertNumber maxFractionDigits="2" minFractionDigits="0" />
+                </p:inputText>
+				<p:message for="depositAmount" />
+
+  				<p:outputLabel for="isActive" value="#{msg['accommodation.active']}:" />
+				<p:selectBooleanCheckbox id="isActive" value="#{accChildController.newAccommodation.isActive}" />
+ 				<p:message for="isActive" />
+
+				<p:outputLabel for="type" value="#{msg['accommodation.type']}:" />				
+				<p:selectOneMenu id="type" 	value="#{accChildController.newAccommodation.type}">
+					<f:selectItem itemLabel="Select One" itemValue="" />
+					<f:selectItems value="#{accChildController.typesList}"
+						var="t" itemLabel="#{msg['accommodation.'.concat(t)]}"
+						itemValue="#{t}" />
+				</p:selectOneMenu>				
+				<p:message for="type" />
+
+			</p:panelGrid>
+			<p:commandButton ajax="false" id="register"
+				action="#{accChildController.createAccommodation}"
+				value="#{msg['create']}" />
+		</h:form>
+	</ui:define>
+</ui:composition>

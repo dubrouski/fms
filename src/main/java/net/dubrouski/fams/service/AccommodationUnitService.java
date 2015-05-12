@@ -2,9 +2,9 @@ package net.dubrouski.fams.service;
 
 import java.util.List;
 
+import net.dubrouski.fams.model.AccommodationComposite;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
-import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.Price;
 
 /**
@@ -36,4 +36,7 @@ public interface AccommodationUnitService {
 			int first);
 	
 	public void updateOrCreateAddress(AccommodationUnit unit, Address address);
+	
+	public void createNewChild(AccommodationComposite parent, AccommodationUnit child);
+	
 }
