@@ -96,10 +96,12 @@
 				</p:column>
 				
 				<p:column headerText="#{msg['accommodation.name']}">
-					<p:commandLink id="detailLinkFName"
-					    action="#{accommodationDetailController.showDetail(child)}"
-					    value="#{child.name}">
-					</p:commandLink>
+					<h:form>
+						<p:commandLink id="detailLinkFName" ajax="false"
+					    	action="#{accommodationDetailController.showDetail(child)}"
+					    	value="#{child.name}">
+						</p:commandLink>
+					</h:form>
 				</p:column>
 				
 				<p:column headerText="#{msg['accommodation.type']}">
@@ -109,7 +111,8 @@
 				<p:column headerText="#{accommodation.deposit}">
 					<h:outputText
 						value="#{child.depositAmount}" />
-				</p:column>				
+				</p:column>	
+							
 			</p:dataTable>
 		  </p:fieldset>
 		
