@@ -87,6 +87,13 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 		return (AccommodationComposite) this;
 	}
 	
+	public AccommodationComposite getComposite(){
+		if(isComposite()){
+			return castToComposite();
+		}
+		return null;
+	}
+	
 	@Override
     public boolean equals(Object obj) {
         if (obj == null) {

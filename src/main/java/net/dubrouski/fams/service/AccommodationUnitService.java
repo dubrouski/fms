@@ -43,4 +43,6 @@ public interface AccommodationUnitService {
 	
 	public boolean hasParent(AccommodationUnit unit);
 	
+	public void updateOrCreateAddressWithChildren(AccommodationUnit unit, Address address);
+	
 }

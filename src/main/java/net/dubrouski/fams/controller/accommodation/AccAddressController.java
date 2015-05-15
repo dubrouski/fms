@@ -8,6 +8,8 @@ import javax.enterprise.inject.Produces;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
+
+import net.dubrouski.fams.model.AccommodationComposite;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Country;
@@ -65,7 +67,13 @@ public class AccAddressController implements Serializable{
 	}
 	
 	public String updateAddress(){
-		unitService.updateOrCreateAddress(unitWithAddress, unitsAddress);
+		AccommodationComposite ac = unitWithAddress.castToComposite();
+		if(ac == null || !ac.hasChildren()){
+			unitService.updateOrCreateAddress(unitWithAddress, unitsAddress);
+		}
+		else{
+			unitService.updateOrCreateAddressWithChildren(unitWithAddress, unitsAddress);
+		}
 		return detailController.showDetail(unitWithAddress);
 	}
 	

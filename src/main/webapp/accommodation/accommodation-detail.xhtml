@@ -59,7 +59,7 @@
 					style="float:right; margin-bottom:10px;"
 					action="#{accAddressController.startUpdate(accommodationDetailController.unit, accommodationDetailController.address)}"
 					value="Update Address" icon="ui-icon-pencil" 
-					rendered="accommodationDetailController.hasUnitParent()"/>
+					rendered="#{!accommodationDetailController.hasUnitParent()}"/>
 				
 				<p:panelGrid columns="2" layout="grid">
 					<h:outputText

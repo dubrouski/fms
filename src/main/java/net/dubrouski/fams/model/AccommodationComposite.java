@@ -63,6 +63,13 @@ public abstract class AccommodationComposite extends AccommodationUnit {
 		return children.size();
 	}
 	
+	public boolean hasChildren(){
+		if(children.size() > 0){
+			return true;
+		}
+		return false;
+	}
+	
 	public List<String> addmissibleChildrenTypes(){
 		List<String> admissibleTypes = new ArrayList<>();
 		AccommodationTypeComparator comparator = new AccommodationTypeComparator();

@@ -126,6 +126,7 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 		return found;
 	}
 	
+	@Override
 	public void updateOrCreateAddress(AccommodationUnit unit, Address address) {
 		if(address.getId() == null){
 			addressDao.save(address);
@@ -134,6 +135,17 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 		else{
 			addressDao.update(address);
 		}		
+	}
+	
+	@Override
+	public void updateOrCreateAddressWithChildren(AccommodationUnit unit, Address address){
+		if(address.getId() == null){
+			addressDao.save(address);
+			setAddressWithChildren(unit, address);
+		}
+		else{
+			addressDao.update(address);
+		}
 	}
 
 	@Override

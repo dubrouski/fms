@@ -51,6 +51,7 @@ public class AccommodationDetailController implements Serializable{
 	}
 	
 	public boolean hasUnitParent(){
+		
 		return unitService.hasParent(unit);
 	}
 	
