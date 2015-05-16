@@ -62,7 +62,7 @@ public class PersonCreationController {
 						newPerson.getFirstName(), newPerson.getLastName()),
 						null));
 		initNewPerson();
-		return "person-list";
+		return "list";
 	}
 
 	@PostConstruct

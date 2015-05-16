@@ -43,7 +43,7 @@ public class PersonUpdateController implements Serializable {
 
 	public String startPersonUpdate(Person person) {
 		this.personToUpdate = person;
-		return "person-update";
+		return "update";
 	}	
 
 	public String updatePerson(@Valid Person person) {

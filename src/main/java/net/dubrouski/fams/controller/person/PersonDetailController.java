@@ -69,7 +69,7 @@ public class PersonDetailController implements Serializable {
 
 		logger.log(Level.INFO, "lists loaded for person " + p);
 
-		return "person-detail?faces-redirect=true";
+		return "detail?faces-redirect=true";
 	}
 
 	public void handleAddressesToggle(ToggleEvent event) {

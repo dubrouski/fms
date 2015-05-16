@@ -8,9 +8,9 @@
 	<ui:define name="management-content">
 		<h:form>
 			<p:button value="#{msg['person.list.listall']}"
-				outcome="person-list.jsf" icon="ui-icon-star"></p:button>
+				outcome="list.jsf" icon="ui-icon-star"></p:button>
 			<p:button value="#{msg['person.create.createnewperson']}"
-				outcome="person-create.jsf" icon="ui-icon-search"
+				outcome="create.jsf" icon="ui-icon-search"
 				disabled="#{!loginManager.currentUser.hasRight('PERSON_WRITE')}"></p:button>
 		</h:form>
 

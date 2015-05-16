@@ -81,13 +81,13 @@ public class PersonAddressController implements Serializable {
 		newAddress = new Address();
 		personToCreateAddress = person;
 
-		return "person-create-address";
+		return "address";
 	}
 
 	public String addAddressToPerson() {
 		addressService.saveAddress(this.newAddress);
 		personService.setAddressToPerson(this.personToCreateAddress,
 				this.newAddress, this.addressType);
-		return "person-detail";
+		return "detail";
 	}
 }

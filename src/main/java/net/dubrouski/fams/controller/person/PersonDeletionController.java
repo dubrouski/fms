@@ -50,7 +50,7 @@ public class PersonDeletionController {
 			logger.log(Level.INFO,
 					"requestPersonDelete: personForDeletion is null.");
 		}
-		return "person-confirm-delete";
+		return "delete";
 	}
 
 	public String confirmPersonDelete() {
@@ -60,6 +60,6 @@ public class PersonDeletionController {
 					"confirmPersonDelete: personForDeletion is null.");
 		}
 		personService.delete(personForDeletion);
-		return "person-list";
+		return "list";
 	}
 }

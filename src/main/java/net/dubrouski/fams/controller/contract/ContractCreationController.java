@@ -72,7 +72,7 @@ public class ContractCreationController implements Serializable {
 				new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Contract created successufully.", null));
 		initNewContract();
-		return "contract-list";
+		return "list";
 	}
 
 	@PostConstruct
