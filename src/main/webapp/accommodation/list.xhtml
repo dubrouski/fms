@@ -16,10 +16,12 @@
 			
 			<p:column headerText="#{msg['accommodation.name']}"
 				sortBy="#{acc.name}">
-			 	<p:commandLink id="detailLinkFName"
+				<h:form>
+			 	<p:commandLink id="detailLinkFName" ajax="false"
 					action="#{accommodationDetailController.showDetail(acc)}"
 					value="#{acc.name}">
 					</p:commandLink>
+				</h:form>
 			</p:column>
 			
 			<p:column headerText="#{msg['accommodation.type']}"
