@@ -52,12 +52,14 @@
 			</p:fieldset>
 			
 			<p:fieldset collapsed="true" legend="Address" toggleable="true"
-				toggleSpeed="250" style="margin-bottom:15px;">
+				toggleSpeed="250" style="margin-bottom:15px;"
+				>
 
 				<p:commandButton ajax="false"
 					style="float:right; margin-bottom:10px;"
 					action="#{accAddressController.startUpdate(accommodationDetailController.unit, accommodationDetailController.address)}"
-					value="Update Address" icon="ui-icon-pencil" />
+					value="Update Address" icon="ui-icon-pencil" 
+					rendered="#{!accommodationDetailController.hasUnitParent()}"/>
 				
 				<p:panelGrid columns="2" layout="grid">
 					<h:outputText
@@ -71,6 +73,49 @@
 						value="#{msg['address.flat']}: #{accommodationDetailController.address.flatNumber}" />
 				</p:panelGrid>				
 			</p:fieldset>
+			
+			<p:fieldset collapsed="true" legend="Children" toggleable="true"
+			   toggleSpeed="250" style="margin-bottom:15px;"
+			   rendered="#{accommodationDetailController.unit.isComposite()}">
+
+			  <h:form>
+				<p:commandButton ajax="false"
+					style="float:right; margin-bottom:10px;"
+					action="#{accChildController.start(accommodationDetailController.unit)}"
+					value="Create New Child"
+					icon="ui-icon-plusthick" />
+			  </h:form>
+
+			  <p:dataTable style="clear:both;" id="childrenTable"
+				  rendered="true" var="child"
+				  value="#{accommodationDetailController.compositeUnit().children}">
+				  
+				<p:column headerText="#{msg['accommodation.id']}">
+					<h:outputText
+						value="#{child.id}" />
+				</p:column>
+				
+				<p:column headerText="#{msg['accommodation.name']}">
+					<h:form>
+						<p:commandLink id="detailLinkFName" ajax="false"
+					    	action="#{accommodationDetailController.showDetail(child)}"
+					    	value="#{child.name}">
+						</p:commandLink>
+					</h:form>
+				</p:column>
+				
+				<p:column headerText="#{msg['accommodation.type']}">
+					<h:outputText value="#{child.type}" />
+				</p:column>
+				
+				<p:column headerText="#{accommodation.deposit}">
+					<h:outputText
+						value="#{child.depositAmount}" />
+				</p:column>	
+							
+			</p:dataTable>
+		  </p:fieldset>
+		
 						
 		</h:form>
 	</ui:define>

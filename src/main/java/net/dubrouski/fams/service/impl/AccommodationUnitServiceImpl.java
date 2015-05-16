@@ -11,9 +11,9 @@ import net.dubrouski.fams.dao.AccommodationUnitDao;
 import net.dubrouski.fams.dao.AddressDao;
 import net.dubrouski.fams.dao.PriceDao;
 import net.dubrouski.fams.exception.FmsException;
+import net.dubrouski.fams.model.AccommodationComposite;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
-import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.service.AccommodationUnitService;
 
@@ -126,6 +126,7 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 		return found;
 	}
 	
+	@Override
 	public void updateOrCreateAddress(AccommodationUnit unit, Address address) {
 		if(address.getId() == null){
 			addressDao.save(address);
@@ -134,5 +135,32 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 		else{
 			addressDao.update(address);
 		}		
+	}
+	
+	@Override
+	public void updateOrCreateAddressWithChildren(AccommodationUnit unit, Address address){
+		if(address.getId() == null){
+			addressDao.save(address);
+			setAddressWithChildren(unit, address);
+		}
+		else{
+			addressDao.update(address);
+		}
+	}
+
+	@Override
+	public void createNewChild(AccommodationComposite parent, AccommodationUnit child) {
+		unitDao.save(child);
+		unitDao.addChild(parent, child);
+	}
+
+	@Override
+	public AccommodationUnit getParent(AccommodationUnit unit) {
+		return unitDao.getParent(unit);
+	}
+
+	@Override
+	public boolean hasParent(AccommodationUnit unit) {
+		return unitDao.hasParent(unit);
 	}
 }

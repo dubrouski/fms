@@ -288,13 +288,19 @@ INSERT INTO "country" ("iso_code", "readable_name", "ordering") VALUES ('AX', 'Ã
 
 --accommodation unit related seeds
 insert into address (city_name, street_name, street_num, flat_num, country_id) values ('Brno', 'Botanicka', '53', '26a', 59);
+insert into address (city_name, street_name, street_num, flat_num, country_id) values ('Brno', 'Kotlarska', '18', '12', 59);
 
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (2500, 1400, 'CZK', '10.2.2016', '9.2.2017');
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (3200, 1700, 'CZK', '10.2.2017', '9.2.2018');
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (1500, 2000, 'CZK', '11.3.2015', '9.8.2018');
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (1800, 3000, 'CZK', '12.4.2015', '10.8.2018');
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (1456, 2200, 'CZK', '22.8.2015', '15.12.2018');
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (3800, 5200, 'CZK', '22.8.2015', '15.12.2018');
 
-insert into accommodation_unit (name, type, deposit_amount) values ('by the window', 'room', '56.68'), ('at the door', 'room', '4785.7');
-insert into accommodation_unit (name, type, deposit_amount, address_id, price_id) values ('big room', 'room', '56.68', 1, 1), ('small room', 'room', '4785.7', 1, 2), ('at the window', 'place', '256', null, 3);
+insert into accommodation_unit (name, type, deposit_amount, address_id, price_id) values ('medium room', 'room', '56.68', 2, 6), ('big place', 'place', '4785.7', 1, 4), ('small place', 'place', '145.75', 1, 5);
+insert into accommodation_unit (name, type, deposit_amount, address_id, price_id) values ('big room', 'room', '56.68', 1, 1), ('small room', 'room', '4785.7', 1, 2), ('at the window', 'place', '256', 2, 3);
+
+insert into unit_unit (parent_id, child_id) values (1, 6), (4, 2), (4, 3)
 
 --dummy contracts
 insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2012-01-01', '2012-12-12', 'Closed', 2, 2, false);

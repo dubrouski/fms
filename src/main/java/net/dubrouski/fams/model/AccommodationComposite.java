@@ -9,6 +9,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 import net.dubrouski.fams.exception.FmsException;
+import net.dubrouski.fams.util.AccommodationTypeComparator;
 /**
  * 
  * @author ondrej.prazak
@@ -60,6 +61,24 @@ public abstract class AccommodationComposite extends AccommodationUnit {
 	
 	public int childrenCount(){
 		return children.size();
+	}
+	
+	public boolean hasChildren(){
+		if(children.size() > 0){
+			return true;
+		}
+		return false;
+	}
+	
+	public List<String> addmissibleChildrenTypes(){
+		List<String> admissibleTypes = new ArrayList<>();
+		AccommodationTypeComparator comparator = new AccommodationTypeComparator();
+		for(String t : AccommodationUnit.getTypesList()){
+			if(comparator.compare(t, getType()) < 0){
+				admissibleTypes.add(t);
+			}
+		}
+		return admissibleTypes;
 	}
 
 	public List<AccommodationUnit> getChildren() {

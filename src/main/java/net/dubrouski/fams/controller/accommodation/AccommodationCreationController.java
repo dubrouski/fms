@@ -20,12 +20,12 @@ public class AccommodationCreationController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private AccommodationUnitService accommodationService;
+	protected AccommodationUnitService accommodationService;
 
 	@Inject
-	private AccommodationConverter converter;
+	protected AccommodationConverter converter;
 
-	private AccommodationViewModel newAccommodation;
+	protected AccommodationViewModel newAccommodation;
 
 	@Produces
 	@Named
@@ -33,9 +33,8 @@ public class AccommodationCreationController implements Serializable {
 		return newAccommodation;
 	}
 
-	public String createAccommodation() throws Exception {
+	public String createAccommodation(){
 		accommodationService.save(converter.ViewModel2Unit(newAccommodation));
-		;
 		init();
 		return "accommodation-list";
 	}

@@ -16,6 +16,8 @@ public interface AccommodationUnitDao extends BaseDao<AccommodationUnit, Long>{
 	
 	public AccommodationUnit getParent(AccommodationUnit unit);
 	
+	public boolean hasParent(AccommodationUnit unit);
+	
 	public void addChild(AccommodationComposite parent, AccommodationUnit child);
 	
 	public void removeChild(AccommodationComposite parent, AccommodationUnit child);

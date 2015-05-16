@@ -5,14 +5,17 @@ import java.util.logging.Logger;
 
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ManagedBean;
-
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import net.dubrouski.fams.model.AccommodationComposite;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Price;
+import net.dubrouski.fams.service.AccommodationUnitService;
+
 
 @ManagedBean
 @SessionScoped
@@ -25,6 +28,9 @@ public class AccommodationDetailController implements Serializable{
 	private Address address;
 	
 	private Price price;
+	
+	@Inject
+	AccommodationUnitService unitService;
 	
 	@Inject
 	Logger logger;
@@ -43,6 +49,18 @@ public class AccommodationDetailController implements Serializable{
 	@Produces
 	public Price getPrice(){
 		return price;
+	}
+	
+	public boolean hasUnitParent(){
+		
+		return unitService.hasParent(unit);
+	}
+	
+	public AccommodationComposite compositeUnit(){
+		if(unit instanceof AccommodationComposite){
+			return (AccommodationComposite) unit;
+		}
+		return null;		
 	}	
 	
 	public String showDetail(AccommodationUnit u){
