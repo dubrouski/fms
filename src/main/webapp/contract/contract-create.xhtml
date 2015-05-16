@@ -8,41 +8,58 @@
 	<ui:define id="content" name="content">
 		<h3>Contract creation</h3>
 		<h:form id="reg">
+			<h:outputText value="Selected person: #{contractCreationController.person.toString()}" />
+			<h:outputText value="Selected acc: #{contractCreationController.acc.toString()}" />
+
 			<p:panelGrid columns="3" layout="grid" cellpadding="5">
 
+
+
+
 				<p:outputLabel for="personForContract" value="Select person:" />
-				<p:selectOneListbox id="personForContract"
-					converter="idToPersonConverter"
-					value="#{contractCreationController.newContract.tenant}">
-					<f:selectItems value="#{personService.listPersons()}" var="person"
-						itemLabel="#{person.businessId} #{person.firstName} #{person.lastName}"
-						itemValue="#{person.id}" />
-				</p:selectOneListbox>
+				
+				
+				<p:selectOneMenu id="personForContract"
+					converter="#{personIdConverterBean}"
+					value="#{contractCreationController.person}">
+					<!-- 					<f:selectItem itemLabel="Select One" itemValue="" /> -->
+					<f:selectItems value="#{contractCreationController.personsList}"
+						var="pers" itemLabel="#{pers.toString()}" itemValue="#{pers}" />
+				</p:selectOneMenu>
+				
+				
+				
+				
 				<p:message for="personForContract" />
+				
+				
+				
+				
 
 				<p:outputLabel for="accommForContract" value="Select acommodation:" />
-				<p:selectOneListbox id="accommForContract"
-					converter="#{idToAccommConverter}"
-					value="#{contractCreationController.newContract.accommodationUnit}">
-					<f:selectItems value="#{accommodationService.listAccommodations()}"
-						var="unit" itemLabel="#{unit.type} #{unit.id} #{unit.name}"
-						itemValue="#{unit.id}" />
-				</p:selectOneListbox>
-				<p:message for="accommForContract"/>
+				<p:selectOneMenu id="accommForContract"
+					converter="#{accommIdConverterBean}"
+					value="#{contractCreationController.acc}">
+					<f:selectItems value="#{contractCreationController.accommList}"
+						var="unit" itemLabel="#{unit.toString()}" itemValue="#{unit}" />
+				</p:selectOneMenu>
+				<p:message for="accommForContract" />
 
 				<p:outputLabel for="startDate" value="Set start date:" />
-				<p:inputMask id="startDate" value="#{contractCreationController.newContract.startDate}"
+				<p:inputMask id="startDate"
+					value="#{contractCreationController.newContract.startDate}"
 					converter="dateStringConverter" mask="99.99.9999" />
 				<p:message for="startDate" />
 
 				<p:outputLabel for="endDate" value="Set end date:" />
-				<p:inputMask id="endDate" value="#{contractCreationController.newContract.endDate}"
+				<p:inputMask id="endDate"
+					value="#{contractCreationController.newContract.endDate}"
 					converter="dateStringConverter" mask="99.99.9999" />
 				<p:message for="endDate" />
-				
+
 			</p:panelGrid>
 			<p:commandButton ajax="false" id="register"
-				action="#{contractCreationController.createContract()}"
+				action="#{contractCreationController.createContract}"
 				value="Create contract" />
 		</h:form>
 

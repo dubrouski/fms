@@ -177,7 +177,7 @@ public class Person implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((legalId == null) ? 0 : legalId.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -190,14 +190,11 @@ public class Person implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		if (legalId == null) {
-			if (other.legalId != null)
+		if (id == null) {
+			if (other.getId() != null)
 				return false;
-		} else if (!legalId.equals(other.legalId))
+		} else if (!id.equals(other.getId()))
 			return false;
 		return true;
 	}
-	
-	
-
 }

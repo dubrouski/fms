@@ -1,7 +1,6 @@
 @media screen and (max-width: 2000px) {
 	body {
-		max-width: 1400px;
-		text-align: left;
+		max-width: 1200px;
 		margin: 0px auto;
 		padding: 30px 100px;
 	}
@@ -9,8 +8,6 @@
 
 @media screen and (max-width: 900px) {
 	body {
-		max-width: 1400px;
-		text-align: left;
 		margin: 0px auto;
 		padding: 30px 50px;
 	}
@@ -18,8 +15,6 @@
 
 @media screen and (max-width: 500px) {
 	body {
-		max-width: 1400px;
-		text-align: left;
 		margin: 0px auto;
 		padding: 0px 0px;
 	}
