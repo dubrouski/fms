@@ -10,11 +10,21 @@
 		<p:dataTable id="contractsTable" var="contract"
 			rowStyleClass="#{contract.state eq 'New' ? 'contract_new' : contract.state eq 'Closed' ? 'contract_closed' : 'contract_signed_active'}"
 			value="#{contractService.listContracts()}" style="padding-top:5px;">
-			<p:column headerText="ID">
+			<p:column headerText="Code">
 				<p:commandLink id="detailLinkSName"
 					action="#{contractDetailController.showDetail(contract)}"
-					value="#{contract.id}"></p:commandLink>
+					value="#{contract.code}"></p:commandLink>
 			</p:column>
+
+			<p:column headerText="Person">
+				<h:outputText value="#{contract.tenant.fullName}" />
+			</p:column>
+
+			<p:column headerText="Accommodation">
+				<h:outputText value="#{contract.accommodationUnit.name}" />
+			</p:column>
+
+
 			<p:column headerText="Start date">
 				<h:outputText value="#{contract.startDate}" />
 			</p:column>

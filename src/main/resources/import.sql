@@ -1,7 +1,10 @@
 SELECT setval('public.person_business_id_seq', 1001, true);
 ALTER SEQUENCE person_business_id_seq INCREMENT 11 MINVALUE 1001 CACHE 1001 start 1001;
 
+SELECT setval('public.contract_code_seq', 1001, true);
+ALTER SEQUENCE contract_code_seq INCREMENT 11 MINVALUE 1001 CACHE 1001 start 1001;
 
+--persons
 insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2001-11-11', 'test1@test.com', 'Miranda', 'Connor', 'YU12wexcvr34A9', 'Jessica', '+420 777 999 999');
 insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2002-11-11', 'test22@test.com', 'Jack', 'Nickolson', 'YUsrg1234s5A6789', '', '+420 777 666 999');
 insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2003-11-11', 'test3@test.com', 'Arnold', 'Sch', 'YU123456789sf', '', '+420 777 888 666');
@@ -15,9 +18,6 @@ insert into person (birth_date, email, first_name, last_name, legal_identificato
 insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2000-01-11', 'testA@test.com', 'Jam', 'Bram', 'YU12qtr3sd45678II9', '', '+420 345 888 000');
 insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2000-09-01', 'testB@test.com', 'Spam', 'Tram', 'YU12345ss678IttI9', '', '+420 777 345 000');
 insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2008-11-11', 'test@test.com', 'Sarah', 'Connor', 'YU123456789', 'Jessica', '+420 777 888 999'), ('01.01.1960', 'test2@test.com', 'Parker', 'Evans', 'YU123456788', '-', '+420 669 888 999');
-
-
-
 
 
 --fill countries list

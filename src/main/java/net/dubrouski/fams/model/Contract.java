@@ -8,6 +8,9 @@ import javax.validation.constraints.NotNull;
 
 import net.dubrouski.fams.converter.LocalDatePersistenceConverter;
 import net.dubrouski.fams.model.enums.ContractState;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -71,6 +74,11 @@ public class Contract implements BaseEntity, Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "END_DATA_ID")
 	private MetersData endData;
+	
+	@Column(name = "CODE", columnDefinition = "serial")
+	@Generated(GenerationTime.INSERT)
+	private Long code;
+	
 
 	public Long getId() {
 		return Id;
@@ -174,6 +182,14 @@ public class Contract implements BaseEntity, Serializable {
 
 	public void setEndData(MetersData endData) {
 		this.endData = endData;
+	}
+	
+	public Long getCode() {
+		return code;
+	}
+	
+	public void setCode(Long code) {
+		this.code = code;
 	}
 
 }
