@@ -81,6 +81,6 @@ public class AccommodationDetailController implements Serializable{
 			price = unit.getPrice();
 			logger.info(price.toString());
 		}
-		return "accommodation-detail";
+		return "accommodation-detail?faces-redirect=true";
 	}
 }

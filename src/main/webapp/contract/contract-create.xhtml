@@ -8,17 +8,8 @@
 	<ui:define id="content" name="content">
 		<h3>Contract creation</h3>
 		<h:form id="reg">
-			<h:outputText value="Selected person: #{contractCreationController.person.toString()}" />
-			<h:outputText value="Selected acc: #{contractCreationController.acc.toString()}" />
-
 			<p:panelGrid columns="3" layout="grid" cellpadding="5">
-
-
-
-
 				<p:outputLabel for="personForContract" value="Select person:" />
-				
-				
 				<p:selectOneMenu id="personForContract"
 					converter="#{personIdConverterBean}"
 					value="#{contractCreationController.person}">
@@ -26,15 +17,7 @@
 					<f:selectItems value="#{contractCreationController.personsList}"
 						var="pers" itemLabel="#{pers.toString()}" itemValue="#{pers}" />
 				</p:selectOneMenu>
-				
-				
-				
-				
 				<p:message for="personForContract" />
-				
-				
-				
-				
 
 				<p:outputLabel for="accommForContract" value="Select acommodation:" />
 				<p:selectOneMenu id="accommForContract"

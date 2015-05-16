@@ -9,6 +9,15 @@
 		<h3>Contract detail</h3>
 
 		<div class="ui-grid ui-grid-responsive">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-2">
+					<h:outputLabel for="code" value="Code:" />
+				</div>
+				<div class="ui-grid-col-2">
+					<h:outputText id="code" value="#{contractDetailController.contract.code}" />
+				</div>
+			</div>
+			
 
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-4">
@@ -35,6 +44,7 @@
 						value="#{contractDetailController.contract.accommodationUnit.id}: #{contractDetailController.contract.accommodationUnit.name}" />
 					<h:form style="display: inline;">
 						<p:commandButton id="accommDetailButton" icon="ui-icon-home"
+							ajax="false"
 							action="#{accommodationDetailController.showDetail(contractDetailController.contract.accommodationUnit)}">
 						</p:commandButton>
 						<p:tooltip id="accommDetailButtonToolTip" for="accommDetailButton"

@@ -22,4 +22,22 @@
 			<var>msg</var>
 		</resource-bundle>
 	</application>
+	
+	<navigation-rule>
+		<from-view-id>/contract/contract-detail.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>person-detail?faces-redirect=true</from-outcome>
+			<to-view-id>/person/person-detail.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/contract/contract-detail.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>accommodation-detail?faces-redirect=true</from-outcome>
+			<to-view-id>/accommodation/accommodation-detail.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

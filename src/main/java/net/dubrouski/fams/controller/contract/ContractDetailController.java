@@ -34,7 +34,7 @@ public class ContractDetailController implements Serializable {
 
 	public String showDetail(Contract c) {
 		this.contract = c;
-		return "contract-detail";
+		return "contract-detail?faces-redirect=true";
 	}
 
 	public Contract getContract() {
