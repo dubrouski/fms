@@ -51,7 +51,7 @@ public class AccPriceController implements Serializable{
 		}
 		unitWithPrice = u;
 		unitsPrice = p;		
-		return "accommodation-price";
+		return "price?faces-redirect=true";
 	}
 	
 	public String updatePrice(){

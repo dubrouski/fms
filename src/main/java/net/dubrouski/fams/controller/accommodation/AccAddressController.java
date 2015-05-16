@@ -63,7 +63,7 @@ public class AccAddressController implements Serializable{
 			logger.info("unit initial null");
 		}
 		unitsAddress = address;
-		return "accommodation-address"; 
+		return "address?faces-redirect=true"; 
 	}
 	
 	public String updateAddress(){

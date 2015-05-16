@@ -39,12 +39,12 @@ public class AccommodationDeletionController implements Serializable{
 		}
 		
 		unitToDelete = unit;
-		return "accommodation-confirm-delete";
+		return "delete?faces-redirect=true";
 	}
 	
 	public String confirmDelete(){
 		accommodationService.delete(unitToDelete);
-		return "accommodation-list";
+		return "list";
 	}
 
 }

@@ -37,7 +37,7 @@ public class AccommodationUpdateController implements Serializable{
 			logger.info("unit to update is null");
 		}
 		unitToUpdate = u;
-		return "accommodation-update";
+		return "update?faces-redirect=true";
 	}
 	
 	public String update(AccommodationUnit unit){		

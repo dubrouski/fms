@@ -45,7 +45,7 @@ public class AccChildController extends AccommodationCreationController implemen
 		init();
 		parent = p;
 		typesList = parent.addmissibleChildrenTypes();
-		return "accommodation-child";
+		return "child?faces-redirect=true";
 	}
 
 }

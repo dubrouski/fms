@@ -36,7 +36,7 @@ public class AccommodationCreationController implements Serializable {
 	public String createAccommodation(){
 		accommodationService.save(converter.ViewModel2Unit(newAccommodation));
 		init();
-		return "accommodation-list";
+		return "list?faces-redirect=true";
 	}
 
 	@PostConstruct
