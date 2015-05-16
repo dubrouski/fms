@@ -29,9 +29,11 @@
 			</p:column>
 			<p:column headerText="#{msg['person.list.name']}" priority="2"
 				sortBy="#{person.firstName}">
-				<p:commandLink id="detailLinkFName"
+				<h:form>
+				<p:commandLink id="detailLinkFName" ajax="false"
 					action="#{personDetailController.showDetail(person)}"
 					value="#{person.firstName}"></p:commandLink>
+				</h:form>
 			</p:column>
 			<p:column headerText="#{msg['person.list.surname']}" priority="1"
 				sortBy="#{person.lastName}">
