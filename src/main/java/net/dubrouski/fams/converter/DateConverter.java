@@ -12,9 +12,9 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 /**
- * @author stanislau.dubrouski
- * Is used to convert values between String and LocalDate representations
- * when sending them to JSF page and getting user input from the forms.
+ * @author stanislau.dubrouski Is used to convert values between String and
+ *         LocalDate representations when sending them to JSF page and getting
+ *         user input from the forms.
  */
 @FacesConverter("dateStringConverter")
 public class DateConverter implements Converter {
@@ -38,7 +38,8 @@ public class DateConverter implements Converter {
 
 	@Override
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object value) {
-		return value.toString();
+		LocalDate date = (LocalDate) value;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+		return date.format(formatter);
 	}
-
 }
