@@ -7,14 +7,27 @@
 	template="/WEB-INF/templates/contract-management-template.xhtml">
 	<ui:define id="content" name="content">
 
+		<h:form style="display: inline;" id="contractSearchForm">
+
+			<p:inputText id="searchInput" placeholder="Search by code..."
+				value="#{contractListingController.searchTerm}">
+			</p:inputText>
+			<p:commandButton value="Search" update="contractsTable"></p:commandButton>
+		</h:form>
+
 		<p:dataTable id="contractsTable" var="contract"
 			rowStyleClass="#{contract.state eq 'New' ? 'contract_new' : contract.state eq 'Closed' ? 'contract_closed' : 'contract_signed_active'}"
-			value="#{contractService.listContracts()}" style="padding-top:5px;">
-			<p:column headerText="Code">
+			value="#{contractListingController.lazyContracts}"
+			rows="#{personListingController.pageSize}" paginator="true"
+			lazy="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,25" style="padding-top:5px;">
+
+			<p:column headerText="Code" sortBy="#{contract.code}">
 				<h:form>
-				<p:commandLink id="detailLinkSName" ajax="false"
-					action="#{contractDetailController.showDetail(contract)}"
-					value="#{contract.code}"></p:commandLink>
+					<p:commandLink id="detailLinkSName" ajax="false"
+						action="#{contractDetailController.showDetail(contract)}"
+						value="#{contract.code}"></p:commandLink>
 				</h:form>
 			</p:column>
 
@@ -26,16 +39,18 @@
 				<h:outputText value="#{contract.accommodationUnit.name}" />
 			</p:column>
 
-
-			<p:column headerText="Start date">
+			<p:column headerText="Start date" sortBy="#{contract.startDate}">
 				<h:outputText value="#{contract.startDate}" />
 			</p:column>
-			<p:column headerText="End date">
+			
+			<p:column headerText="End date" sortBy="#{contract.endDate}">
 				<h:outputText value="#{contract.endDate}" />
 			</p:column>
-			<p:column headerText="Status">
+			
+			<p:column headerText="Status" sortBy="#{contract.state}">
 				<h:outputText value="#{contract.state}" />
 			</p:column>
+			
 		</p:dataTable>
 	</ui:define>
 </ui:composition>

@@ -3,6 +3,7 @@ package net.dubrouski.fams.service;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.Person;
+import net.dubrouski.fams.model.enums.SortingOrder;
 
 import java.util.List;
 
@@ -19,9 +20,14 @@ public interface ContractService {
 
     public void deleteContract(Contract contract);
 
-    public List<Contract> listContracts();
+    public List<Contract> listContracts();    
 
     public List<Contract> getContractsByPerson(Person person);
 
     public List<Contract> getContractsByAccommodationUnit(AccommodationUnit accommodationUnit);
+
+	public List<Contract> listContracts(int pageSize, int first,
+			String sortField, SortingOrder valueOf, String searchTerm);
+
+	public long getContractsCount();
 }

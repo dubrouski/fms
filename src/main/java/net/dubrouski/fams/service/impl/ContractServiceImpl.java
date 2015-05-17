@@ -8,11 +8,14 @@ import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.Person;
+import net.dubrouski.fams.model.enums.SortingOrder;
 import net.dubrouski.fams.service.ContractService;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -72,4 +75,19 @@ public class ContractServiceImpl  implements ContractService {
         logger.info("Retrieving all Contracts by Address with id:" +accommodationUnit.getId());
         return contractDao.getContractsByAccommodationUnit(accommodationUnit);
     }
+
+	@Override
+	public List<Contract> listContracts(int pageSize, int first,
+			String sortField, SortingOrder sortingOrder, String searchTerm) {
+		logger.info(String.format("Listing for %d, %d, %s %s",
+				pageSize, first, sortField, sortingOrder.name()));
+		
+		return contractDao.listContracts(pageSize, first, sortField,
+				sortingOrder, searchTerm);
+	}
+
+	@Override
+	public long getContractsCount() {
+		return contractDao.getContractsCount();
+	}
 }
