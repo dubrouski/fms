@@ -42,8 +42,6 @@ public class ContractCreationController implements Serializable {
 	ContractService contractService;
 
 	private Contract newContract;
-//	private Person person;
-//	private AccommodationUnit acc;
 
 	private List<Person> personsList;
 
@@ -61,9 +59,6 @@ public class ContractCreationController implements Serializable {
 
 	public String createContract() {
 		logger.info("Saving new contract " + newContract.toString());
-		newContract.setTenant(this.person);
-		newContract.setAccommodationUnit(this.acc);
-		newContract.setState(ContractState.New);
 
 		contractService.saveContract(newContract);
 
@@ -78,22 +73,7 @@ public class ContractCreationController implements Serializable {
 	@PostConstruct
 	public void initNewContract() {
 		newContract = new Contract();
+		newContract.setState(ContractState.New);
 		personsList = personService.listPersons();
-	}
-
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
-	}
-
-	public AccommodationUnit getAcc() {
-		return acc;
-	}
-
-	public void setAcc(AccommodationUnit acc) {
-		this.acc = acc;
 	}
 }

@@ -30,4 +30,6 @@ public interface ContractService {
 			String sortField, SortingOrder valueOf, String searchTerm);
 
 	public long getContractsCount();
+	
+	public void handoverKeys(Contract contract);
 }

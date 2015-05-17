@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.logging.Logger;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import net.dubrouski.fams.model.Contract;
@@ -32,7 +34,7 @@ public class ContractDetailController implements Serializable {
 
 	@Inject
 	ContractService contractService;
-	
+
 	@Inject
 	CurrencyService currencyService;
 
@@ -40,14 +42,21 @@ public class ContractDetailController implements Serializable {
 
 	public String showDetail(Contract c) {
 		this.contract = c;
-		
-        //example sanity check, will be removed
-		logger.info(currencyService.recalculate("USD", "CZK", BigDecimal.valueOf(1)).toString());
+
+		// example sanity check, will be removed
+		logger.info(currencyService.recalculate("USD", "CZK",
+				BigDecimal.valueOf(1)).toString());
 		return "detail?faces-redirect=true";
 
 	}
 
 	public Contract getContract() {
 		return contract;
+	}
+
+	public void handoverKeys() {
+		contractService.handoverKeys(this.contract);
+		FacesContext.getCurrentInstance().addMessage("",
+				new FacesMessage("Keys handed over."));
 	}
 }

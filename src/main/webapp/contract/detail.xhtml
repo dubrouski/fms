@@ -8,60 +8,52 @@
 	<ui:define id="content" name="content">
 		<h3>Contract detail</h3>
 
-		<div class="ui-grid ui-grid-responsive">
+		<div id="contractDetail" class="ui-grid ui-grid-responsive">
 			<div class="ui-grid-row">
-				<div class="ui-grid-col-2">
+				<div class="ui-grid-col-4">
 					<h:outputLabel for="code" value="Code:" />
 				</div>
-				<div class="ui-grid-col-2">
-					<h:outputText id="code" value="#{contractDetailController.contract.code}" />
+				<div class="ui-grid-col-4">
+					<h:outputText id="code"
+						value="#{contractDetailController.contract.code}" />
 				</div>
 			</div>
-			
 
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-4">
 					<h:outputLabel for="person" value="Person:" />
 				</div>
 				<div class="ui-grid-col-4">
-					<h:outputText id="person"
-						value="#{contractDetailController.contract.tenant.businessId}: #{contractDetailController.contract.tenant.firstName} #{contractDetailController.contract.tenant.lastName}" />
 					<h:form style="display: inline;">
-						<p:commandButton id="detailButton" icon="ui-icon-person"
+
+						<p:commandLink id="detailButton" icon="ui-icon-person"
+							value="#{contractDetailController.contract.tenant.businessId}: #{contractDetailController.contract.tenant.firstName} #{contractDetailController.contract.tenant.lastName}"
 							ajax="false"
 							action="#{personDetailController.showDetail(contractDetailController.contract.tenant)}">
-						</p:commandButton>
+						</p:commandLink>
 						<p:tooltip id="personDetailButtonToolTip" for="detailButton"
 							value="Show person's detail" />
 					</h:form>
 				</div>
-
+			</div>
+			<div class="ui-grid-row">
 				<div class="ui-grid-col-4">
 					<h:outputLabel for="accomm" value="Accommodation:" />
 				</div>
 				<div class="ui-grid-col-4">
-					<h:outputText id="accomm"
-						value="#{contractDetailController.contract.accommodationUnit.id}: #{contractDetailController.contract.accommodationUnit.name}" />
 					<h:form style="display: inline;">
-						<p:commandButton id="accommDetailButton" icon="ui-icon-home"
-							ajax="false"
-							action="#{accommodationDetailController.showDetail(contractDetailController.contract.accommodationUnit)}">
-						</p:commandButton>
-						<p:tooltip id="accommDetailButtonToolTip" for="accommDetailButton"
+						<p:commandLink id="accommDetailLink" ajax="false"
+							action="#{accommodationDetailController.showDetail(contractDetailController.contract.accommodationUnit)}"
+							value="#{contractDetailController.contract.accommodationUnit.id}: #{contractDetailController.contract.accommodationUnit.name}"></p:commandLink>
+
+						<p:tooltip id="accommDetailButtonToolTip" for="accommDetailLink"
 							value="Show acommodation's detail" />
 					</h:form>
 				</div>
 			</div>
 
-
 			<div class="ui-grid-row">
-				<div class="ui-grid-col-4">
-					<h:outputLabel for="cid" value="ID:" />
-				</div>
-				<div class="ui-grid-col-4">
-					<h:outputText id="cid"
-						value="#{contractDetailController.contract.id}" />
-				</div>
+
 				<div class="ui-grid-col-4">
 					<h:outputLabel for="state" value="State:" />
 				</div>
@@ -69,20 +61,26 @@
 					<h:outputText id="state"
 						value="#{contractDetailController.contract.state}" />
 				</div>
+				<div class="ui-grid-col-4">
+					<p:commandButton id="signContractButton"
+						rendered="#{contractDetailController.contract.state eq 'New'}"
+						value="Sign contract" icon="ui-icon-pencil"></p:commandButton>
+					<p:commandButton id="closeContractButton"
+						rendered="#{contractDetailController.contract.state eq 'Signed'}"
+						value="Close contract" icon="ui-icon-arrowthickstop-1-e"></p:commandButton>
+				</div>
 			</div>
+
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-4">
-					<h:outputLabel for="startDate" value="Start date:" />
+					<h:outputLabel value="Contract validity:" />
 				</div>
+
 				<div class="ui-grid-col-4">
-					<h:outputFormat id="startDate"
+					<h:outputFormat converter="dateStringConverter" id="startDate"
 						value="#{contractDetailController.contract.startDate}" />
-				</div>
-				<div class="ui-grid-col-4">
-					<h:outputLabel for="endDate" value="End date:" />
-				</div>
-				<div class="ui-grid-col-4">
-					<h:outputFormat id="endDate"
+					<h:outputText value=" - " />
+					<h:outputFormat converter="dateStringConverter" id="endDate"
 						value="#{contractDetailController.contract.endDate}" />
 				</div>
 			</div>
@@ -91,33 +89,52 @@
 					<h:outputLabel for="keysHandedOver" value="Keys handed over:" />
 				</div>
 				<div class="ui-grid-col-4">
-					<h:outputFormat id="keysHandedOver"
-						value="#{contractDetailController.contract.keysHandedOver}" />
+					<h:outputText id="keysHandoverIndicator"
+						value="#{contractDetailController.contract.keysHandedOver ? 'Yes' : 'No'}" />
+
+					<h:outputFormat id="keysHandoverDate" value=" ({0})"
+						rendered="#{contractDetailController.contract.keysHandedOver}">
+						<f:param
+							value="#{contractDetailController.contract.keysHandoverDate}" />
+					</h:outputFormat>
+				</div>
+
+				<div class="ui-grid-col-4">
+					<p:commandButton id="handoverKeysButton" value="Handover keys"
+						disabled="#{contractDetailController.contract.keysHandedOver}"
+						type="button" onclick="PF('keysHandoverDialog').show();"
+						icon="ui-icon-key" />
+				</div>
+
+				<p:dialog header="Keys handover" widgetVar="keysHandoverDialog"
+					modal="true" height="100">
+					<p:commandButton
+						action="#{contractDetailController.handoverKeys()}"
+						oncomplete="PF('keysHandoverDialog').hide();"
+						update="msgs,keysHandoverIndicator,handoverKeysButton" value="Really handover keys"></p:commandButton>
+				</p:dialog>
+			</div>
+
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4">
+					<h:outputLabel value="Termination requested:" />
 				</div>
 				<div class="ui-grid-col-4">
-					<h:outputLabel for="keysHandoverDate" value="Handover date:" />
+					<h:outputFormat id="terminationRequested"
+						value="#{contractDetailController.contract.terminationRequestDate eq null ? 'No' : 'Yes'}" />
+					<h:outputFormat id="terminationRequestDate"
+						converter="dateStringConverter"
+						rendered="#{!contractDetailController.contract.terminationRequestDate eq null}"
+						value="#{contractDetailController.contract.terminationDate}" />
+
+
 				</div>
 				<div class="ui-grid-col-4">
-					<h:outputFormat id="keysHandoverDate"
-						value="#{contractDetailController.contract.keysHandoverDate}" />
+					<p:commandButton id="requestTerminationButton"
+						value="Create termination request" icon="ui-icon-key"></p:commandButton>
 				</div>
 			</div>
-			<!-- 			<div class="ui-grid-row"> -->
-			<!-- 				<div class="ui-grid-col-4"> -->
-			<!-- 					<h:outputLabel for="keysHandedOver" value="Keys handed over:" /> -->
-			<!-- 				</div> -->
-			<!-- 				<div class="ui-grid-col-4"> -->
-			<!-- 					<h:outputFormat id="keysHandedOver" -->
-			<!-- 						value="#{contractDetailController.contract.keysHandedOver}" /> -->
-			<!-- 				</div> -->
-			<!-- 				<div class="ui-grid-col-4"> -->
-			<!-- 					<h:outputLabel for="keysHandoverDate" value="Handover date:" /> -->
-			<!-- 				</div> -->
-			<!-- 				<div class="ui-grid-col-4"> -->
-			<!-- 					<h:outputFormat id="keysHandoverDate" -->
-			<!-- 						value="#{contractDetailController.contract.keysHandoverDate}" /> -->
-			<!-- 				</div> -->
-			<!-- 			</div> -->
+
 		</div>
 	</ui:define>
 </ui:composition>
