@@ -27,7 +27,7 @@
 					<h:form style="display: inline;">
 
 						<p:commandLink id="detailButton" icon="ui-icon-person"
-							value="#{contractDetailController.contract.tenant.businessId}: #{contractDetailController.contract.tenant.firstName} #{contractDetailController.contract.tenant.lastName}"
+							value="#{contractDetailController.contract.tenant.code}: #{contractDetailController.contract.tenant.firstName} #{contractDetailController.contract.tenant.lastName}"
 							ajax="false"
 							action="#{personDetailController.showDetail(contractDetailController.contract.tenant)}">
 						</p:commandLink>
