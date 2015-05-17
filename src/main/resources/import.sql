@@ -4,6 +4,9 @@ ALTER SEQUENCE person_business_id_seq INCREMENT 11 MINVALUE 1001 CACHE 1001 star
 SELECT setval('public.contract_code_seq', 1001, true);
 ALTER SEQUENCE contract_code_seq INCREMENT 11 MINVALUE 1001 CACHE 1001 start 1001;
 
+SELECT setval('public.accommodation_unit_code_seq', 1001, true);
+ALTER SEQUENCE accommodation_unit_code_seq INCREMENT 11 MINVALUE 1001 CACHE 1001 start 1001;
+
 --persons
 insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2001-11-11', 'test1@test.com', 'Miranda', 'Connor', 'YU12wexcvr34A9', 'Jessica', '+420 777 999 999');
 insert into person (birth_date, email, first_name, last_name, legal_identificator, other_names, phone) values ('2002-11-11', 'test22@test.com', 'Jack', 'Nickolson', 'YUsrg1234s5A6789', '', '+420 777 666 999');

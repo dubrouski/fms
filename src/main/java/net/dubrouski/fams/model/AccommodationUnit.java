@@ -22,6 +22,8 @@ import javax.persistence.Table;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.hibernate.annotations.ForceDiscriminator;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import net.dubrouski.fams.util.AccommodationDeserializer;
 /**
@@ -45,6 +47,10 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 	@Column(name = "ID")
 	private Long id;
 	
+	@Column(name = "CODE", columnDefinition = "serial")
+	@Generated(GenerationTime.INSERT)
+	private Long code;
+		
 	@Column(name = "IS_ACTIVE",
 			nullable = false,
 			columnDefinition = "boolean default false")
@@ -187,6 +193,14 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 	
 	public static List<String> getTypesList(){
 		return typesList;
+	}
+	
+	public Long getCode() {
+		return code;
+	}
+	
+	public void setCode(Long code) {
+		this.code = code;
 	}
 	
 }

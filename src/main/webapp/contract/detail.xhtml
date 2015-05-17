@@ -44,7 +44,7 @@
 					<h:form style="display: inline;">
 						<p:commandLink id="accommDetailLink" ajax="false"
 							action="#{accommodationDetailController.showDetail(contractDetailController.contract.accommodationUnit)}"
-							value="#{contractDetailController.contract.accommodationUnit.id}: #{contractDetailController.contract.accommodationUnit.name}"></p:commandLink>
+							value="#{contractDetailController.contract.accommodationUnit.code}: #{contractDetailController.contract.accommodationUnit.name}"></p:commandLink>
 
 						<p:tooltip id="accommDetailButtonToolTip" for="accommDetailLink"
 							value="Show acommodation's detail" />
