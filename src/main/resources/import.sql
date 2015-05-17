@@ -1,5 +1,5 @@
-SELECT setval('public.person_business_id_seq', 1001, true);
-ALTER SEQUENCE person_business_id_seq INCREMENT 11 MINVALUE 1001 CACHE 1001 start 1001;
+SELECT setval('public.person_code_seq', 1001, true);
+ALTER SEQUENCE person_code_seq INCREMENT 11 MINVALUE 1001 CACHE 1001 start 1001;
 
 SELECT setval('public.contract_code_seq', 1001, true);
 ALTER SEQUENCE contract_code_seq INCREMENT 11 MINVALUE 1001 CACHE 1001 start 1001;

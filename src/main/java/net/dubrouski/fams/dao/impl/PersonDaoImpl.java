@@ -79,7 +79,7 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 		// Metamodel meta = this.entityManager.getMetamodel();
 		// EntityType<Person> Person_ = meta.entity(Person.class);
 
-		Path<Object> path = personRoot.get(sortField == null ? "businessId"
+		Path<Object> path = personRoot.get(sortField == null ? "code"
 				: sortField);
 
 		criteriaQuery.select(personRoot);

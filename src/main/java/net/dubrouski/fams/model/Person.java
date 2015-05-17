@@ -69,9 +69,9 @@ public class Person implements Serializable {
 	@Column(name = "LEGAL_IDENTIFICATOR")
 	private String legalId;
 
-	@Column(name = "BUSINESS_ID", columnDefinition = "serial")
+	@Column(name = "CODE", columnDefinition = "serial")
 	@Generated(GenerationTime.INSERT)
-	private Long businessId;
+	private Long code;
 
 	@Column(name = "EMAIL")
 	@NotBlank(message = "{person.validate.email.required}")
@@ -136,12 +136,12 @@ public class Person implements Serializable {
 		this.legalId = legalId;
 	}
 
-	public Long getBusinessId() {
-		return businessId;
+	public Long getCode() {
+		return code;
 	}
 
-	public void setBusinessId(Long businessId) {
-		this.businessId = businessId;
+	public void setCode(Long code) {
+		this.code = code;
 	}
 
 	public String getEmail() {
