@@ -9,23 +9,38 @@
 		<h3>Contract creation</h3>
 		<h:form id="reg">
 			<p:panelGrid columns="3" layout="grid" cellpadding="5">
+
 				<p:outputLabel for="personForContract" value="Select person:" />
-				<p:selectOneMenu id="personForContract"
-					converter="#{personIdConverterBean}"
-					value="#{contractCreationController.person}">
-					<!-- 					<f:selectItem itemLabel="Select One" itemValue="" /> -->
+				<p:selectOneListbox id="personForContract" styleClass="selectBox"
+					value="#{contractCreationController.newContract.tenant}"
+					converter="#{personIdConverterBean}" var="t" filter="true"
+					filterMatchMode="contains">
 					<f:selectItems value="#{contractCreationController.personsList}"
-						var="pers" itemLabel="#{pers.toString()}" itemValue="#{pers}" />
-				</p:selectOneMenu>
+						var="pers" itemLabel="#{pers.fullName}" itemValue="#{pers}" />
+					<p:column>
+						<h:outputText value="#{t.businessId}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{t.fullName}" />
+					</p:column>
+				</p:selectOneListbox>
 				<p:message for="personForContract" />
 
 				<p:outputLabel for="accommForContract" value="Select acommodation:" />
-				<p:selectOneMenu id="accommForContract"
-					converter="#{accommIdConverterBean}"
-					value="#{contractCreationController.acc}">
+				<p:selectOneListbox id="accommForContract" styleClass="selectBox"
+					value="#{contractCreationController.newContract.accommodationUnit}"
+					converter="#{accommIdConverterBean}" var="t" filter="true"
+					filterMatchMode="contains">
 					<f:selectItems value="#{contractCreationController.accommList}"
-						var="unit" itemLabel="#{unit.toString()}" itemValue="#{unit}" />
-				</p:selectOneMenu>
+						var="unit" itemLabel="#{unit.name}" itemValue="#{unit}" />
+					<p:column>
+						<h:outputText value="#{t.type}" />
+					</p:column>
+					
+					<p:column>
+						<h:outputText value="#{t.name}" />
+					</p:column>
+				</p:selectOneListbox>
 				<p:message for="accommForContract" />
 
 				<p:outputLabel for="startDate" value="Set start date:" />

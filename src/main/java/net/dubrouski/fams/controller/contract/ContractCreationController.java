@@ -42,8 +42,8 @@ public class ContractCreationController implements Serializable {
 	ContractService contractService;
 
 	private Contract newContract;
-	private Person person;
-	private AccommodationUnit acc;
+//	private Person person;
+//	private AccommodationUnit acc;
 
 	private List<Person> personsList;
 

@@ -20,7 +20,7 @@
 	<navigation-rule>
 		<from-view-id>/contract/detail.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>detail?faces-redirect=true</from-outcome>
+			<from-outcome>person-detail?faces-redirect=true</from-outcome>
 			<to-view-id>/person/detail.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
