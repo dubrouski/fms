@@ -3,11 +3,13 @@ package net.dubrouski.fams.service.impl;
 import net.dubrouski.fams.dao.AddressDao;
 import net.dubrouski.fams.dao.ContractDao;
 import net.dubrouski.fams.dao.PersonDao;
+import net.dubrouski.fams.dao.PriceDao;
 import net.dubrouski.fams.exception.FmsException;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.Person;
+import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.model.enums.SortingOrder;
 import net.dubrouski.fams.service.ContractService;
 
@@ -27,6 +29,9 @@ public class ContractServiceImpl implements ContractService {
 
 	@Inject
 	ContractDao contractDao;
+	
+	@Inject
+	PriceDao priceDao;
 
 	@Inject
 	Logger logger;
@@ -38,12 +43,14 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public void saveContract(Contract contract) {
+	public void saveContract(Contract contract, Price price) {
 		logger.info("Saving Contract");
 		if (contract.getId() != null) {
 			throw new FmsException("Cannot save: already existing entity: "
 					+ contract);
 		}
+		priceDao.save(price);
+		contract.setPrice(price);
 		contractDao.save(contract);
 		logger.info("Saved Contract with id:" + contract.getId());
 	}

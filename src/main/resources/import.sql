@@ -40,17 +40,29 @@ insert into accommodation_unit (name, type, deposit_amount, address_id, price_id
 insert into unit_unit (parent_id, child_id) values (1, 6), (4, 2), (4, 3)
 
 --dummy contracts
-insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2012-01-01', '2012-12-12', 'Closed', 2, 2, false);
-insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2013-01-01', '2013-12-12', 'Closed', 2, 2, false);
-insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2014-01-01', '2014-12-12', 'Closed', 2, 2, false);
-insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2015-01-01', '2015-12-12', 'Signed', 2, 2, false);
-insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2016-01-01', '2016-12-12', 'New', 2, 2, false);
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (2500, 1400, 'CZK', '10.2.2016', '9.2.2017');
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (3200, 1700, 'CZK', '10.2.2017', '9.2.2018');
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (1500, 2000, 'CZK', '11.3.2015', '9.8.2018');
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (1800, 3000, 'CZK', '12.4.2015', '10.8.2018');
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (1800, 3000, 'CZK', '12.4.2015', '10.8.2018');
 
-insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2012-01-01', '2012-12-12', 'Closed', 1, 1, false);
-insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2013-01-01', '2013-12-12', 'Closed', 1, 1, false);
-insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2014-01-01', '2014-12-12', 'Closed', 1, 1, false);
-insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2015-01-01', '2015-12-12', 'Signed', 1, 1, false);
-insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over) values('2016-01-01', '2016-12-12', 'New', 1, 1, false);
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (6500, 1400, 'CZK', '10.2.2016', '9.2.2017');
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (8500, 1700, 'CZK', '10.2.2017', '9.2.2018');
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (7200, 2000, 'CZK', '11.3.2015', '9.8.2018');
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (1500, 3000, 'CZK', '12.4.2015', '10.8.2018');
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (1800, 3000, 'CZK', '12.4.2015', '10.12.2019');
+
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over, price_id) values('2012-01-01', '2012-12-12', 'Closed', 2, 2, false, 7);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over, price_id) values('2013-01-01', '2013-12-12', 'Closed', 2, 2, false, 8);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over, price_id) values('2014-01-01', '2014-12-12', 'Closed', 2, 2, false, 9);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over, price_id) values('2015-01-01', '2015-12-12', 'Signed', 2, 2, false, 10);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over, price_id) values('2016-01-01', '2016-12-12', 'New', 2, 2, false, 11);
+
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over, price_id) values('2012-01-01', '2012-12-12', 'Closed', 1, 1, false, 12);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over, price_id) values('2013-01-01', '2013-12-12', 'Closed', 1, 1, false, 13);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over, price_id) values('2014-01-01', '2014-12-12', 'Closed', 1, 1, false, 14);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over, price_id) values('2015-01-01', '2015-12-12', 'Signed', 1, 1, false, 15);
+insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over, price_id) values('2016-01-01', '2016-12-12', 'New', 1, 1, false, 16);
 
 -- user and user rights
 INSERT INTO "USER" (id, login, password, person_id) VALUES (1, 'admin', 'admin', null);

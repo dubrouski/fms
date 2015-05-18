@@ -9,7 +9,7 @@ import javax.inject.Named;
 import net.dubrouski.fams.model.Price;
 
 @Stateless
-@Named(value = "priceTestHepler")
+@Named
 public class PriceTestHelper {
 	
 	public Price getTestPrice(BigDecimal basePrice,

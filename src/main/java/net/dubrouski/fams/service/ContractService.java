@@ -3,6 +3,7 @@ package net.dubrouski.fams.service;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.Person;
+import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.model.enums.SortingOrder;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface ContractService {
 
     public Contract getContractById(Long id);
 
-    public void saveContract(Contract contract);
+    public void saveContract(Contract contract, Price price);
 
     public void updateContract(Contract contract);
 

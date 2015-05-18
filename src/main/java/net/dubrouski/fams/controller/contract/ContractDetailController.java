@@ -49,7 +49,7 @@ public class ContractDetailController implements Serializable {
 		return "detail?faces-redirect=true";
 
 	}
-
+	
 	public Contract getContract() {
 		return contract;
 	}

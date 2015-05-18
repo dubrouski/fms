@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.Person;
+import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.model.enums.ContractState;
 import net.dubrouski.fams.service.AccommodationUnitService;
 import net.dubrouski.fams.service.ContractService;
@@ -42,11 +43,17 @@ public class ContractCreationController implements Serializable {
 	ContractService contractService;
 
 	private Contract newContract;
+	
+	private Price newPrice;
 
 	private List<Person> personsList;
 
 	public Contract getNewContract() {
 		return newContract;
+	}
+	
+	public Price getNewPrice(){
+		return newPrice;
 	}
 
 	public List<Person> getPersonsList() {
@@ -60,7 +67,7 @@ public class ContractCreationController implements Serializable {
 	public String createContract() {
 		logger.info("Saving new contract " + newContract.toString());
 
-		contractService.saveContract(newContract);
+		contractService.saveContract(newContract, newPrice);
 
 		FacesContext.getCurrentInstance().addMessage(
 				null,

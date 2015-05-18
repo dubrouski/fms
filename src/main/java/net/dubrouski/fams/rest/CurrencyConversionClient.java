@@ -27,4 +27,14 @@ public class CurrencyConversionClient {
 		 Rates r = response.readEntity(Rates.class);		 
 		 return r;
 	}
+	
+	public Rates createClient(){
+		Response response = ClientBuilder.newClient()
+	 			.target(API_URL)
+	 			.path("latest")
+	 			.request(MediaType.APPLICATION_JSON)
+	 			.get();
+		Rates r = response.readEntity(Rates.class);		 
+		return r;
+	}
 }

@@ -12,12 +12,16 @@
 
 				<p:outputLabel for="basePrice" value="#{msg['price.base']}:" />
 				<p:inputText id="basePrice"
-					value="#{accPriceController.unitsPrice.basePrice}"></p:inputText>
+					value="#{accPriceController.unitsPrice.basePrice}">
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="0" />
+					</p:inputText>
 				<p:message for="basePrice" />
 
 				<p:outputLabel for="servicesPrice" value="#{msg['price.services']}:" />
 				<p:inputText id="servicesPrice"
-					value="#{accPriceController.unitsPrice.servicesPrice}"></p:inputText>
+					value="#{accPriceController.unitsPrice.servicesPrice}">
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="0" />
+					</p:inputText>
 				<p:message for="servicesPrice" />
 
 				<p:outputLabel for="currency" value="#{msg['price.currency']}:" />

@@ -79,6 +79,11 @@ public class Contract implements BaseEntity, Serializable {
 	@Generated(GenerationTime.INSERT)
 	private Long code;
 	
+	@NotNull(message = "{contract.validate.price.required}")
+	@OneToOne
+	@JoinColumn(name = "PRICE_ID")
+	private Price price;
+	
 
 	public Long getId() {
 		return Id;
@@ -190,6 +195,14 @@ public class Contract implements BaseEntity, Serializable {
 	
 	public void setCode(Long code) {
 		this.code = code;
+	}
+
+	public Price getPrice() {
+		return price;
+	}
+
+	public void setPrice(Price price) {
+		this.price = price;
 	}
 
 }

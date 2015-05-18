@@ -18,7 +18,7 @@
 					<f:selectItems value="#{contractCreationController.personsList}"
 						var="pers" itemLabel="#{pers.fullName}" itemValue="#{pers}" />
 					<p:column>
-						<h:outputText value="#{t.businessId}" />
+						<h:outputText value="#{t.legalId}" />
 					</p:column>
 					<p:column>
 						<h:outputText value="#{t.fullName}" />
@@ -54,6 +54,25 @@
 					value="#{contractCreationController.newContract.endDate}"
 					converter="dateStringConverter" mask="99.99.9999" />
 				<p:message for="endDate" />
+				
+				<p:outputLabel for="basePrice" value="#{msg['price.base']}:" />
+				<p:inputText id="basePrice"
+					value="#{contractCreationController.newPrice.basePrice}">
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="0" />
+					</p:inputText>
+				<p:message for="basePrice" />
+
+				<p:outputLabel for="servicesPrice" value="#{msg['price.services']}:" />
+				<p:inputText id="servicesPrice"
+					value="#{contractCreationController.newPrice.servicesPrice}">
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="0" />
+					</p:inputText>
+				<p:message for="servicesPrice" />
+
+				<p:outputLabel for="currency" value="#{msg['price.currency']}:" />
+				<p:inputText id="currency"
+					value="#{contractCreationController.newPrice.currency}"></p:inputText>
+				<p:message for="currency" />				
 
 			</p:panelGrid>
 			<p:commandButton ajax="false" id="register"

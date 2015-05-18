@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/contract-management-template.xhtml">
+	<ui:define id="content" name="content">
+		<h3>Change currency for contract: #{"currencyChangeController.contract.code"}</h3>
+
+		<div id="currencyChange" class="ui-grid ui-grid-responsive">
+			<h:form id="reg">
+				<p:outputLabel for="currency" value="#{msg['country']}" />
+				<p:selectOneMenu id="currency"
+					value="#{currencyChangeController.newCurrency}">
+					<f:selectItem itemLabel="Select One" itemValue="" />
+					<f:selectItems value="#{currencyChangeController.currencies()}"
+						var="currency" itemLabel="#{currency}"
+						itemValue="#{currency}" />
+				</p:selectOneMenu>
+				<p:message for="currency" />
+				
+				<p:commandButton ajax="false" id="changeCurrency" style="margin-top:10px;"
+						action="#{currencyChangeController.change()}"
+						value="Change Currency" />
+				<p:commandButton ajax="false" icon="ui-icon-closethick" style="margin-top:10px;"
+						action="#{contractDetailController.showDetail(currencyChangeController.contract)}" 
+				   		value="Cancel" />			   
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

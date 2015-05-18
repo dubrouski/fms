@@ -7,7 +7,7 @@ import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Country;
 
 @Stateless
-@Named(value = "addressTestHepler")
+@Named
 public class AddressTestHelper {
 	
 	public Address getTestAddress(String city,
