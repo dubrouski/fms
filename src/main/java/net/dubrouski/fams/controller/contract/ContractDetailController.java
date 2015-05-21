@@ -59,4 +59,22 @@ public class ContractDetailController implements Serializable {
 		FacesContext.getCurrentInstance().addMessage("",
 				new FacesMessage("Keys handed over."));
 	}
+	
+	public void signContract() {
+		contractService.signContract(this.contract);
+		FacesContext.getCurrentInstance().addMessage("",
+				new FacesMessage("Contract has been successfully signed."));
+	}
+	
+	public void cancelContract() {
+		contractService.cancelContract(this.contract);
+		FacesContext.getCurrentInstance().addMessage("",
+				new FacesMessage("Contract has been successfully cancelled."));
+	}
+	
+	public void closeContract() {
+		contractService.closeContract(this.contract);
+		FacesContext.getCurrentInstance().addMessage("",
+				new FacesMessage("Contract has been successfully closed."));
+	}
 }

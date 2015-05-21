@@ -62,13 +62,40 @@
 						value="#{contractDetailController.contract.state}" />
 				</div>
 				<div class="ui-grid-col-4">
-					<p:commandButton id="signContractButton"
+					<p:commandButton id="signContractButton" type="button"
+						onclick="PF('signContractDialog').show();"
 						rendered="#{contractDetailController.contract.state eq 'New'}"
 						value="Sign contract" icon="ui-icon-pencil"></p:commandButton>
-					<p:commandButton id="closeContractButton"
+					<p:commandButton id="closeContractButton" type="button"
+						onclick="PF('closeContractDialog').show();"
 						rendered="#{contractDetailController.contract.state eq 'Signed'}"
 						value="Close contract" icon="ui-icon-arrowthickstop-1-e"></p:commandButton>
+					<p:commandButton id="cancelContractButton" type="button"
+						onclick="PF('cancelContractDialog').show();"
+						rendered="#{contractDetailController.contract.state eq 'New'}"
+						value="Cancel contract" icon="ui-icon-arrowthickstop-1-e"></p:commandButton>
 				</div>
+				<p:dialog header="Sign contract" widgetVar="signContractDialog"
+					modal="true" height="100" resizable="false">
+					<p:commandButton
+						action="#{contractDetailController.signContract()}"
+						oncomplete="PF('signContractDialog').hide();" update="msgs, state"
+						value="Really sign contract!"></p:commandButton>
+				</p:dialog>
+				<p:dialog header="Close contract" widgetVar="closeContractDialog"
+					modal="true" height="100" resizable="false">
+					<p:commandButton
+						action="#{contractDetailController.closeContract()}"
+						oncomplete="PF('closeContractDialog').hide();"
+						update="msgs, state" value="Really close contract."></p:commandButton>
+				</p:dialog>
+				<p:dialog header="Cancel contract" widgetVar="cancelContractDialog"
+					modal="true" height="100" resizable="false">
+					<p:commandButton
+						action="#{contractDetailController.cancelContract()}"
+						oncomplete="PF('cancelContractDialog').hide();"
+						update="msgs, state" value="Really cancel contract!"></p:commandButton>
+				</p:dialog>
 			</div>
 
 			<div class="ui-grid-row">
@@ -107,11 +134,12 @@
 				</div>
 
 				<p:dialog header="Keys handover" widgetVar="keysHandoverDialog"
-					modal="true" height="100">
+					modal="true" height="100" resizable="false">
 					<p:commandButton
 						action="#{contractDetailController.handoverKeys()}"
 						oncomplete="PF('keysHandoverDialog').hide();"
-						update="msgs,keysHandoverIndicator,handoverKeysButton" value="Really handover keys"></p:commandButton>
+						update="msgs,keysHandoverIndicator,handoverKeysButton"
+						value="Really handover keys"></p:commandButton>
 				</p:dialog>
 			</div>
 
@@ -134,7 +162,7 @@
 						value="Create termination request" icon="ui-icon-key"></p:commandButton>
 				</div>
 			</div>
-			
+
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-4">
 					<h:outputLabel value="Base Price:" />
@@ -144,7 +172,7 @@
 						value="#{contractDetailController.contract.price.basePrice}" />
 				</div>
 			</div>
-			
+
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-4">
 					<h:outputLabel value="Services Price:" />
@@ -154,7 +182,7 @@
 						value="#{contractDetailController.contract.price.servicesPrice}" />
 				</div>
 			</div>
-			
+
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-4">
 					<h:outputLabel value="Currency:" />
@@ -164,11 +192,12 @@
 						value="#{contractDetailController.contract.price.currency}" />
 				</div>
 				<div class="ui-grid-col4">
-					<p:commandButton id="removeButton" icon="ui-icon-pencil" value="Change Currency"
-						action="#{currencyChangeController.start(contractDetailController.contract)}">							
+					<p:commandButton id="removeButton" icon="ui-icon-pencil"
+						value="Change Currency"
+						action="#{currencyChangeController.start(contractDetailController.contract)}">
 					</p:commandButton>
 				</div>
-				
+
 			</div>
 
 		</div>

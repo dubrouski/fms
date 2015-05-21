@@ -16,7 +16,7 @@
 		</h:form>
 
 		<p:dataTable id="contractsTable" var="contract"
-			rowStyleClass="#{contract.state eq 'New' ? 'contract_new' : contract.state eq 'Closed' ? 'contract_closed' : 'contract_signed_active'}"
+			rowStyleClass="contract_#{contract.state}"
 			value="#{contractListingController.lazyContracts}"
 			rows="#{personListingController.pageSize}" paginator="true"
 			lazy="true"

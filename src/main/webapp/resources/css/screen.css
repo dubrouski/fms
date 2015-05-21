@@ -46,16 +46,21 @@
 	color: #898989 !important;
 }
 
-.contract_closed {
+.contract_Closed {
 	background-color: #D0CFCF !important;
 	color: #898989 !important;
 }
 
-.contract_new {
+.contract_New {
 	background-color: #FFF6B8 !important;
 }
 
-.contract_signed_active {
+.contract_Cancelled {
+	background-color: #F69D9D !important;
+	color: #898989 !important;
+}
+ 
+.contract_Signed {
 	background-color: #BAE8B5 !important;
 }
 

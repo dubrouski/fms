@@ -10,6 +10,7 @@ import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.Price;
+import net.dubrouski.fams.model.enums.ContractState;
 import net.dubrouski.fams.model.enums.SortingOrder;
 import net.dubrouski.fams.service.ContractService;
 
@@ -112,5 +113,38 @@ public class ContractServiceImpl implements ContractService {
 		this.updateContract(contract);
 		logger.info("Keys handover set for contract: " + contract.getCode()
 				+ " to date " + contract.getKeysHandoverDate());
+	}
+
+	@Override
+	public void cancelContract(Contract contract) {
+		// TODO complete implementation
+		// TODO create tests
+		logger.info("Cancellation requested for contract: "
+				+ contract.getCode());
+		contract.setState(ContractState.Cancelled);
+		this.updateContract(contract);
+		logger.info("Contract: " + contract.getCode() + " has been cancelled.");
+	}
+
+	@Override
+	public void signContract(Contract contract) {
+		// TODO complete implementation
+		// TODO create tests
+		logger.info("Signing requested for contract: " + contract.getCode());
+		contract.setState(ContractState.Signed);
+		this.updateContract(contract);
+		logger.info("Contract: " + contract.getCode() + " has been signed.");
+
+	}
+
+	@Override
+	public void closeContract(Contract contract) {
+		// TODO complete implementation
+		// TODO create tests
+		logger.info("Closing requested for contract: " + contract.getCode());
+		contract.setState(ContractState.Closed);
+		this.updateContract(contract);
+		logger.info("Contract: " + contract.getCode() + " has been closed.");
+
 	}
 }

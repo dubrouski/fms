@@ -20,7 +20,7 @@
 				disabled="#{!loginManager.currentUser.hasRight('CONTRACT_WRITE')}"
 				action="#{contractCreationController.startContractCreationForPerson(personDetailController.person)}"
 				value="#{msg['person.detail.createcontractbutton']}:"
-				icon="ui-icon-closethick" />
+				icon="ui-icon-script" />
 		</h:form>
 		<p:panel id="personalInfoFieldSet"
 			header="#{msg['person.detail.personalinfotab']}" toggleable="true"
@@ -115,7 +115,7 @@
 			styleClass="fieldSetLegend">
 
 			<p:dataTable id="contractsTable" var="contract" reflow="true" 
-				rowStyleClass="#{contract.state eq 'New' ? 'contract_new' : contract.state eq 'Closed' ? 'contract_closed' : 'contract_signed_active'}"
+				rowStyleClass="contract_#{contract.state}"
 				value="#{personDetailController.personsContracts}"
 				style="padding-top:5px;">
 				<p:column headerText="Code">

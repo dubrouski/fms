@@ -33,4 +33,10 @@ public interface ContractService {
 	public long getContractsCount();
 	
 	public void handoverKeys(Contract contract);
+	
+	public void signContract(Contract contract);
+	
+	public void cancelContract(Contract contract);
+
+	public void closeContract(Contract contract);
 }
