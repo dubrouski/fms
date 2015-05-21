@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 
 import net.dubrouski.fams.model.AccommodationUnit;
@@ -62,6 +63,25 @@ public class ContractCreationController implements Serializable {
 
 	public List<AccommodationUnit> getAccommList() {
 		return accommService.listAccommodations();
+	}
+	
+	public String startContractCreationForPerson(Person person){
+		this.newContract.setTenant(person);
+		return "contract-create?faces-redirect=true";
+	}
+	
+	public String startContractCreationForAccommodation(AccommodationUnit accUnit){
+		this.newContract.setAccommodationUnit(accUnit);
+		this.newPrice = new Price(accUnit.getPrice());
+		return "contract-create?faces-redirect=true";
+	}
+	
+	public void setPriceFromSelectedAccomm() {
+		logger.info("Getting ready to set price...");
+		this.newPrice = new Price(this.newContract.getAccommodationUnit()
+				.getPrice());
+		
+		logger.info("Set price to " + this.newPrice.toString());
 	}
 
 	public String createContract() {

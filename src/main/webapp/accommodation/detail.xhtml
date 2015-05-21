@@ -13,6 +13,11 @@
 				value="Delete accommodation" icon="ui-icon-closethick" >
 				<f:param name="i" value="2" />
 			</p:commandButton>
+			<p:commandButton style="margin-bottom:10px;" ajax="false"
+				action="#{contractCreationController.startContractCreationForAccommodation(accommodationDetailController.unit)}"
+				value="Create contract" icon="ui-icon-closethick" >
+				<f:param name="i" value="2" />
+			</p:commandButton>
 			<p:fieldset collapsed="false" legend="Basic Information"
 				toggleable="true" toggleSpeed="250" style="margin-bottom:15px;">
 

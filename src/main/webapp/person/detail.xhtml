@@ -14,8 +14,15 @@
 				action="#{personDeletionController.requestPersonDelete(personDetailController.person)}"
 				value="#{msg['person.detail.deletebutton']}:"
 				icon="ui-icon-closethick" />
+
+			<p:commandButton id="createContractForPersonButton" style="margin-bottom:10px;"
+				ajax="false"
+				disabled="#{!loginManager.currentUser.hasRight('CONTRACT_WRITE')}"
+				action="#{contractCreationController.startContractCreationForPerson(personDetailController.person)}"
+				value="#{msg['person.detail.createcontractbutton']}:"
+				icon="ui-icon-closethick" />
 		</h:form>
-		<p:panel id="contractsFieldSete"
+		<p:panel id="personalInfoFieldSet"
 			header="#{msg['person.detail.personalinfotab']}" toggleable="true"
 			toggleSpeed="250" widgetVar="contractsFieldSete"
 			styleClass="fieldSetLegend">

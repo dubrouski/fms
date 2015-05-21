@@ -53,6 +53,14 @@ public class Price implements Serializable, BaseEntity{
 	@Pattern(regexp="[a-zA-Z]+")
 	private String currency;
 	
+	public Price(){}
+	
+	public Price(Price clone) {
+		this.basePrice = clone.getBasePrice();
+		this.servicesPrice = clone.getServicesPrice();
+		this.currency = clone.getCurrency();
+	}
+	
 	public boolean validateDates(){
 		if(validFrom != null && validTo != null){
 			return validFrom.isBefore(validTo);	
