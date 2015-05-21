@@ -147,4 +147,15 @@ public class ContractServiceImpl implements ContractService {
 		logger.info("Contract: " + contract.getCode() + " has been closed.");
 
 	}
+
+	@Override
+	public void createTerminationRequest(Contract contract) {
+		// TODO complete implementation
+		// TODO create tests
+		logger.info("Termination request requested for contract: " + contract.getCode());
+		contract.setTerminationRequestDate(LocalDate.now());
+		this.updateContract(contract);
+		logger.info("Termination request for contract: " + contract.getCode() + " has been set (date " + contract.getTerminationRequestDate());
+
+	}
 }

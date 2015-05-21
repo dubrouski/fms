@@ -150,17 +150,36 @@
 				<div class="ui-grid-col-4">
 					<h:outputFormat id="terminationRequested"
 						value="#{contractDetailController.contract.terminationRequestDate eq null ? 'No' : 'Yes'}" />
-					<h:outputFormat id="terminationRequestDate"
-						converter="dateStringConverter"
-						rendered="#{!contractDetailController.contract.terminationRequestDate eq null}"
-						value="#{contractDetailController.contract.terminationDate}" />
 
+					<h:outputFormat id="terminationRequestDate" value=" ({0})"
+						rendered="#{contractDetailController.contract.terminationRequestDate ne null}">
+						<f:param
+							value="#{contractDetailController.contract.terminationRequestDate}" />
+					</h:outputFormat>
 
 				</div>
 				<div class="ui-grid-col-4">
-					<p:commandButton id="requestTerminationButton"
-						value="Create termination request" icon="ui-icon-key"></p:commandButton>
+					<p:commandButton id="terminationRequestDialogButton"
+						value="Termination request"
+						disabled="#{contractDetailController.contract.terminationRequestDate ne null}"
+						type="button" onclick="PF('terminationRequestDialog').show();"
+						icon="ui-icon-key" />
 				</div>
+
+
+				<p:dialog header="Termination request creation"
+					widgetVar="terminationRequestDialog" modal="true" height="100"
+					resizable="false">
+
+					<p:commandButton
+						action="#{contractDetailController.createTerminationRequest()}"
+						oncomplete="PF('terminationRequestDialog').hide();"
+						update="msgs,terminationRequested,terminationRequestDate"
+						value="Create termination request."></p:commandButton>
+				</p:dialog>
+
+
+
 			</div>
 
 			<div class="ui-grid-row">

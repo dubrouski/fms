@@ -6,6 +6,7 @@ import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.model.enums.SortingOrder;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -39,4 +40,6 @@ public interface ContractService {
 	public void cancelContract(Contract contract);
 
 	public void closeContract(Contract contract);
+	
+	public void createTerminationRequest(Contract contract);
 }
