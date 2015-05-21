@@ -10,8 +10,8 @@
 			rows="#{accListingController.pageSize}" paginator="true"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="10,25,100">
-			<p:column headerText="#{msg['accommodation.id']}">
-				<h:outputText value="#{acc.id}" />
+			<p:column headerText="#{msg['accommodation.code']}">
+				<h:outputText value="#{acc.code}" />
 			</p:column>
 			
 			<p:column headerText="#{msg['accommodation.name']}"
