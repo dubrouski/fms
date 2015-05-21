@@ -79,6 +79,7 @@ public class ContractCreationController implements Serializable {
 
 	@PostConstruct
 	public void initNewContract() {
+		newPrice = new Price();
 		newContract = new Contract();
 		newContract.setState(ContractState.New);
 		personsList = personService.listPersons();
