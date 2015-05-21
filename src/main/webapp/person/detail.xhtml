@@ -15,9 +15,6 @@
 				value="#{msg['person.detail.deletebutton']}:"
 				icon="ui-icon-closethick" />
 		</h:form>
-
-
-
 		<p:panel id="contractsFieldSete"
 			header="#{msg['person.detail.personalinfotab']}" toggleable="true"
 			toggleSpeed="250" widgetVar="contractsFieldSete"
@@ -114,8 +111,12 @@
 				rowStyleClass="#{contract.state eq 'New' ? 'contract_new' : contract.state eq 'Closed' ? 'contract_closed' : 'contract_signed_active'}"
 				value="#{personDetailController.personsContracts}"
 				style="padding-top:5px;">
-				<p:column headerText="ID">
-					<h:outputText value="#{contract.id}" />
+				<p:column headerText="Code">
+					<h:form>
+					<p:commandLink id="detailLinkSName" ajax="false"
+						action="#{contractDetailController.showDetail(contract)}"
+						value="#{contract.code}"></p:commandLink>
+				</h:form>
 				</p:column>
 				<p:column headerText="Start date">
 					<h:outputText value="#{contract.startDate}" />
