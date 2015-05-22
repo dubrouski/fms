@@ -45,10 +45,6 @@ public class ContractDetailController implements Serializable {
 
 	public String showDetail(Contract c) {
 		this.contract = c;
-
-		// example sanity check, will be removed
-		logger.info(currencyService.recalculate("USD", "CZK",
-				BigDecimal.valueOf(1)).toString());
 		return "contract-detail?faces-redirect=true";
 
 	}
