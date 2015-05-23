@@ -6,11 +6,13 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/contract-management-template.xhtml">
 	<ui:define id="content" name="content">
-		<h3>Change currency for contract: #{"currencyChangeController.contract.code"}</h3>
+		<h3>Change currency for contract: #{currencyChangeController.contract.code}</h3>
 
 		<div id="currencyChange" class="ui-grid ui-grid-responsive">
 			<h:form id="reg">
-				<p:outputLabel for="currency" value="#{msg['country']}" />
+				<p:panelGrid columns="3" layout="grid" cellpadding="5">
+				
+				<p:outputLabel for="currency" value="Currency" />
 				<p:selectOneMenu id="currency"
 					value="#{currencyChangeController.newCurrency}">
 					<f:selectItem itemLabel="Select One" itemValue="" />
@@ -19,6 +21,8 @@
 						itemValue="#{currency}" />
 				</p:selectOneMenu>
 				<p:message for="currency" />
+				
+				</p:panelGrid>
 				
 				<p:commandButton ajax="false" id="changeCurrency" style="margin-top:10px;"
 						action="#{currencyChangeController.change()}"

@@ -2,6 +2,8 @@ package net.dubrouski.fams.service.impl;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 import javax.inject.Inject;
 
@@ -35,7 +37,7 @@ public class PriceServiceImpl implements Serializable, PriceService{
 			throw new FmsException("New currency is null");
 		}
 		BigDecimal rate = currencyService.getRate(p.getCurrency(), newCurrency);
-		p.setBasePrice(p.getBasePrice().multiply(rate));
+		p.setBasePrice(p.getBasePrice().multiply(rate).setScale(2, RoundingMode.CEILING).stripTrailingZeros());
 		p.setServicesPrice(p.getServicesPrice().multiply(rate));
 		p.setCurrency(newCurrency);
 		priceDao.update(p);
