@@ -49,18 +49,18 @@
 				<p:inputText id="longitude"
 					value="#{accAddressController.unitsAddress.longitude}"></p:inputText>
 				<p:message for="longitude" />
-				
-				
-			</p:panelGrid>
 
-			<p:gmap id="gmap"
-				center="#{accAddressController.unitsAddress.latitude}, #{accAddressController.unitsAddress.longitude}"
-				zoom="15" type="ROADMAP" style="width:100%;height:400px"
-				model="#{accAddressController.mapModel}">
-								<p:ajax event="pointSelect"
-					listener="#{accAddressController.onPointSelect}"
-					update="latitude,longitude" />
-			</p:gmap>
+			</p:panelGrid>
+			
+			<p:gmap id="gmap" styleClass="map-coordinates-selection"
+					center="#{accAddressController.unitsAddress.latitude}, #{accAddressController.unitsAddress.longitude}"
+					zoom="15" type="ROADMAP" style="width:65%;height:400px"
+					model="#{accAddressController.mapModel}">
+					<p:ajax event="pointSelect"
+						listener="#{accAddressController.onPointSelect}"
+						update="latitude,longitude" />
+				</p:gmap>
+			
 			<p:commandButton ajax="false" id="createAddress" style="margin-top:10px;"
 						action="#{accAddressController.updateAddress()}"
 						value="Update Address" />

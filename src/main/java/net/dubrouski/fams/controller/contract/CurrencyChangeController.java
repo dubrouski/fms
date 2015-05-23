@@ -78,11 +78,13 @@ public class CurrencyChangeController implements Serializable{
 		catch(Exception ex){
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unexpected error occured.", "Could not change currency rates."));
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 			logger.info("Error when recalculating currency rates");
 			return "contract-detail?faces-redirect=true";
 		}		
 		FacesContext.getCurrentInstance().addMessage("",
 				new FacesMessage("Currency rate successfully recalculated."));
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 		return "contract-detail?faces-redirect=true";
 	}
 }

@@ -73,6 +73,10 @@
 	cursor: pointer;
 }
 
+.map-coordinates-selection{	
+	cursor: Crosshair !important;
+}
+
 /* body { */
 /* 	margin: 0; */
 /* 	padding: 0; */
