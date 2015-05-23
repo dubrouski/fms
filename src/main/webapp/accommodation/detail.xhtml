@@ -10,16 +10,19 @@
 			<p:growl id="msgs" showDetail="true" />
 			<p:commandButton style="margin-bottom:10px;" ajax="false"
 				action="#{accommodationDeletionController.delete(accommodationDetailController.unit)}"
-				value="Delete accommodation" icon="ui-icon-closethick" >
+				value="Delete accommodation" icon="ui-icon-closethick">
 				<f:param name="i" value="2" />
 			</p:commandButton>
 			<p:commandButton style="margin-bottom:10px;" ajax="false"
 				action="#{contractCreationController.startContractCreationForAccommodation(accommodationDetailController.unit)}"
-				value="Create contract" icon="ui-icon-script" >
+				value="Create contract" icon="ui-icon-script">
 				<f:param name="i" value="2" />
 			</p:commandButton>
-			<p:fieldset collapsed="false" legend="Basic Information"
-				toggleable="true" toggleSpeed="250" style="margin-bottom:15px;">
+
+			<p:panel id="accBasicInfoPanel"
+				header="#{msg['accommodation.detail.basicpanelname']}"
+				toggleable="true" toggleSpeed="250" widgetVar="accBasicInfoPanel"
+				collapsed="false" styleClass="fieldSetLegend">
 
 				<p:commandButton ajax="false"
 					style="float:right; margin-bottom:10px;"
@@ -34,16 +37,18 @@
 					<h:outputText
 						value="#{msg['accommodation.deposit']}: #{accommodationDetailController.unit.depositAmount}" />
 				</p:panelGrid>
-			</p:fieldset>
-			
-			<p:fieldset collapsed="true" legend="Price" toggleable="true"
-				toggleSpeed="250" style="margin-bottom:15px;">
+			</p:panel>
+
+			<p:panel id="accPricePanel"
+				header="#{msg['accommodation.detail.pricepanelname']}"
+				toggleable="true" toggleSpeed="250" widgetVar="accPricePanel"
+				collapsed="false" styleClass="fieldSetLegend">
 
 				<p:commandButton ajax="false"
 					style="float:right; margin-bottom:10px;"
 					action="#{accPriceController.startUpdate(accommodationDetailController.unit, accommodationDetailController.price)}"
 					value="Update Price" icon="ui-icon-pencil" />
-				
+
 				<p:panelGrid columns="2" layout="grid">
 					<h:outputText
 						value="#{msg['price.base']}: #{accommodationDetailController.price.basePrice}" />
@@ -53,19 +58,20 @@
 						value="#{msg['price.total']}: #{accommodationDetailController.price.getTotalPrice()}" />
 					<h:outputText
 						value="#{msg['price.currency']}: #{accommodationDetailController.price.currency}" />
-				</p:panelGrid>				
-			</p:fieldset>
-			
-			<p:fieldset collapsed="true" legend="Address" toggleable="true"
-				toggleSpeed="250" style="margin-bottom:15px;"
-				>
+				</p:panelGrid>
+			</p:panel>
+
+			<p:panel id="accAddressPanel"
+				header="#{msg['accommodation.detail.addresspanelname']}"
+				toggleable="true" toggleSpeed="250" widgetVar="accAddressPanel"
+				collapsed="false" styleClass="fieldSetLegend">
 
 				<p:commandButton ajax="false"
 					style="float:right; margin-bottom:10px;"
 					action="#{accAddressController.startUpdate(accommodationDetailController.unit, accommodationDetailController.address)}"
-					value="Update Address" icon="ui-icon-pencil" 
-					rendered="#{!accommodationDetailController.hasUnitParent()}"/>
-				
+					value="Update Address" icon="ui-icon-pencil"
+					rendered="#{!accommodationDetailController.hasUnitParent()}" />
+
 				<p:panelGrid columns="2" layout="grid">
 					<h:outputText
 						value="#{msg['country']}: #{msg['country.'.concat(accommodationDetailController.address.country.code)]}" />
@@ -76,52 +82,72 @@
 						#{accommodationDetailController.address.streetNumber}" />
 					<h:outputText
 						value="#{msg['address.flat']}: #{accommodationDetailController.address.flatNumber}" />
-				</p:panelGrid>				
-			</p:fieldset>
-			
-			<p:fieldset collapsed="true" legend="Children" toggleable="true"
-			   toggleSpeed="250" style="margin-bottom:15px;"
-			   rendered="#{accommodationDetailController.unit.isComposite()}">
+				</p:panelGrid>
+			</p:panel>
 
-			  <h:form>
-				<p:commandButton ajax="false"
-					style="float:right; margin-bottom:10px;"
-					action="#{accChildController.start(accommodationDetailController.unit)}"
-					value="Create New Child"
-					icon="ui-icon-plusthick" />
-			  </h:form>
 
-			  <p:dataTable style="clear:both;" id="childrenTable"
-				  rendered="true" var="child"
-				  value="#{accommodationDetailController.compositeUnit().children}">
-				  
-				<p:column headerText="#{msg['accommodation.id']}">
-					<h:outputText
-						value="#{child.id}" />
-				</p:column>
-				
-				<p:column headerText="#{msg['accommodation.name']}">
-					<h:form>
-						<p:commandLink id="detailLinkFName" ajax="false"
-					    	action="#{accommodationDetailController.showDetail(child)}"
-					    	value="#{child.name}">
-						</p:commandLink>
-					</h:form>
-				</p:column>
-				
-				<p:column headerText="#{msg['accommodation.type']}">
-					<h:outputText value="#{child.type}" />
-				</p:column>
-				
-				<p:column headerText="#{accommodation.deposit}">
-					<h:outputText
-						value="#{child.depositAmount}" />
-				</p:column>	
-							
-			</p:dataTable>
-		  </p:fieldset>
-		
-						
+			<p:panel id="accChildrenPanel"
+				header="#{msg['accommodation.detail.childrenpanelname']}"
+				rendered="#{accommodationDetailController.unit.isComposite()}"
+				toggleable="true" toggleSpeed="250" widgetVar="accChildrenPanel"
+				collapsed="false" styleClass="fieldSetLegend">
+
+				<h:form>
+					<p:commandButton ajax="false"
+						style="float:right; margin-bottom:10px;"
+						action="#{accChildController.start(accommodationDetailController.unit)}"
+						value="Create New Child" icon="ui-icon-plusthick" />
+				</h:form>
+
+				<p:dataTable style="clear:both;" id="childrenTable" rendered="true"
+					var="child"
+					value="#{accommodationDetailController.compositeUnit().children}">
+
+					<p:column headerText="#{msg['accommodation.id']}">
+						<h:outputText value="#{child.id}" />
+					</p:column>
+
+					<p:column headerText="#{msg['accommodation.name']}">
+						<h:form>
+							<p:commandLink id="detailLinkFName" ajax="false"
+								action="#{accommodationDetailController.showDetail(child)}"
+								value="#{child.name}">
+							</p:commandLink>
+						</h:form>
+					</p:column>
+
+					<p:column headerText="#{msg['accommodation.type']}">
+						<h:outputText value="#{child.type}" />
+					</p:column>
+
+					<p:column headerText="#{accommodation.deposit}">
+						<h:outputText value="#{child.depositAmount}" />
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+
+
+
+			<p:panel id="accAddrMapPanel"
+				header="#{msg['accommodation.detail.mappanelname']}"
+				toggleable="true" toggleSpeed="250" widgetVar="accMapPanel"
+				collapsed="false" styleClass="fieldSetLegend">
+
+				<h:outputText
+					value="Lat: #{accommodationDetailController.unit.address.latitude}" />
+				<h:outputText
+					value="Lon: #{accommodationDetailController.unit.address.longitude}" />
+
+				<p:gmap
+					center="#{accommodationDetailController.address.latitude}, #{accommodationDetailController.address.longitude}"
+					zoom="16" type="HYBRID" style="width:100%;height:400px"
+					model="#{accommodationDetailController.mapModel}" />
+
+			</p:panel>
+
+
+
 		</h:form>
 	</ui:define>
 </ui:composition>

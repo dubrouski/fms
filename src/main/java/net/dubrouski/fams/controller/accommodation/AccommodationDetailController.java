@@ -10,6 +10,11 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
+
 import net.dubrouski.fams.model.AccommodationComposite;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
@@ -35,6 +40,8 @@ public class AccommodationDetailController implements Serializable{
 	@Inject
 	Logger logger;
 	
+	private MapModel mapModel;
+	
 	@Produces
 	@Named
 	public AccommodationUnit getUnit(){
@@ -49,6 +56,10 @@ public class AccommodationDetailController implements Serializable{
 	@Produces
 	public Price getPrice(){
 		return price;
+	}
+	
+	public MapModel getMapModel() {
+		return mapModel;
 	}
 	
 	public boolean hasUnitParent(){
@@ -81,6 +92,25 @@ public class AccommodationDetailController implements Serializable{
 			price = unit.getPrice();
 			logger.info(price.toString());
 		}
+		
+		addMarkerToMap();
+		
 		return "accommodation-detail?faces-redirect=true";
+	}
+	
+	private void addMarkerToMap() {
+
+		if (unit.getAddress().getLatitude() == null
+				|| unit.getAddress().getLongitude() == null) {
+			return;
+		}
+
+		LatLng coord = new LatLng(Double.valueOf(unit.getAddress()
+				.getLatitude()), Double.valueOf(unit.getAddress()
+				.getLongitude()));
+
+		// Basic marker
+		mapModel = new DefaultMapModel();
+		mapModel.addOverlay(new Marker(coord, unit.getAddress().toShortString()));
 	}
 }

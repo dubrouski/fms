@@ -24,8 +24,15 @@ insert into person (birth_date, email, first_name, last_name, legal_identificato
 
 
 --accommodation unit related seeds
-insert into address (city_name, street_name, street_num, flat_num, country_id) values ('Brno', 'Botanicka', '53', '26a', 59);
-insert into address (city_name, street_name, street_num, flat_num, country_id) values ('Brno', 'Kotlarska', '18', '12', 59);
+--addresses with coordinates:
+insert into address (city_name, street_name, street_num, country_id, latitude, longitude) values ('Brno', 'Hybesova', '33', 59, '49.189064', '16.603823');
+insert into address (city_name, street_name, street_num, country_id, latitude, longitude) values ('Brno', 'Rostislavovo namesti', '15', 59, '49.222875', '16.598324');
+insert into address (city_name, street_name, street_num, country_id, latitude, longitude) values ('Brno', 'Chladkova', '14', 59, '49.211706', '16.585643');
+insert into address (city_name, street_name, street_num, country_id, latitude, longitude) values ('Brno', 'Zavodskeho', '19', 59, '49.192416', '16.657939');
+insert into address (city_name, street_name, street_num, country_id, latitude, longitude) values ('Brno', 'Lipova', '13', 59, '49.194291', '16.582606');
+insert into address (city_name, street_name, street_num, country_id, latitude, longitude) values ('Brno', 'trida Kpt. Jarose', '2', 59, '49.203007', '16.611038');
+
+
 
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (2500, 1400, 'CZK', '10.2.2016', '9.2.2017');
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (3200, 1700, 'CZK', '10.2.2017', '9.2.2018');
@@ -33,11 +40,15 @@ insert into price (base_price, services_price, currency, valid_from, valid_to) v
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (1800, 3000, 'CZK', '12.4.2015', '10.8.2018');
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (1456, 2200, 'CZK', '22.8.2015', '15.12.2018');
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (3800, 5200, 'CZK', '22.8.2015', '15.12.2018');
+insert into price (base_price, services_price, currency, valid_from, valid_to) values (5000, 300, 'CZK', '22.8.2015', '15.12.2018');
 
 insert into accommodation_unit (name, type, deposit_amount, address_id, price_id) values ('medium room', 'room', '56.68', 2, 6), ('big place', 'place', '4785.7', 1, 4), ('small place', 'place', '145.75', 1, 5);
-insert into accommodation_unit (name, type, deposit_amount, address_id, price_id) values ('big room', 'room', '56.68', 1, 1), ('small room', 'room', '4785.7', 1, 2), ('at the window', 'place', '256', 2, 3);
+insert into accommodation_unit (name, type, deposit_amount, address_id, price_id) values ('big room', 'room', '56.68', 1, 1), ('small room', 'room', '4785.7', 2, 2), ('at the window', 'place', '256', 2, 3);
+insert into accommodation_unit (name, type, deposit_amount, address_id, price_id) values ('Pokoj na Hybesove', 'room', '5000.00', 3, 7), ('Misto 1', 'place', '3000.00', 3, 7), ('Misto 2', 'place', '3000.00', 3, 7);
 
-insert into unit_unit (parent_id, child_id) values (1, 6), (4, 2), (4, 3)
+insert into unit_unit (parent_id, child_id) values (1, 6), (4, 2), (4, 3);
+insert into unit_unit (parent_id, child_id) values (7,8), (7,9);
+
 
 --dummy contracts
 insert into price (base_price, services_price, currency, valid_from, valid_to) values (2500, 1400, 'CZK', '10.2.2016', '9.2.2017');

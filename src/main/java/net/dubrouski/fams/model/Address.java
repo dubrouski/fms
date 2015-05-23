@@ -163,5 +163,9 @@ public class Address implements Serializable, BaseEntity {
 				+ latitude + ", longitude=" + longitude + "]";
 	}
 	
+	public String toShortString(){
+		return this.streetName + " " + this.streetNumber;
+	}
+	
 	
 }
