@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-   xmlns:ui="http://java.sun.com/jsf/facelets"
-   xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:h="http://java.sun.com/jsf/html"
-   template="/WEB-INF/templates/adminTemplate.xhtml">
-   <ui:define name="management-content">
-      <h1>Welcome to FMS!</h1>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/adminTemplate.xhtml">
+	<ui:define name="management-content">
+		
+		<p:gmap center="49.194974, 16.608223" zoom="14" type="HYBRID"
+			style="width:100%;height:550px" />
 
-   </ui:define>
+	</ui:define>
 </ui:composition>
