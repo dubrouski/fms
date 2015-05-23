@@ -2,6 +2,7 @@ package net.dubrouski.fams.model;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import net.dubrouski.fams.util.AddressSerializer;
 
@@ -48,16 +50,16 @@ public class Address implements Serializable, BaseEntity {
 	private String streetNumber;
 
 	@Column(name = "FLAT_NUM")
-	@Length(min = 1, max = 255)
+	@Length(max = 255)
 	private String flatNumber;
 
 	@Column(name = "LATITUDE")
-	@Length(min = 1, max = 255)
-	private String latitude;
+	@NotNull
+	private double latitude;
 
 	@Column(name = "LONGITUDE")
-	@Length(min = 1, max = 255)
-	private String longitude;
+	@NotNull
+	private double longitude;
 	
 	@OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
 	List<AccommodationUnit> accommodations;
@@ -110,19 +112,19 @@ public class Address implements Serializable, BaseEntity {
 		this.flatNumber = flatNumber;
 	}
 
-	public String getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
-	public String getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 	

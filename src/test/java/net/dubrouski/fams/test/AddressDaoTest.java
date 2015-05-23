@@ -89,8 +89,8 @@ public class AddressDaoTest {
 		a.setStreetName("Botanicka");
 		a.setStreetNumber("35a");
 		a.setFlatNumber("kancl c.5");
-		a.setLatitude("49.4145469N");
-		a.setLongitude("17.8088378E");
+		a.setLatitude(Double.valueOf("49.4145469"));
+		a.setLongitude(Double.valueOf("17.8088378"));
 
 		addressDao.save(a);
 
@@ -108,8 +108,8 @@ public class AddressDaoTest {
 		adr.setStreetName("Botanicka");
 		adr.setStreetNumber("35a");
 		adr.setFlatNumber("kancl c.5");
-		adr.setLatitude("49.5786644N");
-		adr.setLongitude("16.7761231E");
+		adr.setLatitude(Double.valueOf("49.4145469"));
+		adr.setLongitude(Double.valueOf("17.8088378"));
 
 		Address adr2 = new Address();
 		adr2.setCountry(countryDao.getCountryByCode("SK"));
@@ -117,8 +117,8 @@ public class AddressDaoTest {
 		adr2.setStreetName("Tridni");
 		adr2.setStreetNumber("35987");
 		adr2.setFlatNumber("pod stropem");
-		adr2.setLatitude("49.4145469N");
-		adr2.setLongitude("17.8088378E");
+		adr2.setLatitude(Double.valueOf("49.4145469"));
+		adr2.setLongitude(Double.valueOf("17.8088378"));
 
 		addressDao.save(adr);
 		addressDao.save(adr2);

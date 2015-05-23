@@ -100,10 +100,11 @@ public class AccommodationDetailController implements Serializable{
 	
 	private void addMarkerToMap() {
 
-		if (unit.getAddress().getLatitude() == null
-				|| unit.getAddress().getLongitude() == null) {
-			return;
-		}
+		//TODO remove if not used
+//		if (unit.getAddress().getLatitude() == null
+//				|| unit.getAddress().getLongitude() == null) {
+//			return;
+//		}
 
 		LatLng coord = new LatLng(Double.valueOf(unit.getAddress()
 				.getLatitude()), Double.valueOf(unit.getAddress()

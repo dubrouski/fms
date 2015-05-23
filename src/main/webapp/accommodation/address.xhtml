@@ -39,8 +39,29 @@
 				<p:inputText id="flatNumber"
 					value="#{accAddressController.unitsAddress.flatNumber}"></p:inputText>
 				<p:message for="flatNumber" />
+				
+				<p:outputLabel for="latitude" value="#{msg['address.latitude']}" />
+				<p:inputText id="latitude"
+					value="#{accAddressController.unitsAddress.latitude}"></p:inputText>
+				<p:message for="latitude" />
+				
+				<p:outputLabel for="longitude" value="#{msg['address.longitude']}" />
+				<p:inputText id="longitude"
+					value="#{accAddressController.unitsAddress.longitude}"></p:inputText>
+				<p:message for="longitude" />
+				
+				
 			</p:panelGrid>
-			    <p:commandButton ajax="false" id="createAddress" style="margin-top:10px;"
+
+			<p:gmap id="gmap"
+				center="#{accAddressController.unitsAddress.latitude}, #{accAddressController.unitsAddress.longitude}"
+				zoom="15" type="ROADMAP" style="width:100%;height:400px"
+				model="#{accAddressController.mapModel}">
+								<p:ajax event="pointSelect"
+					listener="#{accAddressController.onPointSelect}"
+					update="latitude,longitude" />
+			</p:gmap>
+			<p:commandButton ajax="false" id="createAddress" style="margin-top:10px;"
 						action="#{accAddressController.updateAddress()}"
 						value="Update Address" />
 				<p:commandButton ajax="false" icon="ui-icon-closethick" style="margin-top:10px;"

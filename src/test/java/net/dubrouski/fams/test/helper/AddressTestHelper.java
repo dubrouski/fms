@@ -37,8 +37,8 @@ public class AddressTestHelper {
 								  String street,
 								  String strNo,
 								  String flatNo,
-								  String lat,
-								  String lon){
+								  double lat,
+								  double lon){
 		Address a = new Address();
 		a.setCity(city);
 		a.setStreetName(street);
@@ -53,8 +53,8 @@ public class AddressTestHelper {
 			  								 String street,
 			  								 String strNo,
 			  								 String flatNo,
-			  								 String lat,
-			  								 String lon, 
+			  								 double lat,
+			  								 double lon, 
 			  								 Country country){
 		Address a = getTestGeoAddress(city, street, strNo, flatNo, lat, lon);
 		a.setCountry(country);
