@@ -2,12 +2,14 @@ package net.dubrouski.fams.service.impl;
 
 import net.dubrouski.fams.dao.AddressDao;
 import net.dubrouski.fams.dao.ContractDao;
+import net.dubrouski.fams.dao.MeterRecordDao;
 import net.dubrouski.fams.dao.PersonDao;
 import net.dubrouski.fams.dao.PriceDao;
 import net.dubrouski.fams.exception.FmsException;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Contract;
+import net.dubrouski.fams.model.MeterRecord;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.model.enums.ContractState;
@@ -19,6 +21,7 @@ import javax.inject.Named;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +36,9 @@ public class ContractServiceImpl implements ContractService {
 	
 	@Inject
 	PriceDao priceDao;
+	
+	@Inject
+	MeterRecordDao meterRecordDao;
 
 	@Inject
 	Logger logger;
@@ -157,5 +163,47 @@ public class ContractServiceImpl implements ContractService {
 		this.updateContract(contract);
 		logger.info("Termination request for contract: " + contract.getCode() + " has been set (date " + contract.getTerminationRequestDate());
 
+	}
+
+	@Override
+	public void addStartMetersRecordForContract(Contract contract,
+			MeterRecord record) {
+		logger.info("Start meter record " + record.toString()
+				+ " received for contract " + contract.getCode());
+		meterRecordDao.save(record);
+		logger.info("Record saved: " + record.toString());
+		
+		Contract contractWithData = contractDao.getContractWithMetersData(contract.getId());
+		
+		if (contractWithData.getStartData() == null){
+			logger.info("Start data are null ");
+		}
+		contractWithData.addStartMeterRecord(record);
+		this.updateContract(contractWithData);
+	}
+
+	@Override
+	public void addFinishMetersRecordForContract(Contract contract,
+			MeterRecord record) {
+		logger.info("Finishing meter record " + record.toString()
+				+ "received for contract " + contract.getCode());
+		meterRecordDao.save(record);
+		Contract contractWithData = contractDao.getContractWithMetersData(contract.getId());
+		contractWithData.addFinishMeterRecord(record);
+		this.updateContract(contractWithData);
+	}
+
+	
+	@Override
+	public Set<MeterRecord> getStartMeterRecordsForContract(Contract contract) {
+		return contractDao.getContractWithMetersData(contract.getId())
+				.getStartData().getRecords();
+	}
+	
+
+	@Override
+	public Set<MeterRecord> getEndMeterRecordsForContract(Contract contract) {
+		return contractDao.getContractWithMetersData(contract.getId())
+				.getEndData().getRecords();
 	}
 }

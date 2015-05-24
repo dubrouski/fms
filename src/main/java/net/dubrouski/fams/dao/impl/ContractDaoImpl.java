@@ -11,6 +11,7 @@ import net.dubrouski.fams.model.enums.SortingOrder;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -117,5 +118,23 @@ public class ContractDaoImpl extends
 				"select count(c.id) from Contract c", Long.class);
 
 		return query.getSingleResult();
+	}
+	
+	@Override
+	public Contract getContractWithMetersData(Long id) {
+		logger.info("getContractWithMetersData(): Id to find contract: " + id);
+		if (id == null) {
+			throw new IllegalArgumentException("id is null.");
+		}
+		TypedQuery<Contract> query = this.entityManager
+				.createQuery(
+						"select c from Contract c left join fetch c.startData left join fetch c.endData where c.id = :id",
+						Contract.class);
+		try {
+			return query.setParameter("id", id).getSingleResult();
+		} catch (NoResultException e) {
+			logger.info("No contract found with id " + id);
+			return null;
+		}
 	}
 }

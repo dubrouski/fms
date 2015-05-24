@@ -22,7 +22,7 @@ public class MetersData {
     @Convert(converter = LocalDatePersistenceConverter.class)
     private LocalDate readoutDate;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE })
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE }, fetch=FetchType.EAGER)
     @JoinTable(name = "METERS_DATA_RECORDS", joinColumns = @JoinColumn(name = "METERS_DATA_ID"), inverseJoinColumns = @JoinColumn(name = "METER_RECORD_ID"))
     private Set<MeterRecord> records = new HashSet<>();
 

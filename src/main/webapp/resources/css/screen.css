@@ -78,6 +78,21 @@
 	cursor: Crosshair !important;
 }
 
+#contractDetail .ui-grid-row {
+	border-bottom: 1px dotted grey;
+	padding-bottom: 3px;
+	margin-top: 3px;
+}
+
+.meters-data-list .ui-widget-content {
+	border-width: 0px !important;	
+}
+
+.meters-data-list .ui-widget-content .ui-datalist-empty-message {
+	padding: 4px 0px !important;
+	font-style: italic;
+}
+
 /* body { */
 /* 	margin: 0; */
 /* 	padding: 0; */

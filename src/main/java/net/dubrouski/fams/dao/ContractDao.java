@@ -21,4 +21,6 @@ public interface ContractDao extends BaseDao<Contract, Long> {
 
 	public long getContractsCount();
 
+	Contract getContractWithMetersData(Long id);
+
 }

@@ -31,7 +31,7 @@ public class ContractTestHelper {
         MetersData data = new MetersData();
         data.setReadoutDate(LocalDate.now());
         MeterRecord meterRecord = new MeterRecord();
-        meterRecord.setMeterType(MeterType.ELECTRICITY);
+        meterRecord.setMeterType(MeterType.Electricity);
 
         data.addRecord(meterRecord);
 

@@ -3,6 +3,7 @@ package net.dubrouski.fams.model;
 import net.dubrouski.fams.model.enums.MeterType;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -14,7 +15,9 @@ import java.math.BigDecimal;
 @Table(name = "METER_RECORD")
 public class MeterRecord  implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
@@ -51,5 +54,10 @@ public class MeterRecord  implements Serializable {
 
     public void setValue(BigDecimal value) {
         this.value = value;
+    }
+    
+    @Override
+    public String toString() {
+    	return this.meterType.getLabel() + " - " + this.value; 
     }
 }

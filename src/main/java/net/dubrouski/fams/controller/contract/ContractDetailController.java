@@ -3,6 +3,7 @@ package net.dubrouski.fams.controller.contract;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
@@ -12,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import net.dubrouski.fams.model.Contract;
+import net.dubrouski.fams.model.MeterRecord;
 import net.dubrouski.fams.rest.CurrencyConversionClient;
 import net.dubrouski.fams.service.ContractService;
 import net.dubrouski.fams.service.CurrencyService;
@@ -46,13 +48,12 @@ public class ContractDetailController implements Serializable {
 	public String showDetail(Contract c) {
 		this.contract = c;
 		return "contract-detail?faces-redirect=true";
-
 	}
 
 	public Contract getContract() {
 		return contract;
 	}
-
+	
 	public void setTerminationRequestDate(LocalDate terminationRequestDate) {
 		this.terminationRequestDate = terminationRequestDate;
 	}
@@ -91,5 +92,13 @@ public class ContractDetailController implements Serializable {
 				"",
 				new FacesMessage(
 						"Termination request for contract has been created on " + this.contract.getTerminationRequestDate()));
+	}
+	
+	public Set<MeterRecord> getStartRecords() {
+		return contractService.getStartMeterRecordsForContract(this.contract);
+	}
+
+	public Set<MeterRecord> getEndRecords() {
+		return contractService.getEndMeterRecordsForContract(this.contract);
 	}
 }

@@ -174,6 +174,9 @@ public class Contract implements BaseEntity, Serializable {
 	}
 
 	public MetersData getStartData() {
+		if (this.startData == null){
+			this.startData = new MetersData();
+		}
 		return startData;
 	}
 
@@ -182,6 +185,9 @@ public class Contract implements BaseEntity, Serializable {
 	}
 
 	public MetersData getEndData() {
+		if (this.endData == null){
+			this.endData = new MetersData();
+		}
 		return endData;
 	}
 
@@ -203,6 +209,20 @@ public class Contract implements BaseEntity, Serializable {
 
 	public void setPrice(Price price) {
 		this.price = price;
+	}
+	
+	public void addStartMeterRecord(MeterRecord record){
+		if (this.startData == null){
+			this.startData = new MetersData();
+		}
+		this.getStartData().addRecord(record);
+	}
+	
+	public void addFinishMeterRecord(MeterRecord record){
+		if (this.endData == null){
+			this.endData = new MetersData();
+		}
+		this.getEndData().addRecord(record);
 	}
 
 }
