@@ -25,9 +25,7 @@
 
 			<p:column headerText="Code" sortBy="#{contract.code}">
 				<h:form>
-					<p:commandLink id="detailLinkSName" ajax="false"
-						action="#{contractDetailController.showDetail(contract)}"
-						value="#{contract.code}"></p:commandLink>
+					<p:commandLink action="#{contractDetailController.showDetail(contract)}" ajax="false" value="#{contract.code}"></p:commandLink>
 				</h:form>
 			</p:column>
 
@@ -42,15 +40,24 @@
 			<p:column headerText="Start date" sortBy="#{contract.startDate}">
 				<h:outputText value="#{contract.startDate}" />
 			</p:column>
-			
+
 			<p:column headerText="End date" sortBy="#{contract.endDate}">
 				<h:outputText value="#{contract.endDate}" />
 			</p:column>
-			
+
 			<p:column headerText="Status" sortBy="#{contract.state}">
 				<h:outputText value="#{contract.state}" />
 			</p:column>
-			
+
+			<p:column headerText="Actions" priority="1">
+				<h:form>
+					<p:commandButton id="detailButton" icon="ui-icon-search"
+						action="#{contractDetailController.showDetail(contract)}">
+						<p:tooltip id="detailButtonToolTip" for="detailButton"
+							value="Show detail" />
+					</p:commandButton>
+				</h:form>
+			</p:column>
 		</p:dataTable>
 	</ui:define>
 </ui:composition>

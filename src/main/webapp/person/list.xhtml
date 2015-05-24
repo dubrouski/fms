@@ -8,8 +8,7 @@
 	<ui:define id="content" name="content">
 
 		<h:form style="display: inline;"
-			id="personSearchForm">
-			
+			id="personSearchForm">			
 			<p:inputText id="searchInput" placeholder="Search by names..."
 				value="#{personListingController.searchTerm}">
 			</p:inputText>
@@ -25,7 +24,9 @@
 
 			<p:column headerText="#{msg['person.list.code']}" priority="3"
 				sortBy="#{person.code}">
-				<h:outputText value="#{person.code}" />
+				<p:commandLink id="detailLinkCode"
+					action="#{personDetailController.showDetail(person)}"
+					value="#{person.code}"></p:commandLink>
 			</p:column>
 			<p:column headerText="#{msg['person.list.name']}" priority="2"
 				sortBy="#{person.firstName}">
@@ -51,26 +52,17 @@
 			</p:column>
 			<p:column headerText="Actions" priority="1">
 				<h:form>
-
-					<!-- 					<p:button id="detailButton2" icon="ui-icon-person" -->
-					<!-- 						outcome="#{personDetailController.showDetail(person)}"> -->
-					<!-- 					</p:button> -->
-
-
-					<p:commandButton id="detailButton" icon="ui-icon-person"
+					<p:commandButton id="detailButton" icon="ui-icon-search"
+						ajax="false"
 						action="#{personDetailController.showDetail(person)}">
+						<p:tooltip id="detailButtonToolTip" for="detailButton"
+							value="Show detail" />
 					</p:commandButton>
-
-
-					<p:tooltip id="detailButtonToolTip" for="detailButton"
-						value="Show person's detail" />
-
 					<p:commandButton id="removeButton" icon="ui-icon-closethick"
 						ajax="false"
-						disabled="#{!loginManager.currentUser.hasRight('PERSON_WRITE')}"
 						action="#{personDeletionController.requestPersonDelete(person)}">
 						<p:tooltip id="removeButtonToolTip" for="removeButton"
-							value="Delete person" />
+							value="Delete accommodation" />
 					</p:commandButton>
 				</h:form>
 			</p:column>

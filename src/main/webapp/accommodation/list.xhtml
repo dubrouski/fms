@@ -11,7 +11,12 @@
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="10,25,100">
 			<p:column headerText="#{msg['accommodation.code']}">
-				<h:outputText value="#{acc.code}" />
+				<h:form>
+			 	<p:commandLink id="detailLinkFName" ajax="false"
+					action="#{accommodationDetailController.showDetail(acc)}"
+					value="#{acc.code}">
+					</p:commandLink>
+				</h:form>
 			</p:column>
 			
 			<p:column headerText="#{msg['accommodation.name']}"
@@ -32,16 +37,23 @@
 			<p:column headerText="#{msg['accommodation.deposit']}"
 				sortBy="#{acc.depositAmount}">
 				<h:outputText value="#{acc.depositAmount}" />
-			</p:column>			
-			
+			</p:column>
+
 			<p:column headerText="Actions">
-  				 <h:form>
+				<h:form>
+					<p:commandButton id="detailButton" icon="ui-icon-search"
+						ajax="false"
+						action="#{accommodationDetailController.showDetail(acc)}">
+						<p:tooltip id="detailButtonToolTip" for="detailButton"
+							value="Show detail" />
+					</p:commandButton>
 					<p:commandButton id="removeButton" icon="ui-icon-closethick"
+						ajax="false"
 						action="#{accommodationDeletionController.delete(acc)}">
 						<p:tooltip id="removeButtonToolTip" for="removeButton"
 							value="Delete accommodation" />
 					</p:commandButton>
-				</h:form> 
+				</h:form>
 			</p:column>
 
 		</p:dataTable>

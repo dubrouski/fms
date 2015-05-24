@@ -47,21 +47,22 @@
 }
 
 .contract_Closed {
-	background-color: #D0CFCF !important;
-	color: #898989 !important;
+	background-color: #EFEFEF !important;
+	color: #9E9E9E !important;
 }
 
 .contract_New {
-	background-color: #FFF6B8 !important;
+	background-color: #FFFAD9  !important;
 }
 
 .contract_Cancelled {
-	background-color: #F69D9D !important;
+	background-color: #FFD4D4 !important;
 	color: #898989 !important;
+	text-decoration: line-through;
 }
  
 .contract_Signed {
-	background-color: #BAE8B5 !important;
+	background-color: #D7E9D8 !important;
 }
 
 .inactiveAddressCrossSign {
