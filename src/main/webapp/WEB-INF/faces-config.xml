@@ -88,4 +88,14 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>accommodation-detail?faces-redirect=true</from-outcome>
+			<to-view-id>/accommodation/detail.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
 </faces-config>

@@ -17,6 +17,7 @@ import net.dubrouski.fams.model.MeterRecord;
 import net.dubrouski.fams.rest.CurrencyConversionClient;
 import net.dubrouski.fams.service.ContractService;
 import net.dubrouski.fams.service.CurrencyService;
+import net.dubrouski.fams.service.MeterRecordingService;
 import net.dubrouski.fams.service.PersonService;
 
 /**
@@ -41,6 +42,9 @@ public class ContractDetailController implements Serializable {
 	@Inject
 	CurrencyService currencyService;
 
+	@Inject
+	MeterRecordingService meterRecordingService;
+
 	private Contract contract;
 
 	private LocalDate terminationRequestDate;
@@ -53,52 +57,91 @@ public class ContractDetailController implements Serializable {
 	public Contract getContract() {
 		return contract;
 	}
-	
+
 	public void setTerminationRequestDate(LocalDate terminationRequestDate) {
 		this.terminationRequestDate = terminationRequestDate;
 	}
-	
+
 	public LocalDate getTerminationRequestDate() {
 		return terminationRequestDate;
 	}
-	
+
 	public void handoverKeys() {
-		contractService.handoverKeys(this.contract);
-		FacesContext.getCurrentInstance().addMessage("",
-				new FacesMessage("Keys handed over."));
+		if (contractService.handoverKeys(this.contract)) {
+			FacesContext.getCurrentInstance().addMessage(
+					"",
+					new FacesMessage("Keys for contract " + contract.getCode()
+							+ " have been handed over."));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(
+					"",
+					new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Keys for contract " + contract.getCode()
+							+ "could not be handed over.", ""));
+		}
 	}
 
 	public void signContract() {
-		contractService.signContract(this.contract);
-		FacesContext.getCurrentInstance().addMessage("",
-				new FacesMessage("Contract has been successfully signed."));
+		if (contractService.signContract(this.contract)) {
+			FacesContext.getCurrentInstance().addMessage(
+					"",
+					new FacesMessage("Contract " + contract.getCode()
+							+ "has been signed."));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(
+					"",
+					new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Contract " + contract.getCode()
+							+ "could not be signed.", ""));
+		}
 	}
 
 	public void cancelContract() {
-		contractService.cancelContract(this.contract);
-		FacesContext.getCurrentInstance().addMessage("",
-				new FacesMessage("Contract has been successfully cancelled."));
+		if (contractService.cancelContract(this.contract)) {
+			FacesContext.getCurrentInstance().addMessage(
+					"",
+					new FacesMessage("Contract " + contract.getCode()
+							+ "has been cancelled."));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(
+					"",
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Contract "
+							+ contract.getCode() + "could not be cancelled.", ""));
+		}
 	}
 
 	public void closeContract() {
-		contractService.closeContract(this.contract);
-		FacesContext.getCurrentInstance().addMessage("",
-				new FacesMessage("Contract has been successfully closed."));
+		if (contractService.closeContract(this.contract)) {
+			FacesContext.getCurrentInstance().addMessage(
+					"",
+					new FacesMessage("Contract " + contract.getCode()
+							+ "has been closed."));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(
+					"",
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Contract "
+							+ contract.getCode() + "could not be closed.", ""));
+		}
+
 	}
 
 	public void createTerminationRequest() {
-		contractService.createTerminationRequest(this.contract);
-		FacesContext.getCurrentInstance().addMessage(
-				"",
-				new FacesMessage(
-						"Termination request for contract has been created on " + this.contract.getTerminationRequestDate()));
-	}
-	
-	public Set<MeterRecord> getStartRecords() {
-		return contractService.getStartMeterRecordsForContract(this.contract);
-	}
+		if (contractService.createTerminationRequest(this.contract)) {
+			FacesContext
+					.getCurrentInstance()
+					.addMessage(
+							"",
+							new FacesMessage(
+									"Termination request for contract has been created on "
+											+ this.contract
+													.getTerminationRequestDate()));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(
+					"",
+					new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Error occurred when creating termination request for contract "
+									+ this.contract.getCode(), ""));
+		}
 
-	public Set<MeterRecord> getEndRecords() {
-		return contractService.getEndMeterRecordsForContract(this.contract);
-	}
+	}	
 }

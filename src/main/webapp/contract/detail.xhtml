@@ -76,21 +76,21 @@
 						value="Cancel contract" icon="ui-icon-arrowthickstop-1-e"></p:commandButton>
 				</div>
 				<p:dialog header="Sign contract" widgetVar="signContractDialog"
-					modal="true" height="100" resizable="false">
+					modal="true"  height="300px" width="500px"  resizable="false">
 					<p:commandButton
 						action="#{contractDetailController.signContract()}"
 						oncomplete="PF('signContractDialog').hide();" update="msgs, state"
 						value="Really sign contract!"></p:commandButton>
 				</p:dialog>
 				<p:dialog header="Close contract" widgetVar="closeContractDialog"
-					modal="true" height="100" resizable="false">
+					modal="true"  height="300px" width="500px" resizable="false">
 					<p:commandButton
 						action="#{contractDetailController.closeContract()}"
 						oncomplete="PF('closeContractDialog').hide();"
 						update="msgs, state" value="Really close contract."></p:commandButton>
 				</p:dialog>
 				<p:dialog header="Cancel contract" widgetVar="cancelContractDialog"
-					modal="true" height="100" resizable="false">
+					modal="true"  height="300px" width="500px"  resizable="false">
 					<p:commandButton
 						action="#{contractDetailController.cancelContract()}"
 						oncomplete="PF('cancelContractDialog').hide();"
@@ -117,13 +117,12 @@
 				</div>
 				<div class="ui-grid-col-4">
 					<h:outputText id="keysHandoverIndicator"
-						value="#{contractDetailController.contract.keysHandedOver ? 'Yes' : 'No'}" />
+						value="#{contractDetailController.contract.keysHandedOver ? 'Yes ' : 'No '}" />
 
-					<h:outputFormat id="keysHandoverDate" value=" ({0})"
-						rendered="#{contractDetailController.contract.keysHandedOver}">
-						<f:param
-							value="#{contractDetailController.contract.keysHandoverDate}" />
-					</h:outputFormat>
+					<h:outputFormat
+						value="#{contractDetailController.contract.keysHandoverDate}"
+						id="keysHandoverDate" converter="dateStringConverter"
+						rendered="#{contractDetailController.contract.keysHandedOver}" />
 				</div>
 
 				<div class="ui-grid-col-4">
@@ -134,7 +133,7 @@
 				</div>
 
 				<p:dialog header="Keys handover" widgetVar="keysHandoverDialog"
-					modal="true" height="100" resizable="false">
+					modal="true"  height="300px" width="500px"  resizable="false">
 					<p:commandButton
 						action="#{contractDetailController.handoverKeys()}"
 						oncomplete="PF('keysHandoverDialog').hide();"
@@ -149,13 +148,15 @@
 				</div>
 				<div class="ui-grid-col-4">
 					<h:outputFormat id="terminationRequested"
-						value="#{contractDetailController.contract.terminationRequestDate eq null ? 'No' : 'Yes'}" />
+						value="#{contractDetailController.contract.terminationRequestDate eq null ? 'No ' : 'Yes '}" />
 
-					<h:outputFormat id="terminationRequestDate" value=" ({0})"
-						rendered="#{contractDetailController.contract.terminationRequestDate ne null}">
-						<f:param
-							value="#{contractDetailController.contract.terminationRequestDate}" />
-					</h:outputFormat>
+
+					<h:outputFormat
+						value="#{contractDetailController.contract.terminationRequestDate}"
+						id="terminationRequestDate" converter="dateStringConverter"
+						rendered="#{contractDetailController.contract.terminationRequestDate ne null}" />
+
+
 
 				</div>
 				<div class="ui-grid-col-4">
@@ -168,7 +169,7 @@
 
 
 				<p:dialog header="Termination request creation"
-					widgetVar="terminationRequestDialog" modal="true" height="100"
+					widgetVar="terminationRequestDialog" modal="true" height="300px" width="500px" 
 					resizable="false">
 
 					<p:commandButton
@@ -225,8 +226,8 @@
 				</div>
 				<div class="ui-grid-col-4">
 					<p:dataList id="startDataList" styleClass="meters-data-list"
-						value="#{contractDetailController.startRecords}"
-						var="record" type="ordered">
+						value="#{metersRecordingController.getStartRecords(contractDetailController.contract)}" var="record"
+						type="ordered">
 						#{record.meterType}: #{record.value}
 					</p:dataList>
 				</div>
@@ -235,37 +236,58 @@
 						icon="ui-icon-pencil" value="Add records"
 						onclick="PF('startMetersDataDialog').show();">
 					</p:commandButton>
-					<p:dialog header="Start meters data" widgetVar="startMetersDataDialog"
-						modal="true" height="300px" width="500px" resizable="false">
+					<p:dialog header="Start meters data"
+						widgetVar="startMetersDataDialog" modal="true" height="300px" width="500px" resizable="false">
 						<h:form>
-							<p:outputLabel for="metersType" value="Meter type" />
-							<p:selectOneButton id="metersType"
-								value="#{metersRecordingController.record.meterType}">
-								<f:selectItems value="#{metersRecordingController.meterTypes}"
-									var="meterType" itemValue="#{meterType}"
-									itemLabel="#{msg['enum.metertype.'.concat(meterType.label)]}" />
-							</p:selectOneButton>
-							<p:outputLabel for="meterValue" value="Meter value:"></p:outputLabel>
-							<p:spinner id="meterValue"
-								value="#{metersRecordingController.record.value}" stepFactor="1" />
-							<p:commandButton
-								action="#{metersRecordingController.saveStartMeterRecord(contractDetailController.contract)}"
-								oncomplete="PF('startMetersDataDialog').hide();" update="msgs,startDataList"
-								value="Create meter record."></p:commandButton>
+							<div class="ui-grid ui-grid-responsive">
+								<div class="ui-grid-row">
+									<div class="ui-grid-col-4">
+										<p:outputLabel for="metersType" value="Meter type" />
+									</div>
+									<div class="ui-grid-col-4">
+										<p:selectOneRadio id="metersType" layout="grid" columns="1"
+											value="#{metersRecordingController.record.meterType}">
+											<f:selectItems
+												value="#{metersRecordingController.meterTypes}"
+												var="meterType" itemValue="#{meterType}"
+												itemLabel="#{msg['enum.metertype.'.concat(meterType.label)]}" />
+										</p:selectOneRadio>
+									</div>
+
+								</div>
+								<div class="ui-grid-row">
+									<div class="ui-grid-col-4">
+										<p:outputLabel for="meterValue" value="Meter value:"></p:outputLabel>
+									</div>
+									<div class="ui-grid-col-4">
+										<p:spinner id="meterValue"
+											value="#{metersRecordingController.record.value}"
+											stepFactor="1" />
+									</div>
+								</div>
+								<div class="ui-grid-row">
+									<div class="ui-grid-col-4">
+										<p:commandButton
+											action="#{metersRecordingController.saveStartMeterRecord(contractDetailController.contract)}"
+											oncomplete="PF('startMetersDataDialog').hide();"
+											update="msgs,startDataList" value="Create meter record."></p:commandButton>
+									</div>
+								</div>
+							</div>
 						</h:form>
 					</p:dialog>
 				</div>
 			</div>
-			
-			
+
+
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-4">
 					<h:outputLabel value="End Meters Data:" />
 				</div>
 				<div class="ui-grid-col-4">
 					<p:dataList id="endDataList" styleClass="meters-data-list"
-						value="#{contractDetailController.endRecords}"
-						var="record" type="ordered">
+						value="#{metersRecordingController.getEndRecords(contractDetailController.contract)}" var="record"
+						type="ordered">
 						#{record.meterType}: #{record.value}
 					</p:dataList>
 				</div>
@@ -277,28 +299,45 @@
 					<p:dialog header="End meters data" widgetVar="endMetersDataDialog"
 						modal="true" height="300px" width="500px" resizable="false">
 						<h:form>
-							<p:outputLabel for="metersType" value="Meter type" />
-							<p:selectOneButton id="metersType"
-								value="#{metersRecordingController.record.meterType}">
-								<f:selectItems value="#{metersRecordingController.meterTypes}"
-									var="meterType" itemValue="#{meterType}"
-									itemLabel="#{msg['enum.metertype.'.concat(meterType.label)]}" />
-							</p:selectOneButton>
-							<p:outputLabel for="meterValue" value="Meter value:"></p:outputLabel>
-							<p:spinner id="meterValue"
-								value="#{metersRecordingController.record.value}" stepFactor="1" />
-							<p:commandButton
-								action="#{metersRecordingController.saveFinishMeterRecord(contractDetailController.contract)}"
-								oncomplete="PF('endMetersDataDialog').hide();" update="msgs,endDataList"
-								value="Create meter record."></p:commandButton>
+							<div class="ui-grid ui-grid-responsive">
+								<div class="ui-grid-row">
+									<div class="ui-grid-col-4">
+										<p:outputLabel for="metersType" value="Meter type" />
+									</div>
+									<div class="ui-grid-col-4">
+										<p:selectOneRadio id="metersType" layout="grid" columns="1"
+											value="#{metersRecordingController.record.meterType}">
+											<f:selectItems
+												value="#{metersRecordingController.meterTypes}"
+												var="meterType" itemValue="#{meterType}"
+												itemLabel="#{msg['enum.metertype.'.concat(meterType.label)]}" />
+										</p:selectOneRadio>
+									</div>
+
+								</div>
+								<div class="ui-grid-row">
+									<div class="ui-grid-col-4">
+										<p:outputLabel for="meterValue" value="Meter value:"></p:outputLabel>
+									</div>
+									<div class="ui-grid-col-4">
+										<p:spinner id="meterValue"
+											value="#{metersRecordingController.record.value}"
+											stepFactor="1" />
+									</div>
+								</div>
+								<div class="ui-grid-row">
+									<div class="ui-grid-col-4">
+										<p:commandButton
+											action="#{metersRecordingController.saveFinishMeterRecord(contractDetailController.contract)}"
+											oncomplete="PF('endMetersDataDialog').hide();"
+											update="msgs,endDataList" value="Create meter record."></p:commandButton>
+									</div>
+								</div>
+							</div>
 						</h:form>
 					</p:dialog>
 				</div>
 			</div>
-
-
-
-
 		</div>
 	</ui:define>
 </ui:composition>

@@ -16,40 +16,34 @@ import java.util.Set;
  */
 public interface ContractService {
 
-    public Contract getContractById(Long id);
+	public Contract getContractById(Long id);
 
-    public void saveContract(Contract contract, Price price);
+	public void saveContract(Contract contract, Price price);
 
-    public void updateContract(Contract contract);
+	public void updateContract(Contract contract);
 
-    public void deleteContract(Contract contract);
+	public void deleteContract(Contract contract);
 
-    public List<Contract> listContracts();    
+	public List<Contract> listContracts();
 
-    public List<Contract> getContractsByPerson(Person person);
+	public List<Contract> getContractsByPerson(Person person);
 
-    public List<Contract> getContractsByAccommodationUnit(AccommodationUnit accommodationUnit);
+	public List<Contract> getContractsByAccommodationUnit(
+			AccommodationUnit accommodationUnit);
 
 	public List<Contract> listContracts(int pageSize, int first,
 			String sortField, SortingOrder valueOf, String searchTerm);
 
 	public long getContractsCount();
-	
-	public void handoverKeys(Contract contract);
-	
-	public void signContract(Contract contract);
-	
-	public void cancelContract(Contract contract);
 
-	public void closeContract(Contract contract);
-	
-	public void createTerminationRequest(Contract contract);
-	
-	public void addStartMetersRecordForContract(Contract contract, MeterRecord record);
-	
-	public void addFinishMetersRecordForContract(Contract contract, MeterRecord record);
-	
-	public Set<MeterRecord> getStartMeterRecordsForContract(Contract contract);
-	
-	public Set<MeterRecord> getEndMeterRecordsForContract(Contract contract);
+	public boolean handoverKeys(Contract contract);
+
+	public boolean signContract(Contract contract);
+
+	public boolean cancelContract(Contract contract);
+
+	public boolean closeContract(Contract contract);
+
+	public boolean createTerminationRequest(Contract contract);
+
 }

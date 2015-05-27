@@ -75,6 +75,8 @@ public class AccommodationDetailController implements Serializable{
 	}	
 	
 	public String showDetail(AccommodationUnit u){
+		logger.info("showDetail() called.");
+		
 		unit = u;
 		if(unit.getAddress() == null){
 			address = new Address();
@@ -99,12 +101,9 @@ public class AccommodationDetailController implements Serializable{
 	}
 	
 	private void addMarkerToMap() {
-
-		//TODO remove if not used
-//		if (unit.getAddress().getLatitude() == null
-//				|| unit.getAddress().getLongitude() == null) {
-//			return;
-//		}
+		if (unit.getAddress() == null){
+			return;
+		}
 
 		LatLng coord = new LatLng(Double.valueOf(unit.getAddress()
 				.getLatitude()), Double.valueOf(unit.getAddress()

@@ -8,9 +8,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 
+import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
+import net.dubrouski.fams.service.AccommodationUnitService;
 import net.dubrouski.fams.service.AddressService;
 
+import org.primefaces.event.map.OverlaySelectEvent;
+import org.primefaces.model.diagram.overlay.Overlay;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
@@ -30,29 +34,56 @@ public class AccMapController {
 	@Inject
 	private AddressService addrService;
 
+	@Inject
+	private AccommodationUnitService accService;
+
 	private MapModel simpleModel;
+
+	private Marker marker;
 
 	@PostConstruct
 	public void init() {
+		// TODO replace with highest level of hierarchy
+		List<AccommodationUnit> units = accService
+				.listAccommodationsByType("room");
 
-		List<Address> addresses = addrService.listAddresses();
+		// List<Address> addresses = addrService.listAddresses();
 
 		simpleModel = new DefaultMapModel();
 
-		for (Address addr : addresses) {
-			if (addr.getLatitude() == 0 || addr.getLongitude() == 0) {
+		for (AccommodationUnit unit : units) {
+			if (unit.getAddress().getLatitude() == 0
+					|| unit.getAddress().getLongitude() == 0) {
 				continue;
 			}
 
-			LatLng coord = new LatLng(Double.valueOf(addr.getLatitude()),
-					Double.valueOf(addr.getLongitude()));
+			LatLng coord = new LatLng(Double.valueOf(unit.getAddress()
+					.getLatitude()), Double.valueOf(unit.getAddress()
+					.getLongitude()));
 
 			// Basic marker
-			simpleModel.addOverlay(new Marker(coord, addr.toShortString()));
+			// simpleModel.addOverlay(new Marker(coord, unit.getAddress()
+			// .toShortString()));
+
+//			simpleModel.addOverlay(new Marker(coord, unit.getAddress()
+//					.toShortString(), unit, ""));
+
+			simpleModel.addOverlay(new AccUnitMarker(coord, unit.getAddress()
+					.toShortString(), unit, ""));
+
 		}
 	}
 
 	public MapModel getSimpleModel() {
 		return simpleModel;
 	}
+
+	public void onMarkerSelect(OverlaySelectEvent event) {
+		marker = (Marker) event.getOverlay();
+	}
+
+	public Marker getMarker() {
+		return marker;
+	}
+
 }

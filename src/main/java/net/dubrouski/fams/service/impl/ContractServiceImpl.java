@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -33,10 +34,10 @@ public class ContractServiceImpl implements ContractService {
 
 	@Inject
 	ContractDao contractDao;
-	
+
 	@Inject
 	PriceDao priceDao;
-	
+
 	@Inject
 	MeterRecordDao meterRecordDao;
 
@@ -111,99 +112,104 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public void handoverKeys(Contract contract) {
+	public boolean handoverKeys(Contract contract) {
 		logger.info("Keys handover requested for contract: "
 				+ contract.getCode());
+
+		if (!validateContractState(contract,
+				Arrays.asList(ContractState.Signed))) {
+			return false;
+		}
+
 		contract.setKeysHandedOver(true);
 		contract.setKeysHandoverDate(LocalDate.now());
 		this.updateContract(contract);
+
 		logger.info("Keys handover set for contract: " + contract.getCode()
 				+ " to date " + contract.getKeysHandoverDate());
+		return true;
 	}
 
 	@Override
-	public void cancelContract(Contract contract) {
-		// TODO complete implementation
+	public boolean cancelContract(Contract contract) {
 		// TODO create tests
 		logger.info("Cancellation requested for contract: "
 				+ contract.getCode());
+
+		if (!validateContractState(contract, Arrays.asList(ContractState.New))) {
+			return false;
+		}
+
 		contract.setState(ContractState.Cancelled);
 		this.updateContract(contract);
 		logger.info("Contract: " + contract.getCode() + " has been cancelled.");
+		return true;
 	}
 
 	@Override
-	public void signContract(Contract contract) {
+	public boolean signContract(Contract contract) {
 		// TODO complete implementation
 		// TODO create tests
 		logger.info("Signing requested for contract: " + contract.getCode());
+
+		if (!validateContractState(contract, Arrays.asList(ContractState.New))) {
+			return false;
+		}
+
 		contract.setState(ContractState.Signed);
 		this.updateContract(contract);
 		logger.info("Contract: " + contract.getCode() + " has been signed.");
-
+		return true;
 	}
 
 	@Override
-	public void closeContract(Contract contract) {
-		// TODO complete implementation
+	public boolean closeContract(Contract contract) {
 		// TODO create tests
 		logger.info("Closing requested for contract: " + contract.getCode());
+
+		if (!validateContractState(contract,
+				Arrays.asList(ContractState.Signed))) {
+			return false;
+		}
+
 		contract.setState(ContractState.Closed);
 		this.updateContract(contract);
 		logger.info("Contract: " + contract.getCode() + " has been closed.");
-
+		return true;
 	}
 
 	@Override
-	public void createTerminationRequest(Contract contract) {
+	public boolean createTerminationRequest(Contract contract) {
 		// TODO complete implementation
 		// TODO create tests
-		logger.info("Termination request requested for contract: " + contract.getCode());
+		logger.info("Termination request requested for contract: "
+				+ contract.getCode());
+
+		if (!validateContractState(contract,
+				Arrays.asList(ContractState.Signed))) {
+			return false;
+		}
+
 		contract.setTerminationRequestDate(LocalDate.now());
 		this.updateContract(contract);
-		logger.info("Termination request for contract: " + contract.getCode() + " has been set (date " + contract.getTerminationRequestDate());
-
+		logger.info("Termination request for contract: " + contract.getCode()
+				+ " has been set (date " + contract.getTerminationRequestDate());
+		return true;
 	}
 
-	@Override
-	public void addStartMetersRecordForContract(Contract contract,
-			MeterRecord record) {
-		logger.info("Start meter record " + record.toString()
-				+ " received for contract " + contract.getCode());
-		meterRecordDao.save(record);
-		logger.info("Record saved: " + record.toString());
-		
-		Contract contractWithData = contractDao.getContractWithMetersData(contract.getId());
-		
-		if (contractWithData.getStartData() == null){
-			logger.info("Start data are null ");
+	private boolean validateContractState(Contract contract,
+			List<ContractState> statesAllowed) {
+		if (!statesAllowed.contains(contract.getState())) {
+			String resultMessage = "Contract "
+					+ contract.getCode()
+					+ " is not in allowed states! Requested operation requires contract to be in on of the following states: ";
+			for (ContractState state : statesAllowed) {
+				resultMessage.concat(state.toString() + "; ");
+			}
+			logger.info(resultMessage);
+			return false;
+		} else {
+			return true;
 		}
-		contractWithData.addStartMeterRecord(record);
-		this.updateContract(contractWithData);
-	}
-
-	@Override
-	public void addFinishMetersRecordForContract(Contract contract,
-			MeterRecord record) {
-		logger.info("Finishing meter record " + record.toString()
-				+ "received for contract " + contract.getCode());
-		meterRecordDao.save(record);
-		Contract contractWithData = contractDao.getContractWithMetersData(contract.getId());
-		contractWithData.addFinishMeterRecord(record);
-		this.updateContract(contractWithData);
-	}
-
-	
-	@Override
-	public Set<MeterRecord> getStartMeterRecordsForContract(Contract contract) {
-		return contractDao.getContractWithMetersData(contract.getId())
-				.getStartData().getRecords();
-	}
-	
-
-	@Override
-	public Set<MeterRecord> getEndMeterRecordsForContract(Contract contract) {
-		return contractDao.getContractWithMetersData(contract.getId())
-				.getEndData().getRecords();
 	}
 }
