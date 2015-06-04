@@ -11,9 +11,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.print.attribute.standard.Severity;
 
+import net.dubrouski.fams.controller.ControllerHelper;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.MeterRecord;
+import net.dubrouski.fams.model.enums.ContractState;
 import net.dubrouski.fams.rest.CurrencyConversionClient;
 import net.dubrouski.fams.service.ContractService;
 import net.dubrouski.fams.service.CurrencyService;
@@ -66,82 +69,95 @@ public class ContractDetailController implements Serializable {
 		return terminationRequestDate;
 	}
 
-	public void handoverKeys() {
+	public String handoverKeys() {
 		if (contractService.handoverKeys(this.contract)) {
-			FacesContext.getCurrentInstance().addMessage(
-					"",
-					new FacesMessage("Keys for contract " + contract.getCode()
-							+ " have been handed over."));
+			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_INFO,
+					"Keys have been handed over for contract " + contract.getCode() + ".",
+					true);
 		} else {
-			FacesContext.getCurrentInstance().addMessage(
-					"",
-					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Keys for contract " + contract.getCode()
-							+ "could not be handed over.", ""));
+			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_WARN,
+					"Keys could not be handed over for contract " + contract.getCode() + ".",
+					true);
 		}
+
+		return "contract-detail?faces-redirect=true";
+
 	}
 
-	public void signContract() {
+	public String signContract() {
 		if (contractService.signContract(this.contract)) {
-			FacesContext.getCurrentInstance().addMessage(
-					"",
-					new FacesMessage("Contract " + contract.getCode()
-							+ "has been signed."));
+			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_INFO,
+					"Contract " + contract.getCode() + " has been signed.",
+					true);
 		} else {
-			FacesContext.getCurrentInstance().addMessage(
-					"",
-					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Contract " + contract.getCode()
-							+ "could not be signed.", ""));
+			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_WARN,
+					"Contract " + contract.getCode() + " could not be signed.",
+					true);
 		}
+
+		return "contract-detail?faces-redirect=true";
 	}
 
-	public void cancelContract() {
+	public String cancelContract() {
 		if (contractService.cancelContract(this.contract)) {
-			FacesContext.getCurrentInstance().addMessage(
-					"",
-					new FacesMessage("Contract " + contract.getCode()
-							+ "has been cancelled."));
+			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_INFO,
+					"Contract " + contract.getCode() + " has been cancelled.",
+					true);
 		} else {
-			FacesContext.getCurrentInstance().addMessage(
-					"",
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Contract "
-							+ contract.getCode() + "could not be cancelled.", ""));
+			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_WARN,
+					"Contract " + contract.getCode() + " could not be canceled.",
+					true);
 		}
+
+		return "contract-detail?faces-redirect=true";
 	}
 
-	public void closeContract() {
+	public String closeContract() {
 		if (contractService.closeContract(this.contract)) {
-			FacesContext.getCurrentInstance().addMessage(
-					"",
-					new FacesMessage("Contract " + contract.getCode()
-							+ "has been closed."));
+			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_INFO,
+					"Contract " + contract.getCode() + " has been closed.",
+					true);
 		} else {
-			FacesContext.getCurrentInstance().addMessage(
-					"",
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Contract "
-							+ contract.getCode() + "could not be closed.", ""));
+			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_WARN,
+					"Contract " + contract.getCode() + " could not be closed.",
+					true);
 		}
-
+		
+		return "contract-detail?faces-redirect=true";
 	}
 
-	public void createTerminationRequest() {
+	public String createTerminationRequest() {
 		if (contractService.createTerminationRequest(this.contract)) {
-			FacesContext
-					.getCurrentInstance()
-					.addMessage(
-							"",
-							new FacesMessage(
-									"Termination request for contract has been created on "
-											+ this.contract
-													.getTerminationRequestDate()));
+			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_INFO,
+					"Termination request created for contract " + contract.getCode() + ".",
+					true);
 		} else {
-			FacesContext.getCurrentInstance().addMessage(
-					"",
-					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Error occurred when creating termination request for contract "
-									+ this.contract.getCode(), ""));
+			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_WARN,
+					"Termination request could not be created for contract " + contract.getCode() + ".",
+					true);
 		}
 
-	}	
+		return "contract-detail?faces-redirect=true";
+	}
+
+	public boolean isKeysHandoverAllowed() {
+		return this.contract.getState().equals(ContractState.Signed);
+	}
+
+	public boolean isContractSigningAllowed() {
+		return this.contract.getState().equals(ContractState.New);
+	}
+
+	public boolean isContractCancellationAllowed() {
+		return this.contract.getState().equals(ContractState.New);
+	}
+
+	public boolean isContractClosureAllowed() {
+		return this.contract.getState().equals(ContractState.Signed);
+	}
+
+	public boolean isTerminationRequestCreationAllowed() {
+		return this.contract.getState().equals(ContractState.Signed);
+	}
+
 }

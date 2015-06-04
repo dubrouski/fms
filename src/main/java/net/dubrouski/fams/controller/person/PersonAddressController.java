@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import net.dubrouski.fams.model.Address;
@@ -88,6 +90,14 @@ public class PersonAddressController implements Serializable {
 		addressService.saveAddress(this.newAddress);
 		personService.setAddressToPerson(this.personToCreateAddress,
 				this.newAddress, this.addressType);
+
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Address successfully added ("
+						+ this.newAddress.toShortString() + ")", "Address added"));
+		FacesContext.getCurrentInstance().getExternalContext().getFlash()
+				.setKeepMessages(true);
+
 		return "detail";
 	}
 }

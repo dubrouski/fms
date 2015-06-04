@@ -16,6 +16,7 @@ import net.dubrouski.fams.controller.user.CurrentUserHolder;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.User;
 import net.dubrouski.fams.model.enums.UserRightIds;
+import net.dubrouski.fams.service.ContractService;
 import net.dubrouski.fams.service.PersonService;
 
 /**
@@ -33,9 +34,16 @@ public class PersonDeletionController {
 	PersonService personService;
 
 	@Inject
+	ContractService contractService;
+
+	@Inject
 	CurrentUserHolder currentUserHolder;
 
 	private Person personForDeletion;
+
+	private int numberOfContracts;
+
+	private boolean deletionAllowed;
 
 	@Produces
 	@Named
@@ -47,19 +55,65 @@ public class PersonDeletionController {
 
 		this.personForDeletion = person;
 		if (personForDeletion == null) {
-			logger.log(Level.INFO,
+			logger.log(Level.WARNING,
 					"requestPersonDelete: personForDeletion is null.");
 		}
+
+		this.numberOfContracts = contractService.getContractsByPerson(
+				this.personForDeletion).size();
+
+		this.deletionAllowed = numberOfContracts == 0 ? true : false;
+
 		return "delete";
 	}
 
 	public String confirmPersonDelete() {
 
 		if (personForDeletion == null) {
-			logger.log(Level.INFO,
+			logger.log(Level.WARNING,
 					"confirmPersonDelete: personForDeletion is null.");
 		}
+
+		if (!deletionAllowed) {
+			logger.log(Level.WARNING,
+					"Deletion confirmed for person with not allowed deletion!"
+							+ personForDeletion.toString());
+
+			//TODO wrap into separate method
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Person "
+									+ this.personForDeletion.getFullName() + " cannot be deleted.",
+							"Person couldn't be deleted."));
+			FacesContext.getCurrentInstance().getExternalContext().getFlash()
+					.setKeepMessages(true);
+
+			return "delete";
+		}
+
 		personService.delete(personForDeletion);
+		
+		//TODO wrap into separate method
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Person "
+								+ this.personForDeletion.getFullName() + " successfully deleted.",
+						"Person deleted."));
+		FacesContext.getCurrentInstance().getExternalContext().getFlash()
+				.setKeepMessages(true);
+		
 		return "list";
 	}
+
+	public int getNumberOfContracts() {
+		return numberOfContracts;
+	}
+
+	public boolean isDeletionAllowed() {
+		return deletionAllowed;
+	}
+	
+	
 }
