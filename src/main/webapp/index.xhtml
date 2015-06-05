@@ -19,17 +19,55 @@
 			<p:gmapInfoWindow id="infoWindow">
 				<p:outputPanel
 					style="text-align: center; display: block; margin: auto">
+
 					<h:form>
 						<h:outputText value="#{accMapController.marker.data.name}" />
 						<br />
 						<p:commandLink
-							action="#{accommodationDetailController.showDetail(accMapController.marker.accUnit)}"
-							ajax="false" value="#{accMapController.marker.title}"></p:commandLink>
+							action="#{accommodationDetailController.showDetail(accMapController.marker.data)}"
+							oncomplete="PF('cancelContractDialog').show();"
+							value="Show detail information"></p:commandLink>
 						<br />
 					</h:form>
+					<p:dataTable id="contractsTable1" var="contract" reflow="true"
+						rowStyleClass="contract_#{contract.state}"
+						value="#{contractService.getContractsByAccommodationUnit(accMapController.marker.data)}"
+						style="padding-top:5px;">
+
+						<p:column headerText="Start date">
+							<h:outputText value="#{contract.startDate}" />
+						</p:column>
+						<p:column headerText="End date">
+							<h:outputText value="#{contract.endDate}" />
+						</p:column>
+						<p:column headerText="Status">
+							<h:outputText value="#{contract.state}" />
+						</p:column>
+					</p:dataTable>
+					
+					
+
 				</p:outputPanel>
 			</p:gmapInfoWindow>
 		</p:gmap>
+		<p:dialog header="Accommodation detail"
+			widgetVar="cancelContractDialog" modal="true" height="300px"
+			width="500px" resizable="false">
+			<h:outputText value="#{accMapController.marker.data.type}" />
+			<br />
+			<h:outputText
+				value="#{accMapController.marker.data.address.toShortString()}" />
+			<h:form>
+				<p:commandButton id="detailButton" icon="ui-icon-search"
+					ajax="false"
+					action="#{accommodationDetailController.showDetail(accMapController.marker.data)}">
+					<p:tooltip id="detailButtonToolTip" for="detailButton"
+						value="Show detail" />
 
+				</p:commandButton>
+			</h:form>
+
+
+		</p:dialog>
 	</ui:define>
 </ui:composition>

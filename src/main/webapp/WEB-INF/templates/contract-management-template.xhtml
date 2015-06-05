@@ -7,11 +7,12 @@
 	template="/WEB-INF/templates/adminTemplate.xhtml">
 	<ui:define name="management-content">
 		<h:form>
-			<p:button value="List all" outcome="list.jsf"
-				icon="ui-icon-star"></p:button>
+			<p:button value="List all" outcome="list.jsf" icon="ui-icon-star"></p:button>
 			<p:button value="Create new" outcome="create.jsf"
 				icon="ui-icon-search"
 				disabled="#{!loginManager.currentUser.hasRight('CONTRACT_WRITE')}"></p:button>
+			<p:button value="Bulk closure" outcome="bulk-closure.jsf"
+				icon="ui-icon-star"></p:button>
 		</h:form>
 
 		<p:panel id="content-panel" style="margin-bottom:20px">

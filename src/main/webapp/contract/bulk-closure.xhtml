@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/contract-management-template.xhtml">
+	<ui:define id="content" name="content">
+
+		<h:outputText>Contracts bulk closure</h:outputText>
+		<a href="javascript:sendMessage()">Send message</a>
+
+		<p:commandButton action="#{bulkClosureController.startNewBatchJob()}" value="Start bulk closure of contracts"></p:commandButton>
+
+		<div id="messages"></div>
+
+		<script type="text/javascript">      
+		 var ws = new WebSocket("ws://localhost:8080/fams/bulkclosure");
+		 ws.onopen = function() {
+		     appendText("Web Socket is connected!!");
+		 };
+
+		 ws.onclose = function() {
+		     appendText("Connection is closed...");
+		 };
+
+		 function sendMessage() {
+		     ws.send("Message to server from client");
+		 }
+
+		 ws.onmessage = function(event) {
+		     onMessage(event)
+		 };
+
+		 function onMessage(event) {
+		     appendText(evend.data)
+		 }
+
+		 function appendText(text) {
+		     document.getElementById('messages').innerHTML += '<br />' + text;
+		 }
+				
+ 		</script>
+
+	</ui:define>
+</ui:composition>

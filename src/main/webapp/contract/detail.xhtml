@@ -87,7 +87,7 @@
 					modal="true" height="300px" width="500px" resizable="false">
 					<p:commandButton
 						action="#{contractDetailController.closeContract()}"
-						oncomplete="PF('closeContractDialog').hide();;"
+						oncomplete="PF('closeContractDialog').hide();"
 						update="msgs, state" value="Really close contract."></p:commandButton>
 				</p:dialog>
 				<p:dialog header="Cancel contract" widgetVar="cancelContractDialog"

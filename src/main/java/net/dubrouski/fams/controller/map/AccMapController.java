@@ -61,16 +61,8 @@ public class AccMapController {
 					.getLatitude()), Double.valueOf(unit.getAddress()
 					.getLongitude()));
 
-			// Basic marker
-			// simpleModel.addOverlay(new Marker(coord, unit.getAddress()
-			// .toShortString()));
-
-//			simpleModel.addOverlay(new Marker(coord, unit.getAddress()
-//					.toShortString(), unit, ""));
-
 			simpleModel.addOverlay(new AccUnitMarker(coord, unit.getAddress()
 					.toShortString(), unit, ""));
-
 		}
 	}
 
