@@ -1,5 +1,6 @@
 package net.dubrouski.fams.controller.contract.bulkclose;
 
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javax.batch.api.chunk.ItemProcessor;
@@ -30,7 +31,8 @@ public class ContractItemProcessor implements ItemProcessor {
 		// TODO add complete logic to evaluate if
 		// contract fulfills conditions to be closed.
 
-		if (contract.getState().equals(ContractState.Signed)) {
+		if (contract.getState().equals(ContractState.Signed)
+				&& LocalDate.now().isAfter(contract.getEndDate())) {
 			logger.info("Contract " + contract.getId() + ", "
 					+ contract.getCode()
 					+ " is in Signed state, pass to futher processing.");

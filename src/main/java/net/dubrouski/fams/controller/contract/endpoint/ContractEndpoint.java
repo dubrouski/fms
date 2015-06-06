@@ -1,12 +1,11 @@
 package net.dubrouski.fams.controller.contract.endpoint;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.logging.Logger;
 
 import javax.ejb.Singleton;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.websocket.CloseReason;
 import javax.websocket.OnClose;
@@ -18,9 +17,7 @@ import javax.websocket.server.ServerEndpoint;
 import net.dubrouski.fams.annotations.ContractEvent;
 import net.dubrouski.fams.controller.contract.bulkclose.ContractStateChangeEvent;
 
-import java.io.Serializable;
-
-@ServerEndpoint("/bulkclosure2")
+@ServerEndpoint("/bulkclosure")
 @Singleton
 public class ContractEndpoint implements Serializable {
 
