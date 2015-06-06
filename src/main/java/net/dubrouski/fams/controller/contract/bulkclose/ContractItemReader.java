@@ -1,4 +1,4 @@
-package net.dubrouski.fams.batch;
+package net.dubrouski.fams.controller.contract.bulkclose;
 
 import java.io.Serializable;
 import java.util.logging.Logger;
@@ -38,15 +38,12 @@ public class ContractItemReader extends AbstractItemReader {
 
 		Contract result = contractService.getContractById(lastProcessedId);
 
-		Thread.sleep(1000);
+		//TODO remove. Used to slow down execution.
+		Thread.sleep(100);
 
 		if (result == null) {
 			logger.info("Contract with id " + lastProcessedId
 					+ " not found. Stopping batch execution...");
-
-			// throw new ItemNotFoundException("Contract with id "
-			// + lastProcessedId + " not found.");
-
 			return null;
 		}
 

@@ -1,4 +1,4 @@
-package net.dubrouski.fams.batch;
+package net.dubrouski.fams.exception;
 
 public class ItemNotFoundException extends Exception {
 

@@ -225,4 +225,13 @@ public class Contract implements BaseEntity, Serializable {
 		this.getEndData().addRecord(record);
 	}
 
+	@Override
+	public String toString() {
+		return "Contract [startDate=" + startDate + ", endDate=" + endDate
+				+ ", state=" + state + ", code=" + code + "]";
+	}
+	
+	
+	
+
 }

@@ -1,4 +1,4 @@
-package net.dubrouski.fams.batch;
+package net.dubrouski.fams.controller.contract.bulkclose;
 
 import java.util.logging.Logger;
 
@@ -36,9 +36,9 @@ public class ContractItemProcessor implements ItemProcessor {
 					+ " is in Signed state, pass to futher processing.");
 			return contract;
 		}
-		
-		logger.info("Contract " + contract.getId() + ", "
-				+ contract.getCode() + " not in signed state. Not passing for processing.");
+
+		logger.info("Contract " + contract.getId() + ", " + contract.getCode()
+				+ " not in signed state. Not passing for processing.");
 
 		return null;
 	}

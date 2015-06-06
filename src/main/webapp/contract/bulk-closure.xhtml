@@ -10,14 +10,15 @@
 		<h:outputText>Contracts bulk closure</h:outputText>
 		<a href="javascript:sendMessage()">Send message</a>
 
-		<p:commandButton action="#{bulkClosureController.startNewBatchJob()}" value="Start bulk closure of contracts"></p:commandButton>
+		<p:commandButton action="#{bulkClosureController.startNewBatchJob()}"
+			value="Start bulk closure of contracts"></p:commandButton>
 
 		<div id="messages"></div>
 
 		<script type="text/javascript">      
-		 var ws = new WebSocket("ws://localhost:8080/fams/bulkclosure");
+		 var ws = new WebSocket("ws://localhost:8080/fams/bulkclosure2");
 		 ws.onopen = function() {
-		     appendText("Web Socket is connected!!");
+		     appendText("Web Socket is connected.");
 		 };
 
 		 ws.onclose = function() {
@@ -29,12 +30,8 @@
 		 }
 
 		 ws.onmessage = function(event) {
-		     onMessage(event)
+		     appendText(event.data)
 		 };
-
-		 function onMessage(event) {
-		     appendText(evend.data)
-		 }
 
 		 function appendText(text) {
 		     document.getElementById('messages').innerHTML += '<br />' + text;
