@@ -41,6 +41,7 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>contract-user</role-name>
+			<role-name>contract-admin</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
@@ -72,6 +73,7 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>person-user</role-name>
+			<role-name>person-admin</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
@@ -103,6 +105,7 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>contract-user</role-name>
+			<role-name>contract-admin</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
