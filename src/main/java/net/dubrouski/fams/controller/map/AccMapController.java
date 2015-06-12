@@ -52,8 +52,8 @@ public class AccMapController {
 		simpleModel = new DefaultMapModel();
 
 		for (AccommodationUnit unit : units) {
-			if (unit.getAddress().getLatitude() == 0
-					|| unit.getAddress().getLongitude() == 0) {
+			if (unit.getAddress().getLatitude() == null
+					|| unit.getAddress().getLongitude() == null) {
 				continue;
 			}
 

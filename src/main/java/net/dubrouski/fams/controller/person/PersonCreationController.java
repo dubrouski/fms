@@ -11,12 +11,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import net.dubrouski.fams.annotations.LoggedIn;
-import net.dubrouski.fams.controller.LoginManager;
 
+import net.dubrouski.fams.controller.user.LoginManager;
 import net.dubrouski.fams.model.Person;
-import net.dubrouski.fams.model.User;
-import net.dubrouski.fams.model.enums.UserRightIds;
 import net.dubrouski.fams.service.PersonService;
 
 /**
@@ -34,10 +31,6 @@ public class PersonCreationController {
 	PersonService personService;
 
 	private Person newPerson;
-
-	@Inject
-	@LoggedIn
-	private User loggedUser;
 
 	@ManagedProperty(value = "#{loginManager}")
 	private LoginManager loginManager;

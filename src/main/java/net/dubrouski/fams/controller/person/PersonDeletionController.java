@@ -11,11 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import net.dubrouski.fams.annotations.LoggedIn;
-import net.dubrouski.fams.controller.user.CurrentUserHolder;
 import net.dubrouski.fams.model.Person;
-import net.dubrouski.fams.model.User;
-import net.dubrouski.fams.model.enums.UserRightIds;
 import net.dubrouski.fams.service.ContractService;
 import net.dubrouski.fams.service.PersonService;
 
@@ -35,9 +31,6 @@ public class PersonDeletionController {
 
 	@Inject
 	ContractService contractService;
-
-	@Inject
-	CurrentUserHolder currentUserHolder;
 
 	private Person personForDeletion;
 

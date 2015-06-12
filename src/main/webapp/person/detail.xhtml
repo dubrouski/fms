@@ -6,18 +6,17 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
-		<!-- 		<h:form> -->
 		<h:form>
 			<p:commandButton id="personDeleteButton" style="margin-bottom:10px;"
 				ajax="false"
-				disabled="#{!loginManager.currentUser.hasRight('PERSON_WRITE')}"
+				disabled="!#{facesContext.externalContext.isUserInRole('persAdmin')}"
 				action="#{personDeletionController.requestPersonDelete(personDetailController.person)}"
 				value="#{msg['person.detail.deletebutton']}:"
 				icon="ui-icon-closethick" />
 
-			<p:commandButton id="createContractForPersonButton" style="margin-bottom:10px;"
-				ajax="false"
-				disabled="#{!loginManager.currentUser.hasRight('CONTRACT_WRITE')}"
+			<p:commandButton id="createContractForPersonButton"
+				style="margin-bottom:10px;" ajax="false"
+				disabled="!#{facesContext.externalContext.isUserInRole('contractAdmin')}"
 				action="#{contractCreationController.startContractCreationForPerson(personDetailController.person)}"
 				value="#{msg['person.detail.createcontractbutton']}:"
 				icon="ui-icon-script" />
@@ -30,7 +29,7 @@
 			<h:form>
 				<p:commandButton id="personUpdateButton" ajax="false"
 					style="float:right; margin-bottom:10px;"
-					disabled="#{!loginManager.currentUser.hasRight('PERSON_WRITE')}"
+					disabled="!#{facesContext.externalContext.isUserInRole('persAdmin')}"
 					action="#{personUpdateController.startPersonUpdate(personDetailController.person)}"
 					value="#{msg['person.detail.updatebutton']}:" icon="ui-icon-pencil" />
 			</h:form>
@@ -54,19 +53,11 @@
 					value="#{msg['person.detail.phone']}: #{personDetailController.person.phone}" />
 				<h:outputText
 					value="#{msg['person.detail.email']}: #{personDetailController.person.email}" />
-				<h:outputText
-					value="" />
+				<h:outputText value="" />
 			</p:panelGrid>
-
 		</p:panel>
 
-
-
-
-
-
-
-		<p:panel id="addressesFieldSet" collapsed="true" 
+		<p:panel id="addressesFieldSet" collapsed="true"
 			header="#{msg['person.detail.addressestab']}" toggleable="true"
 			toggleSpeed="250" widgetVar="addressesFieldSet"
 			styleClass="fieldSetLegend">
@@ -75,13 +66,13 @@
 				<p:commandButton id="personAddrrCreateButton"
 					style="float:right; margin-bottom:10px;"
 					action="#{personAddressController.startAddressCreation(personDetailController.person)}"
-					disabled="#{!loginManager.currentUser.hasRight('PERSON_WRITE')}"
+					disabled="!#{facesContext.externalContext.isUserInRole('persAdmin')}"
 					value="#{msg['person.detail.createaddrbutton']}"
 					icon="ui-icon-plusthick" />
 			</h:form>
 
-			<p:dataTable style="clear:both;" id="personAddressesTable" reflow="true" 
-				rendered="true" var="address"
+			<p:dataTable style="clear:both;" id="personAddressesTable"
+				reflow="true" rendered="true" var="address"
 				value="#{personService.getAddressesForPerson(personDetailController.person)}"
 				rowStyleClass="#{address.active eq 'true' ? 'address_active' : 'address_inactive'}">
 				<p:column headerText="#{msg['address.type']}">
@@ -103,8 +94,10 @@
 					<h:outputText value="#{address.address.flatNumber}" />
 				</p:column>
 				<p:column headerText="#{msg['person.address.active']}">
-					<h:outputText rendered="#{address.active}" value="&#10004;" id="activeAddressCheckSign" />
-					<h:outputText rendered="#{!address.active}" value="&#10008;" id="inactiveAddressCrossSign" />
+					<h:outputText rendered="#{address.active}" value="&#10004;"
+						id="activeAddressCheckSign" />
+					<h:outputText rendered="#{!address.active}" value="&#10008;"
+						id="inactiveAddressCrossSign" />
 				</p:column>
 			</p:dataTable>
 		</p:panel>
@@ -114,16 +107,16 @@
 			toggleSpeed="250" widgetVar="contractsFieldSet"
 			styleClass="fieldSetLegend">
 
-			<p:dataTable id="contractsTable" var="contract" reflow="true" 
+			<p:dataTable id="contractsTable" var="contract" reflow="true"
 				rowStyleClass="contract_#{contract.state}"
 				value="#{personDetailController.personsContracts}"
 				style="padding-top:5px;">
 				<p:column headerText="Code">
 					<h:form>
-					<p:commandLink id="detailLinkSName" ajax="false"
-						action="#{contractDetailController.showDetail(contract)}"
-						value="#{contract.code}"></p:commandLink>
-				</h:form>
+						<p:commandLink id="detailLinkSName" ajax="false"
+							action="#{contractDetailController.showDetail(contract)}"
+							value="#{contract.code}"></p:commandLink>
+					</h:form>
 				</p:column>
 				<p:column headerText="Start date">
 					<h:outputText value="#{contract.startDate}" />
@@ -136,10 +129,5 @@
 				</p:column>
 			</p:dataTable>
 		</p:panel>
-
-
-
-
-		<!-- 		</h:form> -->
 	</ui:define>
 </ui:composition>

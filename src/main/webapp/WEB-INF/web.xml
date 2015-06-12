@@ -25,7 +25,7 @@
 			<url-pattern>/accommodation/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>contract-admin</role-name>
+			<role-name>contractAdmin</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
@@ -40,8 +40,8 @@
 			<url-pattern>/accommodation/detail.jsf</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>contract-user</role-name>
-			<role-name>contract-admin</role-name>
+			<role-name>contractUser</role-name>
+			<role-name>contractAdmin</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
@@ -57,7 +57,7 @@
 			<url-pattern>/person/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>person-admin</role-name>
+			<role-name>persAdmin</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
@@ -72,8 +72,8 @@
 			<url-pattern>/person/detail.jsf</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>person-user</role-name>
-			<role-name>person-admin</role-name>
+			<role-name>persUser</role-name>
+			<role-name>persAdmin</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
@@ -89,7 +89,7 @@
 			<url-pattern>/contract/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>contract-admin</role-name>
+			<role-name>contractAdmin</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
@@ -104,8 +104,8 @@
 			<url-pattern>/contract/detail.jsf</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>contract-user</role-name>
-			<role-name>contract-admin</role-name>
+			<role-name>contractUser</role-name>
+			<role-name>contractAdmin</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
@@ -123,22 +123,22 @@
 		</form-login-config>
 	</login-config>
 	<security-role>
-		<role-name>person-user</role-name>
+		<role-name>persUser</role-name>
 	</security-role>
 	<security-role>
-		<role-name>person-admin</role-name>
+		<role-name>persAdmin</role-name>
 	</security-role>
 	<security-role>
-		<role-name>accommodation-user</role-name>
+		<role-name>accommUser</role-name>
 	</security-role>
 	<security-role>
-		<role-name>accommodation-admin</role-name>
+		<role-name>accommAdmin</role-name>
 	</security-role>
 	<security-role>
-		<role-name>contract-user</role-name>
+		<role-name>contractUser</role-name>
 	</security-role>
 	<security-role>
-		<role-name>contract-admin</role-name>
+		<role-name>contractAdmin</role-name>
 	</security-role>
 	<security-role>
 		<role-name>guest</role-name>
