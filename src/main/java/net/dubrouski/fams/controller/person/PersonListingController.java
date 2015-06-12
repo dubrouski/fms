@@ -20,7 +20,7 @@ import net.dubrouski.fams.annotations.LoggedIn;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.User;
 import net.dubrouski.fams.model.enums.SortingOrder;
-import net.dubrouski.fams.model.enums.UserRightIds;
+import net.dubrouski.fams.model.enums.UserRoles;
 import net.dubrouski.fams.service.PersonService;
 
 @ManagedBean

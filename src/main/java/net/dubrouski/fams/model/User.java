@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
-import net.dubrouski.fams.model.enums.UserRightIds;
+import net.dubrouski.fams.model.enums.UserRoles;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -26,7 +26,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author Martin Jelínek (xjeline5)
  */
 @Entity
-@Table(name = "`USER`", uniqueConstraints = { @UniqueConstraint(columnNames = "LOGIN") })
+@Table(name = "FMS_USER", uniqueConstraints = { @UniqueConstraint(columnNames = "USERNAME") })
 public class User implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -38,8 +38,8 @@ public class User implements Serializable {
 
     @NotBlank(message = "{user.validate.login.required}")
     @Length(min = 1, max = 255, message = "{user.validate.login.length}")
-    @Column(name = "LOGIN")
-    private String login;
+    @Column(name = "USERNAME")
+    private String username;
 
     @NotBlank(message = "{user.validate.password.required}")
     @Length(min = 6, max = 255, message = "{user.validate.password.length}")
@@ -47,16 +47,16 @@ public class User implements Serializable {
     private String password;
     
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "USER2USER_RIGHT", joinColumns = @JoinColumn(name = "USER_ID"), 
-            inverseJoinColumns = @JoinColumn(name = "USER_RIGHT_ID"))
-    private List<UserRight> userRights;
+    @JoinTable(name = "FMS_USER2USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), 
+            inverseJoinColumns = @JoinColumn(name = "USER_ROLE_ID"))
+    private List<UserRole> userRoles;
     
     @OneToOne(optional = true)
     @JoinColumn(name = "PERSON_ID")
     private Person person;
     
     @Transient
-    private Set<UserRightIds> userRightsSet = null;
+    private Set<UserRoles> userRolesSet = null;
 
     public Long getId() {
         return id;
@@ -67,11 +67,11 @@ public class User implements Serializable {
     }
 
     public String getLogin() {
-        return login;
+        return username;
     }
 
     public void setLogin(String login) {
-        this.login = login;
+        this.username = login;
     }
 
     public String getPassword() {
@@ -82,25 +82,25 @@ public class User implements Serializable {
         this.password = password;
     }
     
-    public Set<UserRightIds> getUserRightsSet() {
-        if (userRightsSet == null) {
-            userRightsSet = new HashSet<>();
-            if (userRights != null) {
-                for (UserRight userRight : userRights) {
-                    userRightsSet.add(userRight.getRightName());
+    public Set<UserRoles> getUserRightsSet() {
+        if (userRolesSet == null) {
+        	userRolesSet = new HashSet<>();
+            if (userRoles != null) {
+                for (UserRole userRight : userRoles) {
+                	userRolesSet.add(userRight.getRightName());
                 }
             }
         }
         
-        return userRightsSet;
+        return userRolesSet;
     }
 
-    public List<UserRight> getUserRights() {
-        return userRights;
+    public List<UserRole> getUserRights() {
+        return userRoles;
     }
 
-    public void setUserRights(List<UserRight> userRights) {
-        this.userRights = userRights;
+    public void setUserRights(List<UserRole> userRights) {
+        this.userRoles = userRights;
     }
 
     public Person getPerson() {
@@ -111,12 +111,12 @@ public class User implements Serializable {
         this.person = person;
     }
     
-    public boolean hasRight(UserRightIds right) {
+    public boolean hasRight(UserRoles right) {
         return getUserRightsSet().contains(right);
     }
 
     @Override
     public String toString() {
-        return "User [id " + this.id + ", login " + this.login + "]";
+        return "User [id " + this.id + ", login " + this.username + "]";
     }
 }
