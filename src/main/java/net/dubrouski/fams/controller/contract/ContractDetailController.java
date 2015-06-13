@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.print.attribute.standard.Severity;
 
 import net.dubrouski.fams.controller.ControllerHelper;
+import net.dubrouski.fams.controller.user.LoginManager;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.MeterRecord;
 import net.dubrouski.fams.model.enums.ContractState;
@@ -38,6 +39,9 @@ public class ContractDetailController implements Serializable {
 
 	@Inject
 	PersonService personService;
+
+	@Inject
+	LoginManager loginManager;
 
 	@Inject
 	ContractService contractService;
@@ -71,13 +75,15 @@ public class ContractDetailController implements Serializable {
 
 	public String handoverKeys() {
 		if (contractService.handoverKeys(this.contract)) {
-			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_INFO,
-					"Keys have been handed over for contract " + contract.getCode() + ".",
-					true);
+			ControllerHelper.addInfoMessage(
+					FacesMessage.SEVERITY_INFO,
+					"Keys have been handed over for contract "
+							+ contract.getCode() + ".", true);
 		} else {
-			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_WARN,
-					"Keys could not be handed over for contract " + contract.getCode() + ".",
-					true);
+			ControllerHelper.addInfoMessage(
+					FacesMessage.SEVERITY_WARN,
+					"Keys could not be handed over for contract "
+							+ contract.getCode() + ".", true);
 		}
 
 		return "contract-detail?faces-redirect=true";
@@ -105,8 +111,8 @@ public class ContractDetailController implements Serializable {
 					true);
 		} else {
 			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_WARN,
-					"Contract " + contract.getCode() + " could not be canceled.",
-					true);
+					"Contract " + contract.getCode()
+							+ " could not be canceled.", true);
 		}
 
 		return "contract-detail?faces-redirect=true";
@@ -122,19 +128,20 @@ public class ContractDetailController implements Serializable {
 					"Contract " + contract.getCode() + " could not be closed.",
 					true);
 		}
-		
+
 		return "contract-detail?faces-redirect=true";
 	}
 
 	public String createTerminationRequest() {
 		if (contractService.createTerminationRequest(this.contract)) {
-			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_INFO,
-					"Termination request created for contract " + contract.getCode() + ".",
-					true);
+			ControllerHelper.addInfoMessage(
+					FacesMessage.SEVERITY_INFO,
+					"Termination request created for contract "
+							+ contract.getCode() + ".", true);
 		} else {
 			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_WARN,
-					"Termination request could not be created for contract " + contract.getCode() + ".",
-					true);
+					"Termination request could not be created for contract "
+							+ contract.getCode() + ".", true);
 		}
 
 		return "contract-detail?faces-redirect=true";

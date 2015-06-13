@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Long id) {
-        return userDao.getByID(id);
+    public User getUserByUsername(String username) {
+        return userDao.getByUsername(username);
     }
 
     @Override
@@ -49,8 +49,9 @@ public class UserServiceImpl implements UserService {
         return userDao.listAll();
     }
 
-    @Override
-    public User loginUser(String login, String password) {
-        return userDao.getByLoginAndPassword(login, password);
-    }
+    //TODO remove
+//    @Override
+//    public User loginUser(String login, String password) {
+//        return userDao.getByLoginAndPassword(login, password);
+//    }
 }

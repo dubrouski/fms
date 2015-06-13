@@ -33,4 +33,20 @@ public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDao {
         }
     }
 
+	@Override
+	public User getByUsername(String username) {
+		if (username == null) {
+            throw new IllegalArgumentException("Username is null.");
+        }
+        
+        TypedQuery<User> query = this.entityManager.createQuery(
+                "select u from User u where u.username= :username",
+                User.class);
+        
+        try {
+            return query.setParameter("username", username).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+	}
 }

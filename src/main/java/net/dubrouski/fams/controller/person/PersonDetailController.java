@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import net.dubrouski.fams.controller.user.LoginManager;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.PersonAddress;
@@ -38,6 +39,9 @@ public class PersonDetailController implements Serializable {
 
 	@Inject
 	ContractService contractService;
+
+	@Inject
+	LoginManager loginManager;
 
 	private Person person;
 	private List<PersonAddress> personsAddresses;
@@ -68,6 +72,26 @@ public class PersonDetailController implements Serializable {
 		this.personsContracts = contractService.getContractsByPerson(p);
 
 		logger.log(Level.INFO, "lists loaded for person " + p);
+
+		return "person-detail?faces-redirect=true";
+	}
+
+	public String showDetailForLoggedPerson() {
+		this.person = loginManager.getAssociatedPerson();
+
+		if (this.person == null) {
+			logger.log(Level.INFO, "logged person is null " + this.person);
+			return "person-list?faces-redirect=true";
+		}
+
+		logger.log(Level.INFO, "show detail for person " + this.person);
+
+		this.personsAddresses = personService
+				.getAddressesForPerson(this.person);
+		this.personsContracts = contractService
+				.getContractsByPerson(this.person);
+
+		logger.log(Level.INFO, "lists loaded for person " + this.person);
 
 		return "person-detail?faces-redirect=true";
 	}

@@ -4601,3 +4601,13 @@ insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_
 insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over, price_id) values('2014-01-01', '2014-12-12', 'Closed', 1, 1, false, 14);
 insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over, price_id) values('2015-01-01', '2015-12-12', 'Signed', 1, 1, false, 15);
 insert into contract(start_date, end_date, state, accommodation_unit_id, tenant_id, keys_handed_over, price_id) values('2016-01-01', '2016-12-12', 'New', 1, 1, false, 16);
+
+
+
+
+
+--client user
+INSERT INTO FMS_USER (USERNAME, PERSON_ID, PASSWORD) VALUES ('C1012', 1, '6491cacf01b2e1c6d08a5609d2f570ea57d71ae7f06e0391276d70d935d29aa51888d566751aa36dc5e12e18da693ece36427c167e2a7a67e48aca8928ba3979');
+
+--assign person to user:
+INSERT INTO FMS_USER2USER_ROLE (USER_ID, USER_ROLE_ID) VALUES (3,7); 

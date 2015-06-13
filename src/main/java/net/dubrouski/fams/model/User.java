@@ -51,7 +51,7 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "USER_ROLE_ID"))
     private List<UserRole> userRoles;
     
-    @OneToOne(optional = true)
+    @OneToOne(optional = true, fetch=FetchType.EAGER)
     @JoinColumn(name = "PERSON_ID")
     private Person person;
     

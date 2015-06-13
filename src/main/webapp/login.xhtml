@@ -7,34 +7,14 @@
 	template="/WEB-INF/templates/adminTemplate.xhtml">
 	<ui:define id="content" name="management-content">
 		<h:form class="login">
-			<p:panelGrid columns="3" layout="grid"
-				rendered="#{!loginManager.loggedIn}">
-				<f:validateBean>
-					<p:outputLabel for="username">Username:</p:outputLabel>
-					<p:inputText id="username" value="#{credentials.username}" />
-					<p:message for="username" />
-					<p:outputLabel for="password">Password:</p:outputLabel>
-					<p:password id="password" value="#{credentials.password}" />
-					<p:message for="password" />
-				</f:validateBean>
-				<h:outputText value="" />
-				<p:commandButton ajax="false" value="Log in"
-					action="#{loginManager.login}" rendered="#{!loginManager.loggedIn}" />
-			</p:panelGrid>
-			<p:panelGrid columns="2" layout="grid"
+			<p:panelGrid columns="1" layout="grid"
 				rendered="#{loginManager.loggedIn}">
 				<h:outputText value="Logged in as  #{loginManager.currentUser.name}"></h:outputText>
+				<h:outputText
+					value="(#{loginManager.associatedPerson.code}: #{loginManager.associatedPerson})" />
 				<p:commandButton ajax="false" icon="ui-icon-closethick"
 					value="Log out" action="#{loginManager.logout}" />
-				<h:outputText rendered="#{loginManager.loggedIn}"
-					value="List of user's access rights:" />
-
 			</p:panelGrid>
-
-
-
-
-
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -40,37 +40,63 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li class="dropdown"><a href="/fms/accommodation/list.jsf"
-						class="dropdown-toggle" data-toggle="dropdown" role="button"
-						aria-expanded="false">Accommodation management <span
-							class="caret"></span>
-					</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="/fms/accommodation/list.jsf">List
-									all</a></li>
-							<li><a href="/fms/accommodation/create.jsf">Create
-									new</a></li>
-						</ul></li>
 
+					<h:panelGroup
+						rendered="#{facesContext.externalContext.isUserInRole('accommAdmin') or facesContext.externalContext.isUserInRole('accommUser')}">
+						<li class="dropdown"><a href="/fms/accommodation/list.jsf"
+							class="dropdown-toggle" data-toggle="dropdown" role="button"
+							aria-expanded="false">Accommodation management <span
+								class="caret"></span>
+						</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="/fms/accommodation/list.jsf">List all</a></li>
+								<h:panelGroup
+									rendered="#{facesContext.externalContext.isUserInRole('accommAdmin')}">
+									<li><a href="/fms/accommodation/create.jsf">Create
+											new</a></li>
+								</h:panelGroup>
+							</ul></li>
+					</h:panelGroup>
 
-					<li class="dropdown"><a href="/fms/person/list.jsf"
-						class="dropdown-toggle" data-toggle="dropdown" role="button"
-						aria-expanded="false">Persons management <span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="/fms/person/list.jsf">List all</a></li>
-							<li><a href="/fms/person/create.jsf">Create new</a></li>
-						</ul></li>
-
-
-					<li class="dropdown"><a href="/fms/contract/list.jsf"
-						class="dropdown-toggle" data-toggle="dropdown" role="button"
-						aria-expanded="false">Contract management <span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="/fms/contract/list.jsf">List all</a></li>
-							<li><a href="/fms/contract/create.jsf">Create new</a></li>
-						</ul></li>
+					<h:panelGroup
+						rendered="#{facesContext.externalContext.isUserInRole('persAdmin') or facesContext.externalContext.isUserInRole('persUser')}">
+						<li class="dropdown"><a href="/fms/person/list.jsf"
+							class="dropdown-toggle" data-toggle="dropdown" role="button"
+							aria-expanded="false">Person management <span class="caret"></span>
+						</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="/fms/person/list.jsf">List all</a></li>
+								<h:panelGroup
+									rendered="#{facesContext.externalContext.isUserInRole('persAdmin')}">
+									<li><a href="/fms/person/create.jsf">Create new</a></li>
+								</h:panelGroup>
+							</ul></li>
+					</h:panelGroup>
+					<h:panelGroup
+						rendered="#{facesContext.externalContext.isUserInRole('client')}">
+						<h:form style="display:inline;">
+							<ul class="nav navbar-nav">
+								<li><p:commandLink rendered="#{loginManager.loggedIn}"
+										ajax="false"
+										action="#{personDetailController.showDetailForLoggedPerson()}"
+										value="Personal data" /></li>
+							</ul>
+						</h:form>
+					</h:panelGroup>
+					<h:panelGroup
+						rendered="#{facesContext.externalContext.isUserInRole('contractAdmin') or facesContext.externalContext.isUserInRole('contractUser')}">
+						<li class="dropdown"><a href="/fms/contract/list.jsf"
+							class="dropdown-toggle" data-toggle="dropdown" role="button"
+							aria-expanded="false">Contract management <span class="caret"></span>
+						</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="/fms/contract/list.jsf">List all</a></li>
+								<h:panelGroup
+									rendered="#{facesContext.externalContext.isUserInRole('contractAdmin')}">
+									<li><a href="/fms/contract/create.jsf">Create new</a></li>
+								</h:panelGroup>
+							</ul></li>
+					</h:panelGroup>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><p:link rendered="#{!loginManager.loggedIn}"
@@ -80,7 +106,7 @@
 
 				</ul>
 				<p:outputLabel rendered="#{loginManager.loggedIn}"
-					class="navbar-text navbar-right">#{msg['login.loggedas']} #{loginManager.currentUser.login}</p:outputLabel>
+					class="navbar-text navbar-right">#{msg['login.loggedas']} #{loginManager.currentUser.name}</p:outputLabel>
 			</div>
 		</div>
 	</nav>

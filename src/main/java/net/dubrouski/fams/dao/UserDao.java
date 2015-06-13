@@ -10,4 +10,6 @@ public interface UserDao extends BaseDao<User, Long>{
 
     public User getByLoginAndPassword(String login, String password);
     
+    public User getByUsername(String username);
+    
 }

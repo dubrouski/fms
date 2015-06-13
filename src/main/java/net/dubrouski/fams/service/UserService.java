@@ -13,12 +13,12 @@ public interface UserService {
     
     public void updateUser(User user);
     
-    public User getUserById(Long id);
+    public User getUserByUsername(String username);
     
     public void deleteUser(User user);
     
     public List<User> listUsers();
     
-    public User loginUser(String login, String password);
+    //public User loginUser(String login, String password);
     
 }
