@@ -1,0 +1,49 @@
+connect
+batch
+
+#install jdbc jar for postgres
+#module add --name=org.postgres --resources=/postgresqljdbc.jar --dependencies=javax.api,javax.transaction.api 
+
+#add postgres jdbc driver 
+/subsystem=datasources/jdbc-driver=postgres:add( \
+    driver-name="postgres",\
+    driver-module-name="org.postgres",\
+    driver-class-name=org.postgresql.Driver\
+)
+
+#add data-source
+data-source add \
+    --jndi-name=java:jboss/datasources/FamsDS \
+    --name=FamsDS \
+    --connection-url=jdbc:postgresql://localhost:5432/FAMS \
+    --driver-name=postgres \
+    --user-name=postgres \
+    --password=9119
+#data-source enable --name=FamsDS
+
+#add jms-queue 
+jms-queue add \
+    --queue-address=contractQueue \
+    --entries=java:/jms/queue/contractQueue
+
+#define security domain   
+/subsystem=security/security-domain=FmsSecurityDomain:add
+#add login modules
+/subsystem=security/security-domain=FmsSecurityDomain/authentication=classic:add( \
+login-modules=[ \
+{ \
+    "code" => "Database", \
+    "flag" => "required", \
+    "module-options" => [ \
+        ("unauthenticatedIdentity"=>"guest"), \
+        ("dsJndiName"=>"java:jboss/datasources/FamsDS"), \
+        ("principalsQuery"=>"SELECT password FROM fms_user WHERE username=?"), \
+        ("rolesQuery" => "select role_name as role, 'Roles' from fms_user u join fms_user2user_role ur on u.id = ur.user_id join user_role r on ur.user_role_id = r.id WHERE u.username=?"), \
+        ("hashAlgorithm" => "SHA-512"), \
+        ("hashEncoding" => "hex") \
+    ] \
+} \
+] 
+
+run-batch
+:reload
