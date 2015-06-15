@@ -28,7 +28,7 @@ import net.dubrouski.fams.service.AddressService;
 
 @ManagedBean
 @SessionScoped
-public class AccAddressController implements Serializable{
+public class AccommodationAddressController implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;

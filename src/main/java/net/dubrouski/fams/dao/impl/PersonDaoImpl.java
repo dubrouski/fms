@@ -1,9 +1,6 @@
 package net.dubrouski.fams.dao.impl;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -16,8 +13,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
 
 import net.dubrouski.fams.dao.PersonDao;
 import net.dubrouski.fams.model.Person;

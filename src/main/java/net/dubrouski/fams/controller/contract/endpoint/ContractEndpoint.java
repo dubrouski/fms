@@ -32,24 +32,6 @@ public class ContractEndpoint implements Serializable {
 	public void receiveMessage(String message, Session session)
 			throws IOException, InterruptedException {
 		logger.info("Received : " + message + ", session:" + session.getId());
-
-		// Send the first message to the client
-		session.getBasicRemote().sendText("This is the first server message");
-
-		// Send 3 messages to the client every 5 seconds
-		int sentMessages = 0;
-		while (sentMessages < 10) {
-			Thread.sleep(100);
-			session.getBasicRemote().sendText(
-					"EP2: This is an intermediate server message. Count: "
-							+ sentMessages);
-			// this.send("Message sent from send() method");
-			// logger.info("Sent intermediate message to client");
-			sentMessages++;
-		}
-
-		// Send a final message to the client
-		session.getBasicRemote().sendText("This is the last server message");
 	}
 
 	@OnOpen
@@ -66,7 +48,7 @@ public class ContractEndpoint implements Serializable {
 
 	@OnClose
 	public void close(Session session, CloseReason c) {
-		logger.info("Closing:" + session.getId());
+		logger.info("Closing session:" + session.getId());
 	}
 
 	public void send(String msg) {
@@ -76,14 +58,14 @@ public class ContractEndpoint implements Serializable {
 			}
 			this.sess.getBasicRemote().sendText(msg);
 		} catch (IOException e) {
-			logger.info("!!! IOException in sending to websocket.");
+			logger.info("IOException in sending to websocket." + e.getCause());
 		} catch (Exception e) {
-			logger.info("!!! Exception in sending to websocket.");
+			logger.info("General Exception in sending to websocket."
+					+ e.getCause());
 		}
 	}
 
-	public void onEvent(
-			@Observes @ContractEvent ContractStateChangeEvent event) {
+	public void onEvent(@Observes @ContractEvent ContractStateChangeEvent event) {
 		logger.info("Contract changed state event observed: "
 				+ event.getContract().getCode());
 		this.send(event.getContract().toString());

@@ -1,12 +1,7 @@
 package net.dubrouski.fams.dao.impl;
 
-import net.dubrouski.fams.dao.ContractDao;
-import net.dubrouski.fams.exception.FmsException;
-import net.dubrouski.fams.model.AccommodationUnit;
-import net.dubrouski.fams.model.Address;
-import net.dubrouski.fams.model.Contract;
-import net.dubrouski.fams.model.Person;
-import net.dubrouski.fams.model.enums.SortingOrder;
+import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,8 +14,12 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import java.util.List;
-import java.util.logging.Logger;
+import net.dubrouski.fams.dao.ContractDao;
+import net.dubrouski.fams.exception.FmsException;
+import net.dubrouski.fams.model.AccommodationUnit;
+import net.dubrouski.fams.model.Contract;
+import net.dubrouski.fams.model.Person;
+import net.dubrouski.fams.model.enums.SortingOrder;
 
 /**
  * Created by tmarton on 5/2/15.

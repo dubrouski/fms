@@ -14,7 +14,6 @@ import net.dubrouski.fams.exception.FmsException;
 import net.dubrouski.fams.model.AccommodationComposite;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
-import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.Place;
 import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.validator.EntityValidator;

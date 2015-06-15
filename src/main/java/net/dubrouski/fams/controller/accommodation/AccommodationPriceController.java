@@ -14,7 +14,7 @@ import net.dubrouski.fams.service.AccommodationUnitService;
 
 @ManagedBean
 @SessionScoped
-public class AccPriceController implements Serializable{
+public class AccommodationPriceController implements Serializable{
 
 
 	private static final long serialVersionUID = 1L;

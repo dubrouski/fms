@@ -3,6 +3,7 @@ package net.dubrouski.fams.controller.person;
 import java.io.Serializable;
 import java.util.logging.Logger;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateful;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;

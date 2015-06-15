@@ -20,7 +20,7 @@ import net.dubrouski.fams.service.AccommodationUnitService;
 
 @ManagedBean
 @RequestScoped
-public class AccListingController implements Serializable {
+public class AccommodationListingController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

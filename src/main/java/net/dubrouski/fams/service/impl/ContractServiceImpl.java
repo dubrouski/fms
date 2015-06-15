@@ -1,30 +1,24 @@
 package net.dubrouski.fams.service.impl;
 
-import net.dubrouski.fams.dao.AddressDao;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Logger;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import net.dubrouski.fams.dao.ContractDao;
 import net.dubrouski.fams.dao.MeterRecordDao;
-import net.dubrouski.fams.dao.PersonDao;
 import net.dubrouski.fams.dao.PriceDao;
 import net.dubrouski.fams.exception.FmsException;
 import net.dubrouski.fams.model.AccommodationUnit;
-import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Contract;
-import net.dubrouski.fams.model.MeterRecord;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.model.enums.ContractState;
 import net.dubrouski.fams.model.enums.SortingOrder;
 import net.dubrouski.fams.service.ContractService;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by tmarton on 5/2/15.

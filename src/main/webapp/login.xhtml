@@ -10,7 +10,7 @@
 			<p:panelGrid columns="1" layout="grid"
 				rendered="#{loginManager.loggedIn}">
 				<h:outputText value="Logged in as  #{loginManager.currentUser.name}"></h:outputText>
-				<h:outputText
+				<h:outputText rendered="#{isClient}"
 					value="(#{loginManager.associatedPerson.code}: #{loginManager.associatedPerson})" />
 				<p:commandButton ajax="false" icon="ui-icon-closethick"
 					value="Log out" action="#{loginManager.logout}" />

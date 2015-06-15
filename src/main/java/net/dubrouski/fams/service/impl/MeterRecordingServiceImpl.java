@@ -7,7 +7,6 @@ import javax.inject.Inject;
 
 import net.dubrouski.fams.dao.ContractDao;
 import net.dubrouski.fams.dao.MeterRecordDao;
-import net.dubrouski.fams.dao.PriceDao;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.MeterRecord;
 import net.dubrouski.fams.service.ContractService;

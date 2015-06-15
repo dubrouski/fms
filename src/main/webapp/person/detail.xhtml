@@ -13,7 +13,6 @@
 				action="#{personDeletionController.requestPersonDelete(personDetailController.person)}"
 				value="#{msg['person.detail.deletebutton']}:"
 				icon="ui-icon-closethick" />
-
 			<p:commandButton id="createContractForPersonButton"
 				style="margin-bottom:10px;" ajax="false"
 				disabled="!#{facesContext.externalContext.isUserInRole('contractAdmin')}"

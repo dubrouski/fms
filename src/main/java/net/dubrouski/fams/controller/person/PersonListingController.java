@@ -4,24 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
+
+import net.dubrouski.fams.model.Person;
+import net.dubrouski.fams.model.enums.SortingOrder;
+import net.dubrouski.fams.service.PersonService;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
-
-import net.dubrouski.fams.annotations.LoggedIn;
-import net.dubrouski.fams.model.Person;
-import net.dubrouski.fams.model.User;
-import net.dubrouski.fams.model.enums.SortingOrder;
-import net.dubrouski.fams.model.enums.UserRoles;
-import net.dubrouski.fams.service.PersonService;
 
 @ManagedBean
 @SessionScoped

@@ -1704,7 +1704,7 @@ insert into address (city_name, flat_num, street_name, street_num, country_id, l
 insert into address (city_name, flat_num, street_name, street_num, country_id, latitude, longitude) values ('Luniao', '9', 'Arizona', '53', '120', '49.2811697', '16.6513082');
 insert into address (city_name, flat_num, street_name, street_num, country_id, latitude, longitude) values ('Aikmel', '5', 'Browning', '701', '167', '49.2912989', '16.6430670');
 insert into address (city_name, flat_num, street_name, street_num, country_id, latitude, longitude) values ('Ea T’ling', '2', 'Steensland', '7796', '140', '49.2315823', '16.6685038');
-insert into address (city_name, flat_num, street_name, street_num, country_id, latitude, longitude) values ('Marićka', '9', 'Scofield', '863', '143', '49.2711631', '16.6799956');
+insert into address (city_name, flat_num, street_name, street_num, country_id, latitude, longitude) values ('Maricka', '9', 'Scofield', '863', '143', '49.2711631', '16.6799956');
 insert into address (city_name, flat_num, street_name, street_num, country_id, latitude, longitude) values ('Hekou', '0', 'Cody', '0', '149', '49.2940612', '16.6766175');
 insert into address (city_name, flat_num, street_name, street_num, country_id, latitude, longitude) values ('Janakkala', '9', 'Barnett', '04361', '190', '49.2127510', '16.6965174');
 insert into address (city_name, flat_num, street_name, street_num, country_id, latitude, longitude) values ('Semarapura', '5', 'Burrows', '053', '120', '49.2643100', '16.6484890');

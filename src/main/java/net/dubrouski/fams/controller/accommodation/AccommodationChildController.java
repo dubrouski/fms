@@ -13,7 +13,7 @@ import net.dubrouski.fams.model.AccommodationUnit;
 
 @ManagedBean
 @SessionScoped
-public class AccChildController extends AccommodationCreationController implements Serializable{
+public class AccommodationChildController extends AccommodationCreationController implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
