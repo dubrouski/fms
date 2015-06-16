@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.dubrouski.fams.model.User;
 import net.dubrouski.fams.model.UserRole;
+import net.dubrouski.fams.model.enums.UserRoles;
 
 /**
  *
@@ -22,8 +23,10 @@ public interface UserService {
     public List<User> listUsers();
     
     public List<UserRole> listUserRoles();
-    
+
     public UserRole getUserRoleById(Long id);
+    
+    public UserRole getUserRoleByType(UserRoles type);
     
     //public User loginUser(String login, String password);
     

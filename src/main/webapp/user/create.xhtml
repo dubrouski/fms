@@ -19,6 +19,7 @@
 					value="#{userCreationController.newUser.password}" />
 				<p:message for="password" />
 
+				<p:outputLabel for="rolesPickList" value="User's roles" />
 				<p:selectManyMenu id="rolesPickList"
 					value="#{userCreationController.newUser.userRoles}" var="role"
 					filter="false" showCheckbox="true" converter="userRoleConverter">
@@ -33,6 +34,7 @@
 						<h:outputText value="#{role.roleName}" />
 					</p:column>
 				</p:selectManyMenu>
+				<p:message for="rolesPickList" />
 
 			</p:panelGrid>
 			<p:commandButton ajax="false" id="register"

@@ -13,6 +13,7 @@ import net.dubrouski.fams.dao.UserDao;
 import net.dubrouski.fams.dao.UserRoleDao;
 import net.dubrouski.fams.model.User;
 import net.dubrouski.fams.model.UserRole;
+import net.dubrouski.fams.model.enums.UserRoles;
 import net.dubrouski.fams.service.UserService;
 import net.dubrouski.fams.util.SHA512;
 
@@ -70,5 +71,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserRole getUserRoleById(Long id) {
 		return rolesDao.getByID(id);
+	}
+
+	@Override
+	public UserRole getUserRoleByType(UserRoles type) {
+		return rolesDao.getByType(type);
 	}	
 }

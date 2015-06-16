@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.jms.JMSContext;
+import javax.jms.Queue;
 
 import net.dubrouski.fams.dao.AddressDao;
 import net.dubrouski.fams.dao.PersonAddressDao;
@@ -35,11 +38,19 @@ public class PersonServiceImpl implements PersonService {
 
 	@Inject
 	Logger logger;
+	
+	@Resource(mappedName = "java:/jms/queue/personQueue")
+	private Queue personQueue;
+
+	@Inject
+	JMSContext context;
 
 	@Override
 	public void savePerson(Person person) {
 		personDao.save(person);
 		logger.log(Level.INFO, "Created new person: " + person.toString());
+		context.createProducer().send(personQueue, person);
+		logger.info("Sending message to queue PersonQueue" + person.toString());
 	}
 
 	@Override

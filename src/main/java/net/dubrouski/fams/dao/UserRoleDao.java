@@ -9,4 +9,6 @@ import net.dubrouski.fams.model.enums.UserRoles;
  */
 public interface UserRoleDao extends BaseDao<UserRole, Long>{
 
+	UserRole getByType(UserRoles type);
+
 }

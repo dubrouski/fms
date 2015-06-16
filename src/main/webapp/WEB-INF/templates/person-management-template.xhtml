@@ -4,14 +4,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	template="/WEB-INF/templates/adminTemplate.xhtml">
+	template="/WEB-INF/templates/master-template.xhtml">
 	<ui:define name="management-content">
 		<h:form>
 			<p:button value="#{msg['person.list.listall']}"
 				outcome="list.jsf" icon="ui-icon-star"></p:button>
 			<p:button value="#{msg['person.create.createnewperson']}"
 				outcome="create.jsf" icon="ui-icon-search"
-				disabled="!#{facesContext.externalContext.isUserInRole('persAdmin')}"></p:button>
+				disabled="#{!facesContext.externalContext.isUserInRole('persAdmin')}"></p:button>
 		</h:form>
 
 		<p:panel id="content-panel" style="margin-bottom:20px">

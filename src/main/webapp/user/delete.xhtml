@@ -7,26 +7,7 @@
 	template="/WEB-INF/templates/person-management-template.xhtml">
 	<ui:define name="content">
 		<p>
-			<h:outputFormat value="#{msg['person.delete.warning']}" rendered="#{personDeletionController.deletionAllowed eq true}">
-				<f:param
-					value="#{personDeletionController.personForDeletion.firstName}" />
-				<f:param
-					value="#{personDeletionController.personForDeletion.lastName}" />
-			</h:outputFormat>
-			
-			<h:outputFormat value="#{msg['person.delete.cannotdelete']}" rendered="#{personDeletionController.deletionAllowed eq false}">
-				<f:param
-					value="#{personDeletionController.personForDeletion.fullName}" />
-				<f:param
-					value="#{personDeletionController.numberOfContracts}" />
-			</h:outputFormat>
+			Delete user confirmation page.
 		</p>
-		<h:form>
-			<p:commandButton icon="ui-icon-check" disabled="#{personDeletionController.deletionAllowed eq false}"
-				action="#{personDeletionController.confirmPersonDelete()}"
-				value="#{msg['person.delete.yesdelete']}" />
-			<p:button icon="ui-icon-closethick" outcome="list.jsf"
-				value="#{msg['person.delete.noreturn']}" />
-		</h:form>
 	</ui:define>
 </ui:composition>

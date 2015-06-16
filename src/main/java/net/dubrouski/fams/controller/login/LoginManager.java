@@ -33,10 +33,12 @@ public class LoginManager implements Serializable {
 	@Inject
 	Logger logger;
 
-	public void logout() {
+	public String logout() {
 		HttpServletRequest origRequest = (HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest();
 		origRequest.getSession().invalidate();
+		
+		return "index?faces-redirect=true";
 	}
 
 	public boolean isLoggedIn() {
