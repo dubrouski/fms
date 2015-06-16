@@ -11,7 +11,7 @@ import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import net.dubrouski.fams.controller.user.LoginManager;
+import net.dubrouski.fams.controller.login.LoginManager;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.PersonAddress;

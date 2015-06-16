@@ -12,7 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import net.dubrouski.fams.controller.user.LoginManager;
+import net.dubrouski.fams.controller.login.LoginManager;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.service.PersonService;
 
@@ -20,6 +20,7 @@ import net.dubrouski.fams.service.PersonService;
  * @author stanislau.dubrouski
  *
  */
+//TODO why stateful? 
 @Stateful
 @Model
 public class PersonCreationController {
@@ -32,6 +33,7 @@ public class PersonCreationController {
 
 	private Person newPerson;
 
+	//TODO remove it
 	@ManagedProperty(value = "#{loginManager}")
 	private LoginManager loginManager;
 
@@ -48,6 +50,8 @@ public class PersonCreationController {
 	public String createPerson() {
 		logger.info("Saving new person " + newPerson.toString());
 		personService.savePerson(newPerson);
+		
+		//TODO add message sending as some helper method?
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, String.format(

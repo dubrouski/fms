@@ -1,9 +1,11 @@
 package net.dubrouski.fams.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +19,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+
 import net.dubrouski.fams.model.enums.UserRoles;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -42,7 +46,7 @@ public class User implements Serializable {
     private String username;
 
     @NotBlank(message = "{user.validate.password.required}")
-    @Length(min = 6, max = 255, message = "{user.validate.password.length}")
+    @Length(min = 4, max = 255, message = "{user.validate.password.length}")
     @Column(name = "PASSWORD")
     private String password;
     
@@ -66,12 +70,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getLogin() {
+    public String getUsername() {
         return username;
     }
 
-    public void setLogin(String login) {
-        this.username = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -87,7 +91,7 @@ public class User implements Serializable {
         	userRolesSet = new HashSet<>();
             if (userRoles != null) {
                 for (UserRole userRight : userRoles) {
-                	userRolesSet.add(userRight.getRightName());
+                	userRolesSet.add(userRight.getRoleName());
                 }
             }
         }
@@ -95,12 +99,15 @@ public class User implements Serializable {
         return userRolesSet;
     }
 
-    public List<UserRole> getUserRights() {
+    public List<UserRole> getUserRoles() {
+    	if (userRoles==null){
+    		userRoles = new ArrayList<UserRole>();
+    	}
         return userRoles;
     }
 
-    public void setUserRights(List<UserRole> userRights) {
-        this.userRoles = userRights;
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 
     public Person getPerson() {

@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import javax.print.attribute.standard.Severity;
 
 import net.dubrouski.fams.controller.ControllerHelper;
-import net.dubrouski.fams.controller.user.LoginManager;
+import net.dubrouski.fams.controller.login.LoginManager;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.MeterRecord;
 import net.dubrouski.fams.model.enums.ContractState;

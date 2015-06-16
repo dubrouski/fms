@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/person-management-template.xhtml">
+	<ui:define id="content" name="content">
+
+		<h:form style="display: inline;"
+			id="personSearchForm">			
+			<p:inputText id="searchInput" placeholder="Search by names..."
+				value="#{personListingController.searchTerm}">
+			</p:inputText>
+			<p:commandButton value="Search" update="personsTable"></p:commandButton>
+		</h:form>
+
+		<p:dataTable id="personsTable" var="person"
+			value="#{personListingController.lazyPersons}"
+			rows="#{personListingController.pageSize}" paginator="true"
+			lazy="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="25,50,100" style="padding-top:5px;">
+
+			<p:column headerText="#{msg['person.list.code']}" priority="3"
+				sortBy="#{person.code}">
+				<p:commandLink id="detailLinkCode"
+					action="#{personDetailController.showDetail(person)}"
+					value="#{person.code}"></p:commandLink>
+			</p:column>
+			<p:column headerText="#{msg['person.list.name']}" priority="2"
+				sortBy="#{person.firstName}">
+				<h:form>
+				<p:commandLink id="detailLinkFName" ajax="false"
+					action="#{personDetailController.showDetail(person)}"
+					value="#{person.firstName}"></p:commandLink>
+				</h:form>
+			</p:column>
+			<p:column headerText="#{msg['person.list.surname']}" priority="1"
+				sortBy="#{person.lastName}">
+				<p:commandLink id="detailLinkSName"
+					action="#{personDetailController.showDetail(person)}"
+					value="#{person.lastName}"></p:commandLink>
+			</p:column>
+			<p:column headerText="#{msg['person.list.legalid']}" priority="5"
+				sortBy="#{person.legalId}">
+				<h:outputText value="#{person.legalId}" />
+			</p:column>
+			<p:column headerText="#{msg['person.list.phone']}" priority="4"
+				sortBy="#{person.phone}">
+				<h:outputText value="#{person.phone}" />
+			</p:column>
+			<p:column headerText="Actions" priority="1">
+				<h:form>
+					<p:commandButton id="detailButton" icon="ui-icon-search"
+						ajax="false"
+						action="#{personDetailController.showDetail(person)}">
+						<p:tooltip id="detailButtonToolTip" for="detailButton"
+							value="Show detail" />
+					</p:commandButton>
+					<p:commandButton id="removeButton" icon="ui-icon-closethick"
+						ajax="false"
+						action="#{personDeletionController.requestPersonDelete(person)}">
+						<p:tooltip id="removeButtonToolTip" for="removeButton"
+							value="Delete accommodation" />
+					</p:commandButton>
+				</h:form>
+			</p:column>
+		</p:dataTable>
+
+	</ui:define>
+</ui:composition>

@@ -1,4 +1,4 @@
-package net.dubrouski.fams.controller.user;
+package net.dubrouski.fams.controller.login;
 
 import java.io.Serializable;
 import java.security.Principal;

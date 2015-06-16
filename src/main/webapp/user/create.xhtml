@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/user-management-template.xhtml">
+	<ui:define name="content">
+		<h:form id="reg">
+			<p:panelGrid columns="3" layout="grid" cellpadding="5">
+
+				<p:outputLabel for="username" value="Username:" />
+				<p:inputText id="username"
+					value="#{userCreationController.newUser.username}" />
+				<p:message for="username" />
+
+				<p:outputLabel for="password" value="Password" />
+				<p:inputText id="password"
+					value="#{userCreationController.newUser.password}" />
+				<p:message for="password" />
+
+				<p:selectManyMenu id="rolesPickList"
+					value="#{userCreationController.newUser.userRoles}" var="role"
+					filter="false" showCheckbox="true" converter="userRoleConverter">
+					<f:selectItems value="#{userCreationController.userRoles}"
+						var="role" itemLabel="#{role.id}" itemValue="#{role}" />
+
+					<p:column>
+						<h:outputText styleClass="ui-theme ui-theme-#{t.name}" />
+					</p:column>
+
+					<p:column>
+						<h:outputText value="#{role.roleName}" />
+					</p:column>
+				</p:selectManyMenu>
+
+			</p:panelGrid>
+			<p:commandButton ajax="false" id="register"
+				action="#{userCreationController.createUser()}" value="Create user" />
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,7 +1,9 @@
 package net.dubrouski.fams.service;
 
 import java.util.List;
+
 import net.dubrouski.fams.model.User;
+import net.dubrouski.fams.model.UserRole;
 
 /**
  *
@@ -18,6 +20,10 @@ public interface UserService {
     public void deleteUser(User user);
     
     public List<User> listUsers();
+    
+    public List<UserRole> listUserRoles();
+    
+    public UserRole getUserRoleById(Long id);
     
     //public User loginUser(String login, String password);
     

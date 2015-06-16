@@ -40,16 +40,43 @@ public class UserRole implements Serializable {
 		this.id = id;
 	}
 
-	public UserRoles getRightName() {
+	public UserRoles getRoleName() {
 		return roleName;
 	}
 
-	public void setRightName(UserRoles rightName) {
-		this.roleName = rightName;
+	public void setRoleName(UserRoles roleName) {
+		this.roleName = roleName;
 	}
 
 	@Override
 	public String toString() {
 		return "Right [id " + this.id + ", name " + this.roleName + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserRole other = (UserRole) obj;
+		if (id == null) {
+			if (other.getId() != null)
+				return false;
+		} else if (!id.equals(other.getId()))
+			return false;
+		return true;
+	}
+
 }
+

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/person-management-template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<p:commandButton id="personDeleteButton" style="margin-bottom:10px;"
+				ajax="false"
+				disabled="!#{facesContext.externalContext.isUserInRole('persAdmin')}"
+				action="#{personDeletionController.requestPersonDelete(personDetailController.person)}"
+				value="#{msg['person.detail.deletebutton']}:"
+				icon="ui-icon-closethick" />
+			<p:commandButton id="createContractForPersonButton"
+				style="margin-bottom:10px;" ajax="false"
+				disabled="!#{facesContext.externalContext.isUserInRole('contractAdmin')}"
+				action="#{contractCreationController.startContractCreationForPerson(personDetailController.person)}"
+				value="#{msg['person.detail.createcontractbutton']}:"
+				icon="ui-icon-script" />
+		</h:form>
+		<p:panel id="personalInfoFieldSet"
+			header="#{msg['person.detail.personalinfotab']}" toggleable="true"
+			toggleSpeed="250" widgetVar="contractsFieldSete"
+			styleClass="fieldSetLegend">
+
+			<h:form>
+				<p:commandButton id="personUpdateButton" ajax="false"
+					style="float:right; margin-bottom:10px;"
+					disabled="!#{facesContext.externalContext.isUserInRole('persAdmin')}"
+					action="#{personUpdateController.startPersonUpdate(personDetailController.person)}"
+					value="#{msg['person.detail.updatebutton']}:" icon="ui-icon-pencil" />
+			</h:form>
+
+			<p:panelGrid columns="3" layout="grid">
+				<h:outputText
+					value="#{msg['person.detail.name']}: #{personDetailController.person.firstName}" />
+				<h:outputText
+					value="#{msg['person.detail.surname']}: #{personDetailController.person.lastName}" />
+				<h:outputText
+					value="#{msg['person.detail.othernames']}: #{personDetailController.person.otherNames}" />
+
+				<h:outputText
+					value="#{msg['person.detail.personid']}: #{personDetailController.person.code}" />
+				<h:outputText
+					value="#{msg['person.detail.legalid']}: #{personDetailController.person.legalId}" />
+				<h:outputText
+					value="#{msg['person.detail.born']}: #{personDetailController.person.birthDate}" />
+
+				<h:outputText
+					value="#{msg['person.detail.phone']}: #{personDetailController.person.phone}" />
+				<h:outputText
+					value="#{msg['person.detail.email']}: #{personDetailController.person.email}" />
+				<h:outputText value="" />
+			</p:panelGrid>
+		</p:panel>
+
+		<p:panel id="addressesFieldSet" collapsed="true"
+			header="#{msg['person.detail.addressestab']}" toggleable="true"
+			toggleSpeed="250" widgetVar="addressesFieldSet"
+			styleClass="fieldSetLegend">
+
+			<h:form>
+				<p:commandButton id="personAddrrCreateButton"
+					style="float:right; margin-bottom:10px;"
+					action="#{personAddressController.startAddressCreation(personDetailController.person)}"
+					disabled="!#{facesContext.externalContext.isUserInRole('persAdmin')}"
+					value="#{msg['person.detail.createaddrbutton']}"
+					icon="ui-icon-plusthick" />
+			</h:form>
+
+			<p:dataTable style="clear:both;" id="personAddressesTable"
+				reflow="true" rendered="true" var="address"
+				value="#{personService.getAddressesForPerson(personDetailController.person)}"
+				rowStyleClass="#{address.active eq 'true' ? 'address_active' : 'address_inactive'}">
+				<p:column headerText="#{msg['address.type']}">
+					<h:outputText
+						value="#{msg['enum.addresstype.'.concat(address.addressType.label)]}" />
+				</p:column>
+				<p:column headerText="#{msg['country']}">
+					<h:outputText
+						value="#{msg['country.'.concat(address.address.country.code)]}" />
+				</p:column>
+				<p:column headerText="#{msg['address.city']}">
+					<h:outputText value="#{address.address.city}" />
+				</p:column>
+				<p:column headerText="#{msg['address.street']}">
+					<h:outputText
+						value="#{address.address.streetName}, #{address.address.streetNumber}" />
+				</p:column>
+				<p:column headerText="#{msg['address.flat']}">
+					<h:outputText value="#{address.address.flatNumber}" />
+				</p:column>
+				<p:column headerText="#{msg['person.address.active']}">
+					<h:outputText rendered="#{address.active}" value="&#10004;"
+						id="activeAddressCheckSign" />
+					<h:outputText rendered="#{!address.active}" value="&#10008;"
+						id="inactiveAddressCrossSign" />
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+
+		<p:panel id="contractsFieldSet" collapsed="true"
+			header="#{msg['person.detail.contractstab']}" toggleable="true"
+			toggleSpeed="250" widgetVar="contractsFieldSet"
+			styleClass="fieldSetLegend">
+
+			<p:dataTable id="contractsTable" var="contract" reflow="true"
+				rowStyleClass="contract_#{contract.state}"
+				value="#{personDetailController.personsContracts}"
+				style="padding-top:5px;">
+				<p:column headerText="Code">
+					<h:form>
+						<p:commandLink id="detailLinkSName" ajax="false"
+							action="#{contractDetailController.showDetail(contract)}"
+							value="#{contract.code}"></p:commandLink>
+					</h:form>
+				</p:column>
+				<p:column headerText="Start date">
+					<h:outputText value="#{contract.startDate}" />
+				</p:column>
+				<p:column headerText="End date">
+					<h:outputText value="#{contract.endDate}" />
+				</p:column>
+				<p:column headerText="Status">
+					<h:outputText value="#{contract.state}" />
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</ui:define>
+</ui:composition>

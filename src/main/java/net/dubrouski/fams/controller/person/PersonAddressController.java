@@ -83,7 +83,7 @@ public class PersonAddressController implements Serializable {
 		newAddress = new Address();
 		personToCreateAddress = person;
 
-		return "address";
+		return "address?faces-redirect=true";
 	}
 
 	public String addAddressToPerson() {
@@ -91,6 +91,7 @@ public class PersonAddressController implements Serializable {
 		personService.setAddressToPerson(this.personToCreateAddress,
 				this.newAddress, this.addressType);
 
+		//TODO replace with helper
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Address successfully added ("
@@ -98,6 +99,6 @@ public class PersonAddressController implements Serializable {
 		FacesContext.getCurrentInstance().getExternalContext().getFlash()
 				.setKeepMessages(true);
 
-		return "detail";
+		return "detail?faces-redirect=true";
 	}
 }
