@@ -25,6 +25,9 @@ data-source add \
 jms-queue add \
     --queue-address=contractQueue \
     --entries=java:/jms/queue/contractQueue
+jms-queue add \
+    --queue-address=personQueue \
+    --entries=java:/jms/queue/personQueue
 
 #define security domain   
 /subsystem=security/security-domain=FmsSecurityDomain:add
