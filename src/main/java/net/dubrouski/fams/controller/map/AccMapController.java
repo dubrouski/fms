@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import net.dubrouski.fams.model.AccommodationUnit;
@@ -39,7 +40,7 @@ public class AccMapController {
 
 	private MapModel simpleModel;
 
-	private Marker marker;
+	private AccUnitMarker marker;
 
 	@PostConstruct
 	public void init() {
@@ -62,7 +63,7 @@ public class AccMapController {
 					.getLongitude()));
 
 			simpleModel.addOverlay(new AccUnitMarker(coord, unit.getAddress()
-					.toShortString(), unit, ""));
+					.toLongString(), unit, ""));
 		}
 	}
 
@@ -71,10 +72,10 @@ public class AccMapController {
 	}
 
 	public void onMarkerSelect(OverlaySelectEvent event) {
-		marker = (Marker) event.getOverlay();
+		marker = (AccUnitMarker) event.getOverlay();
 	}
 
-	public Marker getMarker() {
+	public AccUnitMarker getMarker() {
 		return marker;
 	}
 

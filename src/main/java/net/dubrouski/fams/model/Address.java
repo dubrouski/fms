@@ -57,7 +57,7 @@ public class Address implements Serializable, BaseEntity {
 
 	@Column(name = "LONGITUDE")
 	private Double longitude;
-	
+
 	@OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
 	List<AccommodationUnit> accommodations;
 
@@ -124,7 +124,7 @@ public class Address implements Serializable, BaseEntity {
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
-	
+
 	public List<AccommodationUnit> getAccommodations() {
 		return accommodations;
 	}
@@ -132,26 +132,27 @@ public class Address implements Serializable, BaseEntity {
 	public void setAccommodations(List<AccommodationUnit> accommodations) {
 		this.accommodations = accommodations;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Address adr = (Address) obj;
-        if (this.getId() != adr.getId() && (this.getId() == null || !this.getId().equals(adr.getId()))) {
-            return false;
-        }
-        return true;
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Address adr = (Address) obj;
+		if (this.getId() != adr.getId()
+				&& (this.getId() == null || !this.getId().equals(adr.getId()))) {
+			return false;
+		}
+		return true;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return 3 * getCity().hashCode() + 5 * getStreetName().hashCode() +
-				11 * getFlatNumber().hashCode();				
+		return 3 * getCity().hashCode() + 5 * getStreetName().hashCode() + 11
+				* getFlatNumber().hashCode();
 	}
 
 	@Override
@@ -161,10 +162,13 @@ public class Address implements Serializable, BaseEntity {
 				+ streetNumber + ", flatNumber=" + flatNumber + ", latitude="
 				+ latitude + ", longitude=" + longitude + "]";
 	}
-	
-	public String toShortString(){
+
+	public String toShortString() {
 		return this.streetName + " " + this.streetNumber;
 	}
-	
-	
+
+	public String toLongString() {
+		return this.city + ", " + this.streetName + " " + this.streetNumber;
+	}
+
 }

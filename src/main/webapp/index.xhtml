@@ -10,53 +10,43 @@
 			style="width:100%;height:550px"
 			model="#{accMapController.simpleModel}">
 			<p:ajax event="overlaySelect"
-				listener="#{accMapController.onMarkerSelect}" />
+				listener="#{accMapController.onMarkerSelect}"
+				update="accDetailDialog" />
 
 			<p:gmapInfoWindow id="infoWindow">
 				<p:outputPanel
 					style="text-align: center; display: block; margin: auto">
 
 					<h:form>
-						<h:outputText value="#{accMapController.marker.data.name}" />
+						<h:outputText value="#{accMapController.marker.accUnit.name}" />
+						<br />
+						<h:outputText
+							value="#{accMapController.marker.accUnit.address.toLongString()}" />
 						<br />
 						<p:commandLink
 							action="#{accommodationDetailController.showDetail(accMapController.marker.data)}"
-							oncomplete="PF('cancelContractDialog').show();"
+							oncomplete="PF('accDetailDialog').show();"
 							value="Show detail information"></p:commandLink>
 						<br />
 					</h:form>
-<!-- 					<p:dataTable id="contractsTable1" var="contract" reflow="true" -->
-<!-- 						rowStyleClass="contract_#{contract.state}" -->
-<!-- 						value="#{contractService.getContractsByAccommodationUnit(accMapController.marker.data)}" -->
-<!-- 						style="padding-top:5px;"> -->
-
-<!-- 						<p:column headerText="Start date"> -->
-<!-- 							<h:outputText value="#{contract.startDate}" /> -->
-<!-- 						</p:column> -->
-<!-- 						<p:column headerText="End date"> -->
-<!-- 							<h:outputText value="#{contract.endDate}" /> -->
-<!-- 						</p:column> -->
-<!-- 						<p:column headerText="Status"> -->
-<!-- 							<h:outputText value="#{contract.state}" /> -->
-<!-- 						</p:column> -->
-<!-- 					</p:dataTable> -->
-					
-					
-
 				</p:outputPanel>
 			</p:gmapInfoWindow>
 		</p:gmap>
-		<p:dialog header="Accommodation detail"
-			widgetVar="cancelContractDialog" modal="true" height="300px"
-			width="500px" resizable="false">
-			<h:outputText value="#{accMapController.marker.data.type}" />
+		<p:dialog header="Accommodation detail" widgetVar="accDetailDialog"
+			id="accDetailDialog" modal="true" height="300px" width="500px"
+			resizable="false">
+			<h:outputText
+				value="Accommodation unit: #{accMapController.marker.accUnit}" />
 			<br />
 			<h:outputText
-				value="#{accMapController.marker.data.address.toShortString()}" />
+				value="Address: #{accMapController.marker.accUnit.address.toShortString()}" />
+			<br />
+			<h:outputText
+				value="Price: #{accMapController.marker.accUnit.price.basePrice} + #{accMapController.marker.accUnit.price.servicesPrice}" />
 			<h:form>
 				<p:commandButton id="detailButton" icon="ui-icon-search"
 					ajax="false"
-					action="#{accommodationDetailController.showDetail(accMapController.marker.data)}">
+					action="#{accommodationDetailController.showDetail(accMapController.marker.accUnit)}">
 					<p:tooltip id="detailButtonToolTip" for="detailButton"
 						value="Show detail" />
 
