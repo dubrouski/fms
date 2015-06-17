@@ -15,6 +15,7 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import net.dubrouski.fams.annotations.ContractEvent;
+import net.dubrouski.fams.controller.contract.bulkclose.ContractBulkClosureFinishedEvent;
 import net.dubrouski.fams.controller.contract.bulkclose.ContractStateChangeEvent;
 
 @ServerEndpoint("/bulkclosure")
@@ -38,9 +39,8 @@ public class ContractEndpoint implements Serializable {
 	public void open(Session session) {
 		this.sess = session;
 		try {
-			session.getBasicRemote().sendText("Backend: session established.");
+			session.getBasicRemote().sendText("Session established...");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		logger.info("Open session:" + session.getId());
@@ -48,13 +48,13 @@ public class ContractEndpoint implements Serializable {
 
 	@OnClose
 	public void close(Session session, CloseReason c) {
-		logger.info("Closing session:" + session.getId());
+		logger.info("Closing session...");
 	}
 
 	public void send(String msg) {
 		try {
 			if (this.sess == null) {
-				logger.info("SESSION IS NULL!");
+				logger.info("session is null");
 			}
 			this.sess.getBasicRemote().sendText(msg);
 		} catch (IOException e) {
@@ -69,6 +69,12 @@ public class ContractEndpoint implements Serializable {
 		logger.info("Contract changed state event observed: "
 				+ event.getContract().getCode());
 		this.send(event.getContract().toString());
+	}
+
+	public void onEvent(
+			@Observes @ContractEvent ContractBulkClosureFinishedEvent event) {
+		logger.info("Bulk assignment process finished event received. Informing client...");
+		this.send("Process of bulk closure just finished.");
 	}
 
 }

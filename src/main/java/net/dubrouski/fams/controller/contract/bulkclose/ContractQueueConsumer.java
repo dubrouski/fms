@@ -34,13 +34,13 @@ public class ContractQueueConsumer implements MessageListener {
 			logger.info("Received message from ContractQueue: "
 					+ payload.toString());
 
-			logger.info("Endpoint is OK, sending message...");
 			ContractStateChangeEvent csce = new ContractStateChangeEvent(
 					payload);
 			contractEvent.fire(csce);
 
 		} catch (JMSException e) {
-			logger.log(Level.WARNING, "Error occured on message receive");
+			logger.log(Level.WARNING,
+					"Error occured on message receive " + e.getCause());
 		}
 	}
 }

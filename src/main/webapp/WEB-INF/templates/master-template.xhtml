@@ -41,6 +41,29 @@
 		value="#{facesContext.externalContext.isUserInRole('client')}"
 		scope="request" />
 
+	<c:set var="userIsContractsAdmin"
+		value="#{facesContext.externalContext.isUserInRole('contractAdmin')}"
+		scope="request" />
+
+	<c:set var="userIsPersonsAdmin"
+		value="#{facesContext.externalContext.isUserInRole('persAdmin')}"
+		scope="request" />
+
+	<c:set var="userIsAccommAdmin"
+		value="#{facesContext.externalContext.isUserInRole('accommAdmin')}"
+		scope="request" />
+
+	<c:set var="userCanViewContracts"
+		value="#{facesContext.externalContext.isUserInRole('contractUser') or facesContext.externalContext.isUserInRole('contractAdmin')}"
+		scope="request" />
+
+	<c:set var="userCanViewPersons"
+		value="#{facesContext.externalContext.isUserInRole('persUser') or facesContext.externalContext.isUserInRole('persAdmin')}"
+		scope="request" />
+
+	<c:set var="userCanViewAccomm"
+		value="#{facesContext.externalContext.isUserInRole('accommUser') or facesContext.externalContext.isUserInRole('accommAdmin')}"
+		scope="request" />
 
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">

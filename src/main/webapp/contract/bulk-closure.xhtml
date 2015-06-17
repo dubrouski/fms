@@ -8,8 +8,15 @@
 	<ui:define id="content" name="content">
 
 		<h:outputText>Contracts bulk closure</h:outputText>
-		<a href="javascript:sendMessage()">Send message</a>
 
+
+		<h3>Contracts bulk closure</h3>
+		<p>Bulk closure will process all the contracts stored in the
+			database. Those of them, which are in 'Signed' status (i.e. active)
+			and at the same time which have end date of validity former than
+			today's date will be finished by setting their status to 'Closed'.</p>
+		<p>The process of closure will be reported by sending messages to
+			this page for every closed contract.</p>
 		<p:commandButton action="#{bulkClosureController.startNewBatchJob()}"
 			value="Start bulk closure of contracts"></p:commandButton>
 

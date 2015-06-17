@@ -5,9 +5,11 @@ import java.util.logging.Logger;
 
 import javax.batch.api.chunk.AbstractItemReader;
 import javax.batch.runtime.context.JobContext;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import net.dubrouski.fams.annotations.ContractEvent;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.service.ContractService;
 
@@ -22,6 +24,10 @@ public class ContractItemReader extends AbstractItemReader {
 
 	@Inject
 	Logger logger;
+
+	@Inject
+	@ContractEvent
+	Event<ContractBulkClosureFinishedEvent> processingFinishedEvent;
 
 	private long lastProcessedId = -1;
 
@@ -38,12 +44,14 @@ public class ContractItemReader extends AbstractItemReader {
 
 		Contract result = contractService.getContractById(lastProcessedId);
 
-		//TODO remove. Used to slow down execution.
-		Thread.sleep(100);
+		// TODO remove. Used to slow down execution.
+		Thread.sleep(30);
 
 		if (result == null) {
 			logger.info("Contract with id " + lastProcessedId
 					+ " not found. Stopping batch execution...");
+			ContractBulkClosureFinishedEvent BcFinishedEvent = new ContractBulkClosureFinishedEvent();
+			this.processingFinishedEvent.fire(BcFinishedEvent);
 			return null;
 		}
 
