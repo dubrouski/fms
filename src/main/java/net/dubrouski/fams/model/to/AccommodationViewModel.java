@@ -1,4 +1,4 @@
-package net.dubrouski.fams.model;
+package net.dubrouski.fams.model.to;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

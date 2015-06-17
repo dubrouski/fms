@@ -9,7 +9,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import net.dubrouski.fams.model.AccommodationViewModel;
+import net.dubrouski.fams.model.to.AccommodationViewModel;
 import net.dubrouski.fams.service.AccommodationUnitService;
 import net.dubrouski.fams.util.AccommodationConverter;
 

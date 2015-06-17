@@ -4,9 +4,9 @@ import javax.inject.Named;
 
 import net.dubrouski.fams.exception.FmsException;
 import net.dubrouski.fams.model.AccommodationUnit;
-import net.dubrouski.fams.model.AccommodationViewModel;
 import net.dubrouski.fams.model.Place;
 import net.dubrouski.fams.model.Room;
+import net.dubrouski.fams.model.to.AccommodationViewModel;
 
 @Named("accommodationConverter")
 public class AccommodationConverter {

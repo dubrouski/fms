@@ -1,6 +1,6 @@
 package net.dubrouski.fams.data;
 
-import net.dubrouski.fams.model.Member;
+import net.dubrouski.fams.model.X_Member;
 
 import java.util.List;
 
@@ -21,25 +21,25 @@ public class MemberListProducer {
    @Inject
    private EntityManager em;
 
-   private List<Member> members;
+   private List<X_Member> members;
 
    // @Named provides access the return value via the EL variable name "members" in the UI (e.g.,
    // Facelets or JSP view)
    @Produces
    @Named
-   public List<Member> getMembers() {
+   public List<X_Member> getMembers() {
       return members;
    }
 
-   public void onMemberListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Member member) {
+   public void onMemberListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final X_Member member) {
       retrieveAllMembersOrderedByName();
    }
 
    @PostConstruct
    public void retrieveAllMembersOrderedByName() {
       CriteriaBuilder cb = em.getCriteriaBuilder();
-      CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
-      Root<Member> member = criteria.from(Member.class);
+      CriteriaQuery<X_Member> criteria = cb.createQuery(X_Member.class);
+      Root<X_Member> member = criteria.from(X_Member.class);
       // Swap criteria statements if you would like to try out type-safe criteria queries, a new
       // feature in JPA 2.0
       // criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));

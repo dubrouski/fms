@@ -19,9 +19,8 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" />
 	<script src="http://maps.google.com/maps/api/js?sensor=false"
 		type="text/javascript"></script>
-	<link rel="stylesheet" href="/fms/resources/css/screen.css"></link>
-	<style type="text/css">
-</style>
+	<h:outputStylesheet name="css/screen.css" />
+
 </h:head>
 <h:body>
 	<!-- 	 define short aliases to checks for different user roles-->
@@ -53,7 +52,9 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/fms/">FMS</a>
+
+				<h:link value="FMS" class="navbar-brand" outcome="/index" />
+
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -62,30 +63,32 @@
 				<ul class="nav navbar-nav">
 
 
-					<li class="dropdown"><a href="/fms/accommodation/list.jsf"
-						class="dropdown-toggle" data-toggle="dropdown" role="button"
-						aria-expanded="false">Accommodation management <span
-							class="caret"></span>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">Accommodation
+							management <span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="/fms/accommodation/list.jsf">List all</a></li>
+							<li><h:link value="List all"
+									outcome="/accommodation/list.jsf" /></li>
 							<h:panelGroup
 								rendered="#{facesContext.externalContext.isUserInRole('accommAdmin')}">
-								<li><a href="/fms/accommodation/create.jsf">Create new</a></li>
+								<li><h:link value="Create new"
+										outcome="/accommodation/create.jsf" /></li>
 							</h:panelGroup>
 						</ul></li>
 
 					<h:panelGroup
 						rendered="#{facesContext.externalContext.isUserInRole('persAdmin') or facesContext.externalContext.isUserInRole('persUser')}">
-						<li class="dropdown"><a href="/fms/person/list.jsf"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-expanded="false">Person management <span class="caret"></span>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-expanded="false">Person
+								management <span class="caret"></span>
 						</a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="/fms/person/list.jsf">List all</a></li>
+								<li><h:link value="List all" outcome="/person/list.jsf" /></li>
 								<h:panelGroup
 									rendered="#{facesContext.externalContext.isUserInRole('persAdmin')}">
-									<li><a href="/fms/person/create.jsf">Create new</a></li>
+									<li><h:link value="Create new"
+											outcome="/person/create.jsf" /></li>
 								</h:panelGroup>
 							</ul></li>
 					</h:panelGroup>
@@ -107,10 +110,11 @@
 							aria-expanded="false">Contract management <span class="caret"></span>
 						</a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="/fms/contract/list.jsf">List all</a></li>
+								<li><h:link value="List all" outcome="/contract/list.jsf" /></li>
 								<h:panelGroup
 									rendered="#{facesContext.externalContext.isUserInRole('contractAdmin')}">
-									<li><a href="/fms/contract/create.jsf">Create new</a></li>
+									<li><h:link value="Create new"
+											outcome="/contract/create.jsf" /></li>
 								</h:panelGroup>
 							</ul></li>
 					</h:panelGroup>
@@ -122,19 +126,19 @@
 							aria-expanded="false">User management <span class="caret"></span>
 						</a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="/fms/user/list.jsf">List all</a></li>
+								<li><h:link value="List all" outcome="/user/list.jsf" /></li>
 								<h:panelGroup
 									rendered="#{facesContext.externalContext.isUserInRole('usermoduleAdmin')}">
-									<li><a href="/fms/user/create.jsf">Create new</a></li>
+									<li><h:link value="Create new" outcome="/user/create.jsf" /></li>
 								</h:panelGroup>
 							</ul></li>
 					</h:panelGroup>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><p:link rendered="#{isGuest}" href="/login.jsf"
-							value="#{msg['login.login']}"></p:link> <p:link
+					<li><h:link rendered="#{isGuest}" outcome="/login.jsf"
+							value="#{msg['login.login']}"></h:link> <h:link
 							rendered="#{!isGuest}" href="/login.jsf"
-							value="#{msg['login.logout']}"></p:link></li>
+							value="#{msg['login.logout']}"></h:link></li>
 
 				</ul>
 				<p:outputLabel rendered="#{!isGuest}"

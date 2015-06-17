@@ -6,10 +6,6 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/master-template.xhtml">
 	<ui:define name="management-content">
-
-		<h:outputText
-			value="Marker: #{accMapController.simpleModel.markers.size()}" />
-
 		<p:gmap center="49.2077533, 16.6043972" zoom="13" type="HYBRID"
 			style="width:100%;height:550px"
 			model="#{accMapController.simpleModel}">
