@@ -87,15 +87,14 @@
 
 
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false">Accommodation
-							management <span class="caret"></span>
+						data-toggle="dropdown" role="button" aria-expanded="false">#{msg['topmenu.accomm.modulename']}<span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><h:link value="List all"
+							<li><h:link value="#{msg['topmenu.accomm.list']}"
 									outcome="/accommodation/list.jsf" /></li>
 							<h:panelGroup
 								rendered="#{facesContext.externalContext.isUserInRole('accommAdmin')}">
-								<li><h:link value="Create new"
+								<li><h:link value="#{msg['topmenu.accomm.create']}"
 										outcome="/accommodation/create.jsf" /></li>
 							</h:panelGroup>
 						</ul></li>
@@ -103,14 +102,13 @@
 					<h:panelGroup
 						rendered="#{facesContext.externalContext.isUserInRole('persAdmin') or facesContext.externalContext.isUserInRole('persUser')}">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-expanded="false">Person
-								management <span class="caret"></span>
+							data-toggle="dropdown" role="button" aria-expanded="false">#{msg['topmenu.pers.modulename']}<span class="caret"></span>
 						</a>
 							<ul class="dropdown-menu" role="menu">
-								<li><h:link value="List all" outcome="/person/list.jsf" /></li>
+								<li><h:link value="#{msg['topmenu.pers.list']}" outcome="/person/list.jsf" /></li>
 								<h:panelGroup
 									rendered="#{facesContext.externalContext.isUserInRole('persAdmin')}">
-									<li><h:link value="Create new"
+									<li><h:link value="#{msg['topmenu.pers.create']}"
 											outcome="/person/create.jsf" /></li>
 								</h:panelGroup>
 							</ul></li>
@@ -122,7 +120,7 @@
 								<li><p:commandLink rendered="#{loginManager.loggedIn}"
 										ajax="false"
 										action="#{personDetailController.showDetailForLoggedPerson()}"
-										value="Personal data" /></li>
+										value="#{msg['topmenu.pers.personaldata']}" /></li>
 							</ul>
 						</h:form>
 					</h:panelGroup>
@@ -130,13 +128,13 @@
 						rendered="#{facesContext.externalContext.isUserInRole('contractAdmin') or facesContext.externalContext.isUserInRole('contractUser')}">
 						<li class="dropdown"><a href="/fms/contract/list.jsf"
 							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-expanded="false">Contract management <span class="caret"></span>
+							aria-expanded="false">#{msg['topmenu.contract.modulename']}<span class="caret"></span>
 						</a>
 							<ul class="dropdown-menu" role="menu">
-								<li><h:link value="List all" outcome="/contract/list.jsf" /></li>
+								<li><h:link value="#{msg['topmenu.contract.list']}" outcome="/contract/list.jsf" /></li>
 								<h:panelGroup
 									rendered="#{facesContext.externalContext.isUserInRole('contractAdmin')}">
-									<li><h:link value="Create new"
+									<li><h:link value="#{msg['topmenu.contract.create']}"
 											outcome="/contract/create.jsf" /></li>
 								</h:panelGroup>
 							</ul></li>
@@ -146,13 +144,13 @@
 						rendered="#{facesContext.externalContext.isUserInRole('usermoduleAdmin') or facesContext.externalContext.isUserInRole('usermoduleUser')}">
 						<li class="dropdown"><a href="/fms/user/list.jsf"
 							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-expanded="false">User management <span class="caret"></span>
+							aria-expanded="false">#{msg['topmenu.user.modulename']}<span class="caret"></span>
 						</a>
 							<ul class="dropdown-menu" role="menu">
-								<li><h:link value="List all" outcome="/user/list.jsf" /></li>
+								<li><h:link value="#{msg['topmenu.user.list']}" outcome="/user/list.jsf" /></li>
 								<h:panelGroup
 									rendered="#{facesContext.externalContext.isUserInRole('usermoduleAdmin')}">
-									<li><h:link value="Create new" outcome="/user/create.jsf" /></li>
+									<li><h:link value="#{msg['topmenu.user.create']}" outcome="/user/create.jsf" /></li>
 								</h:panelGroup>
 							</ul></li>
 					</h:panelGroup>

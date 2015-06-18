@@ -6,8 +6,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/accommodation-management-template.xhtml">
 	<ui:define name="accommodation-content">
-		<p:dataTable var="acc" value="#{accListingController.eagerUnits}"
-			rows="#{accListingController.pageSize}" paginator="true"
+		<p:dataTable var="acc" value="#{accommodationListingController.eagerUnits}"
+			rows="#{accommodationListingController.pageSize}" paginator="true"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="10,25,100">
 			<p:column headerText="#{msg['accommodation.code']}">
