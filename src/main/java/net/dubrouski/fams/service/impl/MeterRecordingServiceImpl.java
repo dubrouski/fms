@@ -2,6 +2,9 @@ package net.dubrouski.fams.service.impl;
 
 import java.util.Set;
 import java.util.logging.Logger;
+import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 
 import javax.inject.Inject;
 
@@ -16,6 +19,8 @@ import net.dubrouski.fams.service.MeterRecordingService;
  * @author Stanislau.Dubrouski
  *
  */
+@Stateful
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class MeterRecordingServiceImpl implements MeterRecordingService {
 
 	@Inject
@@ -31,6 +36,7 @@ public class MeterRecordingServiceImpl implements MeterRecordingService {
 	Logger logger;
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void addStartMetersRecordForContract(Contract contract,
 			MeterRecord record) {
 		logger.info("Start meter record " + record.toString()
@@ -43,6 +49,7 @@ public class MeterRecordingServiceImpl implements MeterRecordingService {
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void addFinishMetersRecordForContract(Contract contract,
 			MeterRecord record) {
 		logger.info("Finishing meter record " + record.toString()

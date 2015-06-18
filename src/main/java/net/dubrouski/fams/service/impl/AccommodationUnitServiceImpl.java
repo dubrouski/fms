@@ -3,6 +3,13 @@ package net.dubrouski.fams.service.impl;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,6 +25,9 @@ import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.service.AccommodationUnitService;
 
 @Named(value = "accommodationService")
+@Stateful
+@RolesAllowed("contractAdmin")
+@TransactionManagement(TransactionManagementType.CONTAINER)
 public class AccommodationUnitServiceImpl implements AccommodationUnitService, Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -35,6 +45,7 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 	Logger logger;
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void save(AccommodationUnit unit) {
 		if(unit.getId() != null){
 			throw new FmsException("Cannot save: already existing entity: " + unit);
@@ -45,6 +56,7 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void delete(AccommodationUnit unit) {		
 		logger.info("Deleting Accommodation: " + unit);
 		unitDao.delete(unit);
@@ -52,6 +64,7 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void update(AccommodationUnit unit) {
 		logger.info("Updating Accommodation: " + unit);
 		unitDao.update(unit);
@@ -59,6 +72,7 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 	}
 
 	@Override
+        @RolesAllowed({"contractAdmin", "contractUser"})
 	public AccommodationUnit getAccommodationById(Long id) {
 		logger.info("Retrieving Accommodation by id: " + id);
 		AccommodationUnit found = unitDao.getByID(id);
@@ -67,6 +81,7 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 	}
 
 	@Override
+        @PermitAll
 	public List<AccommodationUnit> listAccommodations() {
 		logger.info("Retrieving all Accommodations...");
 		List<AccommodationUnit> found = unitDao.listAll();
@@ -75,6 +90,7 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void setPrice(AccommodationUnit unit, Price price) {
 		logger.info("Setting new price for Accommodation: " + unit);
 		Price currentPrice = unit.getPrice();
@@ -89,6 +105,7 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void setAddress(AccommodationUnit unit, Address address) {
 		logger.info("Setting new address for Accommodation: " + unit);
 		Address current = unit.getAddress();
@@ -100,6 +117,7 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void setAddressWithChildren(AccommodationUnit unit, Address address) {
 		logger.info("Setting new address for Accommodation with children: " + unit);
 		Address current = unit.getAddress();
@@ -111,6 +129,7 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 	}
 
 	@Override
+        @PermitAll
 	public List<AccommodationUnit> listAccommodationsByType(String type) {
 		logger.info("Retrieving Accommodations by type: " + type);
 		List<AccommodationUnit> found = unitDao.listAccommodationsByType(type);
@@ -119,6 +138,7 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 	}
 
 	@Override
+        @PermitAll
 	public List<AccommodationUnit> getAccommodationsByPage(int pageSize, int first) {
 		logger.info("Retrieving Accommodations by page " + pageSize + ", " + first);
 		List<AccommodationUnit> found = unitDao.getAccommodationsByPage(pageSize, first);
@@ -127,6 +147,7 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 	}
 	
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void updateOrCreateAddress(AccommodationUnit unit, Address address) {
 		if(address.getId() == null){
 			addressDao.save(address);
@@ -149,17 +170,20 @@ public class AccommodationUnitServiceImpl implements AccommodationUnitService, S
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void createNewChild(AccommodationComposite parent, AccommodationUnit child) {
 		unitDao.save(child);
 		unitDao.addChild(parent, child);
 	}
 
 	@Override
+        @PermitAll
 	public AccommodationUnit getParent(AccommodationUnit unit) {
 		return unitDao.getParent(unit);
 	}
 
 	@Override
+        @PermitAll
 	public boolean hasParent(AccommodationUnit unit) {
 		return unitDao.hasParent(unit);
 	}

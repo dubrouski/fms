@@ -4,6 +4,12 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,6 +30,9 @@ import net.dubrouski.fams.service.ContractService;
  * Created by tmarton on 5/2/15.
  */
 @Named(value = "contractService")
+@Stateful
+@RolesAllowed("contractAdmin")
+@TransactionManagement(TransactionManagementType.CONTAINER)
 public class ContractServiceImpl implements ContractService {
 
 	@Inject
@@ -39,12 +48,14 @@ public class ContractServiceImpl implements ContractService {
 	Logger logger;
 
 	@Override
+        @RolesAllowed({"contractAdmin", "contractUser"})
 	public Contract getContractById(Long id) {
 		logger.info("Retrieving Contract by id:" + id);
 		return contractDao.getByID(id);
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void saveContract(Contract contract, Price price) {
 		logger.info("Saving Contract");
 		if (contract.getId() != null) {
@@ -58,24 +69,28 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void updateContract(Contract contract) {
 		logger.info("Updating Contract with id:" + contract.getId());
 		contractDao.update(contract);
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void deleteContract(Contract contract) {
 		logger.info("Deleting Contract with id:" + contract.getId());
 		contractDao.delete(contract);
 	}
 
 	@Override
+        @RolesAllowed({"contractAdmin", "contractUser"})
 	public List<Contract> listContracts() {
 		logger.info("Retrieving all Contracts.");
 		return contractDao.listAll();
 	}
 
 	@Override
+        @RolesAllowed({"contractAdmin", "contractUser"})
 	public List<Contract> getContractsByPerson(Person person) {
 		logger.info("Retrieving all Contracts by Person with id:"
 				+ person.getId());
@@ -83,6 +98,7 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
+        @RolesAllowed({"contractAdmin", "contractUser"})
 	public List<Contract> getContractsByAccommodationUnit(
 			AccommodationUnit accommodationUnit) {
 		logger.info("Retrieving all Contracts by Address with id:"
@@ -91,6 +107,7 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
+        @RolesAllowed({"contractAdmin", "contractUser"})
 	public List<Contract> listContracts(int pageSize, int first,
 			String sortField, SortingOrder sortingOrder, String searchTerm) {
 		logger.info(String.format("Listing for %d, %d, %s %s", pageSize, first,
@@ -101,11 +118,13 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
+        @RolesAllowed({"contractAdmin", "contractUser"})
 	public long getContractsCount() {
 		return contractDao.getContractsCount();
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public boolean handoverKeys(Contract contract) {
 		logger.info("Keys handover requested for contract: "
 				+ contract.getCode());
@@ -125,6 +144,7 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public boolean cancelContract(Contract contract) {
 		// TODO create tests
 		logger.info("Cancellation requested for contract: "
@@ -141,6 +161,7 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public boolean signContract(Contract contract) {
 		// TODO complete implementation
 		// TODO create tests
@@ -157,6 +178,7 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public boolean closeContract(Contract contract) {
 		// TODO create tests
 		logger.info("Closing requested for contract: " + contract.getCode());
@@ -173,6 +195,7 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public boolean createTerminationRequest(Contract contract) {
 		// TODO complete implementation
 		// TODO create tests

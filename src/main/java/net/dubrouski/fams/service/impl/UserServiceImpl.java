@@ -5,6 +5,13 @@ import java.security.Security;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,6 +29,9 @@ import net.dubrouski.fams.util.SHA512;
  * @author Martin Jelínek (xjeline5)
  */
 @Named(value = "userService")
+@Stateful
+@RolesAllowed("usermoduleAdmin")
+@TransactionManagement(TransactionManagementType.CONTAINER)
 public class UserServiceImpl implements UserService {
 	@Inject
 	UserDao userDao;
@@ -33,6 +43,7 @@ public class UserServiceImpl implements UserService {
 	Logger logger;
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void saveUser(User user) {
 
 		user.setPassword(SHA512.hashText(user.getPassword()));
@@ -41,6 +52,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void updateUser(User user) {
 		userDao.update(user);
 	}
@@ -51,6 +63,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void deleteUser(User user) {
 		logger.log(Level.INFO, "Requested deletion of user: {0}",
 				user.toString());
@@ -64,6 +77,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+        @PermitAll
 	public List<UserRole> listUserRoles() {
 		return rolesDao.listAll();
 	}
