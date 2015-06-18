@@ -6,15 +6,15 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/accommodation-management-template.xhtml">
 	<ui:define name="accommodation-content">
-		<h3>Change Address for: #{accAddressController.unitWithAddress.type} - #{accAddressController.unitWithAddress.name}</h3>
+		<h3>Change Address for: #{accommodationAddressController.unitWithAddress.type} - #{accommodationAddressController.unitWithAddress.name}</h3>
 		<h:form id="reg">
 			<p:panelGrid columns="3" cellpadding="5">
 			
 				<p:outputLabel for="country" value="#{msg['country']}" />
 				<p:selectOneMenu id="country" converter="codeToCountryConverter"
-					value="#{accAddressController.unitsAddress.country}">
+					value="#{accommodationAddressController.unitsAddress.country}">
 					<f:selectItem itemLabel="Select One" itemValue="" />
-					<f:selectItems value="#{accAddressController.countriesList}"
+					<f:selectItems value="#{accommodationAddressController.countriesList}"
 						var="country" itemLabel="#{msg['country.'.concat(country.code)]}"
 						itemValue="#{country.code}" />
 				</p:selectOneMenu>
@@ -22,50 +22,50 @@
 
 				<p:outputLabel for="city" value="#{msg['address.city']}:" />
 				<p:inputText id="city"
-					value="#{accAddressController.unitsAddress.city}"></p:inputText>
+					value="#{accommodationAddressController.unitsAddress.city}"></p:inputText>
 				<p:message for="city" />
 
 				<p:outputLabel for="streetName" value="#{msg['address.street']}:" />
 				<p:inputText id="streetName"
-					value="#{accAddressController.unitsAddress.streetName}"></p:inputText>
+					value="#{accommodationAddressController.unitsAddress.streetName}"></p:inputText>
 				<p:message for="streetName" />
 
 				<p:outputLabel for="streetNumber" value="#{msg['address.streetNo']}:" />
 				<p:inputText id="streetNumber"
-					value="#{accAddressController.unitsAddress.streetNumber}"></p:inputText>
+					value="#{accommodationAddressController.unitsAddress.streetNumber}"></p:inputText>
 				<p:message for="streetNumber" />
 
 				<p:outputLabel for="flatNumber" value="#{msg['address.flat']}" />
 				<p:inputText id="flatNumber"
-					value="#{accAddressController.unitsAddress.flatNumber}"></p:inputText>
+					value="#{accommodationAddressController.unitsAddress.flatNumber}"></p:inputText>
 				<p:message for="flatNumber" />
 				
 				<p:outputLabel for="latitude" value="#{msg['address.latitude']}" />
 				<p:inputText id="latitude"
-					value="#{accAddressController.unitsAddress.latitude}"></p:inputText>
+					value="#{accommodationAddressController.unitsAddress.latitude}"></p:inputText>
 				<p:message for="latitude" />
 				
 				<p:outputLabel for="longitude" value="#{msg['address.longitude']}" />
 				<p:inputText id="longitude"
-					value="#{accAddressController.unitsAddress.longitude}"></p:inputText>
+					value="#{accommodationAddressController.unitsAddress.longitude}"></p:inputText>
 				<p:message for="longitude" />
 
 			</p:panelGrid>
 			
 			<p:gmap id="gmap" styleClass="map-coordinates-selection"
-					center="#{accAddressController.unitsAddress.latitude}, #{accAddressController.unitsAddress.longitude}"
+					center="#{accommodationAddressController.unitsAddress.latitude}, #{accommodationAddressController.unitsAddress.longitude}"
 					zoom="15" type="ROADMAP" style="width:65%;height:400px"
-					model="#{accAddressController.mapModel}">
+					model="#{accommodationAddressController.mapModel}">
 					<p:ajax event="pointSelect"
-						listener="#{accAddressController.onPointSelect}"
+						listener="#{accommodationAddressController.onPointSelect}"
 						update="latitude,longitude" />
 				</p:gmap>
 			
 			<p:commandButton ajax="false" id="createAddress" style="margin-top:10px;"
-						action="#{accAddressController.updateAddress()}"
+						action="#{accommodationAddressController.updateAddress()}"
 						value="Update Address" />
 				<p:commandButton ajax="false" icon="ui-icon-closethick" style="margin-top:10px;"
-						action="#{accommodationDetailController.showDetail(accAddressController.unitWithAddress)}" 
+						action="#{accommodationDetailController.showDetail(accommodationAddressController.unitWithAddress)}" 
 				   		value="Cancel" />			   
 		</h:form>
 	</ui:define>

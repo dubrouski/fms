@@ -80,8 +80,8 @@
 					modal="true" height="300px" width="500px" resizable="false">
 					<p:commandButton
 						action="#{contractDetailController.signContract()}"
-						oncomplete="PF('signContractDialog').hide();"
-						update="msgs, state" value="Really sign contract!"></p:commandButton>
+						oncomplete="PF('signContractDialog').hide();" update="msgs, state"
+						value="Really sign contract!"></p:commandButton>
 				</p:dialog>
 				<p:dialog header="Close contract" widgetVar="closeContractDialog"
 					modal="true" height="300px" width="500px" resizable="false">
@@ -151,15 +151,10 @@
 				<div class="ui-grid-col-4">
 					<h:outputFormat id="terminationRequested"
 						value="#{contractDetailController.contract.terminationRequestDate eq null ? 'No ' : 'Yes '}" />
-
-
 					<h:outputFormat
 						value="#{contractDetailController.contract.terminationRequestDate}"
 						id="terminationRequestDate" converter="dateStringConverter"
 						rendered="#{contractDetailController.contract.terminationRequestDate ne null}" />
-
-
-
 				</div>
 				<div class="ui-grid-col-4">
 					<p:commandButton id="terminationRequestDialogButton"
@@ -168,32 +163,32 @@
 						type="button" onclick="PF('terminationRequestDialog').show();"
 						icon="ui-icon-key" />
 				</div>
-
-
 				<p:dialog header="Termination request creation"
 					widgetVar="terminationRequestDialog" modal="true" height="300px"
 					width="500px" resizable="false">
-
 					<p:commandButton
-						action="#{contractDetailController.createTerminationRequest()}"						
+						action="#{contractDetailController.createTerminationRequest()}"
 						oncomplete="PF('terminationRequestDialog').hide();"
 						update="msgs,terminationRequested,terminationRequestDate"
 						value="Create termination request."></p:commandButton>
 				</p:dialog>
-
-
-
 			</div>
 
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-4">
 					<h:outputLabel value="Base Price:" />
 				</div>
-				<div class="ui-grid-col4">
+				<div class="ui-grid-col-4">
 					<h:outputText id="basePrice"
 						value="#{contractDetailController.contract.price.basePrice}" />
 					<h:outputText id="currency"
 						value=" #{contractDetailController.contract.price.currency}" />
+				</div>
+				<div class="ui-grid-col-4">
+					<p:commandButton id="changeCurrButton" icon="ui-icon-pencil"
+						value="Change Currency"
+						action="#{currencyChangeController.start(contractDetailController.contract)}">
+					</p:commandButton>
 				</div>
 			</div>
 
@@ -201,30 +196,14 @@
 				<div class="ui-grid-col-4">
 					<h:outputLabel value="Services Price:" />
 				</div>
-				<div class="ui-grid-col4">
+				<div class="ui-grid-col-4">
 					<h:outputText id="servicesPrice"
 						value="#{contractDetailController.contract.price.servicesPrice}" />
 					<h:outputText
 						value=" #{contractDetailController.contract.price.currency}" />
 				</div>
+
 			</div>
-
-			<!-- 			<div class="ui-grid-row"> -->
-			<!-- 				<div class="ui-grid-col-4"> -->
-			<!-- 					<h:outputLabel value="Currency:" /> -->
-			<!-- 				</div> -->
-			<!-- 				<div class="ui-grid-col-4"> -->
-			<!-- 					<h:outputText id="currency" -->
-			<!-- 						value="#{contractDetailController.contract.price.currency}" /> -->
-			<!-- 				</div> -->
-			<!-- 				<div class="ui-grid-col4"> -->
-			<!-- 					<p:commandButton id="changeCurrButton" icon="ui-icon-pencil" -->
-			<!-- 						value="Change Currency" -->
-			<!-- 						action="#{currencyChangeController.start(contractDetailController.contract)}"> -->
-			<!-- 					</p:commandButton> -->
-			<!-- 				</div> -->
-			<!-- 			</div> -->
-
 
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-4">

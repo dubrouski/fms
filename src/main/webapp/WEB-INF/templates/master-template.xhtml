@@ -87,7 +87,8 @@
 
 
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false">#{msg['topmenu.accomm.modulename']}<span class="caret"></span>
+						data-toggle="dropdown" role="button" aria-expanded="false">#{msg['topmenu.accomm.modulename']}<span
+							class="caret"></span>
 					</a>
 						<ul class="dropdown-menu" role="menu">
 							<li><h:link value="#{msg['topmenu.accomm.list']}"
@@ -102,10 +103,12 @@
 					<h:panelGroup
 						rendered="#{facesContext.externalContext.isUserInRole('persAdmin') or facesContext.externalContext.isUserInRole('persUser')}">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-expanded="false">#{msg['topmenu.pers.modulename']}<span class="caret"></span>
+							data-toggle="dropdown" role="button" aria-expanded="false">#{msg['topmenu.pers.modulename']}<span
+								class="caret"></span>
 						</a>
 							<ul class="dropdown-menu" role="menu">
-								<li><h:link value="#{msg['topmenu.pers.list']}" outcome="/person/list.jsf" /></li>
+								<li><h:link value="#{msg['topmenu.pers.list']}"
+										outcome="/person/list.jsf" /></li>
 								<h:panelGroup
 									rendered="#{facesContext.externalContext.isUserInRole('persAdmin')}">
 									<li><h:link value="#{msg['topmenu.pers.create']}"
@@ -128,10 +131,12 @@
 						rendered="#{facesContext.externalContext.isUserInRole('contractAdmin') or facesContext.externalContext.isUserInRole('contractUser')}">
 						<li class="dropdown"><a href="/fms/contract/list.jsf"
 							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-expanded="false">#{msg['topmenu.contract.modulename']}<span class="caret"></span>
+							aria-expanded="false">#{msg['topmenu.contract.modulename']}<span
+								class="caret"></span>
 						</a>
 							<ul class="dropdown-menu" role="menu">
-								<li><h:link value="#{msg['topmenu.contract.list']}" outcome="/contract/list.jsf" /></li>
+								<li><h:link value="#{msg['topmenu.contract.list']}"
+										outcome="/contract/list.jsf" /></li>
 								<h:panelGroup
 									rendered="#{facesContext.externalContext.isUserInRole('contractAdmin')}">
 									<li><h:link value="#{msg['topmenu.contract.create']}"
@@ -144,13 +149,16 @@
 						rendered="#{facesContext.externalContext.isUserInRole('usermoduleAdmin') or facesContext.externalContext.isUserInRole('usermoduleUser')}">
 						<li class="dropdown"><a href="/fms/user/list.jsf"
 							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-expanded="false">#{msg['topmenu.user.modulename']}<span class="caret"></span>
+							aria-expanded="false">#{msg['topmenu.user.modulename']}<span
+								class="caret"></span>
 						</a>
 							<ul class="dropdown-menu" role="menu">
-								<li><h:link value="#{msg['topmenu.user.list']}" outcome="/user/list.jsf" /></li>
+								<li><h:link value="#{msg['topmenu.user.list']}"
+										outcome="/user/list.jsf" /></li>
 								<h:panelGroup
 									rendered="#{facesContext.externalContext.isUserInRole('usermoduleAdmin')}">
-									<li><h:link value="#{msg['topmenu.user.create']}" outcome="/user/create.jsf" /></li>
+									<li><h:link value="#{msg['topmenu.user.create']}"
+											outcome="/user/create.jsf" /></li>
 								</h:panelGroup>
 							</ul></li>
 					</h:panelGroup>
@@ -158,7 +166,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><h:link rendered="#{isGuest}" outcome="/login.jsf"
 							value="#{msg['login.login']}"></h:link> <h:link
-							rendered="#{!isGuest}" href="/login.jsf"
+							rendered="#{!isGuest}" outcome="/login.jsf"
 							value="#{msg['login.logout']}"></h:link></li>
 
 				</ul>

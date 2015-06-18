@@ -17,6 +17,8 @@ import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.BaseEntity;
 import net.dubrouski.fams.model.Country;
+import net.dubrouski.fams.service.CurrencyService;
+import net.dubrouski.fams.service.impl.CurrencyServiceImpl;
 import net.dubrouski.fams.util.Resources;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -42,7 +44,10 @@ public class AddressDaoTest {
 				.addPackage("net.dubrouski.fams.model.enums")
 				.addPackage("net.dubrouski.fams.exception")
 				.addPackage("net.dubrouski.fams.converter")
-				.addClasses(Resources.class)
+				.addPackage("net.dubrouski.fams.service")
+				.addPackage("net.dubrouski.fams.service.impl")
+				.addClasses(Resources.class, CurrencyService.class,
+						CurrencyServiceImpl.class)
 				.addAsResource("META-INF/persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

@@ -22,35 +22,36 @@ import net.dubrouski.fams.validator.EntityValidator;
 @Named
 @Stateful
 @TransactionManagement(TransactionManagementType.CONTAINER)
-public class PriceServiceImpl implements Serializable, PriceService{
+public class PriceServiceImpl implements Serializable, PriceService {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	PriceDao priceDao;
-	
+
 	@Inject
 	CurrencyService currencyService;
 
 	@Override
-        @TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void update(Price price) {
 		priceDao.update(price);
 	}
-	
+
 	@Override
-        @TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void changeCurrency(Price p, String newCurrency){
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void changeCurrency(Price p, String newCurrency) {
 		EntityValidator.validate(p);
 		EntityValidator.validateId(p);
-		if(newCurrency == null){
+		if (newCurrency == null) {
 			throw new FmsException("New currency is null");
 		}
 		BigDecimal rate = currencyService.getRate(p.getCurrency(), newCurrency);
-		p.setBasePrice(p.getBasePrice().multiply(rate).setScale(2, RoundingMode.CEILING).stripTrailingZeros());
+		p.setBasePrice(p.getBasePrice().multiply(rate)
+				.setScale(2, RoundingMode.CEILING).stripTrailingZeros());
 		p.setServicesPrice(p.getServicesPrice().multiply(rate));
 		p.setCurrency(newCurrency);
 		priceDao.update(p);
 	}
-	
+
 }

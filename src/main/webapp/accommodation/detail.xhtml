@@ -48,7 +48,7 @@
 
 				<p:commandButton ajax="false"
 					style="float:right; margin-bottom:10px;"
-					action="#{accPriceController.startUpdate(accommodationDetailController.unit, accommodationDetailController.price)}"
+					action="#{accommodationPriceController.startUpdate(accommodationDetailController.unit, accommodationDetailController.price)}"
 					value="Update Price" icon="ui-icon-pencil" />
 
 				<p:panelGrid columns="2" layout="grid">
@@ -70,7 +70,7 @@
 
 				<p:commandButton ajax="false"
 					style="float:right; margin-bottom:10px;"
-					action="#{accAddressController.startUpdate(accommodationDetailController.unit, accommodationDetailController.address)}"
+					action="#{accommodationAddressController.startUpdate(accommodationDetailController.unit, accommodationDetailController.address)}"
 					value="Update Address" icon="ui-icon-pencil"
 					rendered="#{!accommodationDetailController.hasUnitParent()}" />
 
@@ -97,7 +97,7 @@
 				<h:form>
 					<p:commandButton ajax="false"
 						style="float:right; margin-bottom:10px;"
-						action="#{accChildController.start(accommodationDetailController.unit)}"
+						action="#{accommodationChildController.start(accommodationDetailController.unit)}"
 						value="Create New Child" icon="ui-icon-plusthick" />
 				</h:form>
 

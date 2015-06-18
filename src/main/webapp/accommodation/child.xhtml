@@ -12,23 +12,23 @@
 			<p:panelGrid columns="3" layout="grid" cellpadding="5">
 
 				<p:outputLabel for="name" value="#{msg['accommodation.name']}:" />
-				<p:inputText id="name" value="#{accChildController.newAccommodation.name}" />
+				<p:inputText id="name" value="#{accommodationChildController.newAccommodation.name}" />
 				<p:message for="name" />
 
 				<p:outputLabel for="depositAmount" value="#{msg['accommodation.deposit']}:" />
-				<p:inputText id="depositAmount" value="#{accChildController.newAccommodation.depositAmount}" >
+				<p:inputText id="depositAmount" value="#{accommodationChildController.newAccommodation.depositAmount}" >
 				    <f:convertNumber maxFractionDigits="2" minFractionDigits="0" />
                 </p:inputText>
 				<p:message for="depositAmount" />
 
   				<p:outputLabel for="isActive" value="#{msg['accommodation.active']}:" />
-				<p:selectBooleanCheckbox id="isActive" value="#{accChildController.newAccommodation.isActive}" />
+				<p:selectBooleanCheckbox id="isActive" value="#{accommodationChildController.newAccommodation.isActive}" />
  				<p:message for="isActive" />
 
 				<p:outputLabel for="type" value="#{msg['accommodation.type']}:" />				
-				<p:selectOneMenu id="type" 	value="#{accChildController.newAccommodation.type}">
+				<p:selectOneMenu id="type" 	value="#{accommodationChildController.newAccommodation.type}">
 					<f:selectItem itemLabel="Select One" itemValue="" />
-					<f:selectItems value="#{accChildController.typesList}"
+					<f:selectItems value="#{accommodationChildController.typesList}"
 						var="t" itemLabel="#{msg['accommodation.'.concat(t)]}"
 						itemValue="#{t}" />
 				</p:selectOneMenu>				
@@ -36,7 +36,7 @@
 
 			</p:panelGrid>
 			<p:commandButton ajax="false" id="register"
-				action="#{accChildController.createAccommodation}"
+				action="#{accommodationChildController.createAccommodation}"
 				value="#{msg['create']}" />
 		</h:form>
 	</ui:define>

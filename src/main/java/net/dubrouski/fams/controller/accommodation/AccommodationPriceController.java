@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Price;
 import net.dubrouski.fams.service.AccommodationUnitService;
+import net.dubrouski.fams.service.PriceService;
 
 @ManagedBean
 @SessionScoped
@@ -24,6 +25,9 @@ public class AccommodationPriceController implements Serializable{
 	
 	@Inject
 	private AccommodationUnitService unitService;
+	
+	@Inject
+	private PriceService priceService;
 	
 	@Inject
 	private AccommodationDetailController detailController;
@@ -55,6 +59,7 @@ public class AccommodationPriceController implements Serializable{
 	}
 	
 	public String updatePrice(){
+		priceService.update(unitsPrice);
 		unitService.setPrice(unitWithPrice, unitsPrice);
 		return detailController.showDetail(unitWithPrice);
 	}
