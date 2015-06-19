@@ -81,7 +81,7 @@
 	</navigation-rule>
 
 	<navigation-rule>
-		<from-view-id>/accommodation/detail.xhtml</from-view-id>
+		<from-view-id>/accommodation/*</from-view-id>
 		<navigation-case>
 			<from-outcome>contract-create?faces-redirect=true</from-outcome>
 			<to-view-id>/contract/create.xhtml</to-view-id>

@@ -165,9 +165,10 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><h:link rendered="#{isGuest}" outcome="/login.jsf"
-							value="#{msg['login.login']}"></h:link> <h:link
-							rendered="#{!isGuest}" outcome="/login.jsf"
-							value="#{msg['login.logout']}"></h:link></li>
+							value="#{msg['login.login']}" /> <h:form>
+							<p:commandLink ajax="false" rendered="#{!isGuest}" styleClass="logout-link"
+								action="#{loginManager.logout}" value="X" />
+						</h:form></li>
 
 				</ul>
 				<p:outputLabel rendered="#{!isGuest}"

@@ -7,7 +7,7 @@
 	template="/WEB-INF/templates/master-template.xhtml">
 	<ui:define id="content" name="management-content">
 		<h:form class="login">
-			<p:panelGrid columns="1" layout="grid"
+			<p:panelGrid columns="3" layout="grid"
 				rendered="#{loginManager.loggedIn}">
 				<h:outputText value="Logged in as  #{loginManager.currentUser.name}"></h:outputText>
 				<h:outputText rendered="#{isClient}"
