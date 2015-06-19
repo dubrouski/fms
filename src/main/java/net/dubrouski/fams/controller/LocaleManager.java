@@ -35,7 +35,7 @@ public class LocaleManager implements Serializable {
 
 	@PostConstruct
 	public void setDefaultLocale() {
-		this.locale = new Locale("en_us");
+		this.locale = new Locale("en");
 		
 //		this.locale = FacesContext.getCurrentInstance().getViewRoot()
 //				.getLocale();
