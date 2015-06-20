@@ -21,8 +21,8 @@ public class AddressSerializer extends JsonSerializer<Address>{
 		generator.writeStringField("streetName", a.getStreetName());
 		generator.writeStringField("streetNumber", a.getStreetNumber());
 		generator.writeStringField("flatNumber", a.getFlatNumber());
-		generator.writeNumber(a.getLatitude());
-		generator.writeNumber(a.getLongitude());
+		generator.writeNumberField("latitude", a.getLatitude());
+		generator.writeNumberField("longitude", a.getLongitude());
 		generator.writeFieldName("country");
 		generator.writeObject(a.getCountry());
 		generator.writeEndObject();

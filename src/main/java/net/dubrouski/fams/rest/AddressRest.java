@@ -1,6 +1,7 @@
 package net.dubrouski.fams.rest;
 
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -19,6 +20,7 @@ import net.dubrouski.fams.service.AddressService;
 @Path("/addresses")
 @Produces("application/json")
 @Consumes("application/json")
+@RolesAllowed("contractAdmin")
 public class AddressRest {
 	
 	@Inject

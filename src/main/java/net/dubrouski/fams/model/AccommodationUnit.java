@@ -80,7 +80,7 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 	
 	private static final List<String> typesList = Arrays.asList("place", "room");
 	
-	public boolean isComposite(){
+	public boolean isCompositeType(){
 		if(this instanceof AccommodationComposite){
 			return true; 
 		}
@@ -94,7 +94,7 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 	}
 	
 	public AccommodationComposite getComposite(){
-		if(isComposite()){
+		if(isCompositeType()){
 			return castToComposite();
 		}
 		return null;
