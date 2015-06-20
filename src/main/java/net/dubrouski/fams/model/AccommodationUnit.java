@@ -26,6 +26,7 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
 import net.dubrouski.fams.util.AccommodationDeserializer;
+import org.codehaus.jackson.annotate.JsonIgnore;
 /**
  * 
  * @author ondrej.prazak
@@ -93,6 +94,7 @@ public abstract class AccommodationUnit implements Serializable, BaseEntity {
 		return (AccommodationComposite) this;
 	}
 	
+        @JsonIgnore
 	public AccommodationComposite getComposite(){
 		if(isCompositeType()){
 			return castToComposite();
