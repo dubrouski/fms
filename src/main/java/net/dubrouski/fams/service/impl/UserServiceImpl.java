@@ -1,10 +1,9 @@
 package net.dubrouski.fams.service.impl;
 
-import java.security.MessageDigest;
-import java.security.Security;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateful;
@@ -12,7 +11,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -30,7 +28,7 @@ import net.dubrouski.fams.util.SHA512;
  */
 @Named(value = "userService")
 @Stateful
-@PermitAll
+@RolesAllowed("usermoduleAdmin")
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class UserServiceImpl implements UserService {
 	@Inject

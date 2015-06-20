@@ -3,6 +3,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RunAs;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
@@ -25,9 +26,7 @@ import net.dubrouski.fams.service.UserService;
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 		@ActivationConfigProperty(propertyName = "destination", propertyValue = "java:/jms/queue/personQueue"),
 		@ActivationConfigProperty(propertyName = "useJNDI", propertyValue = "true") })
-@SecurityDomain("FmsSecurityDomain")
 @RunAs("usermoduleAdmin")
-@RunAsPrincipal("technical_user")
 public class PersonQueueConsumer implements MessageListener {
 
 	@Inject
@@ -37,6 +36,7 @@ public class PersonQueueConsumer implements MessageListener {
 	Logger logger;
 
 	@Override
+	@PermitAll
 	public void onMessage(Message message) {
 		try {
 			Person payload = message.getBody(Person.class);
