@@ -30,7 +30,7 @@ import net.dubrouski.fams.util.SHA512;
  */
 @Named(value = "userService")
 @Stateful
-@RolesAllowed("usermoduleAdmin")
+@PermitAll
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class UserServiceImpl implements UserService {
 	@Inject

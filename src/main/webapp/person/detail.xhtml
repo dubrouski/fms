@@ -8,14 +8,13 @@
 	<ui:define name="content">
 		<h:form>
 			<p:commandButton id="personDeleteButton" style="margin-bottom:10px;"
-				ajax="false"
-				disabled="!#{facesContext.externalContext.isUserInRole('persAdmin')}"
+				ajax="false" disabled="#{!userIsPersonsAdmin}"
 				action="#{personDeletionController.requestPersonDelete(personDetailController.person)}"
 				value="#{msg['person.detail.deletebutton']}:"
 				icon="ui-icon-closethick" />
 			<p:commandButton id="createContractForPersonButton"
 				style="margin-bottom:10px;" ajax="false"
-				disabled="!#{facesContext.externalContext.isUserInRole('contractAdmin')}"
+				disabled="#{!userIsContractsAdmin}"
 				action="#{contractCreationController.startContractCreationForPerson(personDetailController.person)}"
 				value="#{msg['person.detail.createcontractbutton']}:"
 				icon="ui-icon-script" />
@@ -28,7 +27,7 @@
 			<h:form>
 				<p:commandButton id="personUpdateButton" ajax="false"
 					style="float:right; margin-bottom:10px;"
-					disabled="!#{facesContext.externalContext.isUserInRole('persAdmin')}"
+					disabled="#{!userIsPersonsAdmin}"
 					action="#{personUpdateController.startPersonUpdate(personDetailController.person)}"
 					value="#{msg['person.detail.updatebutton']}:" icon="ui-icon-pencil" />
 			</h:form>
@@ -65,7 +64,7 @@
 				<p:commandButton id="personAddrrCreateButton"
 					style="float:right; margin-bottom:10px;"
 					action="#{personAddressController.startAddressCreation(personDetailController.person)}"
-					disabled="!#{facesContext.externalContext.isUserInRole('persAdmin')}"
+					disabled="#{!userIsPersonsAdmin}"
 					value="#{msg['person.detail.createaddrbutton']}"
 					icon="ui-icon-plusthick" />
 			</h:form>
@@ -113,6 +112,7 @@
 				<p:column headerText="Code">
 					<h:form>
 						<p:commandLink id="detailLinkSName" ajax="false"
+							disabled="#{!userCanViewContracts}"
 							action="#{contractDetailController.showDetail(contract)}"
 							value="#{contract.code}"></p:commandLink>
 					</h:form>

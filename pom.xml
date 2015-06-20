@@ -239,6 +239,11 @@
 			<version>9.1-901-1.jdbc4</version>
 		</dependency>
 
+		<dependency>
+			<groupId>jboss</groupId>
+			<artifactId>jboss-annotations-ejb3</artifactId>
+			<version>4.2.2.GA</version>
+		</dependency>
 
 
 	</dependencies>

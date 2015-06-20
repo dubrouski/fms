@@ -25,7 +25,9 @@
 
 			<p:column headerText="Code" sortBy="#{contract.code}">
 				<h:form>
-					<p:commandLink action="#{contractDetailController.showDetail(contract)}" ajax="false" value="#{contract.code}"></p:commandLink>
+					<p:commandLink
+						action="#{contractDetailController.showDetail(contract)}"
+						ajax="false" value="#{contract.code}"></p:commandLink>
 				</h:form>
 			</p:column>
 
@@ -52,6 +54,7 @@
 			<p:column headerText="Actions" priority="1">
 				<h:form>
 					<p:commandButton id="detailButton" icon="ui-icon-search"
+						disabled="#{!userIsPersonsAdmin}"
 						action="#{contractDetailController.showDetail(contract)}">
 						<p:tooltip id="detailButtonToolTip" for="detailButton"
 							value="Show detail" />

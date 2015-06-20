@@ -10,12 +10,12 @@
 			<p:growl id="msgs" showDetail="true" />
 			<p:commandButton style="margin-bottom:10px;" ajax="false"
 				action="#{accommodationDeletionController.delete(accommodationDetailController.unit)}"
-				value="Delete accommodation" icon="ui-icon-closethick">
+				value="Delete accommodation" icon="ui-icon-closethick" disabled="#{!userIsAccommAdmin}">
 				<f:param name="i" value="2" />
 			</p:commandButton>
 			<p:commandButton style="margin-bottom:10px;" ajax="false"
 				action="#{contractCreationController.startContractCreationForAccommodation(accommodationDetailController.unit)}"
-				value="Create contract" icon="ui-icon-script">
+				value="Create contract" icon="ui-icon-script" disabled="#{!userIsAccommAdmin}">
 				<f:param name="i" value="2" />
 			</p:commandButton>
 
@@ -27,7 +27,7 @@
 				<p:commandButton ajax="false"
 					style="float:right; margin-bottom:10px;"
 					action="#{accommodationUpdateController.startUpdate(accommodationDetailController.unit)}"
-					value="Update accommodation" icon="ui-icon-pencil" />
+					value="Update accommodation" icon="ui-icon-pencil" disabled="#{!userIsAccommAdmin}" />
 
 				<p:panelGrid columns="3" layout="grid">
 					<h:outputText
@@ -46,7 +46,7 @@
 				toggleable="true" toggleSpeed="250" widgetVar="accPricePanel"
 				collapsed="false" styleClass="fieldSetLegend">
 
-				<p:commandButton ajax="false"
+				<p:commandButton ajax="false" disabled="#{!userIsAccommAdmin}"
 					style="float:right; margin-bottom:10px;"
 					action="#{accommodationPriceController.startUpdate(accommodationDetailController.unit, accommodationDetailController.price)}"
 					value="Update Price" icon="ui-icon-pencil" />
@@ -68,7 +68,7 @@
 				toggleable="true" toggleSpeed="250" widgetVar="accAddressPanel"
 				collapsed="false" styleClass="fieldSetLegend">
 
-				<p:commandButton ajax="false"
+				<p:commandButton ajax="false" disabled="#{!userIsAccommAdmin}"
 					style="float:right; margin-bottom:10px;"
 					action="#{accommodationAddressController.startUpdate(accommodationDetailController.unit, accommodationDetailController.address)}"
 					value="Update Address" icon="ui-icon-pencil"
@@ -95,7 +95,7 @@
 				collapsed="false" styleClass="fieldSetLegend">
 
 				<h:form>
-					<p:commandButton ajax="false"
+					<p:commandButton ajax="false" disabled="#{!userIsAccommAdmin}"
 						style="float:right; margin-bottom:10px;"
 						action="#{accommodationChildController.start(accommodationDetailController.unit)}"
 						value="Create New Child" icon="ui-icon-plusthick" />

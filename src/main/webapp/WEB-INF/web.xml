@@ -185,7 +185,6 @@
 	</security-constraint>
 
 
-
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<realm-name>authentication-realm</realm-name>
@@ -221,6 +220,8 @@
 	<security-role>
 		<role-name>guest</role-name>
 	</security-role>
+		
+	
 	<error-page>
 		<error-code>403</error-code>
 		<location>/forbidden.html</location>

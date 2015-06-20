@@ -6,34 +6,35 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/accommodation-management-template.xhtml">
 	<ui:define name="accommodation-content">
-		<p:dataTable var="acc" value="#{accommodationListingController.eagerUnits}"
+		<p:dataTable var="acc"
+			value="#{accommodationListingController.eagerUnits}"
 			rows="#{accommodationListingController.pageSize}" paginator="true"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="10,25,100">
 			<p:column headerText="#{msg['accommodation.code']}">
 				<h:form>
-			 	<p:commandLink id="detailLinkFName" ajax="false"
-					action="#{accommodationDetailController.showDetail(acc)}"
-					value="#{acc.code}">
+					<p:commandLink id="detailLinkFName" ajax="false"
+						action="#{accommodationDetailController.showDetail(acc)}"
+						value="#{acc.code}">
 					</p:commandLink>
 				</h:form>
 			</p:column>
-			
+
 			<p:column headerText="#{msg['accommodation.name']}"
 				sortBy="#{acc.name}">
 				<h:form>
-			 	<p:commandLink id="detailLinkFName" ajax="false"
-					action="#{accommodationDetailController.showDetail(acc)}"
-					value="#{acc.name}">
+					<p:commandLink id="detailLinkFName" ajax="false"
+						action="#{accommodationDetailController.showDetail(acc)}"
+						value="#{acc.name}">
 					</p:commandLink>
 				</h:form>
 			</p:column>
-			
+
 			<p:column headerText="#{msg['accommodation.type']}"
 				sortBy="#{acc.type}">
 				<h:outputText value="#{acc.type}" />
 			</p:column>
-			
+
 			<p:column headerText="#{msg['accommodation.deposit']}"
 				sortBy="#{acc.depositAmount}">
 				<h:outputText value="#{acc.depositAmount}" />
@@ -48,7 +49,7 @@
 							value="Show detail" />
 					</p:commandButton>
 					<p:commandButton id="removeButton" icon="ui-icon-closethick"
-						ajax="false"
+						ajax="false" disabled="#{!userIsAccommAdmin}"
 						action="#{accommodationDeletionController.delete(acc)}">
 						<p:tooltip id="removeButtonToolTip" for="removeButton"
 							value="Delete accommodation" />

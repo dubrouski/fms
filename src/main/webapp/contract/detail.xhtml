@@ -27,6 +27,7 @@
 					<h:form style="display: inline;">
 
 						<p:commandLink id="detailButton" icon="ui-icon-person"
+							disabled="#{!userCanViewPersons}"
 							value="#{contractDetailController.contract.tenant.code}: #{contractDetailController.contract.tenant.firstName} #{contractDetailController.contract.tenant.lastName}"
 							ajax="false"
 							action="#{personDetailController.showDetail(contractDetailController.contract.tenant)}">
@@ -63,17 +64,17 @@
 				<div class="ui-grid-col-4">
 					<p:commandButton id="signContractButton" type="button"
 						onclick="PF('signContractDialog').show();"
-						disabled="#{!contractDetailController.contractSigningAllowed}"
+						disabled="#{!contractDetailController.contractSigningAllowed or !userIsContractsAdmin}"
 						value="Sign contract" icon="ui-icon-pencil"></p:commandButton>
 					<br />
 					<p:commandButton id="closeContractButton" type="button"
 						onclick="PF('closeContractDialog').show();" value="Close contract"
-						disabled="#{!contractDetailController.contractClosureAllowed}"
+						disabled="#{!contractDetailController.contractClosureAllowed or !userIsContractsAdmin}"
 						icon="ui-icon-arrowthickstop-1-e"></p:commandButton>
 					<br />
 					<p:commandButton id="cancelContractButton" type="button"
 						onclick="PF('cancelContractDialog').show();"
-						disabled="#{!contractDetailController.contractCancellationAllowed}"
+						disabled="#{!contractDetailController.contractCancellationAllowed or !userIsContractsAdmin}"
 						value="Cancel contract" icon="ui-icon-arrowthickstop-1-e"></p:commandButton>
 				</div>
 				<p:dialog header="Sign contract" widgetVar="signContractDialog"
@@ -128,7 +129,7 @@
 
 				<div class="ui-grid-col-4">
 					<p:commandButton id="handoverKeysButton" value="Handover keys"
-						disabled="#{!contractDetailController.keysHandoverAllowed}"
+						disabled="#{!contractDetailController.keysHandoverAllowed or !userIsContractsAdmin}"
 						type="button" onclick="PF('keysHandoverDialog').show();"
 						icon="ui-icon-key" />
 				</div>
@@ -159,7 +160,7 @@
 				<div class="ui-grid-col-4">
 					<p:commandButton id="terminationRequestDialogButton"
 						value="Termination request"
-						disabled="#{!contractDetailController.terminationRequestCreationAllowed}"
+						disabled="#{!contractDetailController.terminationRequestCreationAllowed or !userIsContractsAdmin}"
 						type="button" onclick="PF('terminationRequestDialog').show();"
 						icon="ui-icon-key" />
 				</div>
@@ -186,7 +187,7 @@
 				</div>
 				<div class="ui-grid-col-4">
 					<p:commandButton id="changeCurrButton" icon="ui-icon-pencil"
-						value="Change Currency"
+						value="Change Currency" disabled="#{!userIsContractsAdmin}"
 						action="#{currencyChangeController.start(contractDetailController.contract)}">
 					</p:commandButton>
 				</div>
@@ -219,7 +220,8 @@
 				<div class="ui-grid-col4">
 					<p:commandButton id="addStartMetersDataButton"
 						icon="ui-icon-pencil" value="Add records"
-						onclick="PF('startMetersDataDialog').show();">
+						onclick="PF('startMetersDataDialog').show();"
+						disabled="#{!userIsContractsAdmin}">
 					</p:commandButton>
 					<p:dialog header="Start meters data"
 						widgetVar="startMetersDataDialog" modal="true" height="300px"
@@ -280,7 +282,8 @@
 				<div class="ui-grid-col4">
 					<p:commandButton id="addFinishMetersDataButton"
 						icon="ui-icon-pencil" value="Add records"
-						onclick="PF('endMetersDataDialog').show();">
+						onclick="PF('endMetersDataDialog').show();"
+						disabled="#{!userIsContractsAdmin}">
 					</p:commandButton>
 					<p:dialog header="End meters data" widgetVar="endMetersDataDialog"
 						modal="true" height="300px" width="500px" resizable="false">

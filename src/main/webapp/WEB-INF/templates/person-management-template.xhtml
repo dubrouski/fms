@@ -11,7 +11,7 @@
 				outcome="list.jsf" icon="ui-icon-star"></p:button>
 			<p:button value="#{msg['person.create.createnewperson']}"
 				outcome="create.jsf" icon="ui-icon-search"
-				disabled="#{!facesContext.externalContext.isUserInRole('persAdmin')}"></p:button>
+				disabled="#{!userIsPersonsAdmin}"></p:button>
 		</h:form>
 
 		<p:panel id="content-panel" style="margin-bottom:20px">

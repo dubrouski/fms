@@ -142,6 +142,11 @@
 									<li><h:link value="#{msg['topmenu.contract.create']}"
 											outcome="/contract/create.jsf" /></li>
 								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{facesContext.externalContext.isUserInRole('contractAdmin')}">
+									<li><h:link value="#{msg['topmenu.contract.bulkclose']}"
+											outcome="/contract/bulk-closure.jsf" /></li>
+								</h:panelGroup>
 							</ul></li>
 					</h:panelGroup>
 

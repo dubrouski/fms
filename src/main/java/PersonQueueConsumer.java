@@ -2,12 +2,17 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RunAs;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+
+import org.jboss.annotation.security.RunAsPrincipal;
+import org.jboss.annotation.security.SecurityDomain;
 
 import net.dubrouski.fams.controller.contract.bulkclose.ContractStateChangeEvent;
 import net.dubrouski.fams.model.Contract;
@@ -20,6 +25,9 @@ import net.dubrouski.fams.service.UserService;
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 		@ActivationConfigProperty(propertyName = "destination", propertyValue = "java:/jms/queue/personQueue"),
 		@ActivationConfigProperty(propertyName = "useJNDI", propertyValue = "true") })
+@SecurityDomain("FmsSecurityDomain")
+@RunAs("usermoduleAdmin")
+@RunAsPrincipal("technical_user")
 public class PersonQueueConsumer implements MessageListener {
 
 	@Inject

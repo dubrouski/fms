@@ -1,6 +1,6 @@
 @media screen and (max-width: 2000px) {
 	body {
-		max-width: 1200px;
+		max-width: 1250px;
 		margin: 0px auto;
 		padding: 20px 100px;
 	}
@@ -16,7 +16,7 @@
 @media screen and (max-width: 700px) {
 	body {
 		margin: 0px auto;
-		padding: 20px 0px;
+		padding: 20px 5px;
 	}
 }
 
@@ -91,6 +91,17 @@
 .meters-data-list .ui-widget-content .ui-datalist-empty-message {
 	padding: 4px 0px !important;
 	font-style: italic;
+}
+
+.logout-link{
+	display: block;
+	padding: 10px 15px;
+	color: #777;
+	padding-top: 15px;
+	text-decoration: none;
+}
+.logout-link:HOVER {
+	text-decoration: none;
 }
 
 /* body { */

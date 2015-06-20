@@ -59,7 +59,7 @@
 							value="Show detail" />
 					</p:commandButton>
 					<p:commandButton id="removeButton" icon="ui-icon-closethick"
-						ajax="false"
+						ajax="false" disabled="#{!userIsPersonsAdmin}"
 						action="#{personDeletionController.requestPersonDelete(person)}">
 						<p:tooltip id="removeButtonToolTip" for="removeButton"
 							value="Delete accommodation" />

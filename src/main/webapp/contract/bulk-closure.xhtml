@@ -18,6 +18,7 @@
 		<p>The process of closure will be reported by sending messages to
 			this page for every closed contract.</p>
 		<p:commandButton action="#{bulkClosureController.startNewBatchJob()}"
+			disabled="#{!userIsContractsAdmin}"
 			value="Start bulk closure of contracts"></p:commandButton>
 
 		<div id="messages"></div>

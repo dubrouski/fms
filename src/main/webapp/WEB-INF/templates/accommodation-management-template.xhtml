@@ -6,23 +6,17 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/master-template.xhtml">
 	<ui:define name="management-content">
-	
-	<h:form>
-		<p:button value="List all" outcome="list.jsf"
-				icon="ui-icon-star">
-				
-		</p:button>
-		<p:button value="Create new accommodation" outcome="create.jsf"
-				icon="ui-icon-home">
-			
-		</p:button>
-	</h:form>
-	
-	<p:panel id="content-panel" style="margin-bottom:20px">
+		<h:form>
+			<p:button value="List all" outcome="list.jsf" icon="ui-icon-star">
+			</p:button>
+			<p:button value="Create new accommodation" outcome="create.jsf"
+				icon="ui-icon-home" disabled="#{!userIsAccommAdmin}">
+			</p:button>
+		</h:form>
+		<p:panel id="content-panel" style="margin-bottom:20px">
 			<ui:insert name="accommodation-content">
 				[accommodation management content]
 			</ui:insert>
 		</p:panel>
-	
 	</ui:define>
 </ui:composition>
