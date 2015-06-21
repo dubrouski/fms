@@ -38,7 +38,7 @@ public class LoginManager implements Serializable {
 				.getCurrentInstance().getExternalContext().getRequest();
 		origRequest.getSession().invalidate();
 		
-		return "index?faces-redirect=true";
+		return "/index?faces-redirect=true";
 	}
 
 	public boolean isLoggedIn() {
