@@ -3,19 +3,27 @@ package net.dubrouski.fams.dao.impl;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import net.dubrouski.fams.dao.BaseDao;
+import net.dubrouski.fams.filter.GeneralSearchFilter;
+import net.dubrouski.fams.filter.SearchFilter;
+import net.dubrouski.fams.model.Person;
 
 /**
  * @author stanislau.dubrouski
  *
  */
 @Named(value = "baseDao")
-public class BaseDaoImpl<T, ID extends Serializable> implements BaseDao<T, ID> {
+public abstract class BaseDaoImpl<T, ID extends Serializable> implements
+		BaseDao<T, ID> {
 	@Inject
 	protected EntityManager entityManager;
 
@@ -66,5 +74,4 @@ public class BaseDaoImpl<T, ID extends Serializable> implements BaseDao<T, ID> {
 		entityManager.remove(entityManager.contains(entity) ? entity
 				: entityManager.merge(entity));
 	}
-
 }

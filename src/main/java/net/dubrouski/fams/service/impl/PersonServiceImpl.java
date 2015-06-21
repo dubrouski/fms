@@ -1,6 +1,7 @@
 package net.dubrouski.fams.service.impl;
 
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +20,7 @@ import javax.jms.Queue;
 import net.dubrouski.fams.dao.AddressDao;
 import net.dubrouski.fams.dao.PersonAddressDao;
 import net.dubrouski.fams.dao.PersonDao;
+import net.dubrouski.fams.filter.SearchFilter;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.PersonAddress;
@@ -143,13 +145,13 @@ public class PersonServiceImpl implements PersonService {
 		logger.log(Level.INFO, String.format("Listing for %d, %d, %s %s",
 				pageSize, first, sortField, sortingOrder.name()));
 
-		return personDao.listPersons(pageSize, first, sortField, sortingOrder,
+		return personDao.list(pageSize, first, sortField, sortingOrder,
 				searchTerm);
 	}
 
 	@Override
 	@RolesAllowed({ "persAdmin", "persUser" })
-	public long getPersonsCount(String searchTerm) {
-		return personDao.getPersonsCount(searchTerm);
+	public long getPersonsCount(Set<SearchFilter> filters) {
+		return personDao.getCount(filters);
 	}
 }

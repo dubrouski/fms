@@ -1,6 +1,7 @@
 package net.dubrouski.fams.dao.impl;
 
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -15,6 +16,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import net.dubrouski.fams.dao.PersonDao;
+import net.dubrouski.fams.filter.GeneralSearchFilter;
+import net.dubrouski.fams.filter.SearchFilter;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.enums.SortingOrder;
 
@@ -64,7 +67,7 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 	}
 
 	@Override
-	public List<Person> listPersons(int pageSize, int first, String sortField,
+	public List<Person> list(int pageSize, int first, String sortField,
 			SortingOrder sortingOrder, String searchTerm) {
 		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 		CriteriaQuery<Person> criteriaQuery = builder.createQuery(Person.class);
@@ -100,24 +103,48 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 	}
 
 	@Override
-	public long getPersonsCount(String searchTerm) {
+	public long getCount(Set<SearchFilter> filters) {
 
-		CriteriaBuilder qb = this.entityManager.getCriteriaBuilder();
-		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
-		Root<Person> personRoot = cq.from(Person.class);
-		cq.select(qb.count(personRoot));
-		if (searchTerm != null && !searchTerm.isEmpty()) {
-			Predicate orClause = qb.or(
-					qb.like(qb.lower(personRoot.<String> get("firstName")), "%"
-							+ searchTerm.toLowerCase() + "%"),
-					qb.like(qb.lower(personRoot.<String> get("lastName")), "%"
-							+ searchTerm.toLowerCase() + "%"));
+		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<Long> query = builder.createQuery(Long.class);
+		Root<Person> personRoot = query.from(Person.class);
+		query.select(builder.count(personRoot));
 
-			cq.where(orClause);
-		}
-		long result = entityManager.createQuery(cq).getSingleResult();
-		logger.info("Found " + result + " entities for searchTerm: " + searchTerm);
+		query = applyFilters(builder, query, personRoot, filters);
+
+		long result = entityManager.createQuery(query).getSingleResult();
+		logger.info("Found " + result + " entities for searchTerm: " + filters);
 		return result;
+	}
+
+	
+	@SuppressWarnings("rawtypes")
+	private CriteriaQuery applyFilters(CriteriaBuilder builder,
+			CriteriaQuery query, Root<Person> personRoot,
+			Set<SearchFilter> filters) {
+		for (SearchFilter filter : filters) {
+			if (filter instanceof GeneralSearchFilter) {
+				query = applyGeneralSearch(builder, query, personRoot,
+						(GeneralSearchFilter) filter);
+			}
+		}
+
+		return query;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	CriteriaQuery applyGeneralSearch(CriteriaBuilder builder,
+			CriteriaQuery query, Root<Person> personRoot, GeneralSearchFilter filter) {
+
+		Predicate orClause = builder.or(builder.like(
+				builder.lower(personRoot.<String> get("firstName")), "%"
+						+ filter.getSearchTerm().toLowerCase() + "%"), builder
+				.like(builder.lower(personRoot.<String> get("lastName")), "%"
+						+ filter.getSearchTerm().toLowerCase() + "%"));
+
+		query.where(orClause);
+
+		return query;
 	}
 
 }

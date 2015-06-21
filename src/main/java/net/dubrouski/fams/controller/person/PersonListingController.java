@@ -2,8 +2,10 @@ package net.dubrouski.fams.controller.person;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +13,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 
+import net.dubrouski.fams.filter.GeneralSearchFilter;
+import net.dubrouski.fams.filter.SearchFilter;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.enums.SortingOrder;
 import net.dubrouski.fams.service.PersonService;
@@ -57,7 +61,12 @@ public class PersonListingController implements Serializable {
 
 			@Override
 			public int getRowCount() {
-				return (int) personService.getPersonsCount(searchTerm);
+				Set<SearchFilter> sf = new HashSet<SearchFilter>();
+				if (searchTerm != null && !searchTerm.isEmpty()) {
+					GeneralSearchFilter f = new GeneralSearchFilter(searchTerm);
+					sf.add(f);
+				}
+				return (int) personService.getPersonsCount(sf);
 			}
 		};
 

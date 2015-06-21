@@ -1,7 +1,9 @@
 package net.dubrouski.fams.service;
 
 import java.util.List;
+import java.util.Set;
 
+import net.dubrouski.fams.filter.SearchFilter;
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.PersonAddress;
@@ -34,5 +36,5 @@ public interface PersonService {
 	public List<Person> listPersons(int pageSize, int first, String sortField,
 			SortingOrder sortingOrder, String searchTerm);
 
-	public long getPersonsCount(String searchTerm);
+	public long getPersonsCount(Set<SearchFilter> filters);
 }
