@@ -46,6 +46,8 @@ public class AddressDaoTest {
 				.addPackage("net.dubrouski.fams.converter")
 				.addPackage("net.dubrouski.fams.service")
 				.addPackage("net.dubrouski.fams.service.impl")
+				.addPackage("net.dubrouski.fams.rest")
+				.addPackage("net.dubrouski.fams.filter")
 				.addClasses(Resources.class, CurrencyService.class,
 						CurrencyServiceImpl.class)
 				.addAsResource("META-INF/persistence.xml",

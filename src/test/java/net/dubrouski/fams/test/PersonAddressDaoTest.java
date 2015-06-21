@@ -38,6 +38,7 @@ public class PersonAddressDaoTest {
 				.addPackage("net.dubrouski.fams.dao")
 				.addPackage("net.dubrouski.fams.dao.impl")
 				.addPackage("net.dubrouski.fams.model.enums")
+				.addPackage("net.dubrouski.fams.filter")
 				.addClasses(Resources.class,
 						LocalDatePersistenceConverter.class,
 						FmsException.class, PersonTestHelper.class)

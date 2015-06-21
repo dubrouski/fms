@@ -42,6 +42,7 @@ public class PersonDaoTest {
 				.addPackage("net.dubrouski.fams.dao.impl")
 				.addPackage("net.dubrouski.fams.model.enums")
 				.addPackage("net.dubrouski.fams.exception")
+				.addPackage("net.dubrouski.fams.filter")
 				.addClasses(Resources.class,
 						LocalDatePersistenceConverter.class,
 						PersonTestHelper.class)

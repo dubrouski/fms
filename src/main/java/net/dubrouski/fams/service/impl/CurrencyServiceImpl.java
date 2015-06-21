@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -14,6 +16,7 @@ import net.dubrouski.fams.rest.CurrencyConversionClient;
 import net.dubrouski.fams.service.CurrencyService;
 
 @Named
+@Stateful
 public class CurrencyServiceImpl implements Serializable, CurrencyService{
 
 	private static final long serialVersionUID = 1L;

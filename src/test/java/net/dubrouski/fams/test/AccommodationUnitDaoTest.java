@@ -57,6 +57,7 @@ public class AccommodationUnitDaoTest {
 						 .addPackage("net.dubrouski.fams.dao.impl")
 						 .addPackage("net.dubrouski.fams.model.enums")
 						 .addPackage("net.dubrouski.fams.test.helper")
+						 .addPackage("net.dubrouski.fams.filter")
 						 .addClasses(Resources.class, FmsException.class,
 								 	 LocalDatePersistenceConverter.class,
 								 	 EntityValidator.class, AccommodationTestHelper.class)

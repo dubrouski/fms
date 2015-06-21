@@ -3,6 +3,7 @@ package net.dubrouski.fams.test.service;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ import net.dubrouski.fams.model.enums.AddressType;
 import net.dubrouski.fams.service.PersonService;
 import net.dubrouski.fams.test.helper.AddressTestHelper;
 import net.dubrouski.fams.test.helper.PersonTestHelper;
+import net.dubrouski.fams.test.runas.PersonAdminRunAs;
 import net.dubrouski.fams.util.Resources;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -47,6 +49,9 @@ public class PersonServiceTest {
 				.addPackage("net.dubrouski.fams.exception")
 				.addPackage("net.dubrouski.fams.service")
 				.addPackage("net.dubrouski.fams.service.impl")
+				.addPackage("net.dubrouski.fams.filter")
+				.addPackage("net.dubrouski.fams.rest")
+				.addPackage("net.dubrouski.fams.test.runas")
 				.addClasses(Resources.class,
 						LocalDatePersistenceConverter.class,
 						PersonTestHelper.class, AddressTestHelper.class)
@@ -76,6 +81,9 @@ public class PersonServiceTest {
 	@Inject
 	AddressTestHelper addrTestHelper;
 
+	@Inject
+	PersonAdminRunAs admin;
+
 	@Before
 	public void clearData() {
 		for (Person p : personDao.listAll()) {
@@ -92,107 +100,120 @@ public class PersonServiceTest {
 	}
 
 	@Test
-	public void testGetAddressesForPerson() {
-		Address a = new Address();
-		a.setCity("Brno");
-		a.setStreetName("Botanicka");
-		a.setStreetNumber("35a");
-		a.setFlatNumber("kancl c.5");
-		addressDao.save(a);
+	public void testGetAddressesForPerson() throws Exception {
+		admin.call(new Callable<Person>() {
+			@Override
+			public Person call() throws Exception {
+				Address a = new Address();
+				a.setCity("Brno");
+				a.setStreetName("Botanicka");
+				a.setStreetNumber("35a");
+				a.setFlatNumber("kancl c.5");
+				addressDao.save(a);
 
-		PersonAddress pa = new PersonAddress();
-		pa.setAddress(a);
-		pa.setAddressType(AddressType.Registration);
-		personAddressDao.save(pa);
+				PersonAddress pa = new PersonAddress();
+				pa.setAddress(a);
+				pa.setAddressType(AddressType.Registration);
+				personAddressDao.save(pa);
 
-		Address a2 = new Address();
-		a2.setCity("Brno");
-		a2.setStreetName("Botanicka");
-		a2.setStreetNumber("35a");
-		a2.setFlatNumber("kancl c.5");
-		addressDao.save(a2);
+				Address a2 = new Address();
+				a2.setCity("Brno");
+				a2.setStreetName("Botanicka");
+				a2.setStreetNumber("35a");
+				a2.setFlatNumber("kancl c.5");
+				addressDao.save(a2);
 
-		PersonAddress pa2 = new PersonAddress();
-		pa2.setAddress(a);
-		pa2.setAddressType(AddressType.Contact);
-		personAddressDao.save(pa2);
+				PersonAddress pa2 = new PersonAddress();
+				pa2.setAddress(a);
+				pa2.setAddressType(AddressType.Contact);
+				personAddressDao.save(pa2);
 
-		Address a3 = new Address();
-		a3.setCity("Brno");
-		a3.setStreetName("Botanicka");
-		a3.setStreetNumber("35a");
-		a3.setFlatNumber("kancl c.5");
-		addressDao.save(a3);
+				Address a3 = new Address();
+				a3.setCity("Brno");
+				a3.setStreetName("Botanicka");
+				a3.setStreetNumber("35a");
+				a3.setFlatNumber("kancl c.5");
+				addressDao.save(a3);
 
-		PersonAddress pa3 = new PersonAddress();
-		pa3.setAddress(a);
-		pa3.setAddressType(AddressType.Registration);
-		personAddressDao.save(pa3);
+				PersonAddress pa3 = new PersonAddress();
+				pa3.setAddress(a);
+				pa3.setAddressType(AddressType.Registration);
+				personAddressDao.save(pa3);
 
-		Person person1 = pth.getTestPerson();
-		person1.setLegalId("ONE");
-		Person person2 = pth.getTestPerson();
-		person2.setLegalId("TWO");
+				Person person1 = pth.getTestPerson();
+				person1.setLegalId("ONE");
+				Person person2 = pth.getTestPerson();
+				person2.setLegalId("TWO");
 
-		personDao.save(person1);
-		personDao.save(person2);
+				personDao.save(person1);
+				personDao.save(person2);
 
-		person1.addAddress(pa);
-		person1.addAddress(pa2);
-		person2.addAddress(pa3);
+				person1.addAddress(pa);
+				person1.addAddress(pa2);
+				person2.addAddress(pa3);
 
-		personDao.update(person1);
-		personDao.update(person2);
+				personDao.update(person1);
+				personDao.update(person2);
 
-		List<PersonAddress> person1Adr = personService
-				.getAddressesForPerson(person1);
-		List<PersonAddress> person2Adr = personService
-				.getAddressesForPerson(person2);
+				List<PersonAddress> person1Adr = personService
+						.getAddressesForPerson(person1);
+				List<PersonAddress> person2Adr = personService
+						.getAddressesForPerson(person2);
 
-		assertEquals(2, person1Adr.size());
-		assertEquals(1, person2Adr.size());
+				assertEquals(2, person1Adr.size());
+				assertEquals(1, person2Adr.size());
+				return null;
+			}
+		});
+
 	}
 
 	@Test
-	public void testSetAddressToPerson() {
-		Address a = addrTestHelper
-				.getTestAddress("Brno", "Lidicka", "12", "1a");
-		addressDao.save(a);
+	public void testSetAddressToPerson() throws Exception {
 
-		PersonAddress originalAddress = new PersonAddress();
-		originalAddress.setAddress(a);
-		originalAddress.setAddressType(AddressType.Registration);
-		personAddressDao.save(originalAddress);
+		admin.call(new Callable<Person>() {
+			@Override
+			public Person call() throws Exception {
+				Address a = addrTestHelper.getTestAddress("Brno", "Lidicka",
+						"12", "1a");
+				addressDao.save(a);
 
-		assertEquals(originalAddress.isActive(), true);
+				PersonAddress originalAddress = new PersonAddress();
+				originalAddress.setAddress(a);
+				originalAddress.setAddressType(AddressType.Registration);
+				personAddressDao.save(originalAddress);
 
-		Person person1 = pth.getTestPerson();
-		person1.setLegalId("ONE");
-		personDao.save(person1);
+				assertEquals(originalAddress.isActive(), true);
 
-		person1.addAddress(originalAddress);
-		personDao.update(person1);
+				Person person1 = pth.getTestPerson();
+				person1.setLegalId("ONE");
+				personDao.save(person1);
 
-		Address anotherAddress = addrTestHelper.getTestAddress("Prague",
-				"Tridni", "32", "22b");
-		addressDao.save(anotherAddress);
+				person1.addAddress(originalAddress);
+				personDao.update(person1);
 
-		personService.setAddressToPerson(person1, anotherAddress,
-				AddressType.Registration);
+				Address anotherAddress = addrTestHelper.getTestAddress(
+						"Prague", "Tridni", "32", "22b");
+				addressDao.save(anotherAddress);
 
-		List<PersonAddress> retrievedAddresses = personService
-				.getAddressesForPerson(person1);
-		assertEquals(retrievedAddresses.size(), 2);
+				personService.setAddressToPerson(person1, anotherAddress,
+						AddressType.Registration);
 
-		for (PersonAddress pa : retrievedAddresses) {
-			if (pa.getId().equals(originalAddress.getId())) {
-				assertEquals(pa.isActive(), false);
+				List<PersonAddress> retrievedAddresses = personService
+						.getAddressesForPerson(person1);
+				assertEquals(retrievedAddresses.size(), 2);
+
+				for (PersonAddress pa : retrievedAddresses) {
+					if (pa.getId().equals(originalAddress.getId())) {
+						assertEquals(pa.isActive(), false);
+					}
+					if (pa.getId().equals(anotherAddress.getId())) {
+						assertEquals(pa.isActive(), true);
+					}
+				}
+				return null;
 			}
-			if (pa.getId().equals(anotherAddress.getId())) {
-				assertEquals(pa.isActive(), true);
-			}
-		}
-
+		});
 	}
 
 }

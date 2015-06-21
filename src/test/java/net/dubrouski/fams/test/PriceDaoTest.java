@@ -33,6 +33,7 @@ public class PriceDaoTest {
 						 .addPackage("net.dubrouski.fams.validator")
 						 .addPackage("net.dubrouski.fams.annotations")
 						 .addPackage("net.dubrouski.fams.model.enums")
+						 .addPackage("net.dubrouski.fams.filter")
 						 .addClasses(Resources.class, FmsException.class,
 						 	 LocalDatePersistenceConverter.class)
 						 .addAsResource("META-INF/persistence.xml",
