@@ -29,7 +29,8 @@ public class ContractItemProcessor implements ItemProcessor {
 				+ contract.getCode() + " to process.");
 
 		// TODO add complete logic to evaluate if
-		// contract fulfills conditions to be closed.
+		// contract fulfills conditions to be closed. Simple dates and state
+		// check implemented for proof of concept.
 
 		if (contract.getState().equals(ContractState.Signed)
 				&& LocalDate.now().isAfter(contract.getEndDate())) {

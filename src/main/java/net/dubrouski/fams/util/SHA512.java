@@ -20,7 +20,6 @@ public class SHA512 {
 			sha512.update(textToHash.getBytes());
 			return convertByteToHex(sha512.digest());
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

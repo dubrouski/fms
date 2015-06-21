@@ -76,7 +76,7 @@ public class ContractDaoImpl extends
 				.createQuery(Contract.class);
 		Root<Contract> contractRoot = criteriaQuery.from(Contract.class);
 
-		// TODO replace literal with metamodel
+		// TODO replace literal with metamodel:
 		// Metamodel meta = this.entityManager.getMetamodel();
 		// EntityType<Person> Person_ = meta.entity(Person.class);
 
@@ -148,6 +148,9 @@ public class ContractDaoImpl extends
 	private CriteriaQuery applyFilters(CriteriaBuilder builder,
 			CriteriaQuery query, Root<Contract> contractRoot,
 			Set<SearchFilter> filters) {
+		
+		//TODO modify to apply all filters together - 
+		//now only the last one is applied!
 		for (SearchFilter filter : filters) {
 			if (filter instanceof ContractCodeFilter) {
 				query = applySearchByCode(builder, query, contractRoot,

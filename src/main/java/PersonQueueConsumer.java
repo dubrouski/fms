@@ -42,11 +42,12 @@ public class PersonQueueConsumer implements MessageListener {
 			u.setUserRoles(Arrays.asList(uService
 					.getUserRoleByType(UserRoles.client)));
 			// TODO resolve password setting and distribution!
+			// for presentation purposes password is set to 'default' by
+			// default.
 			u.setPassword("default");
 
 			uService.saveUser(u);
-			logger.info("Created default user: "
-					+ u.toString());
+			logger.info("Created default user: " + u.toString());
 		} catch (JMSException e) {
 			logger.log(Level.WARNING, "Error occured on message receive");
 		}

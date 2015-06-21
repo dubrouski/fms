@@ -44,8 +44,8 @@ public class ContractItemReader extends AbstractItemReader {
 
 		Contract result = contractService.getContractById(lastProcessedId);
 
-		// TODO remove. Used to slow down execution.
-		Thread.sleep(30);
+		// TODO remove in prod. Used to slow down execution for presentation.
+		Thread.sleep(50);
 
 		if (result == null) {
 			logger.info("Contract with id " + lastProcessedId

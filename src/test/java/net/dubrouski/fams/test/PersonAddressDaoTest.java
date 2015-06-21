@@ -81,7 +81,7 @@ public class PersonAddressDaoTest {
 		assertEquals(pa.getAddressType(), loadedPa.getAddressType());
 	}
 
-	// TODO extract test data preparation
+	// TODO extract to methods for test data preparation
 	@Test
 	public void testGetAddressesForPerson() {
 		Address a = new Address();

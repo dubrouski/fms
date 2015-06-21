@@ -8,14 +8,17 @@
 	<ui:define id="content" name="content">
 
 		<h:form style="display: inline;" id="contractSearchForm">
-			<p:inputText id="searchInput"
+			<p:outputLabel for="searchInput" value="Search by code:" />
+			<p:inputText id="searchInput" placeholder="code..."
 				value="#{contractListingController.contractCode}" />
-
+			<br />
+			<p:outputLabel for="statesToSearch" value="Search by states:" />
 			<p:selectManyCheckbox id="statesToSearch"
 				value="#{contractListingController.contractStatesToSearch}">
 				<f:selectItems value="#{contractListingController.availableStates}"
 					var="state" itemLabel="#{state}" itemValue="#{state}" />
 			</p:selectManyCheckbox>
+			<br />
 			<p:commandButton value="Search" update="contractsTable"></p:commandButton>
 		</h:form>
 

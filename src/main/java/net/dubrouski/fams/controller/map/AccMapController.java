@@ -6,20 +6,15 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import net.dubrouski.fams.model.AccommodationUnit;
-import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.service.AccommodationUnitService;
-import net.dubrouski.fams.service.AddressService;
 
 import org.primefaces.event.map.OverlaySelectEvent;
-import org.primefaces.model.diagram.overlay.Overlay;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
 
 /**
  * @author stanislau.dubrouski
@@ -33,9 +28,6 @@ public class AccMapController {
 	private Logger logger;
 
 	@Inject
-	private AddressService addrService;
-
-	@Inject
 	private AccommodationUnitService accService;
 
 	private MapModel simpleModel;
@@ -44,11 +36,9 @@ public class AccMapController {
 
 	@PostConstruct
 	public void init() {
-		// TODO replace with highest level of hierarchy
+		// TODO replace with highest level of hierarchy once implemented.
 		List<AccommodationUnit> units = accService
 				.listAccommodationsByType("room");
-
-		// List<Address> addresses = addrService.listAddresses();
 
 		simpleModel = new DefaultMapModel();
 

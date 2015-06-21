@@ -145,8 +145,6 @@ public class PersonDaoTest {
 		personDao.save(p);
 	}
 
-	// TODO test for different null values;
-
 	@Test
 	public void testSimpleUpdate() {
 		Person p = pth.getTestPerson();
