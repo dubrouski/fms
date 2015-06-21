@@ -1,10 +1,10 @@
 package net.dubrouski.fams.filter;
 
-public class GeneralSearchFilter implements SearchFilter {
+public class PersonNamesFilter implements SearchFilter {
 	
 	private String searchTerm;
 	
-	public GeneralSearchFilter(String term) {
+	public PersonNamesFilter(String term) {
 		this.searchTerm = term==null? "" : term;
 	}
 

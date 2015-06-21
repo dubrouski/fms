@@ -8,10 +8,14 @@
 	<ui:define id="content" name="content">
 
 		<h:form style="display: inline;" id="contractSearchForm">
+			<p:inputText id="searchInput"
+				value="#{contractListingController.contractCode}" />
 
-			<p:inputText id="searchInput" placeholder="Search by code..."
-				value="#{contractListingController.searchTerm}">
-			</p:inputText>
+			<p:selectManyCheckbox id="statesToSearch"
+				value="#{contractListingController.contractStatesToSearch}">
+				<f:selectItems value="#{contractListingController.availableStates}"
+					var="state" itemLabel="#{state}" itemValue="#{state}" />
+			</p:selectManyCheckbox>
 			<p:commandButton value="Search" update="contractsTable"></p:commandButton>
 		</h:form>
 
@@ -21,7 +25,8 @@
 			rows="#{personListingController.pageSize}" paginator="true"
 			lazy="true"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,25" style="padding-top:5px;">
+			currentPageReportTemplate="(Displaying {startRecord} - {endRecord} of {totalRecords}, Page: {currentPage}/{totalPages})"
+			rowsPerPageTemplate="10,25,100" style="padding-top:5px;">
 
 			<p:column headerText="Code" sortBy="#{contract.code}">
 				<h:form>

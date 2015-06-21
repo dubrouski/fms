@@ -13,7 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import net.dubrouski.fams.dao.BaseDao;
-import net.dubrouski.fams.filter.GeneralSearchFilter;
+import net.dubrouski.fams.filter.PersonNamesFilter;
 import net.dubrouski.fams.filter.SearchFilter;
 import net.dubrouski.fams.model.Person;
 

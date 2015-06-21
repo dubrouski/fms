@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 
 import net.dubrouski.fams.dao.AccommodationUnitDao;
 import net.dubrouski.fams.exception.FmsException;
-import net.dubrouski.fams.filter.GeneralSearchFilter;
+import net.dubrouski.fams.filter.PersonNamesFilter;
 import net.dubrouski.fams.model.AccommodationComposite;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Address;

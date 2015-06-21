@@ -13,7 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 
-import net.dubrouski.fams.filter.GeneralSearchFilter;
+import net.dubrouski.fams.filter.PersonNamesFilter;
 import net.dubrouski.fams.filter.SearchFilter;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.enums.SortingOrder;
@@ -54,25 +54,27 @@ public class PersonListingController implements Serializable {
 					SortOrder sortOrder, Map<String, Object> filters) {
 
 				List<Person> result = new ArrayList<Person>();
-				Set<SearchFilter> sf = new HashSet<SearchFilter>();
-				GeneralSearchFilter f = new GeneralSearchFilter(searchTerm);
-				sf.add(f);
+
 				result = personService.listPersons(pageSize, first, sortField,
-						SortingOrder.valueOf(sortOrder.name()), sf);
+						SortingOrder.valueOf(sortOrder.name()), buildFilters());
 				return result;
 			}
 
 			@Override
 			public int getRowCount() {
-				Set<SearchFilter> sf = new HashSet<SearchFilter>();
-				GeneralSearchFilter f = new GeneralSearchFilter(searchTerm);
-				sf.add(f);
-
-				return (int) personService.getPersonsCount(sf);
+				return (int) personService.getPersonsCount(buildFilters());
 			}
 		};
 
 		lazyPersons.setPageSize(pageSize);
+	}
+
+	private Set<SearchFilter> buildFilters() {
+		Set<SearchFilter> sf = new HashSet<SearchFilter>();
+		PersonNamesFilter f = new PersonNamesFilter(searchTerm);
+		sf.add(f);
+
+		return sf;
 	}
 
 	public void setPageSize(int pageSize) {

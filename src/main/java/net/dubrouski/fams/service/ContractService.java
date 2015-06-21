@@ -1,5 +1,6 @@
 package net.dubrouski.fams.service;
 
+import net.dubrouski.fams.filter.SearchFilter;
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.MeterRecord;
@@ -32,9 +33,9 @@ public interface ContractService {
 			AccommodationUnit accommodationUnit);
 
 	public List<Contract> listContracts(int pageSize, int first,
-			String sortField, SortingOrder valueOf, String searchTerm);
+			String sortField, SortingOrder valueOf, Set<SearchFilter> filters);
 
-	public long getContractsCount();
+	public long getContractsCount(Set<SearchFilter> filters);
 
 	public boolean handoverKeys(Contract contract);
 

@@ -16,7 +16,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import net.dubrouski.fams.dao.PersonDao;
-import net.dubrouski.fams.filter.GeneralSearchFilter;
+import net.dubrouski.fams.filter.PersonNamesFilter;
 import net.dubrouski.fams.filter.SearchFilter;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.enums.SortingOrder;
@@ -106,7 +106,7 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 		applyFilters(builder, query, personRoot, filters);
 
 		long result = entityManager.createQuery(query).getSingleResult();
-		logger.info("Found " + result + " entities for searchTerm: " + filters);
+		logger.info("Found " + result + " entities for search: " + filters);
 		return result;
 	}
 
@@ -115,9 +115,9 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 			CriteriaQuery query, Root<Person> personRoot,
 			Set<SearchFilter> filters) {
 		for (SearchFilter filter : filters) {
-			if (filter instanceof GeneralSearchFilter) {
-				query = applyGeneralSearch(builder, query, personRoot,
-						(GeneralSearchFilter) filter);
+			if (filter instanceof PersonNamesFilter) {
+				query = applySearchByNames(builder, query, personRoot,
+						(PersonNamesFilter) filter);
 			}
 		}
 
@@ -125,9 +125,9 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	CriteriaQuery applyGeneralSearch(CriteriaBuilder builder,
+	CriteriaQuery applySearchByNames(CriteriaBuilder builder,
 			CriteriaQuery query, Root<Person> personRoot,
-			GeneralSearchFilter filter) {
+			PersonNamesFilter filter) {
 		if (filter.getSearchTerm().isEmpty()) {
 			return query;
 		}
