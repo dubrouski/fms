@@ -75,12 +75,12 @@ public class ContractDetailController implements Serializable {
 
 	public String handoverKeys() {
 		if (contractService.handoverKeys(this.contract)) {
-			ControllerHelper.addInfoMessage(
+			ControllerHelper.addMessage(
 					FacesMessage.SEVERITY_INFO,
 					"Keys have been handed over for contract "
 							+ contract.getCode() + ".", true);
 		} else {
-			ControllerHelper.addInfoMessage(
+			ControllerHelper.addMessage(
 					FacesMessage.SEVERITY_WARN,
 					"Keys could not be handed over for contract "
 							+ contract.getCode() + ".", true);
@@ -92,11 +92,11 @@ public class ContractDetailController implements Serializable {
 
 	public String signContract() {
 		if (contractService.signContract(this.contract)) {
-			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_INFO,
+			ControllerHelper.addMessage(FacesMessage.SEVERITY_INFO,
 					"Contract " + contract.getCode() + " has been signed.",
 					true);
 		} else {
-			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_WARN,
+			ControllerHelper.addMessage(FacesMessage.SEVERITY_WARN,
 					"Contract " + contract.getCode() + " could not be signed.",
 					true);
 		}
@@ -106,11 +106,11 @@ public class ContractDetailController implements Serializable {
 
 	public String cancelContract() {
 		if (contractService.cancelContract(this.contract)) {
-			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_INFO,
+			ControllerHelper.addMessage(FacesMessage.SEVERITY_INFO,
 					"Contract " + contract.getCode() + " has been cancelled.",
 					true);
 		} else {
-			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_WARN,
+			ControllerHelper.addMessage(FacesMessage.SEVERITY_WARN,
 					"Contract " + contract.getCode()
 							+ " could not be canceled.", true);
 		}
@@ -120,11 +120,11 @@ public class ContractDetailController implements Serializable {
 
 	public String closeContract() {
 		if (contractService.closeContract(this.contract)) {
-			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_INFO,
+			ControllerHelper.addMessage(FacesMessage.SEVERITY_INFO,
 					"Contract " + contract.getCode() + " has been closed.",
 					true);
 		} else {
-			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_WARN,
+			ControllerHelper.addMessage(FacesMessage.SEVERITY_WARN,
 					"Contract " + contract.getCode() + " could not be closed.",
 					true);
 		}
@@ -134,12 +134,12 @@ public class ContractDetailController implements Serializable {
 
 	public String createTerminationRequest() {
 		if (contractService.createTerminationRequest(this.contract)) {
-			ControllerHelper.addInfoMessage(
+			ControllerHelper.addMessage(
 					FacesMessage.SEVERITY_INFO,
 					"Termination request created for contract "
 							+ contract.getCode() + ".", true);
 		} else {
-			ControllerHelper.addInfoMessage(FacesMessage.SEVERITY_WARN,
+			ControllerHelper.addMessage(FacesMessage.SEVERITY_WARN,
 					"Termination request could not be created for contract "
 							+ contract.getCode() + ".", true);
 		}

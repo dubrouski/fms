@@ -10,7 +10,7 @@ public class AccUnitMarker extends Marker implements Overlay {
 
 	private static final long serialVersionUID = 1L;
 
-	private AccommodationUnit accUnit;
+	private final AccommodationUnit accUnit;
 
 	public AccUnitMarker(LatLng coordinates, String title,
 			AccommodationUnit accUnit, String icon) {
@@ -20,13 +20,11 @@ public class AccUnitMarker extends Marker implements Overlay {
 
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String toJS(StringBuilder sb) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

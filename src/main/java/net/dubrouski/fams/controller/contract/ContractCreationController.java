@@ -5,12 +5,10 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
+import net.dubrouski.fams.controller.ControllerHelper;
 
 import net.dubrouski.fams.model.AccommodationUnit;
 import net.dubrouski.fams.model.Contract;
@@ -89,10 +87,7 @@ public class ContractCreationController implements Serializable {
 
 		contractService.saveContract(newContract, newPrice);
 
-		FacesContext.getCurrentInstance().addMessage(
-				null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Contract created successufully.", null));
+                ControllerHelper.addInfoMessage("Contract created successufully.", null, false);
 		initNewContract();
 		return "list";
 	}

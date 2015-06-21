@@ -48,7 +48,7 @@ public class UserCreationController {
 
 		userService.saveUser(newUser);
 
-		ControllerHelper.addInfoMessage(
+		ControllerHelper.addMessage(
 				FacesMessage.SEVERITY_INFO,
 				String.format("User %s create successfully",
 						newUser.getUsername()), true);

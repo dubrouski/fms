@@ -6,11 +6,10 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import net.dubrouski.fams.controller.ControllerHelper;
 
 import net.dubrouski.fams.controller.login.LoginManager;
 import net.dubrouski.fams.model.Person;
@@ -51,13 +50,10 @@ public class PersonCreationController {
 		logger.info("Saving new person " + newPerson.toString());
 		personService.savePerson(newPerson);
 		
-		//TODO add message sending as some helper method?
-		FacesContext.getCurrentInstance().addMessage(
-				null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, String.format(
-						"Person %s %s created successufully.",
-						newPerson.getFirstName(), newPerson.getLastName()),
-						null));
+		ControllerHelper.addInfoMessage(String.format(
+                        "Person %s %s created successufully.",
+                        newPerson.getFirstName(), newPerson.getLastName()),
+                        null, false);
 		initNewPerson();
 		return "list";
 	}

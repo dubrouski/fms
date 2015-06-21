@@ -4,12 +4,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.inject.Produces;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import net.dubrouski.fams.controller.ControllerHelper;
 
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.service.ContractService;
@@ -72,30 +71,18 @@ public class PersonDeletionController {
 					"Deletion confirmed for person with not allowed deletion!"
 							+ personForDeletion.toString());
 
-			//TODO wrap into separate method
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO,
-							"Person "
-									+ this.personForDeletion.getFullName() + " cannot be deleted.",
-							"Person couldn't be deleted."));
-			FacesContext.getCurrentInstance().getExternalContext().getFlash()
-					.setKeepMessages(true);
+                        ControllerHelper.addInfoMessage(
+                                "Person " + this.personForDeletion.getFullName() + " cannot be deleted.",
+                                "Person couldn't be deleted.", true);
 
 			return "delete";
 		}
 
 		personService.delete(personForDeletion);
 		
-		//TODO wrap into separate method
-		FacesContext.getCurrentInstance().addMessage(
-				null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Person "
-								+ this.personForDeletion.getFullName() + " successfully deleted.",
-						"Person deleted."));
-		FacesContext.getCurrentInstance().getExternalContext().getFlash()
-				.setKeepMessages(true);
+                ControllerHelper.addInfoMessage(
+                        "Person " + this.personForDeletion.getFullName() + " successfully deleted.",
+                        "Person deleted.", true);
 		
 		return "list";
 	}

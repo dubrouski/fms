@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import net.dubrouski.fams.controller.ControllerHelper;
 
 import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.Price;
@@ -50,8 +49,7 @@ public class CurrencyChangeController implements Serializable{
 			return currencyService.getCurrencies();
 		}
 		catch(Exception ex){
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Could not retrieve currency rates.", "Please try again later."));
+                        ControllerHelper.addWarnMessage("Could not retrieve currency rates.", "Please try again later.", false);
 			return new ArrayList<String>();
 		}
 		
@@ -76,15 +74,11 @@ public class CurrencyChangeController implements Serializable{
 			priceService.changeCurrency(getPrice(), newCurrency);
 		}
 		catch(Exception ex){
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unexpected error occured.", "Could not change currency rates."));
-			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+                        ControllerHelper.addErrorMessage("Unexpected error occured.", "Could not change currency rates.", true);
 			logger.info("Error when recalculating currency rates");
 			return "contract-detail?faces-redirect=true";
-		}		
-		FacesContext.getCurrentInstance().addMessage("",
-				new FacesMessage("Currency rate successfully recalculated."));
-		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+		}	
+                ControllerHelper.addInfoMessage("Currency rate successfully recalculated.", null, true);
 		return "contract-detail?faces-redirect=true";
 	}
 }
