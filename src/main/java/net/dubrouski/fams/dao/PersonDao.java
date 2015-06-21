@@ -1,7 +1,6 @@
 package net.dubrouski.fams.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.enums.SortingOrder;
@@ -19,5 +18,5 @@ public interface PersonDao extends BaseDao<Person, Long> {
 	List<Person> listPersons(int pageSize, int first, String sortField,
 			SortingOrder sortingOrder, String searchTerm);
 
-	long getPersonsCount();
+	long getPersonsCount(String searchTerm);
 }

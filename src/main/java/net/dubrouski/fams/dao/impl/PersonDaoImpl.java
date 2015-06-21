@@ -79,14 +79,11 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 
 		criteriaQuery.select(personRoot);
 		if (searchTerm != null && !searchTerm.isEmpty()) {
-			Predicate orClause = 
-					builder.or(
-							builder.like(
-									builder.lower(personRoot.<String> get("firstName")), 
-									"%" + searchTerm.toLowerCase() + "%"), 
-							builder.like(
-									builder.lower(personRoot.<String> get("lastName")), 
-									"%" + searchTerm.toLowerCase() + "%"));
+			Predicate orClause = builder.or(builder.like(
+					builder.lower(personRoot.<String> get("firstName")), "%"
+							+ searchTerm.toLowerCase() + "%"), builder.like(
+					builder.lower(personRoot.<String> get("lastName")), "%"
+							+ searchTerm.toLowerCase() + "%"));
 
 			criteriaQuery.where(orClause);
 		}
@@ -103,11 +100,24 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 	}
 
 	@Override
-	public long getPersonsCount() {
-		TypedQuery<Long> query = this.entityManager.createQuery(
-				"select count(p.id) from Person p", Long.class);
+	public long getPersonsCount(String searchTerm) {
 
-		return query.getSingleResult();
+		CriteriaBuilder qb = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
+		Root<Person> personRoot = cq.from(Person.class);
+		cq.select(qb.count(personRoot));
+		if (searchTerm != null && !searchTerm.isEmpty()) {
+			Predicate orClause = qb.or(
+					qb.like(qb.lower(personRoot.<String> get("firstName")), "%"
+							+ searchTerm.toLowerCase() + "%"),
+					qb.like(qb.lower(personRoot.<String> get("lastName")), "%"
+							+ searchTerm.toLowerCase() + "%"));
+
+			cq.where(orClause);
+		}
+		long result = entityManager.createQuery(cq).getSingleResult();
+		logger.info("Found " + result + " entities for searchTerm: " + searchTerm);
+		return result;
 	}
 
 }

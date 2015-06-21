@@ -2,7 +2,6 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RunAs;
 import javax.ejb.ActivationConfigProperty;
@@ -12,11 +11,6 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 
-import org.jboss.annotation.security.RunAsPrincipal;
-import org.jboss.annotation.security.SecurityDomain;
-
-import net.dubrouski.fams.controller.contract.bulkclose.ContractStateChangeEvent;
-import net.dubrouski.fams.model.Contract;
 import net.dubrouski.fams.model.Person;
 import net.dubrouski.fams.model.User;
 import net.dubrouski.fams.model.enums.UserRoles;

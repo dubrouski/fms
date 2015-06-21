@@ -1,7 +1,6 @@
 package net.dubrouski.fams.service;
 
 import java.util.List;
-import java.util.Map;
 
 import net.dubrouski.fams.model.Address;
 import net.dubrouski.fams.model.Person;
@@ -32,11 +31,8 @@ public interface PersonService {
 
 	public void updatePerson(Person person);
 
-	//
-	// public List<Person> searchByNames(String searchTerm);
-
 	public List<Person> listPersons(int pageSize, int first, String sortField,
 			SortingOrder sortingOrder, String searchTerm);
 
-	public long getPersonsCount();
+	public long getPersonsCount(String searchTerm);
 }

@@ -47,7 +47,7 @@ public class PersonServiceImpl implements PersonService {
 
 	@Inject
 	Logger logger;
-	
+
 	@Resource(mappedName = "java:/jms/queue/personQueue")
 	private Queue personQueue;
 
@@ -55,7 +55,7 @@ public class PersonServiceImpl implements PersonService {
 	JMSContext context;
 
 	@Override
-        @TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void savePerson(Person person) {
 		personDao.save(person);
 		logger.log(Level.INFO, "Created new person: " + person.toString());
@@ -64,13 +64,13 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-        @TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void updatePerson(Person person) {
 		personDao.update(person);
 	}
 
 	@Override
-        @TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void delete(Person person) {
 		logger.log(Level.INFO, "Requested deletion of person: " + person);
 		personDao.delete(person);
@@ -78,7 +78,7 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-        @RolesAllowed({"persAdmin", "persUser"})
+	@RolesAllowed({ "persAdmin", "persUser" })
 	public Person getPersonById(Long id) {
 		Person result = personDao.getByID(id);
 		logger.log(Level.INFO, "Method getPersonById, id: " + id
@@ -87,20 +87,20 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-        @RolesAllowed({"persAdmin", "persUser"})
+	@RolesAllowed({ "persAdmin", "persUser" })
 	public List<Person> listPersons() {
 		return personDao.listAll();
 	}
 
-        @Override
-        @RolesAllowed({"persAdmin", "persUser"})
+	@Override
+	@RolesAllowed({ "persAdmin", "persUser" })
 	public Person getPersonByLegalId(String id) {
 		Person result = personDao.getByLegalId(id);
 		return result;
 	}
 
 	@Override
-        @TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void setAddressToPerson(Person person, Address address,
 			AddressType addressType) {
 		Person personWithAddresses = this
@@ -124,7 +124,7 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-        @RolesAllowed({"persAdmin", "persUser"})
+	@RolesAllowed({ "persAdmin", "persUser" })
 	public List<PersonAddress> getAddressesForPerson(Person person) {
 		List<PersonAddress> result = personAddressDao
 				.getAddressesForPerson(person);
@@ -137,20 +137,19 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-        @RolesAllowed({"persAdmin", "persUser"})
-	public List<Person> listPersons(int pageSize, int first,
-			String sortField, SortingOrder sortingOrder,
-			String searchTerm) {
+	@RolesAllowed({ "persAdmin", "persUser" })
+	public List<Person> listPersons(int pageSize, int first, String sortField,
+			SortingOrder sortingOrder, String searchTerm) {
 		logger.log(Level.INFO, String.format("Listing for %d, %d, %s %s",
 				pageSize, first, sortField, sortingOrder.name()));
 
-		return personDao.listPersons(pageSize, first, sortField,
-				sortingOrder, searchTerm);
+		return personDao.listPersons(pageSize, first, sortField, sortingOrder,
+				searchTerm);
 	}
 
 	@Override
-        @RolesAllowed({"persAdmin", "persUser"})
-	public long getPersonsCount() {
-		return personDao.getPersonsCount();
+	@RolesAllowed({ "persAdmin", "persUser" })
+	public long getPersonsCount(String searchTerm) {
+		return personDao.getPersonsCount(searchTerm);
 	}
 }

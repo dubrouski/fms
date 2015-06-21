@@ -54,10 +54,13 @@ public class PersonListingController implements Serializable {
 						SortingOrder.valueOf(sortOrder.name()), searchTerm);
 				return result;
 			}
+
+			@Override
+			public int getRowCount() {
+				return (int) personService.getPersonsCount(searchTerm);
+			}
 		};
 
-		// TODO resolve casting!
-		lazyPersons.setRowCount((int) personService.getPersonsCount());
 		lazyPersons.setPageSize(pageSize);
 	}
 
