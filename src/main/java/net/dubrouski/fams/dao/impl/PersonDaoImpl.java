@@ -68,7 +68,7 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 
 	@Override
 	public List<Person> list(int pageSize, int first, String sortField,
-			SortingOrder sortingOrder, String searchTerm) {
+			SortingOrder sortingOrder, Set<SearchFilter> filters) {
 		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 		CriteriaQuery<Person> criteriaQuery = builder.createQuery(Person.class);
 		Root<Person> personRoot = criteriaQuery.from(Person.class);
@@ -81,15 +81,8 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 				: sortField);
 
 		criteriaQuery.select(personRoot);
-		if (searchTerm != null && !searchTerm.isEmpty()) {
-			Predicate orClause = builder.or(builder.like(
-					builder.lower(personRoot.<String> get("firstName")), "%"
-							+ searchTerm.toLowerCase() + "%"), builder.like(
-					builder.lower(personRoot.<String> get("lastName")), "%"
-							+ searchTerm.toLowerCase() + "%"));
 
-			criteriaQuery.where(orClause);
-		}
+		applyFilters(builder, criteriaQuery, personRoot, filters);
 
 		if (sortingOrder.equals(SortingOrder.ASCENDING)) {
 			criteriaQuery.orderBy(builder.asc(path));
@@ -110,14 +103,13 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 		Root<Person> personRoot = query.from(Person.class);
 		query.select(builder.count(personRoot));
 
-		query = applyFilters(builder, query, personRoot, filters);
+		applyFilters(builder, query, personRoot, filters);
 
 		long result = entityManager.createQuery(query).getSingleResult();
 		logger.info("Found " + result + " entities for searchTerm: " + filters);
 		return result;
 	}
 
-	
 	@SuppressWarnings("rawtypes")
 	private CriteriaQuery applyFilters(CriteriaBuilder builder,
 			CriteriaQuery query, Root<Person> personRoot,
@@ -134,8 +126,11 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	CriteriaQuery applyGeneralSearch(CriteriaBuilder builder,
-			CriteriaQuery query, Root<Person> personRoot, GeneralSearchFilter filter) {
-
+			CriteriaQuery query, Root<Person> personRoot,
+			GeneralSearchFilter filter) {
+		if (filter.getSearchTerm().isEmpty()) {
+			return query;
+		}
 		Predicate orClause = builder.or(builder.like(
 				builder.lower(personRoot.<String> get("firstName")), "%"
 						+ filter.getSearchTerm().toLowerCase() + "%"), builder
@@ -146,5 +141,4 @@ public class PersonDaoImpl extends BaseDaoImpl<Person, Long> implements
 
 		return query;
 	}
-
 }

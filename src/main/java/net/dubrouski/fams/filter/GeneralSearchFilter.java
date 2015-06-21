@@ -5,10 +5,7 @@ public class GeneralSearchFilter implements SearchFilter {
 	private String searchTerm;
 	
 	public GeneralSearchFilter(String term) {
-		if (term == null || term.isEmpty()){
-			throw new IllegalArgumentException("term cannot be null or empty");
-		}
-		this.searchTerm = term;
+		this.searchTerm = term==null? "" : term;
 	}
 
 	public String getSearchTerm() {

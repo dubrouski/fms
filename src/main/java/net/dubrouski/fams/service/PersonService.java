@@ -34,7 +34,7 @@ public interface PersonService {
 	public void updatePerson(Person person);
 
 	public List<Person> listPersons(int pageSize, int first, String sortField,
-			SortingOrder sortingOrder, String searchTerm);
+			SortingOrder sortingOrder, Set<SearchFilter> filters);
 
 	public long getPersonsCount(Set<SearchFilter> filters);
 }

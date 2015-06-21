@@ -54,18 +54,20 @@ public class PersonListingController implements Serializable {
 					SortOrder sortOrder, Map<String, Object> filters) {
 
 				List<Person> result = new ArrayList<Person>();
+				Set<SearchFilter> sf = new HashSet<SearchFilter>();
+				GeneralSearchFilter f = new GeneralSearchFilter(searchTerm);
+				sf.add(f);
 				result = personService.listPersons(pageSize, first, sortField,
-						SortingOrder.valueOf(sortOrder.name()), searchTerm);
+						SortingOrder.valueOf(sortOrder.name()), sf);
 				return result;
 			}
 
 			@Override
 			public int getRowCount() {
 				Set<SearchFilter> sf = new HashSet<SearchFilter>();
-				if (searchTerm != null && !searchTerm.isEmpty()) {
-					GeneralSearchFilter f = new GeneralSearchFilter(searchTerm);
-					sf.add(f);
-				}
+				GeneralSearchFilter f = new GeneralSearchFilter(searchTerm);
+				sf.add(f);
+
 				return (int) personService.getPersonsCount(sf);
 			}
 		};

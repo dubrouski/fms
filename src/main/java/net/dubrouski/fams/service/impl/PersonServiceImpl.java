@@ -141,12 +141,12 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	@RolesAllowed({ "persAdmin", "persUser" })
 	public List<Person> listPersons(int pageSize, int first, String sortField,
-			SortingOrder sortingOrder, String searchTerm) {
+			SortingOrder sortingOrder, Set<SearchFilter> filters) {
 		logger.log(Level.INFO, String.format("Listing for %d, %d, %s %s",
 				pageSize, first, sortField, sortingOrder.name()));
 
 		return personDao.list(pageSize, first, sortField, sortingOrder,
-				searchTerm);
+				filters);
 	}
 
 	@Override
