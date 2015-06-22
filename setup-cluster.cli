@@ -5,7 +5,7 @@ batch
 #module add --name=org.postgres --resources=/postgresqljdbc.jar --dependencies=javax.api,javax.transaction.api 
 
 #add postgres jdbc driver 
-/subsystem=datasources/jdbc-driver=postgres:add( \
+/profile=full-ha/subsystem=datasources/jdbc-driver=postgres:add( \
     driver-name="postgres",\
     driver-module-name="org.postgres",\
     driver-class-name=org.postgresql.Driver\
@@ -17,22 +17,25 @@ data-source add \
     --name=FamsDS \
     --connection-url=jdbc:postgresql://localhost:5432/FAMS \
     --driver-name=postgres \
-    --user-name=postgres \
-    --password=9119
-#data-source enable --name=FamsDS
+    --user-name=pv243 \
+    --password=pv243 \
+    --profile=full-ha
+data-source enable --name=FamsDS --profile=full-ha
 
 #add jms-queue 
 jms-queue add \
     --queue-address=contractQueue \
-    --entries=java:/jms/queue/contractQueue
+    --entries=java:/jms/queue/contractQueue \
+    --profile=full-ha
 jms-queue add \
     --queue-address=personQueue \
-    --entries=java:/jms/queue/personQueue
+    --entries=java:/jms/queue/personQueue \
+    --profile=full-ha
 
 #define security domain   
-/subsystem=security/security-domain=FmsSecurityDomain:add
+/profile=full-ha/subsystem=security/security-domain=FmsSecurityDomain:add
 #add login modules
-/subsystem=security/security-domain=FmsSecurityDomain/authentication=classic:add( \
+/profile=full-ha/subsystem=security/security-domain=FmsSecurityDomain/authentication=classic:add( \
 login-modules=[ \
 { \
     "code" => "Database", \
@@ -48,5 +51,9 @@ login-modules=[ \
 } \
 ] 
 
+#setup cluster and SSO
+#/profile=full-ha/subsystem=undertow/server=default-server/host=default-host/single-sign-on:add
+
 run-batch
-:reload
+#:reload
+:restart-servers

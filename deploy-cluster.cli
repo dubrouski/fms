@@ -1,0 +1,3 @@
+#undeploy fams.war --all-relevant-server-groups
+
+deploy /../../target/fams.war --server-groups=main-server-group
