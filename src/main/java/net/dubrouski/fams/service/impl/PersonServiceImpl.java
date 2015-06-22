@@ -126,7 +126,7 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	@RolesAllowed({ "persAdmin", "persUser" })
+	@RolesAllowed({ "persAdmin", "persUser", "client" })
 	public List<PersonAddress> getAddressesForPerson(Person person) {
 		List<PersonAddress> result = personAddressDao
 				.getAddressesForPerson(person);

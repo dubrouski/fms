@@ -33,7 +33,7 @@ import net.dubrouski.fams.util.SHA512;
 public class UserServiceImpl implements UserService {
 	@Inject
 	UserDao userDao;
-	
+
 	@Inject
 	UserRoleDao rolesDao;
 
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	Logger logger;
 
 	@Override
-        @TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void saveUser(User user) {
 
 		user.setPassword(SHA512.hashText(user.getPassword()));
@@ -50,18 +50,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-        @TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void updateUser(User user) {
 		userDao.update(user);
 	}
 
 	@Override
+	@RolesAllowed("client")
 	public User getUserByUsername(String username) {
 		return userDao.getByUsername(username);
 	}
 
 	@Override
-        @TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void deleteUser(User user) {
 		logger.log(Level.INFO, "Requested deletion of user: {0}",
 				user.toString());
@@ -75,7 +76,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-        @PermitAll
+	@PermitAll
 	public List<UserRole> listUserRoles() {
 		return rolesDao.listAll();
 	}
@@ -88,5 +89,5 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserRole getUserRoleByType(UserRoles type) {
 		return rolesDao.getByType(type);
-	}	
+	}
 }

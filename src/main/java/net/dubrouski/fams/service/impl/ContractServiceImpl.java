@@ -92,7 +92,7 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	@RolesAllowed({ "contractAdmin", "contractUser" })
+	@RolesAllowed({ "contractAdmin", "contractUser", "client" })
 	public List<Contract> getContractsByPerson(Person person) {
 		logger.info("Retrieving all Contracts by Person with id:"
 				+ person.getId());
